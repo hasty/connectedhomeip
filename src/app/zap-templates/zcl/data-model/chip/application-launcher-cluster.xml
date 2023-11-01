@@ -1,83 +1,54 @@
 <?xml version="1.0"?>
-<!--
-Copyright (c) 2021-2023 Project CHIP Authors
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
 <configurator>
-  <domain name="CHIP"/>
+  <bitmap name="Feature" type="bitmap32">
+    <cluster code="0x050c"/>
+    <field mask="0x1" name="ApplicationPlatform"/>
+  </bitmap>
   <cluster>
+    <attribute code="0x0000" define="APPLICATION_LAUNCHER_LIST" entryType="int16u" optional="true" reportable="true" side="server" type="ARRAY" writable="false">CatalogList</attribute>
+    <attribute code="0x0001" define="APPLICATION_LAUNCHER_CURRENT_APP" isNullable="true" optional="true" side="server" type="ApplicationEPStruct" writable="false">CurrentApp</attribute>
+    <client init="false" tick="false">true</client>
+    <code>0x050c</code>
+    <command code="0x00" name="LaunchApp" optional="false" response="LauncherResponse" source="client">
+      <arg name="Application" optional="true" type="ApplicationStruct"/>
+      <arg name="Data" optional="true" type="octet_string"/>
+      <description>Upon receipt, this SHALL launch the specified app with optional data. The TV Device SHALL launch and bring to foreground the identified application in the command if the application is not already launched and in foreground. The TV Device SHALL update state attribute on the Application Basic cluster of the Endpoint corresponding to the launched application. This command returns a Launch Response.</description>
+    </command>
+    <command code="0x01" name="StopApp" optional="false" response="LauncherResponse" source="client">
+      <arg name="Application" optional="true" type="ApplicationStruct"/>
+      <description>Upon receipt on a Video Player endpoint this SHALL stop the specified application if it is running.</description>
+    </command>
+    <command code="0x02" name="HideApp" optional="false" response="LauncherResponse" source="client">
+      <arg name="Application" optional="true" type="ApplicationStruct"/>
+      <description>Upon receipt on a Video Player endpoint this SHALL hide the specified application if it is running and visible.</description>
+    </command>
+    <command code="0x03" name="LauncherResponse" optional="false" source="server">
+      <arg name="Status" type="StatusEnum"/>
+      <arg name="Data" optional="true" type="octet_string"/>
+      <description>This command SHALL be generated in response to LaunchApp commands.</description>
+    </command>
+    <define>APPLICATION_LAUNCHER_CLUSTER</define>
+    <description>This cluster provides an interface for launching content on a media player device such as a TV or Speaker.</description>
     <domain>Media</domain>
     <name>Application Launcher</name>
-    <code>0x050c</code>
-    <define>APPLICATION_LAUNCHER_CLUSTER</define>
-    <client init="false" tick="false">true</client>
     <server init="false" tick="false">true</server>
-    <description>This cluster provides an interface for launching content on a media player device such as a TV or Speaker.</description>
-
-    <attribute side="server" code="0x0000" define="APPLICATION_LAUNCHER_LIST"        type="ARRAY" entryType="int16u" reportable="true"  writable="false" optional="true">CatalogList</attribute>
-    <attribute side="server" code="0x0001" define="APPLICATION_LAUNCHER_CURRENT_APP" type="ApplicationEPStruct"      isNullable="true" writable="false"  optional="true">CurrentApp</attribute>
-
-    <command source="client" code="0x00" name="LaunchApp" response="LauncherResponse" optional="false">
-      <description>Upon receipt, this SHALL launch the specified app with optional data. The TV Device SHALL launch and bring to foreground the identified application in the command if the application is not already launched and in foreground. The TV Device SHALL update state attribute on the Application Basic cluster of the Endpoint corresponding to the launched application. This command returns a Launch Response.</description>
-      <arg name="Application" type="ApplicationStruct" optional="true"/>
-      <arg name="Data"  type="octet_string" optional="true"/>
-    </command>
-
-    <command source="client" code="0x01" name="StopApp" response="LauncherResponse" optional="false">
-      <description>Upon receipt on a Video Player endpoint this SHALL stop the specified application if it is running.</description>
-      <arg name="Application" type="ApplicationStruct" optional="true"/>
-    </command>
-
-    <command source="client" code="0x02" name="HideApp" response="LauncherResponse" optional="false">
-      <description>Upon receipt on a Video Player endpoint this SHALL hide the specified application if it is running and visible.</description>
-      <arg name="Application" type="ApplicationStruct" optional="true"/>
-    </command>
-
-    <command source="server" code="0x03" name="LauncherResponse" optional="false">
-      <description>This command SHALL be generated in response to LaunchApp commands.</description>
-      <arg name="Status" type="StatusEnum"/>
-      <arg name="Data" type="octet_string" optional="true"/>
-    </command>
-
   </cluster>
-
-  <struct name="ApplicationEPStruct">
-    <cluster code="0x050c"/>
-    <item name="Application" type="ApplicationStruct"/>
-    <item name="Endpoint" type="endpoint_no" optional="true"/>
-  </struct>
-      
-  <struct name="ApplicationStruct">
-    <cluster code="0x050c"/>
-    <!-- Application Basic Cluster should have its own ApplicationStruct, but
-         ZAP does not support that right now.  Luckily, the two struct
-         definitions are identical, but if that ever stops being the case, we
-         will need to stop using a single definition with two cluster codes -->
-    <cluster code="0x050d"/>
-    <item name="CatalogVendorID" type="int16u"/>
-    <item name="ApplicationID" type="char_string"/>
-  </struct>
-
+  <domain name="CHIP"/>
   <enum name="StatusEnum" type="enum8">
     <cluster code="0x050c"/>
     <item name="Success" value="0x00"/>
     <item name="AppNotAvailable" value="0x01"/>
     <item name="SystemBusy" value="0x02"/>
   </enum>
-
-  <bitmap name="Feature" type="bitmap32">
+  <struct name="ApplicationEPStruct">
     <cluster code="0x050c"/>
-    <field name="ApplicationPlatform" mask="0x1"/>
-  </bitmap>
+    <item name="Application" type="ApplicationStruct"/>
+    <item name="Endpoint" optional="true" type="endpoint_no"/>
+  </struct>
+  <struct name="ApplicationStruct">
+    <cluster code="0x050c"/>
+    <cluster code="0x050d"/>
+    <item name="CatalogVendorID" type="int16u"/>
+    <item name="ApplicationID" type="char_string"/>
+  </struct>
 </configurator>

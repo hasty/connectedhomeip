@@ -1,45 +1,28 @@
 <?xml version="1.0"?>
-<!--
-Copyright (c) 2023 Project CHIP Authors
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
 <configurator>
-  <domain name="CHIP"/>
-
   <cluster apiMaturity="provisional">
-    <name>Microwave Oven Control</name>
-    <domain>Appliances</domain>
-    <description>Attributes and commands for configuring the microwave oven control, and reporting cooking stats.</description>
+    <attribute code="0x0001" default="30" define="COOK_TIME" optional="false" side="server" type="elapsed_s" writable="false">CookTime</attribute>
+    <attribute code="0x0002" default="100" define="POWER_SETTING" optional="false" side="server" type="int8u" writable="false">PowerSetting</attribute>
+    <attribute code="0x0003" default="10" define="MIN_POWER" optional="true" side="server" type="int8u" writable="false">MinPower</attribute>
+    <attribute code="0x0004" default="100" define="MAX_POWER" optional="true" side="server" type="int8u" writable="false">MaxPower</attribute>
+    <attribute code="0x0005" default="10" define="POWERSTEP" optional="true" side="server" type="int8u" writable="false">PowerStep</attribute>
+    <client init="false" tick="false">true</client>
     <code>0x005F</code>
+    <command code="0x00" name="SetCookingParameters" optional="false" source="client">
+      <arg name="CookMode" optional="true" type="int8u"/>
+      <arg name="CookTime" optional="true" type="elapsed_s"/>
+      <arg max="MAX_POWER" min="MIN_POWER" name="PowerSetting" optional="true" type="int8u"/>
+      <description>Set Cooking Parameters</description>
+    </command>
+    <command code="0x01" name="AddMoreTime" optional="true" source="client">
+      <arg name="TimeToAdd" optional="false" type="elapsed_s"/>
+      <description>Add More Cooking Time</description>
+    </command>
     <define>MICROWAVE_OVEN_CONTROL_CLUSTER</define>
-    <client tick="false" init="false">true</client>
-    <server tick="false" init="false">true</server>
-    <attribute side="server" code="0x0001" define="COOK_TIME" type="elapsed_s" default="30" writable="false" optional="false">CookTime</attribute>
-    <attribute side="server" code="0x0002" define="POWER_SETTING" type="int8u" default="100" writable="false" optional="false">PowerSetting</attribute>
-    <attribute side="server" code="0x0003" define="MIN_POWER" type="int8u" default="10" writable="false" optional="true">MinPower</attribute>
-    <attribute side="server" code="0x0004" define="MAX_POWER" type="int8u" default="100" writable="false" optional="true">MaxPower</attribute>
-    <attribute side="server" code="0x0005" define="POWERSTEP" type="int8u" default="10" writable="false" optional="true">PowerStep</attribute>
-
-    <command source="client" code="0x00" name="SetCookingParameters" optional="false">
-        <description>Set Cooking Parameters</description>
-        <arg name="CookMode" type="int8u" optional="true"/>
-        <arg name="CookTime" type="elapsed_s" optional="true"/>
-        <arg name="PowerSetting" type="int8u" min="MIN_POWER" max="MAX_POWER" optional="true"/>
-    </command>
-    <command source="client" code="0x01" name="AddMoreTime" optional="true">
-        <description>Add More Cooking Time</description>
-        <arg name="TimeToAdd" type="elapsed_s" optional="false"/>
-    </command>
+    <description>Attributes and commands for configuring the microwave oven control, and reporting cooking stats.</description>
+    <domain>Appliances</domain>
+    <name>Microwave Oven Control</name>
+    <server init="false" tick="false">true</server>
   </cluster>
+  <domain name="CHIP"/>
 </configurator>

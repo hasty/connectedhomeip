@@ -1,111 +1,77 @@
 <?xml version="1.0"?>
-<!--
-Copyright (c) 2021 Project CHIP Authors
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
 <configurator>
   <atomic>
-    <!--
-        The IDs here do not match the spec, but:
-        (1) They don't really have to (thought it would be nice)
-        (2) The spec is broken and has the same id for different types (so we
-            can't match it even if we wanted to).
-    -->
-    <type id="0x00" description="No data"                 name="no_data"            size="0"                  />
-    <!-- Base Data Types -->
-    <type id="0x10" description="Boolean"                  name="boolean"           size="1"  discrete="true" />
-    <type id="0x18" description="8-bit bitmap"             name="bitmap8"           size="1"  discrete="true" />
-    <type id="0x19" description="16-bit bitmap"            name="bitmap16"          size="2"  discrete="true" />
-    <type id="0x1A" description="24-bit bitmap"            name="bitmap24"          size="3"  discrete="true" />
-    <type id="0x1B" description="32-bit bitmap"            name="bitmap32"          size="4"  discrete="true" />
-    <type id="0x1F" description="64-bit bitmap"            name="bitmap64"          size="8"  discrete="true" />
-    <type id="0x20" description="Unsigned 8-bit integer"   name="int8u"             size="1"  analog="true"   />
-    <type id="0x21" description="Unsigned 16-bit integer"  name="int16u"            size="2"  analog="true"   />
-    <type id="0x22" description="Unsigned 24-bit integer"  name="int24u"            size="3"  analog="true"   />
-    <type id="0x23" description="Unsigned 32-bit integer"  name="int32u"            size="4"  analog="true"   />
-    <type id="0x24" description="Unsigned 40-bit integer"  name="int40u"            size="5"  analog="true"   />
-    <type id="0x25" description="Unsigned 48-bit integer"  name="int48u"            size="6"  analog="true"   />
-    <type id="0x26" description="Unsigned 56-bit integer"  name="int56u"            size="7"  analog="true"   />
-    <type id="0x27" description="Unsigned 64-bit integer"  name="int64u"            size="8"  analog="true"   />
-    <type id="0x28" description="Signed 8-bit integer"     name="int8s"             size="1"  analog="true"   />
-    <type id="0x29" description="Signed 16-bit integer"    name="int16s"            size="2"  analog="true"   />
-    <type id="0x2A" description="Signed 24-bit integer"    name="int24s"            size="3"  analog="true"   />
-    <type id="0x2B" description="Signed 32-bit integer"    name="int32s"            size="4"  analog="true"   />
-    <type id="0x2C" description="Signed 40-bit integer"    name="int40s"            size="5"  analog="true"   />
-    <type id="0x2D" description="Signed 48-bit integer"    name="int48s"            size="6"  analog="true"   />
-    <type id="0x2E" description="Signed 56-bit integer"    name="int56s"            size="7"  analog="true"   />
-    <type id="0x2F" description="Signed 64-bit integer"    name="int64s"            size="8"  analog="true"   />
-    <type id="0x39" description="Single precision"         name="single"            size="4"  analog="true"   />
-    <type id="0x3A" description="Double precision"         name="double"            size="8"  analog="true"   />
-    <type id="0x41" description="Octet String"             name="octet_string"                composite="true"/>
-    <type id="0x43" description="Long Octet String"        name="long_octet_string"           composite="true"/>
-    <type id="0x48" description="List"                     name="array"                       composite="true"/>
-    <type id="0x4C" description="Structure"                name="struct"                      composite="true"/>
-    <!-- Derived Data Types -->
-    <type id="0x42" description="Character String"         name="char_string"                 composite="true"/>
-    <type id="0x44" description="Long Character String"    name="long_char_string"            composite="true"/>
-
-    <type id="0xE6" description="Percentage units 1%"      name="percent"           size="1"  analog="true"   />
-    <type id="0xE7" description="Percentage units 0.01%"   name="percent100ths"     size="2"  analog="true"   />
-
-    <type id="0xE0" description="Time of day"              name="tod"               size="4"  analog="true"   />
-    <type id="0xE1" description="Date"                     name="date"              size="4"  analog="true"   />
-    <type id="0xE3" description="Epoch Microseconds"       name="epoch_us"          size="8"  analog="true"   />
-    <type id="0xE4" description="Epoch Seconds"            name="epoch_s"           size="4"  analog="true"   />
-    <type id="0xE5" description="Posix Time Milliseconds"  name="posix_ms"          size="8"  analog="true"   />
-
-    <type id="0xD0" description="System Time Microseconds" name="systime_us"        size="8"  analog="true"   />
-    <type id="0xD1" description="System Time Milliseconds" name="systime_ms"        size="8"  analog="true"   />
-    <type id="0xD2" description="Elapsed Time Seconds"     name="elapsed_s"         size="4"  analog="true"   />
-
-    <type id="0xD8" description="Temperature"              name="temperature"       size="2"  analog="true"     signed="true" />
-
-    <type id="0x30" description="8-bit enumeration"        name="enum8"             size="1"  discrete="true" />
-    <type id="0x31" description="16-bit enumeration"       name="enum16"            size="2"  discrete="true" />
-    <type id="0x32" description="Priority"                 name="priority"          size="1"  discrete="true" />
-    <type id="0x33" description="Status Code"              name="status"            size="1"  discrete="true" />
-
-    <type id="0xC0" description="Group ID"                 name="group_id"          size="2"  discrete="true" />
-    <type id="0xC1" description="Endpoint Number"          name="endpoint_no"       size="2"  discrete="true" />
-    <type id="0xC2" description="Vendor ID"                name="vendor_id"         size="2"  discrete="true" />
-    <type id="0xC3" description="Device Type ID"           name="devtype_id"        size="4"  discrete="true" />
-    <type id="0xC4" description="Fabric ID"                name="fabric_id"         size="8"  discrete="true" />
-    <type id="0xC5" description="Fabric Index"             name="fabric_idx"        size="1"  discrete="true" />
-
-    <type id="0xE8" description="Cluster ID"               name="cluster_id"        size="4"  discrete="true" />
-    <type id="0xE9" description="Attribute ID"             name="attrib_id"         size="4"  discrete="true" />
-    <type id="0xEB" description="Field ID"                 name="field_id"          size="4"  discrete="true" />
-    <type id="0xEC" description="Event ID"                 name="event_id"          size="4"  discrete="true" />
-    <type id="0xED" description="Command ID"               name="command_id"        size="4"  discrete="true" />
-    <type id="0xEE" description="Action ID"                name="action_id"         size="1"  discrete="true" />
-    <type id="0xEF" description="Transaction ID"           name="trans_id"          size="4"  discrete="true" />
-    <type id="0xF0" description="Node ID"                  name="node_id"           size="8"  discrete="true" />
-
-    <type id="0xC6" description="Entry Index"              name="entry_idx"         size="2"  discrete="true" />
-    <type id="0xC7" description="Data Version"             name="data_ver"          size="4"  discrete="true" />
-    <type id="0xC8" description="Event Number"             name="event_no"          size="8"  discrete="true" />
-
-    <type id="0xF2" description="IP Address"               name="ipadr"                       composite="true"/>
-    <type id="0xF3" description="IPv4 Address"             name="ipv4adr"           size="4"  composite="true"/>
-    <type id="0xF4" description="IPv6 Address"             name="ipv6adr"           size="16" composite="true"/>
-    <type id="0xF5" description="IPv6 Prefix"              name="ipv6pre"                     composite="true"/>
-    <type id="0xF6" description="Hardware Address"         name="hwadr"                       composite="true"/>
-
-    <type id="0xC9" description="Semantic Tag"             name="semtag"            size="4"  discrete="true" />
-    <type id="0xCA" description="Namespace"                name="namespace"         size="1"  discrete="true" />
-    <type id="0xCB" description="Tag"                      name="tag"               size="1"  discrete="true" />
-
-    <type id="0xFF" description="Unknown"                  name="unknown"           size="0"                  />
+    <type description="No data" id="0x00" name="no_data" size="0"/>
+    <type description="Boolean" discrete="true" id="0x10" name="boolean" size="1"/>
+    <type description="8-bit bitmap" discrete="true" id="0x18" name="bitmap8" size="1"/>
+    <type description="16-bit bitmap" discrete="true" id="0x19" name="bitmap16" size="2"/>
+    <type description="24-bit bitmap" discrete="true" id="0x1A" name="bitmap24" size="3"/>
+    <type description="32-bit bitmap" discrete="true" id="0x1B" name="bitmap32" size="4"/>
+    <type description="64-bit bitmap" discrete="true" id="0x1F" name="bitmap64" size="8"/>
+    <type analog="true" description="Unsigned 8-bit integer" id="0x20" name="int8u" size="1"/>
+    <type analog="true" description="Unsigned 16-bit integer" id="0x21" name="int16u" size="2"/>
+    <type analog="true" description="Unsigned 24-bit integer" id="0x22" name="int24u" size="3"/>
+    <type analog="true" description="Unsigned 32-bit integer" id="0x23" name="int32u" size="4"/>
+    <type analog="true" description="Unsigned 40-bit integer" id="0x24" name="int40u" size="5"/>
+    <type analog="true" description="Unsigned 48-bit integer" id="0x25" name="int48u" size="6"/>
+    <type analog="true" description="Unsigned 56-bit integer" id="0x26" name="int56u" size="7"/>
+    <type analog="true" description="Unsigned 64-bit integer" id="0x27" name="int64u" size="8"/>
+    <type analog="true" description="Signed 8-bit integer" id="0x28" name="int8s" size="1"/>
+    <type analog="true" description="Signed 16-bit integer" id="0x29" name="int16s" size="2"/>
+    <type analog="true" description="Signed 24-bit integer" id="0x2A" name="int24s" size="3"/>
+    <type analog="true" description="Signed 32-bit integer" id="0x2B" name="int32s" size="4"/>
+    <type analog="true" description="Signed 40-bit integer" id="0x2C" name="int40s" size="5"/>
+    <type analog="true" description="Signed 48-bit integer" id="0x2D" name="int48s" size="6"/>
+    <type analog="true" description="Signed 56-bit integer" id="0x2E" name="int56s" size="7"/>
+    <type analog="true" description="Signed 64-bit integer" id="0x2F" name="int64s" size="8"/>
+    <type analog="true" description="Single precision" id="0x39" name="single" size="4"/>
+    <type analog="true" description="Double precision" id="0x3A" name="double" size="8"/>
+    <type composite="true" description="Octet String" id="0x41" name="octet_string"/>
+    <type composite="true" description="Long Octet String" id="0x43" name="long_octet_string"/>
+    <type composite="true" description="List" id="0x48" name="array"/>
+    <type composite="true" description="Structure" id="0x4C" name="struct"/>
+    <type composite="true" description="Character String" id="0x42" name="char_string"/>
+    <type composite="true" description="Long Character String" id="0x44" name="long_char_string"/>
+    <type analog="true" description="Percentage units 1%" id="0xE6" name="percent" size="1"/>
+    <type analog="true" description="Percentage units 0.01%" id="0xE7" name="percent100ths" size="2"/>
+    <type analog="true" description="Time of day" id="0xE0" name="tod" size="4"/>
+    <type analog="true" description="Date" id="0xE1" name="date" size="4"/>
+    <type analog="true" description="Epoch Microseconds" id="0xE3" name="epoch_us" size="8"/>
+    <type analog="true" description="Epoch Seconds" id="0xE4" name="epoch_s" size="4"/>
+    <type analog="true" description="Posix Time Milliseconds" id="0xE5" name="posix_ms" size="8"/>
+    <type analog="true" description="System Time Microseconds" id="0xD0" name="systime_us" size="8"/>
+    <type analog="true" description="System Time Milliseconds" id="0xD1" name="systime_ms" size="8"/>
+    <type analog="true" description="Elapsed Time Seconds" id="0xD2" name="elapsed_s" size="4"/>
+    <type analog="true" description="Temperature" id="0xD8" name="temperature" signed="true" size="2"/>
+    <type description="8-bit enumeration" discrete="true" id="0x30" name="enum8" size="1"/>
+    <type description="16-bit enumeration" discrete="true" id="0x31" name="enum16" size="2"/>
+    <type description="Priority" discrete="true" id="0x32" name="priority" size="1"/>
+    <type description="Status Code" discrete="true" id="0x33" name="status" size="1"/>
+    <type description="Group ID" discrete="true" id="0xC0" name="group_id" size="2"/>
+    <type description="Endpoint Number" discrete="true" id="0xC1" name="endpoint_no" size="2"/>
+    <type description="Vendor ID" discrete="true" id="0xC2" name="vendor_id" size="2"/>
+    <type description="Device Type ID" discrete="true" id="0xC3" name="devtype_id" size="4"/>
+    <type description="Fabric ID" discrete="true" id="0xC4" name="fabric_id" size="8"/>
+    <type description="Fabric Index" discrete="true" id="0xC5" name="fabric_idx" size="1"/>
+    <type description="Cluster ID" discrete="true" id="0xE8" name="cluster_id" size="4"/>
+    <type description="Attribute ID" discrete="true" id="0xE9" name="attrib_id" size="4"/>
+    <type description="Field ID" discrete="true" id="0xEB" name="field_id" size="4"/>
+    <type description="Event ID" discrete="true" id="0xEC" name="event_id" size="4"/>
+    <type description="Command ID" discrete="true" id="0xED" name="command_id" size="4"/>
+    <type description="Action ID" discrete="true" id="0xEE" name="action_id" size="1"/>
+    <type description="Transaction ID" discrete="true" id="0xEF" name="trans_id" size="4"/>
+    <type description="Node ID" discrete="true" id="0xF0" name="node_id" size="8"/>
+    <type description="Entry Index" discrete="true" id="0xC6" name="entry_idx" size="2"/>
+    <type description="Data Version" discrete="true" id="0xC7" name="data_ver" size="4"/>
+    <type description="Event Number" discrete="true" id="0xC8" name="event_no" size="8"/>
+    <type composite="true" description="IP Address" id="0xF2" name="ipadr"/>
+    <type composite="true" description="IPv4 Address" id="0xF3" name="ipv4adr" size="4"/>
+    <type composite="true" description="IPv6 Address" id="0xF4" name="ipv6adr" size="16"/>
+    <type composite="true" description="IPv6 Prefix" id="0xF5" name="ipv6pre"/>
+    <type composite="true" description="Hardware Address" id="0xF6" name="hwadr"/>
+    <type description="Semantic Tag" discrete="true" id="0xC9" name="semtag" size="4"/>
+    <type description="Namespace" discrete="true" id="0xCA" name="namespace" size="1"/>
+    <type description="Tag" discrete="true" id="0xCB" name="tag" size="1"/>
+    <type description="Unknown" id="0xFF" name="unknown" size="0"/>
   </atomic>
 </configurator>

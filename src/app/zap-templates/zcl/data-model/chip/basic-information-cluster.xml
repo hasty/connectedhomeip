@@ -1,28 +1,64 @@
 <?xml version="1.0"?>
-<!--
-Copyright (c) 2021 Project CHIP Authors
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
 <configurator>
+  <cluster singleton="true">
+    <attribute code="0" define="DATA_MODEL_REVISION" side="server" type="int16u">DataModelRevision</attribute>
+    <attribute code="1" define="VENDOR_NAME" length="32" side="server" type="char_string">VendorName</attribute>
+    <attribute code="2" define="VENDOR_ID" side="server" type="vendor_id">VendorID</attribute>
+    <attribute code="3" define="PRODUCT_NAME" length="32" side="server" type="char_string">ProductName</attribute>
+    <attribute code="4" define="PRODUCT_ID" side="server" type="int16u">ProductID</attribute>
+    <attribute code="5" default="" define="NODE_LABEL" length="32" side="server" type="char_string" writable="true">
+      <access op="read" privilege="view"/>
+      <access op="write" privilege="manage"/>
+      <description>NodeLabel</description>
+    </attribute>
+    <attribute code="6" default="XX" define="LOCATION" length="2" side="server" type="char_string" writable="true">
+      <access op="read" privilege="view"/>
+      <access op="write" privilege="administer"/>
+      <description>Location</description>
+    </attribute>
+    <attribute code="7" default="0" define="HARDWARE_VERSION" side="server" type="int16u">HardwareVersion</attribute>
+    <attribute code="8" define="HARDWARE_VERSION_STRING" length="64" minLength="1" side="server" type="char_string">HardwareVersionString</attribute>
+    <attribute code="9" default="0" define="SOFTWARE_VERSION" side="server" type="int32u">SoftwareVersion</attribute>
+    <attribute code="10" define="SOFTWARE_VERSION_STRING" length="64" minLength="1" side="server" type="char_string">SoftwareVersionString</attribute>
+    <attribute code="11" define="MANUFACTURING_DATE" length="16" minLength="8" optional="true" side="server" type="char_string">ManufacturingDate</attribute>
+    <attribute code="12" define="PART_NUMBER" length="32" optional="true" side="server" type="char_string">PartNumber</attribute>
+    <attribute code="13" define="PRODUCT_URL" length="256" optional="true" side="server" type="long_char_string">ProductURL</attribute>
+    <attribute code="14" define="PRODUCT_LABEL" length="64" optional="true" side="server" type="char_string">ProductLabel</attribute>
+    <attribute code="15" define="SERIAL_NUMBER" length="32" optional="true" side="server" type="char_string">SerialNumber</attribute>
+    <attribute code="16" default="0" define="LOCAL_CONFIG_DISABLED" optional="true" side="server" type="boolean" writable="true">
+      <access op="read" privilege="view"/>
+      <access op="write" privilege="manage"/>
+      <description>LocalConfigDisabled</description>
+    </attribute>
+    <attribute code="17" default="1" define="REACHABLE" optional="true" side="server" type="boolean">Reachable</attribute>
+    <attribute code="18" define="UNIQUE_ID" length="32" optional="true" side="server" type="char_string">UniqueID</attribute>
+    <attribute code="19" define="CAPABILITY_MINIMA" side="server" type="CapabilityMinimaStruct" writable="false">CapabilityMinima</attribute>
+    <attribute code="20" define="PRODUCT_APPEARANCE" optional="true" side="server" type="ProductAppearanceStruct">ProductAppearance</attribute>
+    <code>0x0028</code>
+    <define>BASIC_INFORMATION_CLUSTER</define>
+    <description>This cluster provides attributes and events for determining basic information about Nodes, which supports both
+      Commissioning and operational determination of Node characteristics, such as Vendor ID, Product ID and serial number,
+      which apply to the whole Node. Also allows setting user device information such as location.</description>
+    <domain>CHIP</domain>
+    <event code="0x00" name="StartUp" optional="false" priority="critical" side="server">
+      <description>The StartUp event SHALL be emitted by a Node as soon as reasonable after completing a boot or reboot process.</description>
+      <field id="0" name="SoftwareVersion" type="int32u"/>
+    </event>
+    <event code="0x01" name="ShutDown" optional="true" priority="critical" side="server">
+      <description>The ShutDown event SHOULD be emitted by a Node prior to any orderly shutdown sequence on a best-effort basis.</description>
+    </event>
+    <event code="0x02" name="Leave" optional="true" priority="info" side="server">
+      <description>The Leave event SHOULD be emitted by a Node prior to permanently leaving the Fabric.</description>
+      <field id="0" name="FabricIndex" type="fabric_idx"/>
+    </event>
+    <event code="0x03" name="ReachableChanged" optional="true" priority="info" side="server">
+      <description>This event (when supported) SHALL be generated when there is a change in the Reachable attribute.</description>
+      <field id="0" name="ReachableNewValue" type="boolean"/>
+    </event>
+    <globalAttribute code="0xFFFD" side="either" value="2"/>
+    <name>Basic Information</name>
+  </cluster>
   <domain name="CHIP"/>
-
-  <struct name="CapabilityMinimaStruct">
-    <cluster code="0x0028"/>
-    <item fieldId="0" name="CaseSessionsPerFabric" type="int16u" isNullable="false" writable="false"/>
-    <item fieldId="1" name="SubscriptionsPerFabric" type="int16u" isNullable="false" writable="false"/>
-  </struct>
-
   <enum name="ProductFinishEnum" type="enum8">
     <cluster code="0x0028"/>
     <item name="Other" value="0"/>
@@ -32,7 +68,6 @@ limitations under the License.
     <item name="Rugged" value="4"/>
     <item name="Fabric" value="5"/>
   </enum>
-
   <enum name="ColorEnum" type="enum8">
     <cluster code="0x0028"/>
     <item name="Black" value="0"/>
@@ -57,72 +92,14 @@ limitations under the License.
     <item name="Silver" value="19"/>
     <item name="Gold" value="20"/>
   </enum>
-
+  <struct name="CapabilityMinimaStruct">
+    <cluster code="0x0028"/>
+    <item fieldId="0" isNullable="false" name="CaseSessionsPerFabric" type="int16u" writable="false"/>
+    <item fieldId="1" isNullable="false" name="SubscriptionsPerFabric" type="int16u" writable="false"/>
+  </struct>
   <struct name="ProductAppearanceStruct">
     <cluster code="0x0028"/>
-    <item fieldId="0" name="Finish"       type="ProductFinishEnum" isNullable="false"/>
-    <item fieldId="1" name="PrimaryColor" type="ColorEnum"         isNullable="true" />
+    <item fieldId="0" isNullable="false" name="Finish" type="ProductFinishEnum"/>
+    <item fieldId="1" isNullable="true" name="PrimaryColor" type="ColorEnum"/>
   </struct>
-
-  <cluster singleton="true">
-    <name>Basic Information</name>
-    <domain>CHIP</domain>
-    <code>0x0028</code>
-    <define>BASIC_INFORMATION_CLUSTER</define>
-    <description>This cluster provides attributes and events for determining basic information about Nodes, which supports both
-      Commissioning and operational determination of Node characteristics, such as Vendor ID, Product ID and serial number,
-      which apply to the whole Node. Also allows setting user device information such as location.</description>
-    <globalAttribute side="either" code="0xFFFD" value="2"/>
-
-    <attribute side="server" code="0"  define="DATA_MODEL_REVISION"       type="int16u"                                                                             >DataModelRevision</attribute>
-    <attribute side="server" code="1"  define="VENDOR_NAME"               type="char_string"               length="32"                                              >VendorName</attribute>
-    <attribute side="server" code="2"  define="VENDOR_ID"                 type="vendor_id"                                                                          >VendorID</attribute>
-    <attribute side="server" code="3"  define="PRODUCT_NAME"              type="char_string"               length="32"                                              >ProductName</attribute>
-    <attribute side="server" code="4"  define="PRODUCT_ID"                type="int16u"                                                                             >ProductID</attribute>
-    <attribute side="server" code="5"  define="NODE_LABEL"                type="char_string"               length="32"  default=""   writable="true"                >
-      <description>NodeLabel</description>
-      <access op="read" privilege="view"/>
-      <access op="write" privilege="manage"/>
-    </attribute>
-    <attribute side="server" code="6"  define="LOCATION"                  type="char_string"               length="2"   default="XX" writable="true"                >
-      <description>Location</description>
-      <access op="read" privilege="view"/>
-      <access op="write" privilege="administer"/>
-    </attribute>
-    <attribute side="server" code="7"  define="HARDWARE_VERSION"          type="int16u"                                 default="0"                                 >HardwareVersion</attribute>
-    <attribute side="server" code="8"  define="HARDWARE_VERSION_STRING"   type="char_string" minLength="1" length="64"                                              >HardwareVersionString</attribute>
-    <attribute side="server" code="9"  define="SOFTWARE_VERSION"          type="int32u"                                 default="0"                                 >SoftwareVersion</attribute>
-    <attribute side="server" code="10" define="SOFTWARE_VERSION_STRING"   type="char_string" minLength="1" length="64"                                              >SoftwareVersionString</attribute>
-    <attribute side="server" code="11" define="MANUFACTURING_DATE"        type="char_string" minLength="8" length="16"                               optional="true">ManufacturingDate</attribute>
-    <attribute side="server" code="12" define="PART_NUMBER"               type="char_string"               length="32"                               optional="true">PartNumber</attribute>
-    <attribute side="server" code="13" define="PRODUCT_URL"               type="long_char_string"          length="256"                              optional="true">ProductURL</attribute>
-    <attribute side="server" code="14" define="PRODUCT_LABEL"             type="char_string"               length="64"                               optional="true">ProductLabel</attribute>
-    <attribute side="server" code="15" define="SERIAL_NUMBER"             type="char_string"               length="32"                               optional="true">SerialNumber</attribute>
-    <attribute side="server" code="16" define="LOCAL_CONFIG_DISABLED"     type="boolean"                                default="0"  writable="true" optional="true">
-      <description>LocalConfigDisabled</description>
-      <access op="read" privilege="view"/>
-      <access op="write" privilege="manage"/>
-    </attribute>
-    <attribute side="server" code="17" define="REACHABLE"                 type="boolean"                                default="1"                  optional="true">Reachable</attribute>
-    <attribute side="server" code="18" define="UNIQUE_ID"                 type="char_string"               length="32"                               optional="true">UniqueID</attribute>
-    <attribute side="server" code="19" define="CAPABILITY_MINIMA"         type="CapabilityMinimaStruct"                              writable="false"               >CapabilityMinima</attribute>
-    <attribute side="server" code="20" define="PRODUCT_APPEARANCE"        type="ProductAppearanceStruct"                                             optional="true">ProductAppearance</attribute>
-
-    <event side="server" code="0x00" name="StartUp" priority="critical" optional="false">
-      <description>The StartUp event SHALL be emitted by a Node as soon as reasonable after completing a boot or reboot process.</description>
-      <field id="0" name="SoftwareVersion" type="int32u"/>
-    </event>
-    <event side="server" code="0x01" name="ShutDown" priority="critical" optional="true">
-      <description>The ShutDown event SHOULD be emitted by a Node prior to any orderly shutdown sequence on a best-effort basis.</description>
-    </event>
-    <event side="server" code="0x02" name="Leave" priority="info" optional="true">
-      <description>The Leave event SHOULD be emitted by a Node prior to permanently leaving the Fabric.</description>
-      <field id="0" name="FabricIndex" type="fabric_idx"/>
-    </event>
-    <event side="server" code="0x03" name="ReachableChanged" priority="info" optional="true">
-      <description>This event (when supported) SHALL be generated when there is a change in the Reachable attribute.</description>
-      <field id="0" name="ReachableNewValue" type="boolean"/>
-    </event>
-
-  </cluster>
 </configurator>

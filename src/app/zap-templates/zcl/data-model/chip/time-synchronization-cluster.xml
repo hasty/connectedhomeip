@@ -1,37 +1,89 @@
 <?xml version="1.0"?>
-<!--
-Copyright (c) 2021 Project CHIP Authors
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
 <configurator>
-  <domain name="CHIP"/>
-
   <bitmap name="Feature" type="bitmap32">
     <cluster code="0x0038"/>
-    <field name="TimeZone" mask="0x1"/>
-    <field name="NTPClient" mask="0x2"/>
-    <field name="NTPServer" mask="0x4"/>
-    <field name="TimeSyncClient" mask="0x8"/>
+    <field mask="0x1" name="TimeZone"/>
+    <field mask="0x2" name="NTPClient"/>
+    <field mask="0x4" name="NTPServer"/>
+    <field mask="0x8" name="TimeSyncClient"/>
   </bitmap>
-
-  <!-- NOTE: This type is not defined as an enum in the spec, but the Status Codes section
-  of this cluster defines these status codes, and we're choosing to represent them as an enum. -->
+  <cluster>
+    <attribute code="0x0000" define="UTC_TIME" isNullable="true" optional="false" side="server" type="epoch_us">UTCTime</attribute>
+    <attribute code="0x0001" default="0x00" define="GRANULARITY" optional="false" side="server" type="GranularityEnum">Granularity</attribute>
+    <attribute code="0x0002" default="0x00" define="TIME_SOURCE" optional="true" side="server" type="TimeSourceEnum">TimeSource</attribute>
+    <attribute code="0x0003" define="TRUSTED_TIME_SOURCE" isNullable="true" optional="true" side="server" type="TrustedTimeSourceStruct">TrustedTimeSource</attribute>
+    <attribute code="0x0004" define="DEFAULT_NTP" isNullable="true" length="128" optional="true" side="server" type="char_string">DefaultNTP</attribute>
+    <attribute code="0x0005" define="TIME_ZONE" entryType="TimeZoneStruct" optional="true" side="server" type="ARRAY">TimeZone</attribute>
+    <attribute code="0x0006" define="DST_OFFSET" entryType="DSTOffsetStruct" optional="true" side="server" type="ARRAY">DSTOffset</attribute>
+    <attribute code="0x0007" default="0xFFFFFFFFFFFFFFFF" define="LOCAL_TIME" isNullable="true" optional="true" side="server" type="epoch_us">LocalTime</attribute>
+    <attribute code="0x0008" default="2" define="TIME_ZONE_DATABASE" optional="true" side="server" type="TimeZoneDatabaseEnum">TimeZoneDatabase</attribute>
+    <attribute code="0x0009" default="false" define="NTP_SERVER_AVAILABLE" optional="true" side="server" type="boolean">NTPServerAvailable</attribute>
+    <attribute code="0x000A" define="TIME_ZONE_LIST_MAX_SIZE" max="2" min="1" optional="true" side="server" type="int8u">TimeZoneListMaxSize</attribute>
+    <attribute code="0x000B" define="DST_OFFSET_LIST_MAX_SIZE" min="1" optional="true" side="server" type="int8u">DSTOffsetListMaxSize</attribute>
+    <attribute code="0x000C" default="false" define="SUPPORTS_DNS_RESOLVE" optional="true" side="server" type="boolean">SupportsDNSResolve</attribute>
+    <client init="false" tick="false">true</client>
+    <code>0x0038</code>
+    <command code="0x00" name="SetUTCTime" optional="false" source="client">
+      <access op="invoke" privilege="administer"/>
+      <arg name="UTCTime" type="epoch_us"/>
+      <arg name="Granularity" type="GranularityEnum"/>
+      <arg name="TimeSource" optional="true" type="TimeSourceEnum"/>
+      <description>This command MAY be issued by Administrator to set the time.</description>
+    </command>
+    <command code="0x01" isFabricScoped="true" name="SetTrustedTimeSource" optional="true" source="client">
+      <access op="invoke" privilege="administer"/>
+      <arg isNullable="true" name="TrustedTimeSource" type="FabricScopedTrustedTimeSourceStruct"/>
+      <description>This command SHALL set TrustedTimeSource.</description>
+    </command>
+    <command code="0x02" name="SetTimeZone" optional="true" response="SetTimeZoneResponse" source="client">
+      <access op="invoke" privilege="manage"/>
+      <arg array="true" name="TimeZone" type="TimeZoneStruct"/>
+      <description>This command SHALL set TimeZone.</description>
+    </command>
+    <command code="0x03" name="SetTimeZoneResponse" optional="true" source="server">
+      <arg name="DSTOffsetRequired" type="boolean"/>
+      <description>Response to SetTimeZone.</description>
+    </command>
+    <command code="0x04" name="SetDSTOffset" optional="true" source="client">
+      <access op="invoke" privilege="manage"/>
+      <arg array="true" name="DSTOffset" type="DSTOffsetStruct"/>
+      <description>This command SHALL set DSTOffset.</description>
+    </command>
+    <command code="0x05" name="SetDefaultNTP" optional="true" source="client">
+      <access op="invoke" privilege="administer"/>
+      <arg isNullable="true" length="128" name="DefaultNTP" type="char_string"/>
+      <description>This command is used to set DefaultNTP.</description>
+    </command>
+    <define>TIME_SYNCHRONIZATION_CLUSTER</define>
+    <description>Accurate time is required for a number of reasons, including scheduling, display and validating security materials.</description>
+    <domain>General</domain>
+    <event code="0x0000" name="DSTTableEmpty" optional="true" priority="info" side="server">
+      <description>This event SHALL be generated when the server stops applying the current DSTOffset and there are no entries in the list with a larger ValidStarting time.</description>
+    </event>
+    <event code="0x0001" name="DSTStatus" optional="true" priority="info" side="server">
+      <description>This event SHALL be generated when the server starts or stops applying a DST offset.</description>
+      <field id="0" name="DSTOffsetActive" type="boolean"/>
+    </event>
+    <event code="0x0002" name="TimeZoneStatus" optional="true" priority="info" side="server">
+      <description>This event SHALL be generated when the server changes its time zone offset or name.</description>
+      <field id="0" name="Offset" type="int32s"/>
+      <field id="1" length="64" name="Name" optional="true" type="char_string"/>
+    </event>
+    <event code="0x0003" name="TimeFailure" optional="false" priority="info" side="server">
+      <description>This event SHALL be generated if the node has attempted to update its time, but was unable to find a good time from any source.</description>
+    </event>
+    <event code="0x0004" name="MissingTrustedTimeSource" optional="true" priority="info" side="server">
+      <description>This event SHALL be generated if the node attempts to update its time and finds that the TrustedTimeSource is null, or the specified peer cannot be reached.</description>
+    </event>
+    <globalAttribute code="0xFFFD" side="either" value="2"/>
+    <name>Time Synchronization</name>
+    <server init="false" tick="false">true</server>
+  </cluster>
+  <domain name="CHIP"/>
   <enum name="StatusCode" type="enum8">
     <cluster code="0x0038"/>
-     <item name="TimeNotAccepted" value="0x02"/>
+    <item name="TimeNotAccepted" value="0x02"/>
   </enum>
-
   <enum name="GranularityEnum" type="enum8">
     <cluster code="0x0038"/>
     <item name="NoTimeGranularity" value="0x00"/>
@@ -40,7 +92,6 @@ limitations under the License.
     <item name="MillisecondsGranularity" value="0x03"/>
     <item name="MicrosecondsGranularity" value="0x04"/>
   </enum>
-
   <enum name="TimeSourceEnum" type="enum8">
     <cluster code="0x0038"/>
     <item name="None" value="0x00"/>
@@ -61,124 +112,33 @@ limitations under the License.
     <item name="PTP" value="0x0F"/>
     <item name="GNSS" value="0x10"/>
   </enum>
-
   <enum name="TimeZoneDatabaseEnum" type="enum8">
     <cluster code="0x0038"/>
     <item name="Full" value="0x00"/>
     <item name="Partial" value="0x01"/>
     <item name="None" value="0x02"/>
   </enum>
-
   <struct name="TrustedTimeSourceStruct">
     <cluster code="0x0038"/>
     <item fieldId="0" name="FabricIndex" type="fabric_idx"/>
     <item fieldId="1" name="NodeID" type="node_id"/>
     <item fieldId="2" name="Endpoint" type="endpoint_no"/>
   </struct>
-
   <struct name="FabricScopedTrustedTimeSourceStruct">
     <cluster code="0x0038"/>
     <item fieldId="0" name="NodeID" type="node_id"/>
     <item fieldId="1" name="Endpoint" type="endpoint_no"/>
   </struct>
-
   <struct name="TimeZoneStruct">
     <cluster code="0x0038"/>
-    <item fieldId="0" name="Offset" type="int32s" min="-43200" max="50400"/>
+    <item fieldId="0" max="50400" min="-43200" name="Offset" type="int32s"/>
     <item fieldId="1" name="ValidAt" type="epoch_us"/>
-    <item fieldId="2" name="Name" type="char_string" length="64" optional="true"/>
+    <item fieldId="2" length="64" name="Name" optional="true" type="char_string"/>
   </struct>
-
   <struct name="DSTOffsetStruct">
     <cluster code="0x0038"/>
     <item fieldId="0" name="Offset" type="int32s"/>
     <item fieldId="1" name="ValidStarting" type="epoch_us"/>
-    <item fieldId="2" name="ValidUntil" type="epoch_us" isNullable="true"/>
+    <item fieldId="2" isNullable="true" name="ValidUntil" type="epoch_us"/>
   </struct>
-
-  <cluster>
-    <domain>General</domain>
-    <name>Time Synchronization</name>
-    <code>0x0038</code>
-    <define>TIME_SYNCHRONIZATION_CLUSTER</define>
-    <client init="false" tick="false">true</client>
-    <server init="false" tick="false">true</server>
-    <description>Accurate time is required for a number of reasons, including scheduling, display and validating security materials.</description>
-    <globalAttribute side="either" code="0xFFFD" value="2"/>
-
-    <attribute side="server" code="0x0000" define="UTC_TIME" type="epoch_us" isNullable="true" optional="false">UTCTime</attribute>
-    <attribute side="server" code="0x0001" define="GRANULARITY" type="GranularityEnum" default="0x00" optional="false">Granularity</attribute>
-    <attribute side="server" code="0x0002" define="TIME_SOURCE" type="TimeSourceEnum" default="0x00" optional="true">TimeSource</attribute>
-    <attribute side="server" code="0x0003" define="TRUSTED_TIME_SOURCE" type="TrustedTimeSourceStruct" isNullable="true" optional="true">TrustedTimeSource</attribute>
-    <attribute side="server" code="0x0004" define="DEFAULT_NTP" type="char_string" length="128" isNullable="true" optional="true">DefaultNTP</attribute>
-    <attribute side="server" code="0x0005" define="TIME_ZONE" type="ARRAY" entryType="TimeZoneStruct" optional="true">TimeZone</attribute>
-    <attribute side="server" code="0x0006" define="DST_OFFSET" type="ARRAY" entryType="DSTOffsetStruct" optional="true">DSTOffset</attribute>
-    <attribute side="server" code="0x0007" define="LOCAL_TIME" type="epoch_us" default="0xFFFFFFFFFFFFFFFF" isNullable="true" optional="true">LocalTime</attribute>
-    <attribute side="server" code="0x0008" define="TIME_ZONE_DATABASE" type="TimeZoneDatabaseEnum" default="2" optional="true">TimeZoneDatabase</attribute>
-    <attribute side="server" code="0x0009" define="NTP_SERVER_AVAILABLE" type="boolean" default="false" optional="true">NTPServerAvailable</attribute>
-    <attribute side="server" code="0x000A" define="TIME_ZONE_LIST_MAX_SIZE" type="int8u" min="1" max="2" optional="true">TimeZoneListMaxSize</attribute>
-    <attribute side="server" code="0x000B" define="DST_OFFSET_LIST_MAX_SIZE" type="int8u" min="1" optional="true">DSTOffsetListMaxSize</attribute>
-    <attribute side="server" code="0x000C" define="SUPPORTS_DNS_RESOLVE" type="boolean" default="false" optional="true">SupportsDNSResolve</attribute>
-
-    <command source="client" code="0x00" name="SetUTCTime" optional="false">
-      <description>This command MAY be issued by Administrator to set the time.</description>
-      <arg name="UTCTime" type="epoch_us"/>
-      <arg name="Granularity" type="GranularityEnum"/>
-      <arg name="TimeSource" type="TimeSourceEnum" optional="true"/>
-      <access op="invoke" privilege="administer"/>
-    </command>
-
-    <command source="client" code="0x01" name="SetTrustedTimeSource" isFabricScoped="true" optional="true">
-      <description>This command SHALL set TrustedTimeSource.</description>
-      <arg name="TrustedTimeSource" type="FabricScopedTrustedTimeSourceStruct" isNullable="true"/>
-      <access op="invoke" privilege="administer"/>
-    </command>
-
-    <command source="client" code="0x02" name="SetTimeZone" response="SetTimeZoneResponse" optional="true">
-      <description>This command SHALL set TimeZone.</description>
-      <arg name="TimeZone" type="TimeZoneStruct" array="true"/>
-      <access op="invoke" privilege="manage"/>
-    </command>
-
-    <command source="server" code="0x03" name="SetTimeZoneResponse" optional="true">
-      <description>Response to SetTimeZone.</description>
-      <arg name="DSTOffsetRequired" type="boolean"/>
-    </command>
-
-    <command source="client" code="0x04" name="SetDSTOffset" optional="true">
-      <description>This command SHALL set DSTOffset.</description>
-      <arg name="DSTOffset" type="DSTOffsetStruct" array="true"/>
-      <access op="invoke" privilege="manage"/>
-    </command>
-
-    <command source="client" code="0x05" name="SetDefaultNTP" optional="true">
-      <description>This command is used to set DefaultNTP.</description>
-      <arg name="DefaultNTP" type="char_string" length="128" isNullable="true"/>
-      <access op="invoke" privilege="administer"/>
-    </command>
-
-    <event code="0x0000" name="DSTTableEmpty" priority="info" side="server" optional="true">
-      <description>This event SHALL be generated when the server stops applying the current DSTOffset and there are no entries in the list with a larger ValidStarting time.</description>
-    </event>
-
-    <event code="0x0001" name="DSTStatus" priority="info" side="server" optional="true">
-      <description>This event SHALL be generated when the server starts or stops applying a DST offset.</description>
-      <field id="0" name="DSTOffsetActive" type="boolean" />
-    </event>
-
-    <event code="0x0002" name="TimeZoneStatus" priority="info" side="server" optional="true">
-      <description>This event SHALL be generated when the server changes its time zone offset or name.</description>
-      <field id="0" name="Offset" type="int32s"/>
-      <field id="1" name="Name" type="char_string" length="64" optional="true"/>
-    </event>
-
-    <event code="0x0003" name="TimeFailure" priority="info" side="server" optional="false">
-      <description>This event SHALL be generated if the node has attempted to update its time, but was unable to find a good time from any source.</description>
-    </event>
-
-    <event code="0x0004" name="MissingTrustedTimeSource" priority="info" side="server" optional="true">
-      <description>This event SHALL be generated if the node attempts to update its time and finds that the TrustedTimeSource is null, or the specified peer cannot be reached.</description>
-    </event>
-
-  </cluster>
 </configurator>
