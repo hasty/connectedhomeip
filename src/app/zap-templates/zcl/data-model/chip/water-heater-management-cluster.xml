@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<configurator>
+  <domain name="CHIP"/>
+  <cluster>
+    <name>Water Heater Management</name>
+    <domain>Energy Management</domain>
+    <code>0x0094</code>
+    <define>WATER_HEATER_MANAGEMENT_CLUSTER</define>
+    <client init="false" tick="false"/>
+    <server init="false" tick="false"/>
+    <description>This cluster is used to allow clients to control the operation of a hot water heating appliance so that it can be used with energy management.</description><!--Attributes-->
+    <attribute code="0x0000" side="server" type="WaterHeaterTypeBitmap" define="WATER_HEATER_MANAGEMENT_HEATER_TYPES" isNullable="false" default="0" writable="false" optional="false">HeaterTypes</attribute>
+    <attribute code="0x0001" side="server" type="WaterHeaterDemandBitmap" define="WATER_HEATER_MANAGEMENT_HEAT_DEMAND" isNullable="false" default="0" writable="false" optional="false">HeatDemand</attribute><!--Conformance feature EM - for now optional-->
+    <attribute code="0x0002" side="server" type="int16u" define="WATER_HEATER_MANAGEMENT_TANK_VOLUME" isNullable="false" default="0" writable="false" optional="true">TankVolume</attribute><!--Conformance feature EM - for now optional-->
+    <attribute code="0x0003" side="server" type="ref_Energy" define="WATER_HEATER_MANAGEMENT_ESTIMATED_HEAT_REQUIRED" isNullable="false" default="0" writable="false" optional="true">EstimatedHeatRequired</attribute>
+    <attribute code="0x0004" side="server" type="percent" define="WATER_HEATER_MANAGEMENT_TANK_PERCENTAGE" isNullable="false" default="0" writable="false" optional="true">TankPercentage</attribute>
+    <command source="client" code="0x0001" name="Boost" optional="false">
+      <access op="invoke" role="manage"/>
+      <arg name="Duration" type="elapsed_s"/>
+      <arg name="OneShot" type="boolean"/>
+      <arg name="EmergencyBoost" type="boolean"/>
+      <arg name="TemporarySetpoint" type="temperature" optional="true"/>
+      <arg name="TargetPercentage" type="percent" optional="true"/>
+      <arg name="TargetReheat" type="percent" optional="true"/>
+      <description>Upon receipt, the Water Heater SHALL transition into the BOOST mode, which will activate a temporary change in the setpoint, which in turn may cause a call for heat.</description>
+    </command>
+    <command source="client" code="0x0001" name="CancelBoost" optional="false">
+      <access op="invoke" role="manage"/>
+      <description>This command has no payload.</description>
+    </command>
+  </cluster>
+  <bitmap name="WaterHeaterTypeBitmap" type="bitmap8">
+    <cluster code="0x0094"/>
+    <field name="ImmersionElement2" value="0x01"/>
+    <field name="Boiler" value="0x04"/>
+  </bitmap>
+  <bitmap name="WaterHeaterDemandBitmap" type="bitmap8">
+    <cluster code="0x0094"/>
+    <field name="ImmersionElement2" value="0x01"/>
+    <field name="Boiler" value="0x04"/>
+  </bitmap>
+</configurator>

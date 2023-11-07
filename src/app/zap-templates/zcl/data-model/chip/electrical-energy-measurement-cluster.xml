@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<configurator>
+  <domain name="CHIP"/>
+  <cluster>
+    <name>Electrical Energy Measurement</name>
+    <domain>Measurement &amp; Sensing</domain>
+    <code>0x0091</code>
+    <define>ELECTRICAL_ENERGY_MEASUREMENT_CLUSTER</define>
+    <client init="false" tick="false"/>
+    <server init="false" tick="false"/>
+    <description>This cluster provides a mechanism for querying data about the electrical energy imported or provided by the server.</description><!--Attributes-->
+    <attribute code="0x0000" side="server" type="boolean" define="ELECTRICAL_ENERGY_MEASUREMENT_MEASURED" isNullable="false" writable="false" optional="false">Measured</attribute><!--Conformance feature IMPE & CUME - for now optional-->
+    <attribute code="0x0001" side="server" type="epoch_s" define="ELECTRICAL_ENERGY_MEASUREMENT_CUMULATIVE_ENERGY_IMPORTED_TIME" isNullable="true" writable="false" optional="true">CumulativeEnergyImportedTime</attribute><!--Conformance feature IMPE & CUME - for now optional-->
+    <attribute code="0x0002" side="server" type="int64u" define="ELECTRICAL_ENERGY_MEASUREMENT_CUMULATIVE_ENERGY_IMPORTED" isNullable="true" default="0xFFFFFFFFFFFFFFFF" writable="false" optional="true">CumulativeEnergyImported</attribute><!--Conformance feature EXPE & CUME - for now optional-->
+    <attribute code="0x0003" side="server" type="epoch_s" define="ELECTRICAL_ENERGY_MEASUREMENT_CUMULATIVE_ENERGY_EXPORTED_TIME" isNullable="true" writable="false" optional="true">CumulativeEnergyExportedTime</attribute><!--Conformance feature EXPE & CUME - for now optional-->
+    <attribute code="0x0004" side="server" type="int64u" define="ELECTRICAL_ENERGY_MEASUREMENT_CUMULATIVE_ENERGY_EXPORTED" isNullable="true" default="0xFFFFFFFFFFFFFFFF" writable="false" optional="true">CumulativeEnergyExported</attribute><!--Conformance feature IMPE & PERE - for now optional-->
+    <attribute code="0x0005" side="server" type="epoch_s" define="ELECTRICAL_ENERGY_MEASUREMENT_PERIODIC_ENERGY_IMPORTED_START_TIME" isNullable="true" writable="false" optional="true">PeriodicEnergyImportedStartTime</attribute><!--Conformance feature IMPE & PERE - for now optional-->
+    <attribute code="0x0006" side="server" type="epoch_s" define="ELECTRICAL_ENERGY_MEASUREMENT_PERIODIC_ENERGY_IMPORTED_END_TIME" isNullable="true" writable="false" optional="true">PeriodicEnergyImportedEndTime</attribute><!--Conformance feature IMPE & PERE - for now optional-->
+    <attribute code="0x0007" side="server" type="int64u" define="ELECTRICAL_ENERGY_MEASUREMENT_PERIODIC_ENERGY_IMPORTED" isNullable="true" default="0xFFFFFFFFFFFFFFFF" writable="false" optional="true">PeriodicEnergyImported</attribute><!--Conformance feature EXPE & PERE - for now optional-->
+    <attribute code="0x0008" side="server" type="epoch_s" define="ELECTRICAL_ENERGY_MEASUREMENT_PERIODIC_ENERGY_EXPORTED_START_TIME" isNullable="true" writable="false" optional="true">PeriodicEnergyExportedStartTime</attribute><!--Conformance feature EXPE & PERE - for now optional-->
+    <attribute code="0x0009" side="server" type="epoch_s" define="ELECTRICAL_ENERGY_MEASUREMENT_PERIODIC_ENERGY_EXPORTED_END_TIME" isNullable="true" writable="false" optional="true">PeriodicEnergyExportedEndTime</attribute><!--Conformance feature EXPE & PERE - for now optional-->
+    <attribute code="0x000A" side="server" type="int64u" define="ELECTRICAL_ENERGY_MEASUREMENT_PERIODIC_ENERGY_EXPORTED" isNullable="true" default="0xFFFFFFFFFFFFFFFF" writable="false" optional="true">PeriodicEnergyExported</attribute><!--Conformance feature IMPE & EPHE - for now optional-->
+    <attribute code="0x000B" side="server" type="int64u" define="ELECTRICAL_ENERGY_MEASUREMENT_EPHEMERAL_ENERGY_IMPORTED" isNullable="true" default="0xFFFFFFFFFFFFFFFF" writable="false" optional="true">EphemeralEnergyImported</attribute><!--Conformance feature EXPE & EPHE - for now optional-->
+    <attribute code="0x000C" side="server" type="int64u" define="ELECTRICAL_ENERGY_MEASUREMENT_EPHEMERAL_ENERGY_IMPORTED" isNullable="true" default="0xFFFFFFFFFFFFFFFF" writable="false" optional="true">EphemeralEnergyImported</attribute>
+    <event code="0x0000" name="CumulativeEnergyImported" priority="info" side="server" optional="true">
+      <description>CumulativeEnergyImported</description>
+      <field name="ImportedTimestamp" type="epoch_s"/>
+      <field name="EnergyImported" type="int64u"/>
+    </event>
+    <event code="0x0001" name="CumulativeEnergyExported" priority="info" side="server" optional="true">
+      <description>CumulativeEnergyExported</description>
+      <field name="ExportedTimestamp" type="epoch_s"/>
+      <field name="EnergyExported" type="int64u"/>
+    </event>
+    <event code="0x0003" name="PeriodicEnergyImported" priority="info" side="server" optional="true">
+      <description>PeriodicEnergyImported</description>
+      <field name="PeriodStart" type="epoch_s"/>
+      <field name="PeriodEnd" type="epoch_s"/>
+      <field name="EnergyImported" type="int64u"/>
+    </event>
+    <event code="0x0004" name="PeriodicEnergyExported" priority="info" side="server" optional="true">
+      <description>PeriodicEnergyExported</description>
+      <field name="PeriodStart" type="epoch_s"/>
+      <field name="PeriodEnd" type="epoch_s"/>
+      <field name="EnergyExported" type="int64u"/>
+    </event>
+    <event code="0x0005" name="EphemeralEnergyImported" priority="info" side="server" optional="true">
+      <description>EphemeralEnergyImported</description>
+      <field name="PeriodStart" type="systime-ms"/>
+      <field name="PeriodEnd" type="systime-ms"/>
+      <field name="EnergyImported" type="int64u"/>
+    </event>
+    <event code="0x0006" name="EphemeralEnergyExported" priority="info" side="server" optional="true">
+      <description>EphemeralEnergyExported</description>
+      <field name="PeriodStart" type="systime-ms"/>
+      <field name="PeriodEnd" type="systime-ms"/>
+      <field name="EnergyExported" type="int64u"/>
+    </event>
+  </cluster>
+</configurator>

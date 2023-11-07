@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<configurator>
+  <domain name="CHIP"/>
+  <cluster>
+    <name>Device Energy Management</name>
+    <domain>Energy Management</domain>
+    <code>0x0098</code>
+    <define>DEVICE_ENERGY_MANAGEMENT_CLUSTER</define>
+    <client init="false" tick="false"/>
+    <server init="false" tick="false"/>
+    <description>This cluster allows a client to manage the power draw of a device. An example of such a client could be an Energy Management System (EMS) which controls an Energy Smart Appliance (ESA).</description><!--Attributes-->
+    <attribute code="0x0000" side="server" type="EsaTypeEnum" define="DEVICE_ENERGY_MANAGEMENT_ESA_TYPE" isNullable="false" writable="false" optional="false">EsaType</attribute>
+    <attribute code="0x0001" side="server" type="boolean" define="DEVICE_ENERGY_MANAGEMENT_ESA_IS_GENERATOR" isNullable="false" writable="false" optional="false">EsaIsGenerator</attribute>
+    <attribute code="0x0002" side="server" type="EsaStateEnum" define="DEVICE_ENERGY_MANAGEMENT_ESA_STATE" isNullable="false" default="0" writable="false" optional="false">EsaState</attribute>
+    <attribute code="0x0003" side="server" type="Power" define="DEVICE_ENERGY_MANAGEMENT_ABS_MIN_POWER" isNullable="false" default="0" writable="false" optional="false">AbsMinPower</attribute>
+    <attribute code="0x0004" side="server" type="Power" define="DEVICE_ENERGY_MANAGEMENT_ABS_MAX_POWER" isNullable="false" default="0" writable="false" optional="false">AbsMaxPower</attribute><!--Conformance feature PA - for now optional-->
+    <attribute code="0x0005" side="server" type="ARRAY" entryType="PowerAdjustStruct" define="DEVICE_ENERGY_MANAGEMENT_POWER_ADJUSTMENT_CAPABILITY" isNullable="true" length="16" writable="false" optional="true">PowerAdjustmentCapability</attribute><!--Conformance feature PFR - for now optional-->
+    <attribute code="0x0006" side="server" type="PowerForecastStruct" define="DEVICE_ENERGY_MANAGEMENT_POWER_FORECAST" isNullable="true" writable="false" optional="true">PowerForecast</attribute>
+    <command source="client" code="0x0000" name="PowerAdjustRequest" optional="false">
+      <access op="invoke" role="operate"/>
+      <arg name="Power" type="Power"/>
+      <arg name="Duration" type="elapsed_s"/>
+      <description>ID</description>
+    </command>
+    <command source="client" code="0x0001" name="CancelPowerAdjustRequest" optional="false">
+      <access op="invoke" role="operate"/>
+      <description>Upon receipt, the ESA SHALL end the active Power adjustment session and return to normal (or idle) power levels.</description>
+    </command>
+    <command source="client" code="0x0002" name="StartTimeAdjustRequest" optional="true">
+      <access op="invoke" role="operate"/>
+      <arg name="RequestedStartTime" type="epoch_s"/>
+      <description>ID</description>
+    </command>
+    <command source="client" code="0x0003" name="PauseRequest" optional="true">
+      <access op="invoke" role="operate"/>
+      <description>Upon receipt, if the ESA supports PFA and either the </description>
+    </command>
+    <command source="client" code="0x0004" name="ResumeRequest" optional="true">
+      <access op="invoke" role="operate"/>
+      <description>Upon receipt, if the ESA supports PFA and it is currently </description>
+    </command>
+    <command source="client" code="0x0005" name="ModifyPowerForecastRequest" optional="true">
+      <access op="invoke" role="operate"/>
+      <arg name="ForecastId" type="int32u"/>
+      <arg name="SlotAdjustments" array="true" type="SlotAdjustmentStruct"/>
+      <description>ID</description>
+    </command>
+    <command source="client" code="0x0006" name="RequestLimitBasedPowerForecast" optional="true">
+      <access op="invoke" role="operate"/>
+      <arg name="PowerLimits" array="true" type="PowerLimitsStruct structure" length="10"/>
+      <description>ID</description>
+    </command>
+    <event code="0x0000" name="PowerAdjustStart" priority="info" side="server" optional="true">
+      <description>PowerAdjustStart</description>
+    </event>
+    <event code="0x0001" name="PowerAdjustEnd" priority="info" side="server" optional="true">
+      <description>PowerAdjustEnd</description>
+      <field name="Cause" type="enum8"/>
+      <field name="Duration" type="elapsed_s"/>
+      <field name="EnergyUse" type="Energy"/>
+    </event>
+    <event code="0x0002" name="Paused" priority="info" side="server" optional="true">
+      <description>Paused</description>
+    </event>
+    <event code="0x0003" name="Resumed" priority="info" side="server" optional="true">
+      <description>Resumed</description>
+    </event>
+  </cluster>
+  <enum name="CostTypeEnum" type="enum8">
+    <cluster code="0x0098"/>
+    <item name="Financial" value="0x00"/>
+    <item name="GHGEmissions" value="0x01"/>
+    <item name="Comfort" value="0x02"/>
+    <item name="Temperature" value="0x03"/>
+  </enum>
+  <enum name="EsaTypeEnum" type="enum8">
+    <cluster code="0x0098"/>
+    <item name="EVSE" value="0x00"/>
+    <item name="SpaceHeating" value="0x01"/>
+    <item name="WaterHeating" value="0x02"/>
+    <item name="SpaceCooling" value="0x03"/>
+    <item name="SpaceHeatingCooling" value="0x04"/>
+    <item name="BatteryStorage" value="0x05"/>
+    <item name="SolarPV" value="0x06"/>
+    <item name="FridgeFreezer" value="0x07"/>
+    <item name="WashingMachine" value="0x08"/>
+    <item name="Dishwasher" value="0x09"/>
+    <item name="Cooking" value="0x0A"/>
+    <item name="Other" value="0xFF"/>
+  </enum>
+  <enum name="EsaStateEnum" type="enum8">
+    <cluster code="0x0098"/>
+    <item name="Offline" value="0x00"/>
+    <item name="Online" value="0x01"/>
+    <item name="Fault" value="0x02"/>
+    <item name="UserOptOut" value="0x03"/>
+    <item name="PowerAdjustActive" value="0x04"/>
+    <item name="Paused" value="0x05"/>
+  </enum>
+  <struct name="CostStruct">
+    <cluster code="0x0098"/>
+    <item name="CostType" type="CostTypeEnum"/>
+    <item name="Value" type="int32s"/>
+    <item name="DecimalPoints" type="int8u"/>
+    <item name="Currency" type="int16u" optional="true" max="999"/>
+  </struct>
+  <struct name="PowerAdjustStruct">
+    <cluster code="0x0098"/>
+    <item name="MinPower" type="Power"/>
+    <item name="MaxPower" type="Power"/>
+    <item name="MinDuration" type="elapsed_s"/>
+    <item name="MaxDuration" type="elapsed_s"/>
+  </struct>
+  <struct name="PowerForecastStruct">
+    <cluster code="0x0098"/>
+    <item name="ForecastId" type="int16u"/>
+    <item name="ActiveSlotNumber" type="int16u" isNullable="true"/>
+    <item name="StartTime" type="epoch_s"/>
+    <item name="EndTime" type="epoch_s" optional="true"/>
+    <item name="EarliestStartTime" type="epoch_s" isNullable="true" optional="true"/>
+    <item name="LatestEndTime" type="epoch_s" optional="true"/>
+    <item name="IsPausable" type="boolean"/>
+    <item name="Slots" type="ARRAY" entryType="SlotStruct" length="16"/>
+  </struct>
+  <struct name="SlotStruct">
+    <cluster code="0x0098"/>
+    <item name="MinDuration" type="elapsed_s"/>
+    <item name="MaxDuration" type="elapsed_s"/>
+    <item name="DefaultDuration" type="elapsed_s"/>
+    <item name="ElapsedSlotTime" type="elapsed_s"/>
+    <item name="RemainingSlotTime" type="elapsed_s"/>
+    <item name="SlotIsPauseable" type="boolean" optional="true"/>
+    <item name="NominalPower" type="Power"/>
+    <item name="MinPower" type="Power"/>
+    <item name="MaxPower" type="Power"/>
+    <item name="NominalEnergy" type="Energy"/>
+    <item name="Costs" type="ARRAY" entryType="CostStruct" optional="true" length="5"/>
+    <item name="MinPowerAdjustment" type="Power" optional="true"/>
+    <item name="MaxPowerAdjustment" type="Power" optional="true"/>
+    <item name="MinDurationAdjustment" type="elapsed_s" optional="true"/>
+    <item name="MaxDurationAdjustment" type="elapsed_s" optional="true"/>
+  </struct>
+  <struct name="SlotAdjustmentStruct">
+    <cluster code="0x0098"/>
+    <item name="SlotIndex" type="int16u"/>
+    <item name="NominalPower" type="Power"/>
+    <item name="Duration" type="elapsed_s"/>
+  </struct>
+  <struct name="PowerLimitsStruct structure">
+    <cluster code="0x0098"/>
+    <item name="StartTime" type="epoch_s"/>
+    <item name="Duration" type="elapsed_s"/>
+    <item name="NominalPower" type="Power"/>
+    <item name="MaximumEnergy" type="Energy" optional="true"/>
+  </struct>
+</configurator>

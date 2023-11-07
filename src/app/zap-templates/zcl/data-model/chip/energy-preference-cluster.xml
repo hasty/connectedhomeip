@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<configurator>
+  <domain name="CHIP"/>
+  <cluster>
+    <name>Energy Preference</name>
+    <domain>Energy Management</domain>
+    <code>0x009B</code>
+    <define>ENERGY_PREFERENCE_CLUSTER</define>
+    <client init="false" tick="false"/>
+    <server init="false" tick="false"/>
+    <description>This cluster provides an interface to specify preferences for how devices should consume energy.</description><!--Attributes--><!--Conformance feature BALA - for now optional-->
+    <attribute code="0x0000" side="server" type="ARRAY" entryType="BalanceStruct" define="ENERGY_PREFERENCE_ENERGY_BALANCES" isNullable="false" min="2" max="10" writable="false" optional="true">EnergyBalances</attribute><!--Conformance feature BALA - for now optional-->
+    <attribute code="0x0001" side="server" type="int8u" define="ENERGY_PREFERENCE_CURRENT_ENERGY_BALANCE" isNullable="false" writable="true" optional="true">
+      <access op="read" role="view"/>
+      <access op="write" role="operate"/>
+      <description>CurrentEnergyBalance</description>
+    </attribute><!--Conformance feature BALA - for now optional-->
+    <attribute code="0x0002" side="server" type="ARRAY" entryType="EnergyPriorityEnum" define="ENERGY_PREFERENCE_ENERGY_PRIORITIES" isNullable="false" max="2" writable="false" optional="true">EnergyPriorities</attribute><!--Conformance feature LPMS - for now optional-->
+    <attribute code="0x0003" side="server" type="ARRAY" entryType="BalanceStruct" define="ENERGY_PREFERENCE_LOW_POWER_MODE_SENSITIVITIES" isNullable="false" writable="false" optional="true">LowPowerModeSensitivities</attribute><!--Conformance feature LPMS - for now optional-->
+    <attribute code="0x0001" side="server" type="int8u" define="ENERGY_PREFERENCE_CURRENT_LOW_POWER_MODE_SENSITIVITY" isNullable="false" writable="true" optional="true">
+      <access op="read" role="view"/>
+      <access op="write" role="operate"/>
+      <description>CurrentLowPowerModeSensitivity</description>
+    </attribute>
+  </cluster>
+  <enum name="EnergyPriorityEnum" type="">
+    <cluster code="0x009B"/>
+    <item name="Comfort" value="0x00"/>
+    <item name="Speed" value="0x01"/>
+    <item name="Efficiency" value="0x02"/>
+    <item name="WaterConsumption" value="0x03"/>
+  </enum>
+  <struct name="BalanceStruct">
+    <cluster code="0x009B"/>
+    <item name="Step" type="int8u"/>
+    <item name="Label" type="char_string" optional="true" length="64"/>
+  </struct>
+</configurator>

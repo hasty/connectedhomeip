@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<configurator>
+  <domain name="CHIP"/>
+  <cluster>
+    <name>Energy Price</name>
+    <domain>Energy Management</domain>
+    <code>0x0095</code>
+    <define>ENERGY_PRICE_CLUSTER</define>
+    <client init="false" tick="false"/>
+    <server init="false" tick="false"/>
+    <description>The Energy Price Cluster provides the mechanism for communicating Gas, Energy, or Water pricing information within the premises.</description><!--Attributes-->
+    <attribute code="0x0000" side="server" type="UnitOfMeasureEnum" define="ENERGY_PRICE_UNIT_OF_MEASURE" isNullable="false" writable="false" optional="false">UnitOfMeasure</attribute>
+    <attribute code="0x0001" side="server" type="PriceStruct" define="ENERGY_PRICE_CURRENT_PRICE" isNullable="true" writable="false" optional="false">CurrentPrice</attribute><!--Conformance feature FORE - for now optional-->
+    <attribute code="0x0002" side="server" type="ARRAY" entryType="PriceStruct" define="ENERGY_PRICE_PRICE_FORECAST" isNullable="false" writable="false" optional="true">PriceForecast</attribute>
+    <command source="client" code="0x0000" name="GetDetailedPriceRequest" optional="true" response="GetDetailedPriceResponse">
+      <access op="invoke" role="operate"/>
+      <arg name="Details" type="PriceDetailBitmap"/>
+      <description>Upon receipt, this SHALL generate a GetDetailedPrice Response command.</description>
+    </command>
+    <command source="client" code="0x0002" name="GetDetailedForecastRequest" optional="true" response="GetDetailedForecastResponse">
+      <access op="invoke" role="operate"/>
+      <arg name="Details" type="PriceDetailBitmap"/>
+      <description>Upon receipt, this SHALL generate a GetDetailedForecast Response command.</description>
+    </command>
+    <command source="server" code="0x0001" name="GetDetailedPriceResponse" optional="true">
+      <access op="invoke" role="operate"/>
+      <arg name="Price" type="PriceStruct"/>
+      <description>This command SHALL be generated in response to a GetDetailedPrice Request command. The data for this command SHALL be as follows:</description>
+    </command>
+    <command source="server" code="0x0003" name="GetDetailedForecastResponse" optional="true">
+      <access op="invoke" role="operate"/>
+      <arg name="Price" array="true" type="PriceStruct"/>
+      <description>This command SHALL be generated in response to a GetDetailedForecast Request command. The data for this command SHALL be as follows:</description>
+    </command>
+    <event code="0x0000" name="PriceChange" priority="info" side="server" optional="true">
+      <description>PriceChange</description>
+      <field name="Price" type="PriceStruct"/>
+    </event>
+    <event code="0x0001" name="ForecastChange" priority="info" side="server" optional="true">
+      <description>ForecastChange</description>
+      <field name="Forecast" type="ARRAY" entryType="PriceStruct"/>
+    </event>
+  </cluster>
+  <bitmap name="PriceDetailBitmap" type="bitmap16">
+    <cluster code="0x0095"/>
+    <field name="Description" value="0x00"/>
+    <field name="Components" value="0x01"/>
+  </bitmap>
+  <enum name="PriceComponentSourceEnum" type="enum8">
+    <cluster code="0x0095"/>
+    <item name="Tariff" value="0x00"/>
+    <item name="IncentiveSignal" value="0x01"/>
+  </enum>
+  <enum name="UnitOfMeasureEnum" type="enum8">
+    <cluster code="0x0095"/>
+    <item name="kWh" value="0x00"/>
+    <item name="m³" value="0x01"/>
+    <item name="ft³" value="0x02"/>
+    <item name="CCF" value="0x03"/>
+    <item name="US gl" value="0x04"/>
+    <item name="IMP gl" value="0x05"/>
+    <item name="L" value="0x06"/>
+    <item name="BTUs" value="0x07"/>
+  </enum>
+  <struct name="PriceComponentStruct">
+    <cluster code="0x0095"/>
+    <item name="Price" type="int32s"/>
+    <item name="Source" type="PriceComponentSourceEnum"/>
+    <item name="Description" type="char_string" optional="true" length="32"/>
+  </struct>
+  <struct name="PriceStruct">
+    <cluster code="0x0095"/>
+    <item name="PeriodStart" type="epoch_s"/>
+    <item name="PeriodEnd" type="epoch_s" isNullable="true"/>
+    <item name="Price" type="int32s"/>
+    <item name="DecimalPoints" type="int8u"/>
+    <item name="Currency" type="int16u" max="999"/>
+    <item name="Description" type="char_string" optional="true" length="32"/>
+    <item name="Components" type="ARRAY" entryType="PriceComponentStruct" optional="true" length="10"/>
+  </struct>
+</configurator>

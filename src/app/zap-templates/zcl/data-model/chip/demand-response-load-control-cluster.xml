@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<configurator>
+  <domain name="CHIP"/>
+  <cluster>
+    <name>Demand Response and Load Control</name>
+    <domain>Energy Management</domain>
+    <code>0x0096</code>
+    <define>DEMAND_RESPONSE_AND_LOAD_CONTROL_CLUSTER</define>
+    <client init="false" tick="false"/>
+    <server init="false" tick="false"/>
+    <description>This cluster provides an interface to the functionality of Smart Energy Demand Response and Load Control. Devices targeted by this cluster include thermostats and devices that support load control.</description><!--Attributes-->
+    <attribute code="0x0000" side="server" type="DeviceClassBitmap" define="DEMAND_RESPONSE_AND_LOAD_CONTROL_DEVICE_CLASS" isNullable="false" default="0" writable="false" optional="false">DeviceClass</attribute>
+    <attribute code="0x0001" side="server" type="ARRAY" entryType="LoadControlProgramStruct" define="DEMAND_RESPONSE_AND_LOAD_CONTROL_LOAD_CONTROL_PROGRAMS" isNullable="false" writable="false" optional="false">LoadControlPrograms</attribute>
+    <attribute code="0x0002" side="server" type="int8u" define="DEMAND_RESPONSE_AND_LOAD_CONTROL_NUMBER_OF_LOAD_CONTROL_PROGRAMS" isNullable="false" default="5" min="5" writable="false" optional="false">NumberOfLoadControlPrograms</attribute>
+    <attribute code="0x0003" side="server" type="ARRAY" entryType="LoadControlEventStruct" define="DEMAND_RESPONSE_AND_LOAD_CONTROL_EVENTS" isNullable="false" writable="false" optional="false">Events</attribute>
+    <attribute code="0x0004" side="server" type="int8u" define="DEMAND_RESPONSE_AND_LOAD_CONTROL_NUMBER_OF_EVENTS_PER_PROGRAM" isNullable="false" default="10" min="10" writable="false" optional="false">NumberOfEventsPerProgram</attribute>
+    <attribute code="0x0005" side="server" type="int8u" define="DEMAND_RESPONSE_AND_LOAD_CONTROL_NUMBER_OF_TRANSITIONS" isNullable="false" default="3" min="3" writable="false" optional="false">NumberOfTransitions</attribute>
+    <attribute code="0x0006" side="server" type="int8u" define="DEMAND_RESPONSE_AND_LOAD_CONTROL_DEFAULT_RANDOM_START" isNullable="false" default="30" min="0x0" max="0x3c" writable="true" optional="false">
+      <access op="read" role="view"/>
+      <access op="write" role="manage"/>
+      <description>DefaultRandomStart</description>
+    </attribute>
+    <attribute code="0x0007" side="server" type="int8u" define="DEMAND_RESPONSE_AND_LOAD_CONTROL_DEFAULT_RANDOM_DURATION" isNullable="false" default="0" min="0x0" max="0x3c" writable="true" optional="false">
+      <access op="read" role="view"/>
+      <access op="write" role="manage"/>
+      <description>DefaultRandomDuration</description>
+    </attribute>
+    <command source="client" code="0x0000" name="RegisterLoadControlProgramRequest" optional="false">
+      <access op="invoke" role="operate"/>
+      <arg name="LoadControlProgram" type="LoadControlProgramStruct"/>
+      <description>Upon receipt, this SHALL insert a new LoadControlProgramStruct into </description>
+    </command>
+    <command source="client" code="0x0001" name="UnregisterLoadControlProgramRequest" optional="false">
+      <access op="invoke" role="operate"/>
+      <arg name="LoadControlProgramID" type="octet_string" length="16"/>
+      <description>Upon receipt, this SHALL remove a the </description>
+    </command>
+    <command source="client" code="0x0002" name="AddLoadControlEventRequest" optional="false">
+      <access op="invoke" role="operate"/>
+      <arg name="Event" type="LoadControlEventStruct"/>
+      <description>Editing of a scheduled load control event is not allowed. Nested events and overlapping events are not allowed. The current active event will be terminated if a new event is started.</description>
+    </command>
+    <command source="client" code="0x0003" name="RemoveLoadControlEventRequest" optional="false">
+      <access op="invoke" role="operate"/>
+      <arg name="EventID" type="octet_string" length="16"/>
+      <arg name="CancelControl" type="CancelControlBitmap"/>
+      <description>ID</description>
+    </command>
+    <command source="client" code="0x0004" name="ClearLoadControlEventsRequest" optional="true">
+      <access op="invoke" role="operate"/>
+      <description/>
+    </command>
+    <event code="0x0000" name="LoadControlEventStatusChange" priority="info" side="server" optional="true">
+      <description>LoadControlEventStatusChange</description>
+      <field name="EventID" type="octet_string"/>
+      <field name="TransitionIndex" type="int8u"/>
+      <field name="Status" type="LoadControlEventStatusEnum"/>
+      <field name="Criticality" type="CriticalityLevelEnum"/>
+      <field name="Control" type="EventControlBitmap"/>
+      <field name="TemperatureControl" type="TemperatureControlStruct"/>
+      <field name="AverageLoadControl" type="AverageLoadControlStruct"/>
+      <field name="DutyCycleControl" type="DutyCycleControlStruct"/>
+      <field name="PowerSavingsControl" type="PowerSavingsControlStruct"/>
+      <field name="HeatingSourceControl" type="HeatingSourceControlStruct"/>
+      <field name="Signature" type="octet_string"/>
+    </event>
+  </cluster>
+  <bitmap name="DeviceClassBitmap" type="bitmap32">
+    <cluster code="0x0096"/>
+    <field name="HvacCompressorOrFurnace" value="0x00"/>
+    <field name="StripHeatersBaseboardHeaters" value="0x01"/>
+    <field name="WaterHeater" value="0x02"/>
+    <field name="PoolPumpSpaJacuzzi" value="0x04"/>
+    <field name="SmartAppliances" value="0x08"/>
+    <field name="IrrigationPump" value="0x10"/>
+    <field name="ManagedCommercialIndustrialCILoads" value="0x20"/>
+    <field name="SimpleMiscResidentialOnOffLoads" value="0x40"/>
+    <field name="ExteriorLighting" value="0x80"/>
+    <field name="InteriorLighting" value="0x100"/>
+    <field name="ElectricVehicle" value="0x200"/>
+    <field name="GenerationSystems" value="0x400"/>
+    <field name="SmartInverter" value="0x800"/>
+    <field name="Evse" value="0x1000"/>
+    <field name="ResuResidentialEnergyStorageUnit" value="0x2000"/>
+    <field name="EnergyManagementSystem" value="0x4000"/>
+    <field name="SmartEnergyModule" value="0x8000"/>
+  </bitmap>
+  <bitmap name="EventControlBitmap" type="bitmap16">
+    <cluster code="0x0096"/>
+    <field name="RandomStart" value="0x00"/>
+  </bitmap>
+  <bitmap name="EventTransitionControlBitmap" type="bitmap16">
+    <cluster code="0x0096"/>
+    <field name="RandomDuration" value="0x00"/>
+    <field name="IgnoreOptOut" value="0x01"/>
+  </bitmap>
+  <bitmap name="CancelControlBitmap" type="bitmap16">
+    <cluster code="0x0096"/>
+    <field name="RandomEnd" value="0x00"/>
+  </bitmap>
+  <enum name="LoadControlEventChangeSourceEnum" type="enum8">
+    <cluster code="0x0096"/>
+    <item name="Automatic" value="0x00"/>
+    <item name="UserAction" value="0x01"/>
+  </enum>
+  <enum name="LoadControlEventStatusEnum" type="enum8">
+    <cluster code="0x0096"/>
+    <item name="Received" value="0x01"/>
+    <item name="InProgress" value="0x02"/>
+    <item name="Completed" value="0x03"/>
+    <item name="OptedOut" value="0x04"/>
+    <item name="OptedIn" value="0x05"/>
+    <item name="Canceled" value="0x06"/>
+    <item name="Superseded" value="0x07"/>
+    <item name="PartialOptedOut" value="0x08"/>
+    <item name="PartialOptedIn" value="0x09"/>
+    <item name="NoParticipation" value="0x0A"/>
+    <item name="Unavailable" value="0x0B"/>
+    <item name="Failed" value="0x0C"/>
+  </enum>
+  <enum name="CriticalityLevelEnum" type="enum8">
+    <cluster code="0x0096"/>
+    <item name="Invalid" value="0x00"/>
+    <item name="Green" value="0x01"/>
+    <item name="Level1" value="0x02"/>
+    <item name="Level2" value="0x03"/>
+    <item name="Level3" value="0x04"/>
+    <item name="Level4" value="0x05"/>
+    <item name="Level5" value="0x06"/>
+    <item name="Emergency" value="0x07"/>
+    <item name="PlannedOutage" value="0x08"/>
+    <item name="ServiceDisconnect" value="0x09"/>
+  </enum>
+  <enum name="HeatingSourceEnum" type="enum8">
+    <cluster code="0x0096"/>
+    <item name="Any" value="0x00"/>
+    <item name="Electric" value="0x01"/>
+    <item name="NaturalGas" value="0x02"/>
+  </enum>
+  <enum name="PowerSavingsEnum" type="enum8">
+    <cluster code="0x0096"/>
+    <item name="Low" value="0x00"/>
+    <item name="Medium" value="0x01"/>
+    <item name="High" value="0x02"/>
+  </enum>
+  <struct name="TemperatureControlStruct">
+    <cluster code="0x0096"/>
+    <item name="CoolingTempOffset" type="ref_TempDiff" isNullable="true" optional="true" min="0x0" max="0xfe"/>
+    <item name="HeatingTempOffset" type="ref_TempDiff" isNullable="true" optional="true" min="0x0" max="0xfe"/>
+    <item name="CoolingTempSetpoint" type="temperature" isNullable="true" optional="true" min="0x954d" max="0x7fff"/>
+    <item name="HeatingTempSetpoint" type="temperature" isNullable="true" optional="true" min="0x954d" max="0x7fff"/>
+  </struct>
+  <struct name="AverageLoadControlStruct">
+    <cluster code="0x0096"/>
+    <item name="LoadAdjustment" type="int8s" min="0" max="100"/>
+  </struct>
+  <struct name="DutyCycleControlStruct">
+    <cluster code="0x0096"/>
+    <item name="DutyCycle" type="int8u" min="0" max="100"/>
+  </struct>
+  <struct name="PowerSavingsControlStruct">
+    <cluster code="0x0096"/>
+    <item name="PowerSavings" type="PowerSavingsEnum"/>
+  </struct>
+  <struct name="HeatingSourceControlStruct">
+    <cluster code="0x0096"/>
+    <item name="HeatingSource" type="HeatingSourceEnum"/>
+  </struct>
+  <struct name="LoadControlEventTransitionStruct">
+    <cluster code="0x0096"/>
+    <item name="Duration" type="int16u" max="1440"/>
+    <item name="Control" type="EventTransitionControlBitmap"/>
+    <item name="TemperatureControl" type="TemperatureControlStruct" isNullable="true" optional="true"/>
+    <item name="AverageLoadControl" type="AverageLoadControlStruct" isNullable="true" optional="true"/>
+    <item name="DutyCycleControl" type="DutyCycleControlStruct" isNullable="true" optional="true"/>
+    <item name="PowerSavingsControl" type="PowerSavingsControlStruct" isNullable="true" optional="true"/>
+    <item name="HeatingSourceControl" type="HeatingSourceControlStruct" isNullable="true" optional="true"/>
+  </struct>
+  <struct name="LoadControlEventStruct">
+    <cluster code="0x0096"/>
+    <item name="EventID" type="octet_string" length="16"/>
+    <item name="ProgramID" type="octet_string" isNullable="true" length="16"/>
+    <item name="Control" type="EventControlBitmap"/>
+    <item name="DeviceClass" type="DeviceClassBitmap"/>
+    <item name="EnrollmentGroup" type="int8u" isNullable="true" optional="true"/>
+    <item name="Criticality" type="CriticalityLevelEnum"/>
+    <item name="StartTime" type="epoch_s" isNullable="true"/>
+    <item name="Transitions" type="ARRAY" entryType="LoadControlEventTransitionStruct" length="10"/>
+  </struct>
+  <struct name="LoadControlProgramStruct">
+    <cluster code="0x0096"/>
+    <item name="ProgramID" type="octet_string" length="16"/>
+    <item name="Name" type="char_string" length="32"/>
+    <item name="EnrollmentGroup" type="int8u" isNullable="true" optional="true" min="0x1" max="0xff"/>
+    <item name="RandomStartMinutes" type="int8u" isNullable="true" min="0x0" max="0x3c"/>
+    <item name="RandomDurationMinutes" type="int8u" isNullable="true" min="0x0" max="0x3c"/>
+  </struct>
+</configurator>
