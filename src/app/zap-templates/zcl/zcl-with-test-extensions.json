@@ -47,7 +47,7 @@
         "door-lock-cluster.xml",
         "energy-preference-cluster.xml",
         "electrical-energy-measurement-cluster.xml",
-        "electrical-measurement-cluster.xml",
+        "electrical-power-measurement-cluster.xml",
         "energy-evse-cluster.xml",
         "ethernet-network-diagnostics-cluster.xml",
         "fan-control-cluster.xml",
