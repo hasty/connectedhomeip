@@ -59,10 +59,11 @@ limitations under the License.
     <item name="Sleep" value="0x09"/>
   </enum>
   <enum name="ThermostatRunningModeEnum" type="enum8">
+    <cluster code="0x0201"/>
     <item name="Off" value="0x00"/>
     <item name="Cool" value="0x03"/>
     <item name="Heat" value="0x04"/>
-  </enum> 
+  </enum>
   <enum name="StartOfWeekEnum" type="enum8">
     <cluster code="0x0201"/>
     <item name="Sunday" value="0x00"/>
@@ -88,6 +89,7 @@ limitations under the License.
     <item name="SetpointHoldOn" value="0x01"/>
   </enum>
   <enum name="SetpointAdjustModeEnum" type="enum8">
+    <cluster code="0x0201"/>
     <item name="Heat" value="0x00"/>
     <item name="Cool" value="0x01"/>
     <item name="Both" value="0x02"/>
@@ -269,9 +271,9 @@ limitations under the License.
         The Current Weekly Schedule Command is sent from the server in response to the Get Weekly Schedule Command.
       </description>
       <arg name="NumberOfTransitionsForSequence" type="int8u"/>
-      <arg name="DayOfWeekForSequence" type="DayOfWeekBitmap"/>
+      <arg name="DayOfWeekforSequence" type="DayOfWeekBitmap"/>
       <arg name="ModeForSequence" type="ModeForSequenceBitmap"/>
-      <arg name="Transitions" type="ThermostatScheduleTransitionStruct" array="true"/>
+      <arg name="Transitions" array="true" type="ThermostatScheduleTransitionStruct"/>
     </command>
     <command source="client" code="0x06" name="SetActivePresetRequest" optional="true">
       <description>Upon receipt, this SHALL set the thermostat</description>
