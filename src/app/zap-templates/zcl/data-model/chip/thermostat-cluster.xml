@@ -88,7 +88,7 @@ limitations under the License.
     <item name="SetpointHoldOff" value="0x00"/>
     <item name="SetpointHoldOn" value="0x01"/>
   </enum>
-  <enum name="SetpointAdjustModeEnum" type="enum8">
+  <enum name="SetpointRaiseLowerModeEnum" type="enum8">
     <cluster code="0x0201"/>
     <item name="Heat" value="0x00"/>
     <item name="Cool" value="0x01"/>
@@ -246,7 +246,7 @@ limitations under the License.
     <attribute code="0x004E" side="server" type="octet_string" define="ACTIVE_PRESET_HANDLE" isNullable="true" length="16" writable="false" optional="true">ActivePresetHandle</attribute>
     <command source="client" code="0x00" name="SetpointRaiseLower" optional="false">
       <description>Upon receipt, the attributes for the indicated setpoint(s) SHALL have the amount specified in the Amount field added to them. If the resulting value is outside the limits imposed by </description>
-      <arg name="Mode" type="SetpointAdjustModeEnum" min="0x0" max="0x2"/>
+      <arg name="Mode" type="SetpointRaiseLowerModeEnum" min="0x0" max="0x2"/>
       <arg name="Amount" type="int8s"/>
     </command>
     <command source="client" code="0x01" name="SetWeeklySchedule" optional="true">
