@@ -112,20 +112,20 @@ limitations under the License.
     <attribute side="server" code="0x0000" define="LOCAL_TEMPERATURE" type="temperature" writable="false" reportable="true" optional="false" isNullable="true">LocalTemperature</attribute>
     <attribute side="server" code="0x0001" define="OUTDOOR_TEMPERATURE" type="temperature" writable="false" optional="true" isNullable="true">OutdoorTemperature</attribute>
     <attribute side="server" code="0x0002" define="THERMOSTAT_OCCUPANCY" type="bitmap8" writable="false" default="1" optional="true">Occupancy</attribute>
-    <attribute side="server" code="0x0003" define="ABS_MIN_HEAT_SETPOINT_LIMIT" type="temperature" writable="false" optional="true">AbsMinHeatSetpointLimit</attribute>
-    <attribute side="server" code="0x0004" define="ABS_MAX_HEAT_SETPOINT_LIMIT" type="temperature" writable="false" optional="true">AbsMaxHeatSetpointLimit</attribute>
-    <attribute side="server" code="0x0005" define="ABS_MIN_COOL_SETPOINT_LIMIT" type="temperature" writable="false" optional="true">AbsMinCoolSetpointLimit</attribute>
-    <attribute side="server" code="0x0006" define="ABS_MAX_COOL_SETPOINT_LIMIT" type="temperature" writable="false" optional="true">AbsMaxCoolSetpointLimit</attribute>
+    <attribute side="server" code="0x0003" define="ABS_MIN_HEAT_SETPOINT_LIMIT" type="temperature" writable="false" optional="true" default="0x02BC">AbsMinHeatSetpointLimit</attribute>
+    <attribute side="server" code="0x0004" define="ABS_MAX_HEAT_SETPOINT_LIMIT" type="temperature" writable="false" optional="true" default="0x0BB8">AbsMaxHeatSetpointLimit</attribute>
+    <attribute side="server" code="0x0005" define="ABS_MIN_COOL_SETPOINT_LIMIT" type="temperature" writable="false" optional="true" default="0x0640">AbsMinCoolSetpointLimit</attribute>
+    <attribute side="server" code="0x0006" define="ABS_MAX_COOL_SETPOINT_LIMIT" type="temperature" writable="false" optional="true" default="0x0C80">AbsMaxCoolSetpointLimit</attribute>
     <attribute side="server" code="0x0007" define="PI_COOLING_DEMAND" type="int8u" min="0" max="100" writable="false" reportable="true" optional="true">PICoolingDemand</attribute>
     <attribute side="server" code="0x0008" define="PI_HEATING_DEMAND" type="int8u" min="0" max="100" writable="false" reportable="true" optional="true">PIHeatingDemand</attribute>
-    <attribute side="server" code="0x0010" define="LOCAL_TEMPERATURE_CALIBRATION" type="int8s" min="0xE7" max="0x19" writable="true" optional="true">
+    <attribute side="server" code="0x0010" define="LOCAL_TEMPERATURE_CALIBRATION" type="int8s" min="0xE7" max="0x19" writable="true" optional="true" default="0x00">
       <description>LocalTemperatureCalibration</description>
       <access op="write" privilege="manage"/>
     </attribute>
-    <attribute side="server" code="0x0011" define="OCCUPIED_COOLING_SETPOINT" type="temperature" writable="true" optional="true">OccupiedCoolingSetpoint</attribute>
-    <attribute side="server" code="0x0012" define="OCCUPIED_HEATING_SETPOINT" type="temperature" writable="true" optional="true">OccupiedHeatingSetpoint</attribute>
-    <attribute side="server" code="0x0013" define="UNOCCUPIED_COOLING_SETPOINT" type="temperature" writable="true" optional="true">UnoccupiedCoolingSetpoint</attribute>
-    <attribute side="server" code="0x0014" define="UNOCCUPIED_HEATING_SETPOINT" type="temperature" writable="true" optional="true">UnoccupiedHeatingSetpoint</attribute>
+    <attribute side="server" code="0x0011" define="OCCUPIED_COOLING_SETPOINT" type="temperature" writable="true" optional="true" default="0x0A28">OccupiedCoolingSetpoint</attribute>
+    <attribute side="server" code="0x0012" define="OCCUPIED_HEATING_SETPOINT" type="temperature" writable="true" optional="true" default="0x07D0">OccupiedHeatingSetpoint</attribute>
+    <attribute side="server" code="0x0013" define="UNOCCUPIED_COOLING_SETPOINT" type="temperature" writable="true" optional="true" default="0x0A28">UnoccupiedCoolingSetpoint</attribute>
+    <attribute side="server" code="0x0014" define="UNOCCUPIED_HEATING_SETPOINT" type="temperature" writable="true" optional="true" default="0x07D0">UnoccupiedHeatingSetpoint</attribute>
     <attribute side="server" code="0x0015" define="MIN_HEAT_SETPOINT_LIMIT" type="temperature" writable="true" optional="true">
       <description>MinHeatSetpointLimit</description>
       <access op="write" privilege="manage"/>
@@ -142,7 +142,7 @@ limitations under the License.
       <description>MaxCoolSetpointLimit</description>
       <access op="write" privilege="manage"/>
     </attribute>
-    <attribute side="server" code="0x0019" define="MIN_SETPOINT_DEAD_BAND" type="int8s" min="0x00" max="0x19" writable="true" optional="true">
+    <attribute side="server" code="0x0019" define="MIN_SETPOINT_DEAD_BAND" type="int8s" min="0x00" max="0x19" writable="true" optional="true" default="0x19">
       <description>MinSetpointDeadBand</description>
       <access op="write" privilege="manage"/>
     </attribute>
@@ -166,7 +166,7 @@ limitations under the License.
       <description>TemperatureSetpointHold</description>
       <access op="write" privilege="manage"/>
     </attribute>
-    <attribute side="server" code="0x0024" define="TEMPERATURE_SETPOINT_HOLD_DURATION" type="int16u" min="0" max="1440" writable="true" default="0xFFFF" optional="true" isNullable="true">
+    <attribute side="server" code="0x0024" define="TEMPERATURE_SETPOINT_HOLD_DURATION" type="int16u" min="0" max="1440" writable="true" optional="true" isNullable="true">
       <description>TemperatureSetpointHoldDuration</description>
       <access op="write" privilege="manage"/>
     </attribute>
@@ -190,7 +190,7 @@ limitations under the License.
     </attribute>
     <attribute side="server" code="0x0038" define="UNOCCUPIED_SETBACK_MIN" type="int8u" writable="false" optional="true" isNullable="true" min="0" max="0xFE">UnoccupiedSetbackMin</attribute>
     <attribute side="server" code="0x0039" define="UNOCCUPIED_SETBACK_MAX" type="int8u" writable="false" optional="true" isNullable="true" min="0" max="0xFE">UnoccupiedSetbackMax</attribute>
-    <attribute side="server" code="0x003A" define="EMERGENCY_HEAT_DELTA" type="int8u" writable="true" optional="true">
+    <attribute side="server" code="0x003A" define="EMERGENCY_HEAT_DELTA" type="int8u" writable="true" optional="true" default="0xFF">
       <description>EmergencyHeatDelta</description>
       <access op="write" privilege="manage"/>
     </attribute>
@@ -229,7 +229,7 @@ limitations under the License.
     </attribute>
     <attribute code="0x0053" side="server" type="TemperatureSetpointHoldPolicyBitmap" define="TEMPERATURE_SETPOINT_HOLD_POLICY" default="0" writable="false" optional="true" min="0x0" max="0x3">TemperatureSetpointHoldPolicy</attribute>
     <attribute code="0x0054" side="server" type="epoch_s" define="SETPOINT_HOLD_EXPIRY_TIMESTAMP" isNullable="true" writable="false" optional="true">SetpointHoldExpiryTimestamp</attribute>
-    <attribute code="0x004D" side="server" type="int8u" define="NUMBER_OF_SCHEDULE_TRANSITION_PER_DAY" isNullable="true" default="0xFF" writable="false" optional="true">NumberOfScheduleTransitionPerDay</attribute>
+    <attribute code="0x004D" side="server" type="int8u" define="NUMBER_OF_SCHEDULE_TRANSITION_PER_DAY" isNullable="true" writable="false" optional="true">NumberOfScheduleTransitionPerDay</attribute>
     <attribute code="0x004F" side="server" type="octet_string" define="ACTIVE_SCHEDULE_HANDLE" isNullable="true" length="16" writable="false" optional="true">ActiveScheduleHandle</attribute>
     <attribute code="0x004B" side="server" type="int8u" define="NUMBER_OF_SCHEDULES" default="0" writable="false" optional="true">NumberOfSchedules</attribute>
     <attribute code="0x001D" side="server" type="AlarmCodeBitmap" define="ALARM_MASK" default="0" writable="false" optional="true" min="0x0" max="0x7">AlarmMask</attribute>
@@ -276,7 +276,7 @@ limitations under the License.
     <command source="client" code="0x06" name="SetActivePresetRequest" optional="true">
       <description>Upon receipt, this SHALL set the thermostat</description>
       <arg name="PresetHandle" type="octet_string" length="16"/>
-      <arg name="DelayMinutes" type="int16u" optional="true"/>
+      <arg name="DelayMinutes" type="int16u" optional="true" default="0"/>
     </command>
     <command source="client" code="0x09" name="CommitPresetsSchedulesRequest" optional="true">
       <description>Upon receipt, this SHALL attempt to commit any pending changes to the </description>
@@ -429,8 +429,8 @@ limitations under the License.
   <struct name="ScheduleTypeStruct" apiMaturity="provisional">
     <cluster code="0x0201"/>
     <item fieldId="0" name="SystemMode" type="SystemModeEnum" min="0x0" max="0x9"/>
-    <item fieldId="1" name="NumberOfSchedules" type="int8u"/>
-    <item fieldId="2" name="ScheduleTypeFeatures" type="ScheduleTypeFeaturesBitmap" min="0x0" max="0xF"/>
+    <item fieldId="1" name="NumberOfSchedules" type="int8u" default="0"/>
+    <item fieldId="2" name="ScheduleTypeFeatures" type="ScheduleTypeFeaturesBitmap" min="0x0" max="0xF" default="0"/>
   </struct>
   <struct name="QueuedPresetStruct" apiMaturity="provisional">
     <cluster code="0x0201"/>
@@ -442,15 +442,15 @@ limitations under the License.
     <item fieldId="0" name="PresetHandle" type="octet_string" length="16" isNullable="true"/>
     <item fieldId="1" name="PresetScenario" type="PresetScenarioEnum" min="0x0" max="0x6"/>
     <item fieldId="2" name="Name" type="char_string" length="64" isNullable="true" optional="true"/>
-    <item fieldId="3" name="CoolingSetpoint" type="temperature" optional="true"/>
-    <item fieldId="4" name="HeatingSetpoint" type="temperature" optional="true"/>
+    <item fieldId="3" name="CoolingSetpoint" type="temperature" optional="true" default="0x0A28"/>
+    <item fieldId="4" name="HeatingSetpoint" type="temperature" optional="true" default="0x07D0"/>
     <item fieldId="5" name="BuiltIn" type="boolean" isNullable="true"/>
   </struct>
   <struct name="PresetTypeStruct" apiMaturity="provisional">
     <cluster code="0x0201"/>
     <item fieldId="0" name="PresetScenario" type="PresetScenarioEnum" min="0x0" max="0x6"/>
-    <item fieldId="1" name="NumberOfPresets" type="int8u"/>
-    <item fieldId="2" name="PresetTypeFeatures" type="PresetTypeFeaturesBitmap" min="0x0" max="0x3"/>
+    <item fieldId="1" name="NumberOfPresets" type="int8u" default="0"/>
+    <item fieldId="2" name="PresetTypeFeatures" type="PresetTypeFeaturesBitmap" min="0x0" max="0x3" default="0"/>
   </struct>
   <struct name="ScheduleStruct" apiMaturity="provisional">
     <cluster code="0x0201"/>
