@@ -2183,6 +2183,19 @@ static auto __attribute__((unused)) EnsureKnownEnumValue(Thermostat::ControlSequ
         return static_cast<EnumType>(6);
     }
 }
+static auto __attribute__((unused)) EnsureKnownEnumValue(Thermostat::RunningModeEnum val)
+{
+    using EnumType = Thermostat::RunningModeEnum;
+    switch (val)
+    {
+    case EnumType::kOff:
+    case EnumType::kCool:
+    case EnumType::kHeat:
+        return val;
+    default:
+        return static_cast<EnumType>(1);
+    }
+}
 static auto __attribute__((unused)) EnsureKnownEnumValue(Thermostat::SetpointChangeSourceEnum val)
 {
     using EnumType = Thermostat::SetpointChangeSourceEnum;
@@ -2255,19 +2268,6 @@ static auto __attribute__((unused)) EnsureKnownEnumValue(Thermostat::Temperature
         return val;
     default:
         return static_cast<EnumType>(2);
-    }
-}
-static auto __attribute__((unused)) EnsureKnownEnumValue(Thermostat::ThermostatRunningModeEnum val)
-{
-    using EnumType = Thermostat::ThermostatRunningModeEnum;
-    switch (val)
-    {
-    case EnumType::kOff:
-    case EnumType::kCool:
-    case EnumType::kHeat:
-        return val;
-    default:
-        return static_cast<EnumType>(1);
     }
 }
 

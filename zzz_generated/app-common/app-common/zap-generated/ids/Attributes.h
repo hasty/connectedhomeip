@@ -4344,6 +4344,10 @@ namespace PIHeatingDemand {
 static constexpr AttributeId Id = 0x00000008;
 } // namespace PIHeatingDemand
 
+namespace HVACSystemTypeConfiguration {
+static constexpr AttributeId Id = 0x00000009;
+} // namespace HVACSystemTypeConfiguration
+
 namespace LocalTemperatureCalibration {
 static constexpr AttributeId Id = 0x00000010;
 } // namespace LocalTemperatureCalibration
@@ -4396,9 +4400,9 @@ namespace SystemMode {
 static constexpr AttributeId Id = 0x0000001C;
 } // namespace SystemMode
 
-namespace ThermostatRunningMode {
+namespace RunningMode {
 static constexpr AttributeId Id = 0x0000001E;
-} // namespace ThermostatRunningMode
+} // namespace RunningMode
 
 namespace StartOfWeek {
 static constexpr AttributeId Id = 0x00000020;

@@ -1117,6 +1117,12 @@ cluster Thermostat = 513 {
     kCoolingAndHeatingWithReheat = 5;
   }
 
+  enum RunningModeEnum : enum8 {
+    kOff = 0;
+    kCool = 3;
+    kHeat = 4;
+  }
+
   enum SetpointChangeSourceEnum : enum8 {
     kManual = 0;
     kSchedule = 1;
@@ -1156,12 +1162,6 @@ cluster Thermostat = 513 {
     kSetpointHoldOn = 1;
   }
 
-  enum ThermostatRunningModeEnum : enum8 {
-    kOff = 0;
-    kCool = 3;
-    kHeat = 4;
-  }
-
   bitmap ACErrorCodeBitmap : bitmap32 {
     kCompressorFail = 0x1;
     kRoomSensorFail = 0x2;
@@ -1170,17 +1170,11 @@ cluster Thermostat = 513 {
     kFanFail = 0x10;
   }
 
-  bitmap AlarmCodeBitmap : bitmap8 {
-    kInitialization = 0x1;
-    kHardware = 0x2;
-    kSelfCalibration = 0x4;
-  }
-
   bitmap Feature : bitmap32 {
     kHeating = 0x1;
     kCooling = 0x2;
     kOccupancy = 0x4;
-    kZigbeeScheduleConfiguration = 0x8;
+    kScheduleConfiguration = 0x8;
     kSetback = 0x10;
     kAutoMode = 0x20;
     kLocalTemperatureNotExposed = 0x40;
@@ -1233,19 +1227,20 @@ cluster Thermostat = 513 {
 
   struct WeeklyScheduleTransitionStruct {
     int16u transitionTime = 0;
-    temperature heatSetpoint = 1;
-    temperature coolSetpoint = 2;
+    nullable temperature heatSetpoint = 1;
+    nullable temperature coolSetpoint = 2;
   }
 
   readonly attribute nullable temperature localTemperature = 0;
   readonly attribute optional nullable temperature outdoorTemperature = 1;
-  readonly attribute optional bitmap8 occupancy = 2;
+  readonly attribute optional OccupancyBitmap occupancy = 2;
   readonly attribute optional temperature absMinHeatSetpointLimit = 3;
   readonly attribute optional temperature absMaxHeatSetpointLimit = 4;
   readonly attribute optional temperature absMinCoolSetpointLimit = 5;
   readonly attribute optional temperature absMaxCoolSetpointLimit = 6;
   readonly attribute optional int8u PICoolingDemand = 7;
   readonly attribute optional int8u PIHeatingDemand = 8;
+  attribute access(write: manage) optional HVACSystemTypeBitmap HVACSystemTypeConfiguration = 9;
   attribute access(write: manage) optional int8s localTemperatureCalibration = 16;
   attribute optional temperature occupiedCoolingSetpoint = 17;
   attribute optional temperature occupiedHeatingSetpoint = 18;
@@ -1259,7 +1254,7 @@ cluster Thermostat = 513 {
   attribute access(write: manage) optional RemoteSensingBitmap remoteSensing = 26;
   attribute access(write: manage) ControlSequenceOfOperationEnum controlSequenceOfOperation = 27;
   attribute access(write: manage) SystemModeEnum systemMode = 28;
-  readonly attribute optional ThermostatRunningModeEnum thermostatRunningMode = 30;
+  readonly attribute optional RunningModeEnum runningMode = 30;
   readonly attribute optional StartOfWeekEnum startOfWeek = 32;
   readonly attribute optional int8u numberOfWeeklyTransitions = 33;
   readonly attribute optional int8u numberOfDailyTransitions = 34;
@@ -1299,25 +1294,16 @@ cluster Thermostat = 513 {
 
   response struct GetWeeklyScheduleResponse = 0 {
     int8u numberOfTransitionsForSequence = 0;
-    ScheduleDayOfWeekBitmap dayOfWeekforSequence = 1;
+    ScheduleDayOfWeekBitmap dayOfWeekForSequence = 1;
     ScheduleModeBitmap modeForSequence = 2;
     WeeklyScheduleTransitionStruct transitions[] = 3;
   }
 
   request struct SetWeeklyScheduleRequest {
     int8u numberOfTransitionsForSequence = 0;
-    ScheduleDayOfWeekBitmap dayOfWeekforSequence = 1;
+    ScheduleDayOfWeekBitmap dayOfWeekForSequence = 1;
     ScheduleModeBitmap modeForSequence = 2;
     WeeklyScheduleTransitionStruct transitions[] = 3;
-  }
-
-  response struct GetRelayStatusLogResponse = 1 {
-    int16u timeOfDay = 0;
-    RelayStateBitmap relayStatus = 1;
-    nullable temperature localTemperature = 2;
-    nullable int8u humidityInPercentage = 3;
-    temperature setPoint = 4;
-    int16u unreadEntries = 5;
   }
 
   request struct GetWeeklyScheduleRequest {
@@ -1333,8 +1319,6 @@ cluster Thermostat = 513 {
   command GetWeeklySchedule(GetWeeklyScheduleRequest): GetWeeklyScheduleResponse = 2;
   /** The Clear Weekly Schedule command is used to clear the weekly schedule. */
   command access(invoke: manage) ClearWeeklySchedule(): DefaultSuccess = 3;
-  /** This command is used to query the thermostat internal relay status log. This command has no payload. */
-  command GetRelayStatusLog(): GetRelayStatusLogResponse = 4;
 }
 
 /** An interface for controlling a fan in a heating/cooling system. */

@@ -2779,8 +2779,9 @@ EmberAfStatus Set(chip::EndpointId endpoint, const chip::app::DataModel::Nullabl
 } // namespace OutdoorTemperature
 
 namespace Occupancy {
-EmberAfStatus Get(chip::EndpointId endpoint, uint8_t * value); // bitmap8
-EmberAfStatus Set(chip::EndpointId endpoint, uint8_t value);
+EmberAfStatus Get(chip::EndpointId endpoint,
+                  chip::BitMask<chip::app::Clusters::Thermostat::OccupancyBitmap> * value); // OccupancyBitmap
+EmberAfStatus Set(chip::EndpointId endpoint, chip::BitMask<chip::app::Clusters::Thermostat::OccupancyBitmap> value);
 } // namespace Occupancy
 
 namespace AbsMinHeatSetpointLimit {
@@ -2812,6 +2813,12 @@ namespace PIHeatingDemand {
 EmberAfStatus Get(chip::EndpointId endpoint, uint8_t * value); // int8u
 EmberAfStatus Set(chip::EndpointId endpoint, uint8_t value);
 } // namespace PIHeatingDemand
+
+namespace HVACSystemTypeConfiguration {
+EmberAfStatus Get(chip::EndpointId endpoint,
+                  chip::BitMask<chip::app::Clusters::Thermostat::HVACSystemTypeBitmap> * value); // HVACSystemTypeBitmap
+EmberAfStatus Set(chip::EndpointId endpoint, chip::BitMask<chip::app::Clusters::Thermostat::HVACSystemTypeBitmap> value);
+} // namespace HVACSystemTypeConfiguration
 
 namespace LocalTemperatureCalibration {
 EmberAfStatus Get(chip::EndpointId endpoint, int8_t * value); // int8s
@@ -2880,11 +2887,10 @@ EmberAfStatus Get(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::Sy
 EmberAfStatus Set(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::SystemModeEnum value);
 } // namespace SystemMode
 
-namespace ThermostatRunningMode {
-EmberAfStatus Get(chip::EndpointId endpoint,
-                  chip::app::Clusters::Thermostat::ThermostatRunningModeEnum * value); // ThermostatRunningModeEnum
-EmberAfStatus Set(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::ThermostatRunningModeEnum value);
-} // namespace ThermostatRunningMode
+namespace RunningMode {
+EmberAfStatus Get(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::RunningModeEnum * value); // RunningModeEnum
+EmberAfStatus Set(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::RunningModeEnum value);
+} // namespace RunningMode
 
 namespace StartOfWeek {
 EmberAfStatus Get(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::StartOfWeekEnum * value); // StartOfWeekEnum

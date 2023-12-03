@@ -3480,6 +3480,9 @@ static BOOL AttributeIsSpecifiedInThermostatCluster(AttributeId aAttributeId)
     case Attributes::PIHeatingDemand::Id: {
         return YES;
     }
+    case Attributes::HVACSystemTypeConfiguration::Id: {
+        return YES;
+    }
     case Attributes::LocalTemperatureCalibration::Id: {
         return YES;
     }
@@ -3519,7 +3522,7 @@ static BOOL AttributeIsSpecifiedInThermostatCluster(AttributeId aAttributeId)
     case Attributes::SystemMode::Id: {
         return YES;
     }
-    case Attributes::ThermostatRunningMode::Id: {
+    case Attributes::RunningMode::Id: {
         return YES;
     }
     case Attributes::StartOfWeek::Id: {

@@ -3193,6 +3193,19 @@ enum class ControlSequenceOfOperationEnum : uint8_t
     kUnknownEnumValue = 6,
 };
 
+// Enum for RunningModeEnum
+enum class RunningModeEnum : uint8_t
+{
+    kOff  = 0x00,
+    kCool = 0x03,
+    kHeat = 0x04,
+    // All received enum values that are not listed above will be mapped
+    // to kUnknownEnumValue. This is a helper enum value that should only
+    // be used by code to process how it handles receiving and unknown
+    // enum value. This specific should never be transmitted.
+    kUnknownEnumValue = 1,
+};
+
 // Enum for SetpointChangeSourceEnum
 enum class SetpointChangeSourceEnum : uint8_t
 {
@@ -3267,19 +3280,6 @@ enum class TemperatureSetpointHoldEnum : uint8_t
     kUnknownEnumValue = 2,
 };
 
-// Enum for ThermostatRunningModeEnum
-enum class ThermostatRunningModeEnum : uint8_t
-{
-    kOff  = 0x00,
-    kCool = 0x03,
-    kHeat = 0x04,
-    // All received enum values that are not listed above will be mapped
-    // to kUnknownEnumValue. This is a helper enum value that should only
-    // be used by code to process how it handles receiving and unknown
-    // enum value. This specific should never be transmitted.
-    kUnknownEnumValue = 1,
-};
-
 // Bitmap for ACErrorCodeBitmap
 enum class ACErrorCodeBitmap : uint32_t
 {
@@ -3290,24 +3290,16 @@ enum class ACErrorCodeBitmap : uint32_t
     kFanFail           = 0x10,
 };
 
-// Bitmap for AlarmCodeBitmap
-enum class AlarmCodeBitmap : uint8_t
-{
-    kInitialization  = 0x1,
-    kHardware        = 0x2,
-    kSelfCalibration = 0x4,
-};
-
 // Bitmap for Feature
 enum class Feature : uint32_t
 {
-    kHeating                     = 0x1,
-    kCooling                     = 0x2,
-    kOccupancy                   = 0x4,
-    kZigbeeScheduleConfiguration = 0x8,
-    kSetback                     = 0x10,
-    kAutoMode                    = 0x20,
-    kLocalTemperatureNotExposed  = 0x40,
+    kHeating                    = 0x1,
+    kCooling                    = 0x2,
+    kOccupancy                  = 0x4,
+    kScheduleConfiguration      = 0x8,
+    kSetback                    = 0x10,
+    kAutoMode                   = 0x20,
+    kLocalTemperatureNotExposed = 0x40,
 };
 
 // Bitmap for HVACSystemTypeBitmap

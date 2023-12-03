@@ -10738,17 +10738,6 @@ public class ClusterReadMapping {
           readThermostatOutdoorTemperatureCommandParams
         );
         result.put("readOutdoorTemperatureAttribute", readThermostatOutdoorTemperatureAttributeInteractionInfo);
-     Map<String, CommandParameterInfo> readThermostatOccupancyCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readThermostatOccupancyAttributeInteractionInfo = new InteractionInfo(
-          (cluster, callback, commandArguments) -> {
-            ((ChipClusters.ThermostatCluster) cluster).readOccupancyAttribute(
-              (ChipClusters.IntegerAttributeCallback) callback
-            );
-          },
-          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
-          readThermostatOccupancyCommandParams
-        );
-        result.put("readOccupancyAttribute", readThermostatOccupancyAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readThermostatAbsMinHeatSetpointLimitCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readThermostatAbsMinHeatSetpointLimitAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {
@@ -10815,6 +10804,17 @@ public class ClusterReadMapping {
           readThermostatPIHeatingDemandCommandParams
         );
         result.put("readPIHeatingDemandAttribute", readThermostatPIHeatingDemandAttributeInteractionInfo);
+     Map<String, CommandParameterInfo> readThermostatHVACSystemTypeConfigurationCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readThermostatHVACSystemTypeConfigurationAttributeInteractionInfo = new InteractionInfo(
+          (cluster, callback, commandArguments) -> {
+            ((ChipClusters.ThermostatCluster) cluster).readHVACSystemTypeConfigurationAttribute(
+              (ChipClusters.IntegerAttributeCallback) callback
+            );
+          },
+          () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
+          readThermostatHVACSystemTypeConfigurationCommandParams
+        );
+        result.put("readHVACSystemTypeConfigurationAttribute", readThermostatHVACSystemTypeConfigurationAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readThermostatLocalTemperatureCalibrationCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readThermostatLocalTemperatureCalibrationAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {
@@ -10958,17 +10958,17 @@ public class ClusterReadMapping {
           readThermostatSystemModeCommandParams
         );
         result.put("readSystemModeAttribute", readThermostatSystemModeAttributeInteractionInfo);
-     Map<String, CommandParameterInfo> readThermostatThermostatRunningModeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
-        InteractionInfo readThermostatThermostatRunningModeAttributeInteractionInfo = new InteractionInfo(
+     Map<String, CommandParameterInfo> readThermostatRunningModeCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
+        InteractionInfo readThermostatRunningModeAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {
-            ((ChipClusters.ThermostatCluster) cluster).readThermostatRunningModeAttribute(
+            ((ChipClusters.ThermostatCluster) cluster).readRunningModeAttribute(
               (ChipClusters.IntegerAttributeCallback) callback
             );
           },
           () -> new ClusterInfoMapping.DelegatedIntegerAttributeCallback(),
-          readThermostatThermostatRunningModeCommandParams
+          readThermostatRunningModeCommandParams
         );
-        result.put("readThermostatRunningModeAttribute", readThermostatThermostatRunningModeAttributeInteractionInfo);
+        result.put("readRunningModeAttribute", readThermostatRunningModeAttributeInteractionInfo);
      Map<String, CommandParameterInfo> readThermostatStartOfWeekCommandParams = new LinkedHashMap<String, CommandParameterInfo>();
         InteractionInfo readThermostatStartOfWeekAttributeInteractionInfo = new InteractionInfo(
           (cluster, callback, commandArguments) -> {

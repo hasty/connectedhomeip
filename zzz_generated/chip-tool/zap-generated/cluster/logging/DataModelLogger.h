@@ -592,8 +592,6 @@ static CHIP_ERROR LogValue(const char * label, size_t indent,
 static CHIP_ERROR LogValue(const char * label, size_t indent,
                            const chip::app::Clusters::Thermostat::Commands::GetWeeklyScheduleResponse::DecodableType & value);
 static CHIP_ERROR LogValue(const char * label, size_t indent,
-                           const chip::app::Clusters::Thermostat::Commands::GetRelayStatusLogResponse::DecodableType & value);
-static CHIP_ERROR LogValue(const char * label, size_t indent,
                            const chip::app::Clusters::Channel::Commands::ChangeChannelResponse::DecodableType & value);
 static CHIP_ERROR LogValue(const char * label, size_t indent,
                            const chip::app::Clusters::TargetNavigator::Commands::NavigateTargetResponse::DecodableType & value);

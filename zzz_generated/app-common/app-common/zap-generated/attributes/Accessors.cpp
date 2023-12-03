@@ -15281,9 +15281,9 @@ EmberAfStatus Set(chip::EndpointId endpoint, const chip::app::DataModel::Nullabl
 
 namespace Occupancy {
 
-EmberAfStatus Get(chip::EndpointId endpoint, uint8_t * value)
+EmberAfStatus Get(chip::EndpointId endpoint, chip::BitMask<chip::app::Clusters::Thermostat::OccupancyBitmap> * value)
 {
-    using Traits = NumericAttributeTraits<uint8_t>;
+    using Traits = NumericAttributeTraits<chip::BitMask<chip::app::Clusters::Thermostat::OccupancyBitmap>>;
     Traits::StorageType temp;
     uint8_t * readable   = Traits::ToAttributeStoreRepresentation(temp);
     EmberAfStatus status = emberAfReadAttribute(endpoint, Clusters::Thermostat::Id, Id, readable, sizeof(temp));
@@ -15295,9 +15295,9 @@ EmberAfStatus Get(chip::EndpointId endpoint, uint8_t * value)
     *value = Traits::StorageToWorking(temp);
     return status;
 }
-EmberAfStatus Set(chip::EndpointId endpoint, uint8_t value)
+EmberAfStatus Set(chip::EndpointId endpoint, chip::BitMask<chip::app::Clusters::Thermostat::OccupancyBitmap> value)
 {
-    using Traits = NumericAttributeTraits<uint8_t>;
+    using Traits = NumericAttributeTraits<chip::BitMask<chip::app::Clusters::Thermostat::OccupancyBitmap>>;
     if (!Traits::CanRepresentValue(/* isNullable = */ false, value))
     {
         return EMBER_ZCL_STATUS_CONSTRAINT_ERROR;
@@ -15495,6 +15495,37 @@ EmberAfStatus Set(chip::EndpointId endpoint, uint8_t value)
 }
 
 } // namespace PIHeatingDemand
+
+namespace HVACSystemTypeConfiguration {
+
+EmberAfStatus Get(chip::EndpointId endpoint, chip::BitMask<chip::app::Clusters::Thermostat::HVACSystemTypeBitmap> * value)
+{
+    using Traits = NumericAttributeTraits<chip::BitMask<chip::app::Clusters::Thermostat::HVACSystemTypeBitmap>>;
+    Traits::StorageType temp;
+    uint8_t * readable   = Traits::ToAttributeStoreRepresentation(temp);
+    EmberAfStatus status = emberAfReadAttribute(endpoint, Clusters::Thermostat::Id, Id, readable, sizeof(temp));
+    VerifyOrReturnError(EMBER_ZCL_STATUS_SUCCESS == status, status);
+    if (!Traits::CanRepresentValue(/* isNullable = */ false, temp))
+    {
+        return EMBER_ZCL_STATUS_CONSTRAINT_ERROR;
+    }
+    *value = Traits::StorageToWorking(temp);
+    return status;
+}
+EmberAfStatus Set(chip::EndpointId endpoint, chip::BitMask<chip::app::Clusters::Thermostat::HVACSystemTypeBitmap> value)
+{
+    using Traits = NumericAttributeTraits<chip::BitMask<chip::app::Clusters::Thermostat::HVACSystemTypeBitmap>>;
+    if (!Traits::CanRepresentValue(/* isNullable = */ false, value))
+    {
+        return EMBER_ZCL_STATUS_CONSTRAINT_ERROR;
+    }
+    Traits::StorageType storageValue;
+    Traits::WorkingToStorage(value, storageValue);
+    uint8_t * writable = Traits::ToAttributeStoreRepresentation(storageValue);
+    return emberAfWriteAttribute(endpoint, Clusters::Thermostat::Id, Id, writable, ZCL_BITMAP8_ATTRIBUTE_TYPE);
+}
+
+} // namespace HVACSystemTypeConfiguration
 
 namespace LocalTemperatureCalibration {
 
@@ -15899,11 +15930,11 @@ EmberAfStatus Set(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::Sy
 
 } // namespace SystemMode
 
-namespace ThermostatRunningMode {
+namespace RunningMode {
 
-EmberAfStatus Get(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::ThermostatRunningModeEnum * value)
+EmberAfStatus Get(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::RunningModeEnum * value)
 {
-    using Traits = NumericAttributeTraits<chip::app::Clusters::Thermostat::ThermostatRunningModeEnum>;
+    using Traits = NumericAttributeTraits<chip::app::Clusters::Thermostat::RunningModeEnum>;
     Traits::StorageType temp;
     uint8_t * readable   = Traits::ToAttributeStoreRepresentation(temp);
     EmberAfStatus status = emberAfReadAttribute(endpoint, Clusters::Thermostat::Id, Id, readable, sizeof(temp));
@@ -15915,9 +15946,9 @@ EmberAfStatus Get(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::Th
     *value = Traits::StorageToWorking(temp);
     return status;
 }
-EmberAfStatus Set(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::ThermostatRunningModeEnum value)
+EmberAfStatus Set(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::RunningModeEnum value)
 {
-    using Traits = NumericAttributeTraits<chip::app::Clusters::Thermostat::ThermostatRunningModeEnum>;
+    using Traits = NumericAttributeTraits<chip::app::Clusters::Thermostat::RunningModeEnum>;
     if (!Traits::CanRepresentValue(/* isNullable = */ false, value))
     {
         return EMBER_ZCL_STATUS_CONSTRAINT_ERROR;
@@ -15928,7 +15959,7 @@ EmberAfStatus Set(chip::EndpointId endpoint, chip::app::Clusters::Thermostat::Th
     return emberAfWriteAttribute(endpoint, Clusters::Thermostat::Id, Id, writable, ZCL_ENUM8_ATTRIBUTE_TYPE);
 }
 
-} // namespace ThermostatRunningMode
+} // namespace RunningMode
 
 namespace StartOfWeek {
 
