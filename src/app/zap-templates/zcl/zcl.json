@@ -44,6 +44,7 @@
         "door-lock-cluster.xml",
         "drlc-cluster.xml",
         "electrical-energy-measurement-cluster.xml",
+        "electrical-measurement-cluster.xml",
         "electrical-power-measurement-cluster.xml",
         "energy-evse-cluster.xml",
         "energy-preference-cluster.xml",
