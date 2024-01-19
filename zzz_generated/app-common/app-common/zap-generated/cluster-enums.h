@@ -4704,6 +4704,8 @@ enum class StatusEnum : uint8_t
 };
 } // namespace ContentAppObserver
 
+namespace ElectricalMeasurement {} // namespace ElectricalMeasurement
+
 namespace UnitTesting {
 
 // Enum for SimpleEnum
