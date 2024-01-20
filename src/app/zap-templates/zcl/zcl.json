@@ -40,6 +40,8 @@
         "diagnostic-logs-cluster.xml",
         "dishwasher-alarm-cluster.xml",
         "dishwasher-mode-cluster.xml",
+        "electrical-power-measurement-cluster.xml",
+        "measurement-and-sensing.xml",
         "microwave-oven-mode-cluster.xml",
         "door-lock-cluster.xml",
         "electrical-energy-measurement-cluster.xml",

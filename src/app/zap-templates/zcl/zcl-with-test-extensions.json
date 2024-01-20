@@ -42,6 +42,8 @@
         "dishwasher-alarm-cluster.xml",
         "dishwasher-mode-cluster.xml",
         "drlc-cluster.xml",
+        "electrical-power-measurement-cluster.xml",
+        "measurement-and-sensing.xml",
         "microwave-oven-mode-cluster.xml",
         "microwave-oven-control-cluster.xml",
         "door-lock-cluster.xml",
