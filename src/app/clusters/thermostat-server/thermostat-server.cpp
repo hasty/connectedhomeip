@@ -107,26 +107,6 @@ CHIP_ERROR ThermostatAttrAccess::Read(const ConcreteReadAttributePath & aPath, A
             return aEncoder.Encode(valueRemoteSensing);
         }
         break;
-    case PresetTypes::Id: {
-        return aEncoder.EncodeList([](const auto & encoder) -> CHIP_ERROR { return CHIP_NO_ERROR; });
-    }
-    break;
-    case Presets::Id: {
-        return aEncoder.EncodeList([](const auto & encoder) -> CHIP_ERROR { return CHIP_NO_ERROR; });
-    }
-    break;
-    case ScheduleTypes::Id: {
-        return aEncoder.EncodeList([](const auto & encoder) -> CHIP_ERROR { return CHIP_NO_ERROR; });
-    }
-    break;
-    case Schedules::Id: {
-        return aEncoder.EncodeList([](const auto & encoder) -> CHIP_ERROR { return CHIP_NO_ERROR; });
-    }
-    break;
-    case QueuedPreset::Id: {
-        DataModel::Nullable<Structs::QueuedPresetStruct::Type> value;
-        return aEncoder.Encode(value);
-    }
     default: // return CHIP_NO_ERROR and just read from the attribute store in default
         break;
     }
@@ -158,19 +138,6 @@ CHIP_ERROR ThermostatAttrAccess::Write(const ConcreteDataAttributePath & aPath, 
             return statusIB.ToChipError();
         }
         break;
-    case Presets::Id: {
-        return CHIP_ERROR_NOT_IMPLEMENTED;
-    }
-    break;
-
-    case Schedules::Id: {
-        return CHIP_ERROR_NOT_IMPLEMENTED;
-    }
-    break;
-    case QueuedPreset::Id: {
-        return CHIP_ERROR_NOT_IMPLEMENTED;
-    }
-    break;
     default: // return CHIP_NO_ERROR and just write to the attribute store in default
         break;
     }
@@ -488,62 +455,6 @@ bool emberAfThermostatClusterGetWeeklyScheduleCallback(app::CommandHandler * com
 bool emberAfThermostatClusterSetWeeklyScheduleCallback(app::CommandHandler * commandObj,
                                                        const app::ConcreteCommandPath & commandPath,
                                                        const Commands::SetWeeklySchedule::DecodableType & commandData)
-{
-    // TODO
-    return false;
-}
-
-bool emberAfThermostatClusterSetActiveScheduleRequestCallback(
-    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
-    const chip::app::Clusters::Thermostat::Commands::SetActiveScheduleRequest::DecodableType & commandData)
-{
-    // TODO
-    return false;
-}
-
-bool emberAfThermostatClusterSetActivePresetRequestCallback(
-    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
-    const chip::app::Clusters::Thermostat::Commands::SetActivePresetRequest::DecodableType & commandData)
-{
-    // TODO
-    return false;
-}
-
-bool emberAfThermostatClusterStartPresetsSchedulesEditRequestCallback(
-    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
-    const chip::app::Clusters::Thermostat::Commands::StartPresetsSchedulesEditRequest::DecodableType & commandData)
-{
-    // TODO
-    return false;
-}
-
-bool emberAfThermostatClusterCancelPresetsSchedulesEditRequestCallback(
-    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
-    const chip::app::Clusters::Thermostat::Commands::CancelPresetsSchedulesEditRequest::DecodableType & commandData)
-{
-    // TODO
-    return false;
-}
-
-bool emberAfThermostatClusterCommitPresetsSchedulesRequestCallback(
-    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
-    const chip::app::Clusters::Thermostat::Commands::CommitPresetsSchedulesRequest::DecodableType & commandData)
-{
-    // TODO
-    return false;
-}
-
-bool emberAfThermostatClusterCancelSetActivePresetRequestCallback(
-    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
-    const chip::app::Clusters::Thermostat::Commands::CancelSetActivePresetRequest::DecodableType & commandData)
-{
-    // TODO
-    return false;
-}
-
-bool emberAfThermostatClusterSetTemperatureSetpointHoldPolicyCallback(
-    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
-    const chip::app::Clusters::Thermostat::Commands::SetTemperatureSetpointHoldPolicy::DecodableType & commandData)
 {
     // TODO
     return false;

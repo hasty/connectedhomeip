@@ -169,6 +169,12 @@ enum class ProductIdentifierTypeEnum : uint8_t
 
 // Bitmaps shared across multiple clusters.
 
+// Bitmap for OccupancyBitmap
+enum class OccupancyBitmap : uint8_t
+{
+    kOccupied = 0x1,
+};
+
 } // namespace detail
 
 namespace Identify {
@@ -3558,23 +3564,6 @@ enum class ControlSequenceOfOperationEnum : uint8_t
     kUnknownEnumValue = 6,
 };
 
-// Enum for PresetScenarioEnum
-enum class PresetScenarioEnum : uint8_t
-{
-    kUnspecified = 0x00,
-    kOccupied    = 0x01,
-    kUnoccupied  = 0x02,
-    kSleep       = 0x03,
-    kWake        = 0x04,
-    kVacation    = 0x05,
-    kUserDefined = 0x06,
-    // All received enum values that are not listed above will be mapped
-    // to kUnknownEnumValue. This is a helper enum value that should only
-    // be used by code to process how it handles receiving and unknown
-    // enum value. This specific should never be transmitted.
-    kUnknownEnumValue = 7,
-};
-
 // Enum for SetpointChangeSourceEnum
 enum class SetpointChangeSourceEnum : uint8_t
 {
@@ -3675,17 +3664,13 @@ enum class ACErrorCodeBitmap : uint32_t
 // Bitmap for Feature
 enum class Feature : uint32_t
 {
-    kHeating                     = 0x1,
-    kCooling                     = 0x2,
-    kOccupancy                   = 0x4,
-    kScheduleConfiguration       = 0x8,
-    kSetback                     = 0x10,
-    kAutoMode                    = 0x20,
-    kLocalTemperatureNotExposed  = 0x40,
-    kMatterScheduleConfiguration = 0x80,
-    kPresets                     = 0x100,
-    kSetpoints                   = 0x200,
-    kQueuedPresetsSupported      = 0x400,
+    kHeating                    = 0x1,
+    kCooling                    = 0x2,
+    kOccupancy                  = 0x4,
+    kScheduleConfiguration      = 0x8,
+    kSetback                    = 0x10,
+    kAutoMode                   = 0x20,
+    kLocalTemperatureNotExposed = 0x40,
 };
 
 // Bitmap for HVACSystemTypeBitmap
@@ -3697,12 +3682,7 @@ enum class HVACSystemTypeBitmap : uint8_t
     kHeatingUsesFuel   = 0x20,
 };
 
-// Bitmap for PresetTypeFeaturesBitmap
-enum class PresetTypeFeaturesBitmap : uint16_t
-{
-    kAutomatic     = 0x1,
-    kSupportsNames = 0x2,
-};
+using OccupancyBitmap = Clusters::detail::OccupancyBitmap;
 
 // Bitmap for ProgrammingOperationModeBitmap
 enum class ProgrammingOperationModeBitmap : uint8_t
@@ -3750,22 +3730,6 @@ enum class ScheduleModeBitmap : uint8_t
 {
     kHeatSetpointPresent = 0x1,
     kCoolSetpointPresent = 0x2,
-};
-
-// Bitmap for ScheduleTypeFeaturesBitmap
-enum class ScheduleTypeFeaturesBitmap : uint16_t
-{
-    kSupportsPresets   = 0x1,
-    kSupportsSetpoints = 0x2,
-    kSupportsNames     = 0x4,
-    kSupportsOff       = 0x8,
-};
-
-// Bitmap for TemperatureSetpointHoldPolicyBitmap
-enum class TemperatureSetpointHoldPolicyBitmap : uint8_t
-{
-    kHoldDurationElapsed                = 0x1,
-    kHoldDurationElapsedOrPresetChanged = 0x2,
 };
 } // namespace Thermostat
 
@@ -4094,11 +4058,7 @@ enum class OccupancySensorTypeEnum : uint8_t
     kUnknownEnumValue = 4,
 };
 
-// Bitmap for OccupancyBitmap
-enum class OccupancyBitmap : uint8_t
-{
-    kOccupied = 0x1,
-};
+using OccupancyBitmap = Clusters::detail::OccupancyBitmap;
 
 // Bitmap for OccupancySensorTypeBitmap
 enum class OccupancySensorTypeBitmap : uint8_t

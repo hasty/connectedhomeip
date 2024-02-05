@@ -5531,62 +5531,6 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"ACCapacityformat";
             break;
 
-        case MTRAttributeIDTypeClusterThermostatAttributePresetTypesID:
-            result = @"PresetTypes";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributeScheduleTypesID:
-            result = @"ScheduleTypes";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributeNumberOfPresetsID:
-            result = @"NumberOfPresets";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributeNumberOfSchedulesID:
-            result = @"NumberOfSchedules";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributeNumberOfScheduleTransitionsID:
-            result = @"NumberOfScheduleTransitions";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributeNumberOfScheduleTransitionPerDayID:
-            result = @"NumberOfScheduleTransitionPerDay";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributeActivePresetHandleID:
-            result = @"ActivePresetHandle";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributeActiveScheduleHandleID:
-            result = @"ActiveScheduleHandle";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributePresetsID:
-            result = @"Presets";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributeSchedulesID:
-            result = @"Schedules";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributePresetsSchedulesEditableID:
-            result = @"PresetsSchedulesEditable";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributeTemperatureSetpointHoldPolicyID:
-            result = @"TemperatureSetpointHoldPolicy";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributeSetpointHoldExpiryTimestampID:
-            result = @"SetpointHoldExpiryTimestamp";
-            break;
-
-        case MTRAttributeIDTypeClusterThermostatAttributeQueuedPresetID:
-            result = @"QueuedPreset";
-            break;
-
         case MTRAttributeIDTypeClusterThermostatAttributeGeneratedCommandListID:
             result = @"GeneratedCommandList";
             break;
