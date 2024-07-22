@@ -21,6 +21,7 @@
 #include "system/SystemClock.h"
 #include "transport/SecureSession.h"
 #include <app-common/zap-generated/cluster-objects.h>
+#include <app/AttributeAccessInterface.h>
 #include <app/ClusterStateCache.h>
 #include <app/ConcreteAttributePath.h>
 #include <app/ConcreteEventPath.h>
@@ -86,9 +87,9 @@ bool isLitIcd = false;
 
 namespace chip {
 namespace app {
-CHIP_ERROR ReadSingleClusterData(const AttributeAccessContext & context, const Access::SubjectDescriptor & aSubjectDescriptor,
-                                 bool aIsFabricFiltered, const ConcreteReadAttributePath & aPath,
-                                 AttributeReportIBs::Builder & aAttributeReports, AttributeEncodeState * apEncoderState)
+CHIP_ERROR ReadSingleClusterData(const Access::SubjectDescriptor & aSubjectDescriptor, bool aIsFabricFiltered,
+                                 const ConcreteReadAttributePath & aPath, AttributeReportIBs::Builder & aAttributeReports,
+                                 AttributeEncodeState * apEncoderState)
 {
     if (aPath.mEndpointId >= chip::Test::kMockEndpointMin)
     {

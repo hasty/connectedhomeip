@@ -413,7 +413,7 @@ TestAttrAccess gAttrAccess;
 CHIP_ERROR TestAttrAccess::Read(const app::AttributeAccessContext & context, const app::ConcreteReadAttributePath & aPath,
                                 app::AttributeValueEncoder & aEncoder)
 {
-    CHIP_ERROR err = gMutableAttrAccess.Read(aPath, aEncoder);
+    CHIP_ERROR err = gMutableAttrAccess.Read(context, aPath, aEncoder);
     if (err != CHIP_ERROR_NOT_FOUND)
     {
         return err;

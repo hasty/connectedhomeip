@@ -71,8 +71,9 @@ std::vector<EndpointId> ReadEndpointsThroughAttributeReader(EndpointId endpoint)
     chip::DataVersion dataVersion(0);
     Access::SubjectDescriptor subjectDescriptor;
     AttributeValueEncoder aEncoder(builder, subjectDescriptor, path, dataVersion);
+    AttributeAccessContext context;
 
-    err = attrAccess.Read(readPath, aEncoder);
+    err = attrAccess.Read(context, readPath, aEncoder);
 
     EXPECT_EQ(err, CHIP_NO_ERROR);
 

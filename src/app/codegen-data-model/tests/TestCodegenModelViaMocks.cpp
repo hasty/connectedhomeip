@@ -381,7 +381,8 @@ public:
     {}
     ~UnsupportedReadAccessInterface() = default;
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & path, AttributeValueEncoder & encoder) override
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & path,
+                    AttributeValueEncoder & encoder) override
     {
         if (static_cast<const ConcreteAttributePath &>(path) != mPath)
         {
@@ -404,7 +405,8 @@ public:
     {}
     ~StructAttributeAccessInterface() = default;
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & path, AttributeValueEncoder & encoder) override
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & path,
+                    AttributeValueEncoder & encoder) override
     {
         if (static_cast<const ConcreteAttributePath &>(path) != mPath)
         {
@@ -431,7 +433,8 @@ public:
     {}
     ~ListAttributeAcessInterface() = default;
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & path, AttributeValueEncoder & encoder) override
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & path,
+                    AttributeValueEncoder & encoder) override
     {
         if (static_cast<const ConcreteAttributePath &>(path) != mPath)
         {

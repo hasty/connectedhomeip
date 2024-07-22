@@ -105,8 +105,8 @@ FindAttributeMetadata(const ConcreteAttributePath & aPath)
 ///
 /// If it returns std::nullopt, then there is no AAI to handle the given path
 /// and processing should figure out the value otherwise (generally from other ember data)
-std::optional<CHIP_ERROR> TryReadViaAccessInterface(const ConcreteAttributePath & path, AttributeAccessInterface * aai,
-                                                    AttributeValueEncoder & encoder)
+std::optional<CHIP_ERROR> TryReadViaAccessInterface(const AttributeAccessContext & context, const ConcreteAttributePath & path,
+                                                    AttributeAccessInterface * aai, AttributeValueEncoder & encoder)
 {
     // Processing can happen only if an attribute access interface actually exists..
     if (aai == nullptr)
@@ -114,7 +114,7 @@ std::optional<CHIP_ERROR> TryReadViaAccessInterface(const ConcreteAttributePath 
         return std::nullopt;
     }
 
-    CHIP_ERROR err = aai->Read(path, encoder);
+    CHIP_ERROR err = aai->Read(context, path, encoder);
 
     if (err != CHIP_NO_ERROR)
     {
@@ -329,17 +329,21 @@ CHIP_ERROR CodegenDataModel::ReadAttribute(const InteractionModel::ReadAttribute
         return *err;
     }
 
+    AttributeAccessContext context = {
+        .subjectDescriptor = request.subjectDescriptor.value(),
+    };
+
     // Read via AAI
     std::optional<CHIP_ERROR> aai_result;
     if (const EmberAfCluster ** cluster = std::get_if<const EmberAfCluster *>(&metadata))
     {
         Compatibility::GlobalAttributeReader aai(*cluster);
-        aai_result = TryReadViaAccessInterface(request.path, &aai, encoder);
+        aai_result = TryReadViaAccessInterface(context, request.path, &aai, encoder);
     }
     else
     {
         aai_result = TryReadViaAccessInterface(
-            request.path, GetAttributeAccessOverride(request.path.mEndpointId, request.path.mClusterId), encoder);
+            context, request.path, GetAttributeAccessOverride(request.path.mEndpointId, request.path.mClusterId), encoder);
     }
     ReturnErrorCodeIf(aai_result.has_value(), *aai_result);
 

@@ -90,9 +90,7 @@ Engine::RetrieveClusterData(const SubjectDescriptor & aSubjectDescriptor, bool a
     DataModelCallbacks::GetInstance()->AttributeOperation(DataModelCallbacks::OperationType::Read,
                                                           DataModelCallbacks::OperationOrder::Pre, aPath);
 
-    AttributeAccessContext context;
-    ReturnErrorOnFailure(
-        ReadSingleClusterData(context, aSubjectDescriptor, aIsFabricFiltered, aPath, aAttributeReportIBs, aEncoderState));
+    ReturnErrorOnFailure(ReadSingleClusterData(aSubjectDescriptor, aIsFabricFiltered, aPath, aAttributeReportIBs, aEncoderState));
 
     DataModelCallbacks::GetInstance()->AttributeOperation(DataModelCallbacks::OperationType::Read,
                                                           DataModelCallbacks::OperationOrder::Post, aPath);

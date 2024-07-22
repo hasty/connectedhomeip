@@ -285,9 +285,9 @@ bool ConcreteAttributePathExists(const ConcreteAttributePath & aPath)
     return (emberAfLocateAttributeMetadata(aPath.mEndpointId, aPath.mClusterId, aPath.mAttributeId) != nullptr);
 }
 
-CHIP_ERROR ReadSingleClusterData(const AttributeAccessContext & context, const SubjectDescriptor & aSubjectDescriptor,
-                                 bool aIsFabricFiltered, const ConcreteReadAttributePath & aPath,
-                                 AttributeReportIBs::Builder & aAttributeReports, AttributeEncodeState * apEncoderState)
+CHIP_ERROR ReadSingleClusterData(const SubjectDescriptor & aSubjectDescriptor, bool aIsFabricFiltered,
+                                 const ConcreteReadAttributePath & aPath, AttributeReportIBs::Builder & aAttributeReports,
+                                 AttributeEncodeState * apEncoderState)
 {
     ChipLogDetail(DataManagement,
                   "Reading attribute: Cluster=" ChipLogFormatMEI " Endpoint=%x AttributeId=" ChipLogFormatMEI " (expanded=%d)",
@@ -332,7 +332,10 @@ CHIP_ERROR ReadSingleClusterData(const AttributeAccessContext & context, const S
             (attributeCluster != nullptr) ? &reader : GetAttributeAccessOverride(aPath.mEndpointId, aPath.mClusterId);
         if (attributeOverride)
         {
-            bool triedEncode = false;
+            bool triedEncode                     = false;
+            const AttributeAccessContext context = {
+                .subjectDescriptor = aSubjectDescriptor,
+            };
             ReturnErrorOnFailure(ReadViaAccessInterface(context, aSubjectDescriptor, aIsFabricFiltered, aPath, aAttributeReports,
                                                         apEncoderState, attributeOverride, &triedEncode));
             ReturnErrorCodeIf(triedEncode, CHIP_NO_ERROR);
@@ -724,8 +727,8 @@ const EmberAfAttributeMetadata * GetAttributeMetadata(const ConcreteAttributePat
     return emberAfLocateAttributeMetadata(aPath.mEndpointId, aPath.mClusterId, aPath.mAttributeId);
 }
 
-CHIP_ERROR WriteSingleClusterData(const AttributeAccessContext & context, const SubjectDescriptor & aSubjectDescriptor,
-                                  const ConcreteDataAttributePath & aPath, TLV::TLVReader & aReader, WriteHandler * apWriteHandler)
+CHIP_ERROR WriteSingleClusterData(const SubjectDescriptor & aSubjectDescriptor, const ConcreteDataAttributePath & aPath,
+                                  TLV::TLVReader & aReader, WriteHandler * apWriteHandler)
 {
     // Check attribute existence. This includes attributes with registered metadata, but also specially handled
     // mandatory global attributes (which just check for cluster on endpoint).
@@ -775,6 +778,9 @@ CHIP_ERROR WriteSingleClusterData(const AttributeAccessContext & context, const 
 
     if (auto * attrOverride = GetAttributeAccessOverride(aPath.mEndpointId, aPath.mClusterId))
     {
+        const AttributeAccessContext context = {
+            .subjectDescriptor = aSubjectDescriptor,
+        };
         AttributeValueDecoder valueDecoder(aReader, aSubjectDescriptor);
         ReturnErrorOnFailure(attrOverride->Write(context, aPath, valueDecoder));
 

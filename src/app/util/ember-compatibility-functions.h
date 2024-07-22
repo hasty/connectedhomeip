@@ -59,9 +59,9 @@ bool ConcreteAttributePathExists(const ConcreteAttributePath & aPath);
  *
  *  @retval  CHIP_NO_ERROR on success
  */
-CHIP_ERROR ReadSingleClusterData(const AttributeAccessContext & context, const Access::SubjectDescriptor & aSubjectDescriptor,
-                                 bool aIsFabricFiltered, const ConcreteReadAttributePath & aPath,
-                                 AttributeReportIBs::Builder & aAttributeReports, AttributeEncodeState * apEncoderState);
+CHIP_ERROR ReadSingleClusterData(const Access::SubjectDescriptor & aSubjectDescriptor, bool aIsFabricFiltered,
+                                 const ConcreteReadAttributePath & aPath, AttributeReportIBs::Builder & aAttributeReports,
+                                 AttributeEncodeState * apEncoderState);
 
 /**
  * Returns the metadata of the attribute for the given path.
@@ -73,8 +73,8 @@ const EmberAfAttributeMetadata * GetAttributeMetadata(const ConcreteAttributePat
 /**
  * TODO: Document.
  */
-CHIP_ERROR WriteSingleClusterData(const AttributeAccessContext & context, const Access::SubjectDescriptor & aSubjectDescriptor,
-                                  const ConcreteDataAttributePath & aPath, TLV::TLVReader & aReader, WriteHandler * apWriteHandler);
+CHIP_ERROR WriteSingleClusterData(const Access::SubjectDescriptor & aSubjectDescriptor, const ConcreteDataAttributePath & aPath,
+                                  TLV::TLVReader & aReader, WriteHandler * apWriteHandler);
 
 /**
  * Check if the given cluster has the given DataVersion.

@@ -19,6 +19,7 @@
 /// test-interaction-model-api was created to consolidate and centralize stub functions that are used by the Interaction Model
 /// during unit-testing.
 
+#include <app/AttributeAccessInterface.h>
 #include <app/CommandHandler.h>
 #include <app/ConcreteCommandPath.h>
 #include <app/WriteHandler.h>
@@ -81,9 +82,9 @@ extern size_t attributeDataTLVLen;
 } // namespace Test
 namespace app {
 
-CHIP_ERROR ReadSingleClusterData(const AttributeAccessContext & context, const Access::SubjectDescriptor & aSubjectDescriptor,
-                                 bool aIsFabricFiltered, const ConcreteReadAttributePath & aPath,
-                                 AttributeReportIBs::Builder & aAttributeReports, AttributeEncodeState * apEncoderState);
+CHIP_ERROR ReadSingleClusterData(const Access::SubjectDescriptor & aSubjectDescriptor, bool aIsFabricFiltered,
+                                 const ConcreteReadAttributePath & aPath, AttributeReportIBs::Builder & aAttributeReports,
+                                 AttributeEncodeState * apEncoderState);
 
 bool IsClusterDataVersionEqual(const ConcreteClusterPath & aConcreteClusterPath, DataVersion aRequiredVersion);
 

@@ -121,9 +121,9 @@ Status DetermineAttributeStatus(const ConcreteAttributePath & aPath, bool aIsWri
 
 } // anonymous namespace
 
-CHIP_ERROR ReadSingleClusterData(const AttributeAccessContext & context, const SubjectDescriptor & aSubjectDescriptor,
-                                 bool aIsFabricFiltered, const ConcreteReadAttributePath & aPath,
-                                 AttributeReportIBs::Builder & aAttributeReports, AttributeEncodeState * aEncoderState)
+CHIP_ERROR ReadSingleClusterData(const SubjectDescriptor & aSubjectDescriptor, bool aIsFabricFiltered,
+                                 const ConcreteReadAttributePath & aPath, AttributeReportIBs::Builder & aAttributeReports,
+                                 AttributeEncodeState * aEncoderState)
 {
     Status status = DetermineAttributeStatus(aPath, /* aIsWrite = */ false);
     return aAttributeReports.EncodeAttributeStatus(aPath, StatusIB(status));
