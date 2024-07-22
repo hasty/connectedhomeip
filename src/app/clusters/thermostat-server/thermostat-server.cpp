@@ -70,13 +70,16 @@ class ThermostatAttrAccess : public AttributeAccessInterface
 public:
     ThermostatAttrAccess() : AttributeAccessInterface(Optional<EndpointId>::Missing(), Thermostat::Id) {}
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
-    CHIP_ERROR Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                     AttributeValueDecoder & aDecoder) override;
 };
 
 ThermostatAttrAccess gThermostatAttrAccess;
 
-CHIP_ERROR ThermostatAttrAccess::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR ThermostatAttrAccess::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                      AttributeValueEncoder & aEncoder)
 {
     VerifyOrDie(aPath.mClusterId == Thermostat::Id);
 
@@ -133,7 +136,8 @@ CHIP_ERROR ThermostatAttrAccess::Read(const ConcreteReadAttributePath & aPath, A
     return CHIP_NO_ERROR;
 }
 
-CHIP_ERROR ThermostatAttrAccess::Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder)
+CHIP_ERROR ThermostatAttrAccess::Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                                       AttributeValueDecoder & aDecoder)
 {
     VerifyOrDie(aPath.mClusterId == Thermostat::Id);
 
@@ -739,13 +743,13 @@ bool emberAfThermostatClusterSetpointRaiseLowerCallback(app::CommandHandler * co
             {
                 DesiredCoolingSetpoint = static_cast<int16_t>(CoolingSetpoint + amount * 10);
                 CoolLimit              = static_cast<int16_t>(DesiredCoolingSetpoint -
-                                                 EnforceCoolingSetpointLimits(DesiredCoolingSetpoint, aEndpointId));
+                                                              EnforceCoolingSetpointLimits(DesiredCoolingSetpoint, aEndpointId));
                 {
                     if (OccupiedHeatingSetpoint::Get(aEndpointId, &HeatingSetpoint) == imcode::Success)
                     {
                         DesiredHeatingSetpoint = static_cast<int16_t>(HeatingSetpoint + amount * 10);
                         HeatLimit              = static_cast<int16_t>(DesiredHeatingSetpoint -
-                                                         EnforceHeatingSetpointLimits(DesiredHeatingSetpoint, aEndpointId));
+                                                                      EnforceHeatingSetpointLimits(DesiredHeatingSetpoint, aEndpointId));
                         {
                             if (CoolLimit != 0 || HeatLimit != 0)
                             {

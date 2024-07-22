@@ -321,7 +321,8 @@ void Instance::InvokeCommand(HandlerContext & handlerContext)
 }
 
 // Implements the read functionality for complex attributes.
-CHIP_ERROR Instance::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR Instance::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                          AttributeValueEncoder & aEncoder)
 {
     switch (aPath.mAttributeId)
     {
@@ -346,7 +347,8 @@ CHIP_ERROR Instance::Read(const ConcreteReadAttributePath & aPath, AttributeValu
 }
 
 // Implements checking before attribute writes.
-CHIP_ERROR Instance::Write(const ConcreteDataAttributePath & attributePath, AttributeValueDecoder & aDecoder)
+CHIP_ERROR Instance::Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & attributePath,
+                           AttributeValueDecoder & aDecoder)
 {
     DataModel::Nullable<uint8_t> newMode;
     ReturnErrorOnFailure(aDecoder.Decode(newMode));

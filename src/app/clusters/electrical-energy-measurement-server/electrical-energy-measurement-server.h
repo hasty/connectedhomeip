@@ -55,7 +55,8 @@ public:
     CHIP_ERROR Init();
     void Shutdown();
 
-    CHIP_ERROR Read(const app::ConcreteReadAttributePath & aPath, app::AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const app::ConcreteReadAttributePath & aPath,
+                    app::AttributeValueEncoder & aEncoder) override;
 
     bool HasFeature(Feature aFeature) const;
     bool SupportsOptAttr(OptionalAttributes aOptionalAttrs) const;

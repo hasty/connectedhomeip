@@ -42,7 +42,8 @@ public:
         AttributeAccessInterface(Optional<EndpointId>(aEndpointId), FanControl::Id), Delegate(aEndpointId)
     {}
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
     Status HandleStep(StepDirectionEnum aDirection, bool aWrap, bool aLowestOff) override;
 
 private:
@@ -150,7 +151,8 @@ Status FanControlManager::HandleStep(StepDirectionEnum aDirection, bool aWrap, b
     return SpeedSetting::Set(mEndpoint, newSpeedSetting);
 }
 
-CHIP_ERROR FanControlManager::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR FanControlManager::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                   AttributeValueEncoder & aEncoder)
 {
     VerifyOrDie(aPath.mClusterId == FanControl::Id);
     VerifyOrDie(aPath.mEndpointId == mEndpoint);

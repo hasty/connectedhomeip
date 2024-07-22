@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include <access/SubjectDescriptor.h>
 #include <app/AttributeReportBuilder.h>
 #include <app/AttributeValueDecoder.h>
 #include <app/AttributeValueEncoder.h>
@@ -35,6 +36,11 @@
  */
 namespace chip {
 namespace app {
+
+struct AttributeAccessContext
+{
+    Access::SubjectDescriptor subjectDescriptor;
+};
 
 class AttributeAccessInterface
 {
@@ -66,7 +72,8 @@ public:
      *    involve reading from the attribute store or external attribute
      *    callbacks.
      */
-    virtual CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) = 0;
+    virtual CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                            AttributeValueEncoder & aEncoder) = 0;
 
     /**
      * Callback for writing attributes.
@@ -86,7 +93,11 @@ public:
      *    involve writing to the attribute store or external attribute
      *    callbacks.
      */
-    virtual CHIP_ERROR Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder) { return CHIP_NO_ERROR; }
+    virtual CHIP_ERROR Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                             AttributeValueDecoder & aDecoder)
+    {
+        return CHIP_NO_ERROR;
+    }
 
     /**
      * Indicates the start of a series of list operations. This function will be called before the first Write operation of a series
@@ -98,7 +109,7 @@ public:
      *
      * @param [in] aPath indicates the path of the modified list.
      */
-    virtual void OnListWriteBegin(const ConcreteAttributePath & aPath) {}
+    virtual void OnListWriteBegin(const AttributeAccessContext & context, const ConcreteAttributePath & aPath) {}
 
     /**
      * Indicates the end of a series of list operations. This function will be called after the last Write operation of a series
@@ -113,7 +124,9 @@ public:
      * @param [in] aWriteWasSuccessful indicates whether the delivered list is complete.
      *
      */
-    virtual void OnListWriteEnd(const ConcreteAttributePath & aPath, bool aWriteWasSuccessful) {}
+    virtual void OnListWriteEnd(const AttributeAccessContext & context, const ConcreteAttributePath & aPath,
+                                bool aWriteWasSuccessful)
+    {}
 
     /**
      * Mechanism for keeping track of a chain of AttributeAccessInterfaces.

@@ -69,7 +69,8 @@ private:
     BitMask<Feature> mFeature;
 
     // AttributeAccessInterface
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
 };
 
 } // namespace AirQuality

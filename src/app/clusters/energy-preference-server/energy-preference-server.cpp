@@ -44,13 +44,15 @@ class EnergyPrefAttrAccess : public AttributeAccessInterface
 public:
     EnergyPrefAttrAccess() : AttributeAccessInterface(Optional<EndpointId>::Missing(), EnergyPreference::Id) {}
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
 };
 
 EnergyPrefAttrAccess gEnergyPrefAttrAccess;
 Delegate * gsDelegate = nullptr;
 
-CHIP_ERROR EnergyPrefAttrAccess::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR EnergyPrefAttrAccess::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                      AttributeValueEncoder & aEncoder)
 {
     VerifyOrDie(aPath.mClusterId == EnergyPreference::Id);
     EndpointId endpoint          = aPath.mEndpointId;

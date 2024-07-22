@@ -134,7 +134,8 @@ public:
     ValveConfigAndControlAttrAccess() : AttributeAccessInterface(Optional<EndpointId>::Missing(), ValveConfigurationAndControl::Id)
     {}
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
 
 private:
     CHIP_ERROR ReadRemainingDuration(EndpointId endpoint, AttributeValueEncoder & aEncoder);
@@ -150,7 +151,8 @@ CHIP_ERROR ValveConfigAndControlAttrAccess::ReadRemainingDuration(EndpointId end
     return aEncoder.Encode(rDuration);
 }
 
-CHIP_ERROR ValveConfigAndControlAttrAccess::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR ValveConfigAndControlAttrAccess::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                                 AttributeValueEncoder & aEncoder)
 {
     CHIP_ERROR err = CHIP_NO_ERROR;
 

@@ -119,7 +119,8 @@ CHIP_ERROR WiFiNetworkManagementServer::SetNetworkCredentials(ByteSpan ssid, Byt
     return CHIP_NO_ERROR;
 }
 
-CHIP_ERROR WiFiNetworkManagementServer::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR WiFiNetworkManagementServer::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                             AttributeValueEncoder & aEncoder)
 {
     switch (aPath.mAttributeId)
     {

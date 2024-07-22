@@ -51,7 +51,8 @@ public:
                                                                 DataModel::Nullable<DrynessLevelEnum> & selectedDrynessLevel);
 
 private:
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
     CHIP_ERROR ReadSupportedDrynessLevels(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder);
 
     static LaundryDryerControlsServer sInstance;

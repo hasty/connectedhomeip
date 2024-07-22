@@ -198,7 +198,11 @@ void WriteHandler::DeliverListWriteBegin(const ConcreteAttributePath & aPath)
 {
     if (auto * attrOverride = GetAttributeAccessOverride(aPath.mEndpointId, aPath.mClusterId))
     {
-        attrOverride->OnListWriteBegin(aPath);
+        const Access::SubjectDescriptor subjectDescriptor = mExchangeCtx->GetSessionHandle()->GetSubjectDescriptor();
+        const AttributeAccessContext context              = {
+                         .subjectDescriptor = subjectDescriptor,
+        };
+        attrOverride->OnListWriteBegin(context, aPath);
     }
 }
 
@@ -206,7 +210,11 @@ void WriteHandler::DeliverListWriteEnd(const ConcreteAttributePath & aPath, bool
 {
     if (auto * attrOverride = GetAttributeAccessOverride(aPath.mEndpointId, aPath.mClusterId))
     {
-        attrOverride->OnListWriteEnd(aPath, writeWasSuccessful);
+        const Access::SubjectDescriptor subjectDescriptor = mExchangeCtx->GetSessionHandle()->GetSubjectDescriptor();
+        const AttributeAccessContext context              = {
+                         .subjectDescriptor = subjectDescriptor,
+        };
+        attrOverride->OnListWriteEnd(context, aPath, writeWasSuccessful);
     }
 }
 
@@ -283,6 +291,10 @@ CHIP_ERROR WriteHandler::ProcessAttributeDataIBs(TLV::TLVReader & aAttributeData
     ReturnErrorCodeIf(!mExchangeCtx, CHIP_ERROR_INTERNAL);
     const Access::SubjectDescriptor subjectDescriptor = mExchangeCtx->GetSessionHandle()->GetSubjectDescriptor();
 
+    const AttributeAccessContext context = {
+        .subjectDescriptor = subjectDescriptor,
+    };
+
     while (CHIP_NO_ERROR == (err = aAttributeDataIBsReader.Next()))
     {
         chip::TLV::TLVReader dataReader;
@@ -351,7 +363,7 @@ CHIP_ERROR WriteHandler::ProcessAttributeDataIBs(TLV::TLVReader & aAttributeData
             err = CHIP_NO_ERROR;
         }
         SuccessOrExit(err);
-        err = WriteSingleClusterData(subjectDescriptor, dataAttributePath, dataReader, this);
+        err = WriteSingleClusterData(context, subjectDescriptor, dataAttributePath, dataReader, this);
         if (err != CHIP_NO_ERROR)
         {
             mWriteResponseBuilder.GetWriteResponses().Rollback(backup);
@@ -432,6 +444,10 @@ CHIP_ERROR WriteHandler::ProcessGroupAttributeDataIBs(TLV::TLVReader & aAttribut
 
         const EmberAfAttributeMetadata * attributeMetadata = nullptr;
 
+        const AttributeAccessContext context = {
+            .subjectDescriptor = subjectDescriptor,
+        };
+
         while (iterator->Next(mapping))
         {
             if (groupId != mapping.group_id)
@@ -497,7 +513,7 @@ CHIP_ERROR WriteHandler::ProcessGroupAttributeDataIBs(TLV::TLVReader & aAttribut
 
             DataModelCallbacks::GetInstance()->AttributeOperation(DataModelCallbacks::OperationType::Write,
                                                                   DataModelCallbacks::OperationOrder::Pre, dataAttributePath);
-            err = WriteSingleClusterData(subjectDescriptor, dataAttributePath, tmpDataReader, this);
+            err = WriteSingleClusterData(context, subjectDescriptor, dataAttributePath, tmpDataReader, this);
 
             if (err != CHIP_NO_ERROR)
             {

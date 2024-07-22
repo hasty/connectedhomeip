@@ -65,7 +65,8 @@ bool Instance::SupportsOptCmd(OptionalCommands aOptionalCmds) const
 }
 
 // AttributeAccessInterface
-CHIP_ERROR Instance::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR Instance::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                          AttributeValueEncoder & aEncoder)
 {
     switch (aPath.mAttributeId)
     {
@@ -132,7 +133,8 @@ CHIP_ERROR Instance::Read(const ConcreteReadAttributePath & aPath, AttributeValu
     return CHIP_NO_ERROR;
 }
 
-CHIP_ERROR Instance::Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder)
+CHIP_ERROR Instance::Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                           AttributeValueDecoder & aDecoder)
 {
     switch (aPath.mAttributeId)
     {

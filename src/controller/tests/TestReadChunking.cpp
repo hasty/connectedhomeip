@@ -355,7 +355,8 @@ void TestReadCallback::OnDone(app::ReadClient *) {}
 class TestMutableAttrAccess
 {
 public:
-    CHIP_ERROR Read(const app::ConcreteReadAttributePath & aPath, app::AttributeValueEncoder & aEncoder);
+    CHIP_ERROR Read(const app::AttributeAccessContext & context, const app::ConcreteReadAttributePath & aPath,
+                    app::AttributeValueEncoder & aEncoder);
 
     void SetDirty(AttributeId attr)
     {
@@ -382,7 +383,8 @@ public:
     uint8_t val[3] = { 0, 0, 0 };
 };
 
-CHIP_ERROR TestMutableAttrAccess::Read(const app::ConcreteReadAttributePath & aPath, app::AttributeValueEncoder & aEncoder)
+CHIP_ERROR TestMutableAttrAccess::Read(const app::AttributeAccessContext & context, const app::ConcreteReadAttributePath & aPath,
+                                       app::AttributeValueEncoder & aEncoder)
 {
     uint8_t index = static_cast<uint8_t>(aPath.mAttributeId - 1);
     VerifyOrReturnError(aPath.mEndpointId == kTestEndpointId5 && index < ArraySize(val), CHIP_ERROR_NOT_FOUND);
@@ -400,13 +402,16 @@ public:
         registerAttributeAccessOverride(this);
     }
 
-    CHIP_ERROR Read(const app::ConcreteReadAttributePath & aPath, app::AttributeValueEncoder & aEncoder) override;
-    CHIP_ERROR Write(const app::ConcreteDataAttributePath & aPath, app::AttributeValueDecoder & aDecoder) override;
+    CHIP_ERROR Read(const app::AttributeAccessContext & context, const app::ConcreteReadAttributePath & aPath,
+                    app::AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Write(const app::AttributeAccessContext & context, const app::ConcreteDataAttributePath & aPath,
+                     app::AttributeValueDecoder & aDecoder) override;
 };
 
 TestAttrAccess gAttrAccess;
 
-CHIP_ERROR TestAttrAccess::Read(const app::ConcreteReadAttributePath & aPath, app::AttributeValueEncoder & aEncoder)
+CHIP_ERROR TestAttrAccess::Read(const app::AttributeAccessContext & context, const app::ConcreteReadAttributePath & aPath,
+                                app::AttributeValueEncoder & aEncoder)
 {
     CHIP_ERROR err = gMutableAttrAccess.Read(aPath, aEncoder);
     if (err != CHIP_ERROR_NOT_FOUND)
@@ -435,7 +440,8 @@ CHIP_ERROR TestAttrAccess::Read(const app::ConcreteReadAttributePath & aPath, ap
     }
 }
 
-CHIP_ERROR TestAttrAccess::Write(const app::ConcreteDataAttributePath & aPath, app::AttributeValueDecoder & aDecoder)
+CHIP_ERROR TestAttrAccess::Write(const app::AttributeAccessContext & context, const app::ConcreteDataAttributePath & aPath,
+                                 app::AttributeValueDecoder & aDecoder)
 {
     return CHIP_ERROR_UNSUPPORTED_CHIP_FEATURE;
 }

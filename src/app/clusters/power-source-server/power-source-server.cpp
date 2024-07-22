@@ -76,7 +76,7 @@ static constexpr uint16_t kNumStaticEndpoints = MATTER_DM_POWER_SOURCE_CLUSTER_S
 #define POWER_SERVER_NUM_SUPPORTED_ENDPOINTS                                                                                       \
     (MATTER_DM_POWER_SOURCE_CLUSTER_SERVER_ENDPOINT_COUNT + CHIP_DEVICE_CONFIG_DYNAMIC_ENDPOINT_COUNT)
 #else
-static constexpr uint16_t kNumStaticEndpoints    = 0;
+static constexpr uint16_t kNumStaticEndpoints = 0;
 #define POWER_SERVER_NUM_SUPPORTED_ENDPOINTS CHIP_DEVICE_CONFIG_DYNAMIC_ENDPOINT_COUNT
 #endif
 static constexpr size_t kNumSupportedEndpoints = POWER_SERVER_NUM_SUPPORTED_ENDPOINTS;
@@ -98,7 +98,8 @@ namespace chip {
 namespace app {
 namespace Clusters {
 
-CHIP_ERROR PowerSourceAttrAccess::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR PowerSourceAttrAccess::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                       AttributeValueEncoder & aEncoder)
 {
     CHIP_ERROR err = CHIP_NO_ERROR;
 

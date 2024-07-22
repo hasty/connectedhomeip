@@ -81,9 +81,9 @@ extern size_t attributeDataTLVLen;
 } // namespace Test
 namespace app {
 
-CHIP_ERROR ReadSingleClusterData(const Access::SubjectDescriptor & aSubjectDescriptor, bool aIsFabricFiltered,
-                                 const ConcreteReadAttributePath & aPath, AttributeReportIBs::Builder & aAttributeReports,
-                                 AttributeEncodeState * apEncoderState);
+CHIP_ERROR ReadSingleClusterData(const AttributeAccessContext & context, const Access::SubjectDescriptor & aSubjectDescriptor,
+                                 bool aIsFabricFiltered, const ConcreteReadAttributePath & aPath,
+                                 AttributeReportIBs::Builder & aAttributeReports, AttributeEncodeState * apEncoderState);
 
 bool IsClusterDataVersionEqual(const ConcreteClusterPath & aConcreteClusterPath, DataVersion aRequiredVersion);
 

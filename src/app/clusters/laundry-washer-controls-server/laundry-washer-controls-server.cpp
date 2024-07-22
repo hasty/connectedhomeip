@@ -119,7 +119,8 @@ Status LaundryWasherControlsServer::GetNumberOfRinses(EndpointId endpointId, Num
 /**********************************************************
  * LaundryWasherControlsServer private methods
  *********************************************************/
-CHIP_ERROR LaundryWasherControlsServer::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR LaundryWasherControlsServer::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                             AttributeValueEncoder & aEncoder)
 {
     if (aPath.mClusterId != LaundryWasherControls::Id)
     {

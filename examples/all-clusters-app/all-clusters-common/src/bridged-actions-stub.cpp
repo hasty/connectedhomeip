@@ -37,7 +37,8 @@ public:
     // Register for the Actions cluster on all endpoints.
     ActionsAttrAccess() : AttributeAccessInterface(Optional<EndpointId>::Missing(), Actions::Id) {}
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
 
 private:
     static constexpr uint16_t ClusterRevision = 1;
@@ -75,7 +76,8 @@ CHIP_ERROR ActionsAttrAccess::ReadClusterRevision(EndpointId endpoint, Attribute
 
 ActionsAttrAccess gAttrAccess;
 
-CHIP_ERROR ActionsAttrAccess::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR ActionsAttrAccess::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                   AttributeValueEncoder & aEncoder)
 {
     VerifyOrDie(aPath.mClusterId == Actions::Id);
 

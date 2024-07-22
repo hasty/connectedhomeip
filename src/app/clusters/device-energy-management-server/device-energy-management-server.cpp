@@ -55,7 +55,8 @@ bool Instance::HasFeature(Feature aFeature) const
 }
 
 // AttributeAccessInterface
-CHIP_ERROR Instance::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR Instance::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                          AttributeValueEncoder & aEncoder)
 {
     switch (aPath.mAttributeId)
     {

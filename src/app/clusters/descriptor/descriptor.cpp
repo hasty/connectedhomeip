@@ -46,7 +46,8 @@ public:
     // Register for the Descriptor cluster on all endpoints.
     DescriptorAttrAccess() : AttributeAccessInterface(Optional<EndpointId>::Missing(), Descriptor::Id) {}
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
 
 private:
     CHIP_ERROR ReadTagListAttribute(EndpointId endpoint, AttributeValueEncoder & aEncoder);
@@ -207,7 +208,8 @@ CHIP_ERROR DescriptorAttrAccess::ReadClusterRevision(EndpointId endpoint, Attrib
 
 DescriptorAttrAccess gAttrAccess;
 
-CHIP_ERROR DescriptorAttrAccess::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR DescriptorAttrAccess::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                      AttributeValueEncoder & aEncoder)
 {
     VerifyOrDie(aPath.mClusterId == Descriptor::Id);
 

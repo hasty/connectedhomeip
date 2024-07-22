@@ -47,8 +47,10 @@ public:
     // Register for the User Label cluster on all endpoints.
     UserLabelAttrAccess() : AttributeAccessInterface(Optional<EndpointId>::Missing(), UserLabel::Id) {}
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
-    CHIP_ERROR Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                     AttributeValueDecoder & aDecoder) override;
 
 private:
     CHIP_ERROR ReadLabelList(EndpointId endpoint, AttributeValueEncoder & aEncoder);
@@ -156,7 +158,8 @@ CHIP_ERROR UserLabelAttrAccess::WriteLabelList(const ConcreteDataAttributePath &
     return CHIP_ERROR_UNSUPPORTED_CHIP_FEATURE;
 }
 
-CHIP_ERROR UserLabelAttrAccess::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR UserLabelAttrAccess::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                     AttributeValueEncoder & aEncoder)
 {
     VerifyOrDie(aPath.mClusterId == UserLabel::Id);
 
@@ -170,7 +173,8 @@ CHIP_ERROR UserLabelAttrAccess::Read(const ConcreteReadAttributePath & aPath, At
     return CHIP_NO_ERROR;
 }
 
-CHIP_ERROR UserLabelAttrAccess::Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder)
+CHIP_ERROR UserLabelAttrAccess::Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                                      AttributeValueDecoder & aDecoder)
 {
     VerifyOrDie(aPath.mClusterId == UserLabel::Id);
 

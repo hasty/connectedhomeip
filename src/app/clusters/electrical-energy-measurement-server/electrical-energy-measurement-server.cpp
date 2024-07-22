@@ -51,7 +51,8 @@ void ElectricalEnergyMeasurementAttrAccess::Shutdown()
     unregisterAttributeAccessOverride(this);
 }
 
-CHIP_ERROR ElectricalEnergyMeasurementAttrAccess::Read(const app::ConcreteReadAttributePath & aPath,
+CHIP_ERROR ElectricalEnergyMeasurementAttrAccess::Read(const AttributeAccessContext & context,
+                                                       const app::ConcreteReadAttributePath & aPath,
                                                        app::AttributeValueEncoder & aEncoder)
 {
     VerifyOrDie(aPath.mClusterId == app::Clusters::ElectricalEnergyMeasurement::Id);

@@ -230,7 +230,8 @@ CHIP_ERROR Instance::ReadReplaceableProductList(AttributeValueEncoder & aEncoder
 }
 
 // Implements the read functionality for non-standard attributes.
-CHIP_ERROR Instance::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR Instance::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                          AttributeValueEncoder & aEncoder)
 {
     switch (aPath.mAttributeId)
     {
@@ -267,7 +268,8 @@ CHIP_ERROR Instance::Read(const ConcreteReadAttributePath & aPath, AttributeValu
 }
 
 // Implements checking before attribute writes.
-CHIP_ERROR Instance::Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder)
+CHIP_ERROR Instance::Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                           AttributeValueDecoder & aDecoder)
 {
     switch (aPath.mAttributeId)
     {

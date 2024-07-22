@@ -678,7 +678,8 @@ void ScenesServer::InvokeCommand(HandlerContext & ctxt)
 }
 
 // AttributeAccessInterface
-CHIP_ERROR ScenesServer::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR ScenesServer::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                              AttributeValueEncoder & aEncoder)
 {
     uint16_t endpointTableSize = 0;
     ReturnErrorOnFailure(StatusIB(Attributes::SceneTableSize::Get(aPath.mEndpointId, &endpointTableSize)).ToChipError());

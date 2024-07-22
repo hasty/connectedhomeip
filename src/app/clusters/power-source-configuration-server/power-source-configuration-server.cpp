@@ -46,12 +46,14 @@ public:
     // Register on all endpoints.
     PowerSourceConfigurationAttrAccess() : AttributeAccessInterface(Optional<EndpointId>(0), PowerSourceConfiguration::Id) {}
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
 };
 
 PowerSourceConfigurationAttrAccess gAttrAccess;
 
-CHIP_ERROR PowerSourceConfigurationAttrAccess::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR PowerSourceConfigurationAttrAccess::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                                    AttributeValueEncoder & aEncoder)
 {
     CHIP_ERROR err = CHIP_NO_ERROR;
 

@@ -45,7 +45,8 @@ public:
     // Register for the Fixed Label cluster on all endpoints.
     FixedLabelAttrAccess() : AttributeAccessInterface(Optional<EndpointId>::Missing(), FixedLabel::Id) {}
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
 
 private:
     CHIP_ERROR ReadLabelList(EndpointId endpoint, AttributeValueEncoder & aEncoder);
@@ -91,7 +92,8 @@ CHIP_ERROR FixedLabelAttrAccess::ReadLabelList(EndpointId endpoint, AttributeVal
 
 FixedLabelAttrAccess gAttrAccess;
 
-CHIP_ERROR FixedLabelAttrAccess::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR FixedLabelAttrAccess::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                      AttributeValueEncoder & aEncoder)
 {
     VerifyOrDie(aPath.mClusterId == FixedLabel::Id);
 

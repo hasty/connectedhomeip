@@ -104,7 +104,8 @@ Status LaundryDryerControlsServer::GetSelectedDrynessLevel(EndpointId endpointId
 /**********************************************************
  * LaundryDryerControlsServer private methods
  *********************************************************/
-CHIP_ERROR LaundryDryerControlsServer::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR LaundryDryerControlsServer::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                            AttributeValueEncoder & aEncoder)
 {
     if (aPath.mClusterId != LaundryDryerControls::Id)
     {

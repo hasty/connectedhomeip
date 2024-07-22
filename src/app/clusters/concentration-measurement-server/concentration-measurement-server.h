@@ -115,7 +115,8 @@ private:
     uint32_t mFeatureMap = 0;
 
     // AttributeAccessInterface
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override
     {
         switch (aPath.mAttributeId)
         {
@@ -308,7 +309,7 @@ public:
      */
     Instance(EndpointId aEndpointId, ClusterId aClusterId, MeasurementMediumEnum aMeasurementMedium) :
         AttributeAccessInterface(Optional<EndpointId>(aEndpointId), aClusterId), mEndpointId(aEndpointId), mClusterId(aClusterId),
-        mMeasurementMedium(aMeasurementMedium){};
+        mMeasurementMedium(aMeasurementMedium) {};
 
     /**
      * Creates a mode base cluster instance. The Init() function needs to be called for this instance to be registered and
@@ -321,8 +322,8 @@ public:
      */
     Instance(EndpointId aEndpointId, ClusterId aClusterId, MeasurementMediumEnum aMeasurementMedium,
              MeasurementUnitEnum aMeasurementUnit) :
-        AttributeAccessInterface(Optional<EndpointId>(aEndpointId), aClusterId),
-        mEndpointId(aEndpointId), mClusterId(aClusterId), mMeasurementMedium(aMeasurementMedium)
+        AttributeAccessInterface(Optional<EndpointId>(aEndpointId), aClusterId), mEndpointId(aEndpointId), mClusterId(aClusterId),
+        mMeasurementMedium(aMeasurementMedium)
     {
         this->mMeasurementUnit = aMeasurementUnit;
     };

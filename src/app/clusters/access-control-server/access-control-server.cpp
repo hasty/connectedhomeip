@@ -56,12 +56,14 @@ public:
     /// IM-level implementation of read
     ///
     /// Returns appropriately mapped CHIP_ERROR if applicable (may return CHIP_IM_GLOBAL_STATUS errors)
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
 
     /// IM-level implementation of write
     ///
     /// Returns appropriately mapped CHIP_ERROR if applicable (may return CHIP_IM_GLOBAL_STATUS errors)
-    CHIP_ERROR Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder) override;
+    CHIP_ERROR Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                     AttributeValueDecoder & aDecoder) override;
 
 public:
     void OnEntryChanged(const SubjectDescriptor * subjectDescriptor, FabricIndex fabric, size_t index, const Entry * entry,
@@ -459,7 +461,8 @@ CHIP_ERROR ChipErrorToImErrorMap(CHIP_ERROR err)
     return mappedError;
 }
 
-CHIP_ERROR AccessControlAttribute::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR AccessControlAttribute::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                        AttributeValueEncoder & aEncoder)
 {
     // Note: We are not generating any errors under ReadImpl ourselves; it's
     // just the IM encoding machinery that does it.  And we should propagate
@@ -468,7 +471,8 @@ CHIP_ERROR AccessControlAttribute::Read(const ConcreteReadAttributePath & aPath,
     return ReadImpl(aPath, aEncoder);
 }
 
-CHIP_ERROR AccessControlAttribute::Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder)
+CHIP_ERROR AccessControlAttribute::Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                                         AttributeValueDecoder & aDecoder)
 {
     return ChipErrorToImErrorMap(WriteImpl(aPath, aDecoder));
 }

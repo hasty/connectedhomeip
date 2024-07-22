@@ -271,7 +271,8 @@ void Instance::InvokeCommand(HandlerContext & handlerContext)
     }
 }
 
-CHIP_ERROR Instance::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR Instance::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                          AttributeValueEncoder & aEncoder)
 {
     ChipLogError(Zcl, "OperationalState: Reading");
     switch (aPath.mAttributeId)

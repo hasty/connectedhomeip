@@ -77,8 +77,10 @@ class BooleanStateConfigAttrAccess : public AttributeAccessInterface
 public:
     BooleanStateConfigAttrAccess() : AttributeAccessInterface(Optional<EndpointId>::Missing(), BooleanStateConfiguration::Id) {}
 
-    CHIP_ERROR Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder) override;
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                     AttributeValueDecoder & aDecoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
 
 private:
     CHIP_ERROR WriteCurrentSensitivityLevel(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder);
@@ -120,7 +122,8 @@ CHIP_ERROR BooleanStateConfigAttrAccess::ReadCurrentSensitivityLevel(const Concr
     return CHIP_NO_ERROR;
 }
 
-CHIP_ERROR BooleanStateConfigAttrAccess::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR BooleanStateConfigAttrAccess::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                              AttributeValueEncoder & aEncoder)
 {
     if (aPath.mClusterId != BooleanStateConfiguration::Id)
     {
@@ -139,7 +142,8 @@ CHIP_ERROR BooleanStateConfigAttrAccess::Read(const ConcreteReadAttributePath & 
     return CHIP_NO_ERROR;
 }
 
-CHIP_ERROR BooleanStateConfigAttrAccess::Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder)
+CHIP_ERROR BooleanStateConfigAttrAccess::Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                                               AttributeValueDecoder & aDecoder)
 {
     if (aPath.mClusterId != BooleanStateConfiguration::Id)
     {

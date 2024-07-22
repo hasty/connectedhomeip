@@ -251,13 +251,16 @@ public:
         registerAttributeAccessOverride(this);
     }
 
-    CHIP_ERROR Read(const app::ConcreteReadAttributePath & aPath, app::AttributeValueEncoder & aEncoder) override;
-    CHIP_ERROR Write(const app::ConcreteDataAttributePath & aPath, app::AttributeValueDecoder & aDecoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const app::ConcreteReadAttributePath & aPath,
+                    app::AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Write(const AttributeAccessContext & context, const app::ConcreteDataAttributePath & aPath,
+                     app::AttributeValueDecoder & aDecoder) override;
 };
 
 TestAttrAccess gAttrAccess;
 
-CHIP_ERROR TestAttrAccess::Read(const app::ConcreteReadAttributePath & aPath, app::AttributeValueEncoder & aEncoder)
+CHIP_ERROR TestAttrAccess::Read(const AttributeAccessContext & context, const app::ConcreteReadAttributePath & aPath,
+                                app::AttributeValueEncoder & aEncoder)
 {
     switch (aPath.mAttributeId)
     {
@@ -276,7 +279,8 @@ CHIP_ERROR TestAttrAccess::Read(const app::ConcreteReadAttributePath & aPath, ap
     }
 }
 
-CHIP_ERROR TestAttrAccess::Write(const app::ConcreteDataAttributePath & aPath, app::AttributeValueDecoder & aDecoder)
+CHIP_ERROR TestAttrAccess::Write(const AttributeAccessContext & context, const app::ConcreteDataAttributePath & aPath,
+                                 app::AttributeValueDecoder & aDecoder)
 {
     return CHIP_ERROR_UNSUPPORTED_CHIP_FEATURE;
 }

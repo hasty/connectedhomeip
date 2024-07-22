@@ -47,9 +47,12 @@ public:
     // Register for the Binding cluster on all endpoints.
     BindingTableAccess() : AttributeAccessInterface(NullOptional, Binding::Id) {}
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & path, AttributeValueEncoder & encoder) override;
-    CHIP_ERROR Write(const ConcreteDataAttributePath & path, AttributeValueDecoder & decoder) override;
-    void OnListWriteEnd(const app::ConcreteAttributePath & aPath, bool aWriteWasSuccessful) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & path,
+                    AttributeValueEncoder & encoder) override;
+    CHIP_ERROR Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & path,
+                     AttributeValueDecoder & decoder) override;
+    void OnListWriteEnd(const AttributeAccessContext & context, const app::ConcreteAttributePath & aPath,
+                        bool aWriteWasSuccessful) override;
 
 private:
     CHIP_ERROR ReadBindingTable(EndpointId endpoint, AttributeValueEncoder & encoder);
@@ -137,7 +140,8 @@ CHIP_ERROR CreateBindingEntry(const TargetStructType & entry, EndpointId localEn
     return AddBindingEntry(bindingEntry);
 }
 
-CHIP_ERROR BindingTableAccess::Read(const ConcreteReadAttributePath & path, AttributeValueEncoder & encoder)
+CHIP_ERROR BindingTableAccess::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & path,
+                                    AttributeValueEncoder & encoder)
 {
     switch (path.mAttributeId)
     {
@@ -181,7 +185,8 @@ CHIP_ERROR BindingTableAccess::ReadBindingTable(EndpointId endpoint, AttributeVa
     });
 }
 
-CHIP_ERROR BindingTableAccess::Write(const ConcreteDataAttributePath & path, AttributeValueDecoder & decoder)
+CHIP_ERROR BindingTableAccess::Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & path,
+                                     AttributeValueDecoder & decoder)
 {
     switch (path.mAttributeId)
     {
@@ -193,7 +198,8 @@ CHIP_ERROR BindingTableAccess::Write(const ConcreteDataAttributePath & path, Att
     return CHIP_NO_ERROR;
 }
 
-void BindingTableAccess::OnListWriteEnd(const app::ConcreteAttributePath & aPath, bool aWriteWasSuccessful)
+void BindingTableAccess::OnListWriteEnd(const AttributeAccessContext & context, const app::ConcreteAttributePath & aPath,
+                                        bool aWriteWasSuccessful)
 {
     // Notify binding table has changed
     LogErrorOnFailure(NotifyBindingsChanged());

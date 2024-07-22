@@ -63,8 +63,8 @@ class Instance : public AttributeAccessInterface
 public:
     Instance(EndpointId aEndpointId, Delegate & aDelegate, BitMask<Feature> aFeature,
              BitMask<OptionalAttributes> aOptionalAttributes) :
-        AttributeAccessInterface(MakeOptional(aEndpointId), Id),
-        mDelegate(aDelegate), mFeature(aFeature), mOptionalAttrs(aOptionalAttributes)
+        AttributeAccessInterface(MakeOptional(aEndpointId), Id), mDelegate(aDelegate), mFeature(aFeature),
+        mOptionalAttrs(aOptionalAttributes)
     {}
     ~Instance() { Shutdown(); }
 
@@ -80,7 +80,8 @@ private:
     BitMask<OptionalAttributes> mOptionalAttrs;
 
     // AttributeAccessInterface
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
     CHIP_ERROR ReadAvailableEndpoints(AttributeValueEncoder & aEncoder);
     CHIP_ERROR ReadActiveEndpoints(AttributeValueEncoder & aEncoder);
 };

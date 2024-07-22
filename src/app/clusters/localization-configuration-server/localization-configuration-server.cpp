@@ -50,7 +50,8 @@ public:
     LocalizationConfigurationAttrAccess() : AttributeAccessInterface(Optional<EndpointId>::Missing(), LocalizationConfiguration::Id)
     {}
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
 
 private:
     CHIP_ERROR ReadSupportedLocales(AttributeValueEncoder & aEncoder);
@@ -96,7 +97,8 @@ CHIP_ERROR LocalizationConfigurationAttrAccess::ReadSupportedLocales(AttributeVa
     return err;
 }
 
-CHIP_ERROR LocalizationConfigurationAttrAccess::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR LocalizationConfigurationAttrAccess::Read(const AttributeAccessContext & context,
+                                                     const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
 {
     VerifyOrDie(aPath.mClusterId == LocalizationConfiguration::Id);
 

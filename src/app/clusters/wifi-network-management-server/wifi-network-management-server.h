@@ -50,7 +50,8 @@ private:
     WiFiNetworkManagementServer(WiFiNetworkManagementServer const &)             = delete;
     WiFiNetworkManagementServer & operator=(WiFiNetworkManagementServer const &) = delete;
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
     void InvokeCommand(HandlerContext & handlerContext) override;
 
     void HandleNetworkPassphraseRequest(HandlerContext & ctx,

@@ -124,6 +124,15 @@ constexpr bool IsValidAttributeId(AttributeId aAttributeId)
     return (id <= 0x4FFF && IsValidVendorId(vendor)) || IsGlobalAttribute(aAttributeId);
 }
 
+constexpr bool IsGlobalCommand(CommandId aAttributeId)
+{
+    const auto id     = ExtractIdFromMEI(aAttributeId);
+    const auto vendor = ExtractVendorFromMEI(aAttributeId);
+    // Command id suffixes in the range 0xE0 to 0xFF indicate a standard
+    // global command.
+    return (vendor == 0x0000 && id >= 0xE0 && id <= 0xFF);
+}
+
 constexpr bool IsValidCommandId(CommandId aCommandId)
 {
     const auto id     = ExtractIdFromMEI(aCommandId);

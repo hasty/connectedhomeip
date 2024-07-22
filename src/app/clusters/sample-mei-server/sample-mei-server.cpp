@@ -115,7 +115,8 @@ void SampleMeiServer::InvokeCommand(HandlerContext & ctxt)
     }
 }
 
-CHIP_ERROR SampleMeiServer::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR SampleMeiServer::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                 AttributeValueEncoder & aEncoder)
 {
     CHIP_ERROR err     = CHIP_NO_ERROR;
     auto endpoint      = aPath.mEndpointId;
@@ -139,7 +140,8 @@ CHIP_ERROR SampleMeiServer::Read(const ConcreteReadAttributePath & aPath, Attrib
     return err;
 }
 
-CHIP_ERROR SampleMeiServer::Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder)
+CHIP_ERROR SampleMeiServer::Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                                  AttributeValueDecoder & aDecoder)
 {
     CHIP_ERROR err     = CHIP_NO_ERROR;
     auto endpoint      = aPath.mEndpointId;

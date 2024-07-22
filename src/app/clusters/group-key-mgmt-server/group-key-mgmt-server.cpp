@@ -113,7 +113,8 @@ public:
     static constexpr bool IsMCSPSupported() { return false; }
     static constexpr uint16_t kImplementedClusterRevision = 2;
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override
     {
         VerifyOrDie(aPath.mClusterId == GroupKeyManagement::Id);
 
@@ -144,7 +145,8 @@ public:
         return CHIP_ERROR_READ_FAILED;
     }
 
-    CHIP_ERROR Write(const ConcreteDataAttributePath & aPath, AttributeValueDecoder & aDecoder) override
+    CHIP_ERROR Write(const AttributeAccessContext & context, const ConcreteDataAttributePath & aPath,
+                     AttributeValueDecoder & aDecoder) override
     {
 
         if (GroupKeyManagement::Attributes::GroupKeyMap::Id == aPath.mAttributeId)

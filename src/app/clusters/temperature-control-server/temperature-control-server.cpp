@@ -43,7 +43,8 @@ public:
     // Register for the TemperatureControl cluster on all endpoints.
     TemperatureControlAttrAccess() : AttributeAccessInterface(Optional<EndpointId>::Missing(), TemperatureControl::Id) {}
 
-    CHIP_ERROR Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                    AttributeValueEncoder & aEncoder) override;
 };
 
 } // namespace
@@ -69,7 +70,8 @@ void SetInstance(SupportedTemperatureLevelsIteratorDelegate * instance)
 } // namespace app
 } // namespace chip
 
-CHIP_ERROR TemperatureControlAttrAccess::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR TemperatureControlAttrAccess::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                              AttributeValueEncoder & aEncoder)
 {
     CHIP_ERROR err = CHIP_NO_ERROR;
     VerifyOrDie(aPath.mClusterId == TemperatureControl::Id);

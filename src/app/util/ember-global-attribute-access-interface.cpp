@@ -22,7 +22,8 @@ namespace chip {
 namespace app {
 namespace Compatibility {
 
-CHIP_ERROR GlobalAttributeReader::Read(const ConcreteReadAttributePath & aPath, AttributeValueEncoder & aEncoder)
+CHIP_ERROR GlobalAttributeReader::Read(const AttributeAccessContext & context, const ConcreteReadAttributePath & aPath,
+                                       AttributeValueEncoder & aEncoder)
 {
     using namespace Clusters::Globals::Attributes;
     switch (aPath.mAttributeId)

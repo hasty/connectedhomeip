@@ -101,9 +101,9 @@ bool IsDeviceTypeOnEndpoint(DeviceTypeId deviceType, EndpointId endpoint)
 }
 
 // Used by the code in TestReadInteraction.cpp (and generally tests that interact with the Reporting Engine may need this).
-CHIP_ERROR ReadSingleClusterData(const Access::SubjectDescriptor & aSubjectDescriptor, bool aIsFabricFiltered,
-                                 const ConcreteReadAttributePath & aPath, AttributeReportIBs::Builder & aAttributeReports,
-                                 AttributeEncodeState * apEncoderState)
+CHIP_ERROR ReadSingleClusterData(const AttributeAccessContext & context, const Access::SubjectDescriptor & aSubjectDescriptor,
+                                 bool aIsFabricFiltered, const ConcreteReadAttributePath & aPath,
+                                 AttributeReportIBs::Builder & aAttributeReports, AttributeEncodeState * apEncoderState)
 {
     if (aPath.mClusterId >= Test::kMockEndpointMin)
     {

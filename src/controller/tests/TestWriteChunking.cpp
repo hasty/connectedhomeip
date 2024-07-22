@@ -150,10 +150,12 @@ public:
     // Register for the Test Cluster cluster on all endpoints.
     TestAttrAccess() : AttributeAccessInterface(Optional<EndpointId>::Missing(), Clusters::UnitTesting::Id) {}
 
-    CHIP_ERROR Read(const app::ConcreteReadAttributePath & aPath, app::AttributeValueEncoder & aEncoder) override;
-    CHIP_ERROR Write(const app::ConcreteDataAttributePath & aPath, app::AttributeValueDecoder & aDecoder) override;
+    CHIP_ERROR Read(const app::AttributeAccessContext & context, const app::ConcreteReadAttributePath & aPath,
+                    app::AttributeValueEncoder & aEncoder) override;
+    CHIP_ERROR Write(const app::AttributeAccessContext & context, const app::ConcreteDataAttributePath & aPath,
+                     app::AttributeValueDecoder & aDecoder) override;
 
-    void OnListWriteBegin(const app::ConcreteAttributePath & aPath) override
+    void OnListWriteBegin(const app::AttributeAccessContext & context, const app::ConcreteAttributePath & aPath) override
     {
         if (mOnListWriteBegin)
         {
@@ -161,7 +163,8 @@ public:
         }
     }
 
-    void OnListWriteEnd(const app::ConcreteAttributePath & aPath, bool aWriteWasSuccessful) override
+    void OnListWriteEnd(const app::AttributeAccessContext & context, const app::ConcreteAttributePath & aPath,
+                        bool aWriteWasSuccessful) override
     {
         if (mOnListWriteEnd)
         {
@@ -173,12 +176,14 @@ public:
     std::function<void(const app::ConcreteAttributePath & path, bool wasSuccessful)> mOnListWriteEnd;
 } testServer;
 
-CHIP_ERROR TestAttrAccess::Read(const app::ConcreteReadAttributePath & aPath, app::AttributeValueEncoder & aEncoder)
+CHIP_ERROR TestAttrAccess::Read(const app::AttributeAccessContext & context, const app::ConcreteReadAttributePath & aPath,
+                                app::AttributeValueEncoder & aEncoder)
 {
     return CHIP_ERROR_UNSUPPORTED_CHIP_FEATURE;
 }
 
-CHIP_ERROR TestAttrAccess::Write(const app::ConcreteDataAttributePath & aPath, app::AttributeValueDecoder & aDecoder)
+CHIP_ERROR TestAttrAccess::Write(const app::AttributeAccessContext & context, const app::ConcreteDataAttributePath & aPath,
+                                 app::AttributeValueDecoder & aDecoder)
 {
     // We only care about the number of attribute data.
     if (!aPath.IsListItemOperation())
