@@ -196,7 +196,7 @@ uint8_t CountNumberOfPendingPresets(Delegate * delegate)
  *
  * @return true if the presetScenario is found, false otherwise.
  */
-bool PresetScenarioExistsInPresetTypes(Delegate * delegate, PresetScenarioEnum presetScenario)
+uint8_t MaximumPresetScenarioCount(Delegate * delegate, PresetScenarioEnum presetScenario)
 {
     VerifyOrReturnValue(delegate != nullptr, false);
 
@@ -206,15 +206,15 @@ bool PresetScenarioExistsInPresetTypes(Delegate * delegate, PresetScenarioEnum p
         auto err = delegate->GetPresetTypeAtIndex(i, presetType);
         if (err != CHIP_NO_ERROR)
         {
-            return false;
+            return 0;
         }
 
         if (presetType.presetScenario == presetScenario)
         {
-            return true;
+            return presetType.numberOfPresets;
         }
     }
-    return false;
+    return 0;
 }
 
 /**
@@ -358,12 +358,17 @@ CHIP_ERROR ThermostatAttrAccess::AppendPendingPreset(Thermostat::Delegate * dele
         return CHIP_IM_GLOBAL_STATUS(ConstraintError);
     }
 
+    size_t presetCount         = 0;
+    size_t presetScenarioCount = 0;
     if (preset.presetHandle.IsNull())
     {
         if (IsBuiltIn(preset))
         {
             return CHIP_IM_GLOBAL_STATUS(ConstraintError);
         }
+        // We're going to insert this preset, so let's assume a count as though it had already been inserted
+        presetCount++;
+        presetScenarioCount++;
     }
     else
     {
@@ -391,10 +396,47 @@ CHIP_ERROR ThermostatAttrAccess::AppendPendingPreset(Thermostat::Delegate * dele
             return CHIP_IM_GLOBAL_STATUS(ConstraintError);
         }
     }
-
-    if (!PresetScenarioExistsInPresetTypes(delegate, preset.presetScenario))
+    uint8_t maximumPresetScenarioCount = MaximumPresetScenarioCount(delegate, preset.presetScenario);
+    if (maximumPresetScenarioCount == 0)
     {
+        // This is not a supported preset scenario
         return CHIP_IM_GLOBAL_STATUS(ConstraintError);
+    }
+
+    for (uint8_t i = 0; true; i++)
+    {
+        PresetStructWithOwnedMembers otherPreset;
+        CHIP_ERROR err = delegate->GetPresetAtIndex(i, otherPreset);
+
+        if (err == CHIP_ERROR_PROVIDER_LIST_EXHAUSTED)
+        {
+            break;
+        }
+        if (err != CHIP_NO_ERROR)
+        {
+            return CHIP_IM_GLOBAL_STATUS(InvalidInState);
+        }
+        presetCount++;
+        if (!preset.presetHandle.IsNull() && otherPreset.GetPresetHandle().Value().data_equal(preset.presetHandle.Value()))
+        {
+            // This is the preset we're updating, so we don't care what its existing scenario is
+            presetScenarioCount++;
+            continue;
+        }
+        if (preset.presetScenario == otherPreset.GetPresetScenario())
+        {
+            presetScenarioCount++;
+        }
+    }
+
+    if (presetCount > delegate->GetNumberOfPresets())
+    {
+        return CHIP_IM_GLOBAL_STATUS(ResourceExhausted);
+    }
+
+    if (presetScenarioCount > maximumPresetScenarioCount)
+    {
+        return CHIP_IM_GLOBAL_STATUS(ResourceExhausted);
     }
 
     if (preset.name.HasValue() && !PresetTypeSupportsNames(delegate, preset.presetScenario))
