@@ -1816,21 +1816,21 @@ tests:
       arguments:
           value: 2950
 
-    - label: "Step 13: Sets OccupiedCoolingSetpoint to default value"
+    - label: "Step 13a: Sets OccupiedCoolingSetpoint to default value"
       command: "writeAttribute"
       attribute: "OccupiedCoolingSetpoint"
       PICS: TSTAT.S.F01
       arguments:
           value: 2600
 
-    - label: "Step 13: Sets OccupiedHeatingSetpoint to default value"
+    - label: "Step 13a: Sets OccupiedHeatingSetpoint to default value"
       command: "writeAttribute"
       attribute: "OccupiedHeatingSetpoint"
       PICS: TSTAT.S.F00
       arguments:
           value: 2000
 
-    - label: "Step 13: Sends SetpointRaise Command Heat Only"
+    - label: "Step 13a: Sends SetpointRaise Command Heat Only"
       PICS: TSTAT.S.F00
       command: "SetpointRaiseLower"
       arguments:
@@ -1841,13 +1841,25 @@ tests:
                 value: -30
 
     - label:
-          "Step 13: Test Harness Reads back OccupiedHeatingSetpoint to confirm
+          "Step 13a: Test Harness Reads back OccupiedHeatingSetpoint to confirm
           the success of the write"
       command: "readAttribute"
       attribute: "OccupiedHeatingSetpoint"
       PICS: TSTAT.S.F00
       response:
           value: 1700
+
+    - label: "Step 13b: Sends SetpointRaise Command Heat Only without Heat feature"
+      PICS: TSTAT.S.C00.Rsp && !TSTAT.S.F00
+      command: "SetpointRaiseLower"
+      arguments:
+          values:
+              - name: "Mode"
+                value: 0
+              - name: "Amount"
+                value: -30
+      response:
+          error: INVALID_COMMAND
 
     - label: "Step 14: Sets OccupiedHeatingSetpoint to default value"
       command: "writeAttribute"
@@ -1875,7 +1887,7 @@ tests:
       response:
           value: 2300
 
-    - label: "Step 15: Test Harness Sends SetpointRaise Command Cool Only"
+    - label: "Step 15a: Test Harness Sends SetpointRaise Command Cool Only"
       PICS: TSTAT.S.F01
       command: "SetpointRaiseLower"
       arguments:
@@ -1886,13 +1898,25 @@ tests:
                 value: -30
 
     - label:
-          "Step 15: Test Harness Reads back OccupiedCoolingSetpoint to confirm
+          "Step 15a: Test Harness Reads back OccupiedCoolingSetpoint to confirm
           the success of the write"
       command: "readAttribute"
       attribute: "OccupiedCoolingSetpoint"
       PICS: TSTAT.S.F01
       response:
           value: 2300
+
+    - label: "Step 15b: Sends SetpointRaise Command Cool Only without Cool feature"
+      PICS: TSTAT.S.C00.Rsp && !TSTAT.S.F01
+      command: "SetpointRaiseLower"
+      arguments:
+          values:
+              - name: "Mode"
+                value: 1
+              - name: "Amount"
+                value: -30
+      response:
+          error: INVALID_COMMAND
 
     - label: "Step 16: Sets OccupiedCoolingSetpoint to default value"
       command: "writeAttribute"
