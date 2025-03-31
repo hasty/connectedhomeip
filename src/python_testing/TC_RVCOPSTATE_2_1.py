@@ -1,5 +1,5 @@
 #
-#    Copyright (c) 2023 Project CHIP Authors
+#    Copyright (c) 2025 Project CHIP Authors
 #    All rights reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,334 +13,121 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-#
 
 # See https://github.com/project-chip/connectedhomeip/blob/master/docs/testing/python.md#defining-the-ci-test-arguments
 # for details about the block below.
 #
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs:
-#   run1:
-#     app: ${CHIP_RVC_APP}
-#     app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
-#     script-args: >
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --PICS examples/rvc-app/rvc-common/pics/rvc-app-pics-values
-#       --endpoint 1
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
+# test-runner-runs: run1
+# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
+# test-runner-run/run1/factoryreset: True
+# test-runner-run/run1/quiet: True
+# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
+# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
 # === END CI TEST ARGUMENTS ===
 
+import copy
 import logging
+import random
 
 import chip.clusters as Clusters
+from chip import ChipDeviceCtrl  # Needed before chip.FabricAdmin
+from chip.clusters import Globals
 from chip.clusters.Types import NullValue
-from chip.testing.matter_testing import MatterBaseTest, async_test_body, default_matter_test_main
+from chip.interaction_model import InteractionModelError, Status
+from chip.testing import matter_asserts
+from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
 from mobly import asserts
 
+logger = logging.getLogger(__name__)
 
-class TC_RVCOPSTATE_2_1(MatterBaseTest):
-    def __init__(self, *args):
-        super().__init__(*args)
-        self.endpoint = None
-        self.is_ci = False
-        self.app_pipe = "/tmp/chip_rvc_fifo_"
+cluster = Clusters.RVCOperationalState
 
-    async def read_mod_attribute_expect_success(self, endpoint, attribute):
-        cluster = Clusters.Objects.RvcOperationalState
-        return await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=attribute)
+class RVCOPSTATE_2_1(MatterBaseTest):
 
-    async def read_and_validate_opstate(self, step, expected_state):
-        self.print_step(step, "Read OperationalState attribute")
-        operational_state = await self.read_mod_attribute_expect_success(
-            endpoint=self.endpoint, attribute=Clusters.RvcOperationalState.Attributes.OperationalState)
-        logging.info("OperationalState: %s" % (operational_state))
-        asserts.assert_equal(operational_state, expected_state,
-                             "OperationalState(%s) should equal %s" % (operational_state, expected_state))
+    def desc_RVCOPSTATE_2_1(self) -> str:
+        """Returns a description of this test"""
+        return "Attributes with Server as DUT"
 
-    async def read_and_validate_operror(self, step, expected_error):
-        self.print_step(step, "Read OperationalError attribute")
-        operational_error = await self.read_mod_attribute_expect_success(
-            endpoint=self.endpoint, attribute=Clusters.RvcOperationalState.Attributes.OperationalError)
-        logging.info("OperationalError: %s" % (operational_error))
-        asserts.assert_equal(operational_error.errorStateID, expected_error,
-                             "errorStateID(%s) should equal %s" % (operational_error.errorStateID, expected_error))
+    def pics_RVCOPSTATE_2_1(self) -> list[str]:
+        """This function returns a list of PICS for this test case that must be True for the test to be run"""
+        return ["RVCOPSTATE"]
 
-    async def send_run_change_to_mode_cmd(self, new_mode) -> Clusters.Objects.RvcRunMode.Commands.ChangeToModeResponse:
-        ret = await self.send_single_cmd(cmd=Clusters.Objects.RvcRunMode.Commands.ChangeToMode(newMode=new_mode),
-                                         endpoint=self.endpoint)
-        return ret
+    def steps_RVCOPSTATE_2_1(self) -> list[TestStep]:
+        steps = [
+            TestStep("1", "Read PhaseList attribute"),
+            TestStep("2", "Read CurrentPhase attribute"),
+            TestStep("3", "Read CountdownTime attribute"),
+            TestStep("4", "Read OperationalStateList attribute"),
+            TestStep("5", "Read OperationalState attribute"),
+            TestStep("6", "Read OperationalError attribute"),
+        ]
 
-    async def send_pause_cmd(self) -> Clusters.Objects.RvcOperationalState.Commands.OperationalCommandResponse:
-        ret = await self.send_single_cmd(cmd=Clusters.Objects.RvcOperationalState.Commands.Pause(), endpoint=self.endpoint)
-        return ret
+        return steps
 
-    def TC_RVCOPSTATE_2_1(self) -> list[str]:
-        return ["RVCOPSTATE.S"]
 
     @async_test_body
-    async def test_TC_RVCOPSTATE_2_1(self):
-        if self.matter_test_config.endpoint is None or self.matter_test_config.endpoint == 0:
-            asserts.fail("--endpoint must be set and not set to 0 for this test to run correctly.")
-        self.endpoint = self.get_endpoint()
-        asserts.assert_false(self.endpoint is None, "--endpoint <endpoint> must be included on the command line in.")
-        self.is_ci = self.check_pics("PICS_SDK_CI_ONLY")
-        if self.is_ci:
-            app_pid = self.matter_test_config.app_pid
-            if app_pid == 0:
-                asserts.fail("The --app-pid flag must be set when PICS_SDK_CI_ONLY is set")
-            self.app_pipe = self.app_pipe + str(app_pid)
-
-        cluster = Clusters.RvcOperationalState
+    async def test_RVCOPSTATE_2_1(self):
+        endpoint = self.get_endpoint()
         attributes = cluster.Attributes
 
-        self.print_step(1, "Commissioning, already done")
+        self.step("1")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PhaseList)
+        if val is not NullValue:
+            matter_asserts.assert_list(val, "PhaseList attribute must return a list")
+            matter_asserts.assert_list_element_type(val,  "PhaseList attribute must contain str elements", str)
+            asserts.assert_less_equal(len(val), 32, "PhaseList must have at most 32 entries!")
+            for val in val:
+                asserts.assert_less_equal(len(val), 64, "PhaseList must have at most 64 entries!")
 
-        # Ensure that the device is in the correct state
-        if self.is_ci:
-            self.write_to_app_pipe({"Name": "Reset"})
+        self.step("2")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentPhase)
+        if val is not NullValue:
+            matter_asserts.assert_valid_uint8(val, 'CurrentPhase')
 
-        if await self.attribute_guard(endpoint=self.endpoint, attribute=attributes.PhaseList):
-            self.print_step(2, "Read PhaseList attribute")
-            phase_list = await self.read_mod_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.PhaseList)
+        self.step("3")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CountdownTime):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CountdownTime)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_uint32(val, 'CountdownTime')
+                asserts.assert_less_equal(val, 259200)
 
-            if phase_list == NullValue:
-                logging.info("PhaseList is null")
-            else:
-                logging.info("PhaseList: %s" % (phase_list))
+        self.step("4")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OperationalStateList)
+        matter_asserts.assert_list(val, "OperationalStateList attribute must return a list")
+        matter_asserts.assert_list_element_type(val,  "OperationalStateList attribute must contain Clusters.OperationalState.Structs.OperationalStateStruct elements", Clusters.OperationalState.Structs.OperationalStateStruct)
+        for item in val:
+            await self.test_checkOperationalStateStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
-                phase_list_len = len(phase_list)
+        self.step("5")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OperationalState)
+        matter_asserts.assert_valid_enum(val, "OperationalState attribute must return a Clusters.RVCOperationalState.Enums.OperationalStateEnum", Clusters.RVCOperationalState.Enums.OperationalStateEnum)
 
-                asserts.assert_less_equal(phase_list_len, 32, "PhaseList length(%d) must be less than 32!" % phase_list_len)
+        self.step("6")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OperationalError)
+        asserts.assert_true(isinstance(val, Clusters.OperationalState.Structs.ErrorStateStruct),
+                                    f"val must be of type Clusters.OperationalState.Structs.ErrorStateStruct")
+        await self.test_checkErrorStateStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
-        if await self.attribute_guard(endpoint=self.endpoint, attribute=attributes.CurrentPhase):
-            self.print_step(3, "Read CurrentPhase attribute")
-            current_phase = await self.read_mod_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.CurrentPhase)
-            logging.info("CurrentPhase: %s" % (current_phase))
 
-            if phase_list == NullValue:
-                asserts.assert_true(current_phase == NullValue, "CurrentPhase(%s) should be null" % current_phase)
-            else:
-                asserts.assert_true(0 <= current_phase < phase_list_len,
-                                    "CurrentPhase(%s) must be between 0 and %d" % (current_phase, (phase_list_len - 1)))
+    async def test_checkErrorStateStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.RVCOperationalState = None, 
+                                 struct: Clusters.OperationalState.Structs.ErrorStateStruct = None):
+        matter_asserts.assert_valid_enum(struct.errorStateID, "ErrorStateID attribute must return a Clusters.OperationalState.Enums.ErrorStateEnum", Clusters.OperationalState.Enums.ErrorStateEnum)
+        matter_asserts.assert_is_string(struct.errorStateLabel, "ErrorStateLabel must be a string")
+        asserts.assert_less_equal(len(struct.errorStateLabel), 64, "ErrorStateLabel must have length at most 64!")
+        if struct.errorStateDetails is not None:
+            matter_asserts.assert_is_string(struct.errorStateDetails, "ErrorStateDetails must be a string")
+            asserts.assert_less_equal(len(struct.errorStateDetails), 64, "ErrorStateDetails must have length at most 64!")
 
-        if await self.attribute_guard(endpoint=self.endpoint, attribute=attributes.CountdownTime):
-            self.print_step(4, "Read CountdownTime attribute")
-            countdown_time = await self.read_mod_attribute_expect_success(endpoint=self.endpoint,
-                                                                          attribute=attributes.CountdownTime)
-
-            logging.info("CountdownTime: %s" % (countdown_time))
-            if countdown_time is not NullValue:
-                asserts.assert_true(countdown_time >= 0 and countdown_time <= 259200,
-                                    "CountdownTime(%s) must be between 0 and 259200" % countdown_time)
-
-        if await self.attribute_guard(endpoint=self.endpoint, attribute=attributes.OperationalStateList):
-            self.print_step(5, "Read OperationalStateList attribute")
-            operational_state_list = await self.read_mod_attribute_expect_success(endpoint=self.endpoint,
-                                                                                  attribute=attributes.OperationalStateList)
-
-            logging.info("OperationalStateList: %s" % (operational_state_list))
-
-            defined_states = [state.value for state in Clusters.OperationalState.Enums.OperationalStateEnum
-                              if state is not Clusters.OperationalState.Enums.OperationalStateEnum.kUnknownEnumValue]
-            defined_states.extend(state.value for state in Clusters.RvcOperationalState.Enums.OperationalStateEnum)
-
-            for state in operational_state_list:
-                in_range = (0x80 <= state.operationalStateID <= 0xBF)
-                asserts.assert_true(state.operationalStateID in defined_states or in_range,
-                                    "Found an OperationalStateList entry with an invalid ID value: %s" % state.operationalStateID)
-                if in_range:
-                    asserts.assert_true(state.operationalStateLabel is not None,
-                                        "The OperationalStateLabel should be populated")
-                if state.operationalStateID == Clusters.OperationalState.Enums.OperationalStateEnum.kError:
-                    error_state_present = True
-
-            asserts.assert_true(error_state_present, "The OperationalStateList does not have an ID entry of Error(0x03)")
-
-        if await self.attribute_guard(endpoint=self.endpoint, attribute=attributes.OperationalState):
-            self.print_step(6, "Read OperationalState attribute")
-            operational_state = await self.read_mod_attribute_expect_success(endpoint=self.endpoint,
-                                                                             attribute=attributes.OperationalState)
-
-            logging.info("OperationalState: %s" % (operational_state))
-
-            in_range = (0x80 <= operational_state and operational_state <= 0xBF)
-            asserts.assert_true(operational_state in defined_states or in_range, "OperationalState has an invalid ID value!")
-
-            if self.check_pics("RVCOPSTATE.S.M.ST_STOPPED"):
-                test_step = "Manually put the device in the stopped state"
-                self.print_step("6a", test_step)
-                if not self.is_ci:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_opstate(step="6b", expected_state=Clusters.OperationalState.Enums.OperationalStateEnum.kStopped)
-            if self.check_pics("RVCOPSTATE.S.M.ST_RUNNING"):
-                test_step = "Manually put the device in the running state"
-                self.print_step("6c", test_step)
-                if self.is_ci:
-                    await self.send_run_change_to_mode_cmd(1)
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_opstate(step="6d", expected_state=Clusters.OperationalState.Enums.OperationalStateEnum.kRunning)
-            if self.check_pics("RVCOPSTATE.S.M.ST_PAUSED"):
-                test_step = "Manually put the device in the paused state"
-                self.print_step("6e", test_step)
-                if self.is_ci:
-                    await self.send_pause_cmd()
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_opstate(step="6f", expected_state=Clusters.OperationalState.Enums.OperationalStateEnum.kPaused)
-            if self.check_pics("RVCOPSTATE.S.M.ST_ERROR"):
-                test_step = "Manually put the device in the error state"
-                self.print_step("6g", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ErrorEvent", "Error": "UnableToStartOrResume"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_opstate(step="6h", expected_state=Clusters.OperationalState.Enums.OperationalStateEnum.kError)
-            if self.check_pics("RVCOPSTATE.S.M.ST_SEEKING_CHARGER"):
-                test_step = "Manually put the device in the seeking charger state"
-                self.print_step("6i", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "Reset"})
-                    await self.send_run_change_to_mode_cmd(1)
-                    await self.send_run_change_to_mode_cmd(0)
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_opstate(step="6j", expected_state=Clusters.RvcOperationalState.Enums.OperationalStateEnum.kSeekingCharger)
-            if self.check_pics("RVCOPSTATE.S.M.ST_CHARGING"):
-                test_step = "Manually put the device in the charging state"
-                self.print_step("6k", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ChargerFound"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_opstate(step="6l", expected_state=Clusters.RvcOperationalState.Enums.OperationalStateEnum.kCharging)
-            if self.check_pics("RVCOPSTATE.S.M.ST_DOCKED"):
-                test_step = "Manually put the device in the docked state"
-                self.print_step("6m", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "Charged"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_opstate(step="6n", expected_state=Clusters.RvcOperationalState.Enums.OperationalStateEnum.kDocked)
-
-        if await self.attribute_guard(endpoint=self.endpoint, attribute=attributes.OperationalError):
-            self.print_step(7, "Read OperationalError attribute")
-            operational_error = await self.read_mod_attribute_expect_success(endpoint=self.endpoint,
-                                                                             attribute=attributes.OperationalError)
-
-            logging.info("OperationalError: %s" % (operational_error))
-
-            # Defined Errors
-            defined_errors = [error.value for error in Clusters.OperationalState.Enums.ErrorStateEnum
-                              if error is not Clusters.OperationalState.Enums.ErrorStateEnum.kUnknownEnumValue]
-            defined_errors.extend(error.value for error in Clusters.RvcOperationalState.Enums.ErrorStateEnum)
-
-            in_range = (0x80 <= operational_error.errorStateID <= 0xBF)
-            asserts.assert_true(operational_error.errorStateID in defined_errors
-                                or in_range, "OperationalError(%s) has an invalid ID value!" % operational_error.errorStateID)
-            if in_range:
-                asserts.assert_true(operational_error.errorStateLabel is not None, "ErrorStateLabel should be populated")
-
-            if self.check_pics("RVCOPSTATE.S.M.ERR_NO_ERROR"):
-                test_step = "Manually put the device in the no error state"
-                self.print_step("7a", test_step)
-                if not self.is_ci:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_operror(step="7b", expected_error=Clusters.OperationalState.Enums.ErrorStateEnum.kNoError)
-            if self.check_pics("RVCOPSTATE.S.M.ERR_UNABLE_TO_START_OR_RESUME"):
-                test_step = "Manually put the device in the unable to start or resume error state"
-                self.print_step("7c", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ErrorEvent", "Error": "UnableToStartOrResume"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_operror(step="7d", expected_error=Clusters.OperationalState.Enums.ErrorStateEnum.kUnableToStartOrResume)
-            if self.check_pics("RVCOPSTATE.S.M.ERR_UNABLE_TO_COMPLETE_OPERATION"):
-                test_step = "Manually put the device in the unable to complete operation error state"
-                self.print_step("7e", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ErrorEvent", "Error": "UnableToCompleteOperation"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_operror(step="7f", expected_error=Clusters.OperationalState.Enums.ErrorStateEnum.kUnableToCompleteOperation)
-            if self.check_pics("RVCOPSTATE.S.M.ERR_COMMAND_INVALID_IN_STATE"):
-                test_step = "Manually put the device in the command invalid error state"
-                self.print_step("7g", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ErrorEvent", "Error": "CommandInvalidInState"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_operror(step="7h", expected_error=Clusters.OperationalState.Enums.ErrorStateEnum.kCommandInvalidInState)
-            if self.check_pics("RVCOPSTATE.S.M.ERR_FAILED_TO_FIND_CHARGING_DOCK"):
-                test_step = "Manually put the device in the failed to find dock error state"
-                self.print_step("7i", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ErrorEvent", "Error": "FailedToFindChargingDock"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_operror(step="7j", expected_error=Clusters.RvcOperationalState.Enums.ErrorStateEnum.kFailedToFindChargingDock)
-            if self.check_pics("RVCOPSTATE.S.M.ERR_STUCK"):
-                test_step = "Manually put the device in the stuck error state"
-                self.print_step("7k", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ErrorEvent", "Error": "Stuck"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_operror(step="7l", expected_error=Clusters.RvcOperationalState.Enums.ErrorStateEnum.kStuck)
-            if self.check_pics("RVCOPSTATE.S.M.ERR_DUST_BIN_MISSING"):
-                test_step = "Manually put the device in the dust bin missing error state"
-                self.print_step("7m", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ErrorEvent", "Error": "DustBinMissing"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_operror(step="7n", expected_error=Clusters.RvcOperationalState.Enums.ErrorStateEnum.kDustBinMissing)
-            if self.check_pics("RVCOPSTATE.S.M.ERR_DUST_BIN_FULL"):
-                test_step = "Manually put the device in the dust bin full error state"
-                self.print_step("7o", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ErrorEvent", "Error": "DustBinFull"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_operror(step="7p", expected_error=Clusters.RvcOperationalState.Enums.ErrorStateEnum.kDustBinFull)
-            if self.check_pics("RVCOPSTATE.S.M.ERR_WATER_TANK_EMPTY"):
-                test_step = "Manually put the device in the water tank empty error state"
-                self.print_step("7q", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ErrorEvent", "Error": "WaterTankEmpty"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_operror(step="7r", expected_error=Clusters.RvcOperationalState.Enums.ErrorStateEnum.kWaterTankEmpty)
-            if self.check_pics("RVCOPSTATE.S.M.ERR_WATER_TANK_MISSING"):
-                test_step = "Manually put the device in the water tank missing error state"
-                self.print_step("7s", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ErrorEvent", "Error": "WaterTankMissing"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_operror(step="7t", expected_error=Clusters.RvcOperationalState.Enums.ErrorStateEnum.kWaterTankMissing)
-            if self.check_pics("RVCOPSTATE.S.M.ERR_WATER_TANK_LID_OPEN"):
-                test_step = "Manually put the device in the water tank lid open error state"
-                self.print_step("7u", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ErrorEvent", "Error": "WaterTankLidOpen"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_operror(step="7v", expected_error=Clusters.RvcOperationalState.Enums.ErrorStateEnum.kWaterTankLidOpen)
-            if self.check_pics("RVCOPSTATE.S.M.ERR_MOP_CLEANING_PAD_MISSING"):
-                test_step = "Manually put the device in the mop cleaning pad missing error state"
-                self.print_step("7w", test_step)
-                if self.is_ci:
-                    self.write_to_app_pipe({"Name": "ErrorEvent", "Error": "MopCleaningPadMissing"})
-                else:
-                    self.wait_for_user_input(prompt_msg=f"{test_step}, and press Enter when done.\n")
-                await self.read_and_validate_operror(step="7x", expected_error=Clusters.RvcOperationalState.Enums.ErrorStateEnum.kMopCleaningPadMissing)
+    async def test_checkOperationalStateStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.RVCOperationalState = None, 
+                                 struct: Clusters.OperationalState.Structs.OperationalStateStruct = None):
+        matter_asserts.assert_valid_enum(struct.operationalStateID, "OperationalStateID attribute must return a Clusters.OperationalState.Enums.OperationalStateEnum", Clusters.OperationalState.Enums.OperationalStateEnum)
+        matter_asserts.assert_is_string(struct.operationalStateLabel, "OperationalStateLabel must be a string")
+        asserts.assert_less_equal(len(struct.operationalStateLabel), 64, "OperationalStateLabel must have length at most 64!")
 
 
 if __name__ == "__main__":

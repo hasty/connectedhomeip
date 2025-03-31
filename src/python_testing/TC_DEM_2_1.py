@@ -1,5 +1,5 @@
 #
-#    Copyright (c) 2024 Project CHIP Authors
+#    Copyright (c) 2025 Project CHIP Authors
 #    All rights reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,192 +13,193 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-# pylint: disable=invalid-name
 
 # See https://github.com/project-chip/connectedhomeip/blob/master/docs/testing/python.md#defining-the-ci-test-arguments
 # for details about the block below.
 #
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs:
-#   run1:
-#     app: ${ENERGY_MANAGEMENT_APP}
-#     app-args: >
-#       --discriminator 1234
-#       --KVS kvs1
-#       --trace-to json:${TRACE_APP}.json
-#       --enable-key 000102030405060708090a0b0c0d0e0f
-#       --featureSet 0x7e
-#     script-args: >
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --PICS src/app/tests/suites/certification/ci-pics-values
-#       --hex-arg enableKey:000102030405060708090a0b0c0d0e0f
-#       --endpoint 1
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
+# test-runner-runs: run1
+# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
+# test-runner-run/run1/factoryreset: True
+# test-runner-run/run1/quiet: True
+# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
+# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
 # === END CI TEST ARGUMENTS ===
 
-"""Define Matter test case TC_DEM_2_1."""
-
-
+import copy
 import logging
+import random
 
 import chip.clusters as Clusters
+from chip import ChipDeviceCtrl  # Needed before chip.FabricAdmin
+from chip.clusters import Globals
 from chip.clusters.Types import NullValue
+from chip.interaction_model import InteractionModelError, Status
+from chip.testing import matter_asserts
 from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
 from mobly import asserts
-from TC_DEMTestBase import DEMTestBase
 
 logger = logging.getLogger(__name__)
 
+cluster = Clusters.DeviceEnergyManagement
 
-class TC_DEM_2_1(MatterBaseTest, DEMTestBase):
-    """Implementation of test case TC_DEM_2_1."""
+class DEM_2_1(MatterBaseTest):
 
-    def desc_TC_DEM_2_1(self) -> str:
-        """Return a description of this test."""
-        return "4.1.2. [TC-DEM-2.1] Attributes with DUT as Server"
+    def desc_DEM_2_1(self) -> str:
+        """Returns a description of this test"""
+        return "Attributes with Server as DUT"
 
-    def pics_TC_DEM_2_1(self):
-        """Return the PICS definitions associated with this test."""
-        pics = [
-            "DEM.S",
-        ]
-        return pics
+    def pics_DEM_2_1(self) -> list[str]:
+        """This function returns a list of PICS for this test case that must be True for the test to be run"""
+        return ["DEM"]
 
-    def steps_TC_DEM_2_1(self) -> list[TestStep]:
-        """Execute the test steps."""
+    def steps_DEM_2_1(self) -> list[TestStep]:
         steps = [
-            TestStep("1", "Commissioning, already done",
-                     is_commissioning=True),
-            TestStep("2", "TH reads from the DUT FeatureMap attribute.",
-                     "Store the value as FeatureMap."),
-            TestStep("3", "TH reads from the DUT ESAType attribute.",
-                     "Verify that the DUT response contains an a ESATypeEnum (enum8) value to match the DUT type."),
-            TestStep("4", "TH reads from the DUT the ESACanGenerate attribute.",
-                     "Verify that the DUT response contains a boolean value to match the DUT capability."),
-            TestStep("5", "TH reads from the DUT ESAState attribute.",
-                     "Verify that the DUT response contains an a ESAStateEnum (enum8) value to match the DUT state (Online or Offline)."),
-            TestStep("6", "TH reads from the DUT the AbsMinPower attribute.",
-                     "Verify that the DUT response contains a power-mW value to match the DUT capability, and is negative if and only if the ESACanGenerate read in step 4 is TRUE."),
-            TestStep("7", "TH reads from the DUT the AbsMaxPower attribute.",
-                     "Verify that the DUT response contains a power-mW value to match the DUT capability, and greater than or equal to the AbsMinPower read in step 6."),
-            TestStep("8", "TH reads from the DUT the PowerAdjustmentCapability attribute.",
-                     "Verify that the DUT response contains either a null value or a PowerAdjustCapabilityStruct value which contains a list of PowerAdjustStruct values and a valid Cause PowerAdjustReasonEnum (enum8) value."),
-            TestStep("9", "If PFR or SFR feature is supported on the cluster, TH reads from the DUT the Forecast attribute.",
-                     "Verify that the DUT response contains either a null value or a valid ForecastStruct value."),
-            TestStep("10", "If PA, STA, PAU, FA or CON feature is supported on the cluster, TH reads from the DUT the OptOutState attribute.",
-                     "Verify that the DUT response contains an OptOutStateEnum (enum8) value."),
+            TestStep("1", "Read ESAType attribute"),
+            TestStep("2", "Read ESACanGenerate attribute"),
+            TestStep("3", "Read ESAState attribute"),
+            TestStep("4", "Read AbsMinPower attribute"),
+            TestStep("5", "Read AbsMaxPower attribute"),
+            TestStep("6", "Read PowerAdjustmentCapability attribute"),
+            TestStep("7", "Read Forecast attribute"),
+            TestStep("8", "Read OptOutState attribute"),
         ]
 
         return steps
 
-    @async_test_body
-    async def test_TC_DEM_2_1(self):
-        # pylint: disable=too-many-locals, too-many-statements
-        """Run the test steps."""
+    AbsMinPower = None
+    MinDuration = None
+    MinPower = None
 
-        # Allow some user input steps to be skipped if running under CI
-        self.is_ci = self.check_pics("PICS_SDK_CI_ONLY")
+    @async_test_body
+    async def test_DEM_2_1(self):
+        endpoint = self.get_endpoint()
+        attributes = cluster.Attributes
 
         self.step("1")
-        # Commission DUT - already done
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ESAType)
+        matter_asserts.assert_valid_enum(val, "ESAType attribute must return a Clusters.DeviceEnergyManagement.Enums.ESATypeEnum", Clusters.DeviceEnergyManagement.Enums.ESATypeEnum)
 
-        # Get the feature map for later
         self.step("2")
-        feature_map = await self.read_dem_attribute_expect_success(attribute="FeatureMap")
-        logger.info(f"FeatureMap: {feature_map}")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ESACanGenerate)
+        matter_asserts.assert_valid_bool(val, 'ESACanGenerate')
 
         self.step("3")
-        esa_type = await self.read_dem_attribute_expect_success(attribute="ESAType")
-        asserts.assert_is_instance(esa_type, Clusters.DeviceEnergyManagement.Enums.ESATypeEnum, "Invalid type for ESAType")
-
-        if not self.is_ci:
-            user_response = self.wait_for_user_input(prompt_msg=f"Detected ESAType is {esa_type.name}:{esa_type} - is this correct? Enter 'y' or 'n'",
-                                                     prompt_msg_placeholder="y",
-                                                     default_value="y")
-            asserts.assert_equal(user_response.lower(), "y")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ESAState)
+        matter_asserts.assert_valid_enum(val, "ESAState attribute must return a Clusters.DeviceEnergyManagement.Enums.ESAStateEnum", Clusters.DeviceEnergyManagement.Enums.ESAStateEnum)
 
         self.step("4")
-        esa_can_generate = await self.read_dem_attribute_expect_success(attribute="ESACanGenerate")
-        asserts.assert_is_instance(esa_can_generate, bool)
-
-        if not self.is_ci:
-            user_response = self.wait_for_user_input(prompt_msg=f"Detected ESACanGenerate is: {esa_can_generate} - is this correct? Enter 'y' or 'n'",
-                                                     prompt_msg_placeholder="y",
-                                                     default_value="y")
-            asserts.assert_equal(user_response.lower(), "y")
+        self.AbsMinPower = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AbsMinPower)
+        matter_asserts.assert_valid_int64(self.AbsMinPower, 'AbsMinPower')
 
         self.step("5")
-        esa_state = await self.read_dem_attribute_expect_success(attribute="ESAState")
-        logger.info(f"ESAState is {esa_state}")
-        asserts.assert_is_instance(esa_state, Clusters.DeviceEnergyManagement.Enums.ESAStateEnum)
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AbsMaxPower)
+        matter_asserts.assert_valid_int64(val, 'AbsMaxPower')
+        asserts.assert_greater_equal(val, self.AbsMinPower)
 
         self.step("6")
-        abs_min_power = await self.read_dem_attribute_expect_success(attribute="AbsMinPower")
-        asserts.assert_is_instance(abs_min_power, int)
-
-        if not self.is_ci:
-            user_response = self.wait_for_user_input(prompt_msg=f"AbsMinPower is {abs_min_power/1000.0} W - is this correct? Enter 'y' or 'n'",
-                                                     prompt_msg_placeholder="y",
-                                                     default_value="y")
-            asserts.assert_equal(user_response.lower(), "y")
-
-        if not esa_can_generate:
-            # ESA's that can't generate must have positive values
-            asserts.assert_greater_equal(abs_min_power, 0)
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerAdjustment):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PowerAdjustmentCapability)
+            if val is not NullValue:
+                asserts.assert_true(isinstance(val, Clusters.DeviceEnergyManagement.Structs.PowerAdjustCapabilityStruct),
+                                            f"val must be of type Clusters.DeviceEnergyManagement.Structs.PowerAdjustCapabilityStruct")
+                await self.test_checkPowerAdjustCapabilityStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("7")
-        abs_max_power = await self.read_dem_attribute_expect_success(attribute="AbsMaxPower")
-        asserts.assert_is_instance(abs_max_power, int)
-        asserts.assert_greater_equal(abs_max_power, abs_min_power)
-
-        if not self.is_ci:
-            user_response = self.wait_for_user_input(prompt_msg=f"AbsMaxPower is {abs_max_power/1000.0} W - is this correct? Enter 'y' or 'n'",
-                                                     prompt_msg_placeholder="y",
-                                                     default_value="y")
-            asserts.assert_equal(user_response.lower(), "y")
+        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerForecastReporting) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kStateForecastReporting)):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Forecast)
+            if val is not NullValue:
+                asserts.assert_true(isinstance(val, Clusters.DeviceEnergyManagement.Structs.ForecastStruct),
+                                            f"val must be of type Clusters.DeviceEnergyManagement.Structs.ForecastStruct")
+                await self.test_checkForecastStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("8")
-        if Clusters.DeviceEnergyManagement.Bitmaps.Feature.kPowerAdjustment & feature_map:
-            power_adjustment_capability = await self.read_dem_attribute_expect_success(attribute="PowerAdjustmentCapability")
-            logger.info(f"PowerAdjustmentCapability is {power_adjustment_capability}")
+        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerAdjustment) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kStartTimeAdjustment) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPausable) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kForecastAdjustment) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kConstraintBasedAdjustment)):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OptOutState)
+            matter_asserts.assert_valid_enum(val, "OptOutState attribute must return a Clusters.DeviceEnergyManagement.Enums.OptOutStateEnum", Clusters.DeviceEnergyManagement.Enums.OptOutStateEnum)
 
-            if power_adjustment_capability is not NullValue:
-                asserts.assert_is_instance(power_adjustment_capability,
-                                           Clusters.DeviceEnergyManagement.Structs.PowerAdjustCapabilityStruct)
 
-                power_adjustment_list = power_adjustment_capability.powerAdjustCapability
-                if power_adjustment_list is not NullValue:
-                    asserts.assert_is_instance(power_adjustment_list, list)
-                    for entry in power_adjustment_list:
-                        asserts.assert_is_instance(entry, Clusters.DeviceEnergyManagement.Structs.PowerAdjustStruct)
+    async def test_checkCostStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.DeviceEnergyManagement = None, 
+                                 struct: Clusters.DeviceEnergyManagement.Structs.CostStruct = None):
+        matter_asserts.assert_valid_enum(struct.costType, "CostType attribute must return a Clusters.DeviceEnergyManagement.Enums.CostTypeEnum", Clusters.DeviceEnergyManagement.Enums.CostTypeEnum)
+        matter_asserts.assert_valid_int32(struct.value, 'Value')
+        matter_asserts.assert_valid_uint8(struct.decimalPoints, 'DecimalPoints')
+        if struct.currency is not None:
+            matter_asserts.assert_valid_uint16(struct.currency, 'Currency')
+            asserts.assert_less_equal(struct.currency, 999)
 
-                power_adjustment_cause = power_adjustment_capability.cause
-                asserts.assert_is_instance(power_adjustment_cause, Clusters.DeviceEnergyManagement.Enums.PowerAdjustReasonEnum)
+    async def test_checkForecastStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.DeviceEnergyManagement = None, 
+                                 struct: Clusters.DeviceEnergyManagement.Structs.ForecastStruct = None):
+        matter_asserts.assert_valid_uint32(struct.forecastID, 'ForecastID')
+        if struct.activeSlotNumber is not NullValue:
+            matter_asserts.assert_valid_uint16(struct.activeSlotNumber, 'ActiveSlotNumber')
+        matter_asserts.assert_valid_uint32(struct.startTime, 'StartTime')
+        matter_asserts.assert_valid_uint32(struct.endTime, 'EndTime')
+        if struct.earliestStartTime is not NullValue:
+            matter_asserts.assert_valid_uint32(struct.earliestStartTime, 'EarliestStartTime')
+        matter_asserts.assert_valid_uint32(struct.latestEndTime, 'LatestEndTime')
+        matter_asserts.assert_valid_bool(struct.isPausable, 'IsPausable')
+        matter_asserts.assert_list(struct.slots, "Slots attribute must return a list")
+        matter_asserts.assert_list_element_type(struct.slots,  "Slots attribute must contain Clusters.DeviceEnergyManagement.Structs.SlotStruct elements", Clusters.DeviceEnergyManagement.Structs.SlotStruct)
+        for item in struct.slots:
+            await self.test_checkSlotStruct(endpoint=endpoint, cluster=cluster, struct=item)
+        asserts.assert_less_equal(len(struct.slots), 10, "Slots must have at most 10 entries!")
+        matter_asserts.assert_valid_enum(struct.forecastUpdateReason, "ForecastUpdateReason attribute must return a Clusters.DeviceEnergyManagement.Enums.ForecastUpdateReasonEnum", Clusters.DeviceEnergyManagement.Enums.ForecastUpdateReasonEnum)
 
-        self.step("9")
-        if Clusters.DeviceEnergyManagement.Bitmaps.Feature.kPowerForecastReporting & feature_map or \
-                Clusters.DeviceEnergyManagement.Bitmaps.Feature.kStateForecastReporting & feature_map:
-            forecast = await self.read_dem_attribute_expect_success(attribute="Forecast")
-            logger.info(f"Forecast is {forecast}")
+    async def test_checkPowerAdjustCapabilityStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.DeviceEnergyManagement = None, 
+                                 struct: Clusters.DeviceEnergyManagement.Structs.PowerAdjustCapabilityStruct = None):
+        if struct.powerAdjustCapability is not NullValue:
+            matter_asserts.assert_list(struct.powerAdjustCapability, "PowerAdjustCapability attribute must return a list")
+            matter_asserts.assert_list_element_type(struct.powerAdjustCapability,  "PowerAdjustCapability attribute must contain Clusters.DeviceEnergyManagement.Structs.PowerAdjustStruct elements", Clusters.DeviceEnergyManagement.Structs.PowerAdjustStruct)
+            for item in struct.powerAdjustCapability:
+                await self.test_checkPowerAdjustStruct(endpoint=endpoint, cluster=cluster, struct=item)
+            asserts.assert_less_equal(len(struct.powerAdjustCapability), 8, "PowerAdjustCapability must have at most 8 entries!")
+        matter_asserts.assert_valid_enum(struct.cause, "Cause attribute must return a Clusters.DeviceEnergyManagement.Enums.PowerAdjustReasonEnum", Clusters.DeviceEnergyManagement.Enums.PowerAdjustReasonEnum)
 
-            if forecast is not NullValue:
-                asserts.assert_is_instance(forecast,
-                                           Clusters.DeviceEnergyManagement.Structs.ForecastStruct)
+    async def test_checkPowerAdjustStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.DeviceEnergyManagement = None, 
+                                 struct: Clusters.DeviceEnergyManagement.Structs.PowerAdjustStruct = None):
+        matter_asserts.assert_valid_int64(struct.minPower, 'MinPower')
+        matter_asserts.assert_valid_int64(struct.maxPower, 'MaxPower')
+        asserts.assert_greater_equal(struct.maxPower, self.MinPower)
+        matter_asserts.assert_valid_uint32(struct.minDuration, 'MinDuration')
+        matter_asserts.assert_valid_uint32(struct.maxDuration, 'MaxDuration')
+        asserts.assert_greater_equal(struct.maxDuration, self.MinDuration)
 
-        self.step("10")
-        if Clusters.DeviceEnergyManagement.Bitmaps.Feature.kPowerAdjustment & feature_map or \
-                Clusters.DeviceEnergyManagement.Bitmaps.Feature.kStartTimeAdjustment & feature_map or \
-                Clusters.DeviceEnergyManagement.Bitmaps.Feature.kPausable & feature_map or \
-                Clusters.DeviceEnergyManagement.Bitmaps.Feature.kForecastAdjustment & feature_map or \
-                Clusters.DeviceEnergyManagement.Bitmaps.Feature.kConstraintBasedAdjustment & feature_map:
-            opt_out_state = await self.read_dem_attribute_expect_success(attribute="OptOutState")
-            logger.info(f"OptOutState is {opt_out_state.name}:{opt_out_state}")
+    async def test_checkSlotStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.DeviceEnergyManagement = None, 
+                                 struct: Clusters.DeviceEnergyManagement.Structs.SlotStruct = None):
+        matter_asserts.assert_valid_uint32(struct.minDuration, 'MinDuration')
+        matter_asserts.assert_valid_uint32(struct.maxDuration, 'MaxDuration')
+        matter_asserts.assert_valid_uint32(struct.defaultDuration, 'DefaultDuration')
+        matter_asserts.assert_valid_uint32(struct.elapsedSlotTime, 'ElapsedSlotTime')
+        matter_asserts.assert_valid_uint32(struct.remainingSlotTime, 'RemainingSlotTime')
+        matter_asserts.assert_valid_bool(struct.slotIsPausable, 'SlotIsPausable')
+        matter_asserts.assert_valid_uint32(struct.minPauseDuration, 'MinPauseDuration')
+        matter_asserts.assert_valid_uint32(struct.maxPauseDuration, 'MaxPauseDuration')
+        matter_asserts.assert_valid_uint16(struct.manufacturerEsaState, 'ManufacturerESAState')
+        matter_asserts.assert_valid_int64(struct.nominalPower, 'NominalPower')
+        matter_asserts.assert_valid_int64(struct.minPower, 'MinPower')
+        matter_asserts.assert_valid_int64(struct.maxPower, 'MaxPower')
+        matter_asserts.assert_valid_int64(struct.nominalEnergy, 'NominalEnergy')
+        if struct.costs is not None:
+            matter_asserts.assert_list(struct.costs, "Costs attribute must return a list")
+            matter_asserts.assert_list_element_type(struct.costs,  "Costs attribute must contain Clusters.DeviceEnergyManagement.Structs.CostStruct elements", Clusters.DeviceEnergyManagement.Structs.CostStruct)
+            for item in struct.costs:
+                await self.test_checkCostStruct(endpoint=endpoint, cluster=cluster, struct=item)
+            asserts.assert_less_equal(len(struct.costs), 5, "Costs must have at most 5 entries!")
+        matter_asserts.assert_valid_int64(struct.minPowerAdjustment, 'MinPowerAdjustment')
+        matter_asserts.assert_valid_int64(struct.maxPowerAdjustment, 'MaxPowerAdjustment')
+        matter_asserts.assert_valid_uint32(struct.minDurationAdjustment, 'MinDurationAdjustment')
+        matter_asserts.assert_valid_uint32(struct.maxDurationAdjustment, 'MaxDurationAdjustment')
 
 
 if __name__ == "__main__":

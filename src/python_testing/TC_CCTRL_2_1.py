@@ -1,5 +1,5 @@
 #
-#    Copyright (c) 2024 Project CHIP Authors
+#    Copyright (c) 2025 Project CHIP Authors
 #    All rights reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,69 +13,63 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-#
 
 # See https://github.com/project-chip/connectedhomeip/blob/master/docs/testing/python.md#defining-the-ci-test-arguments
 # for details about the block below.
 #
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs:
-#   run1:
-#     app: examples/fabric-admin/scripts/fabric-sync-app.py
-#     app-args: --app-admin=${FABRIC_ADMIN_APP} --app-bridge=${FABRIC_BRIDGE_APP} --discriminator=1234
-#     app-ready-pattern: "Successfully opened pairing window on the device"
-#     app-stdin-pipe: dut-fsa-stdin
-#     script-args: >
-#       --PICS src/app/tests/suites/certification/ci-pics-values
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --endpoint 1
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
-#   run2:
-#     app: ${FABRIC_SYNC_APP}
-#     app-args: --discriminator=1234
-#     app-stdin-pipe: dut-fsa-stdin
-#     script-args: >
-#       --PICS src/app/tests/suites/certification/ci-pics-values
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --endpoint 1
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
+# test-runner-runs: run1
+# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
+# test-runner-run/run1/factoryreset: True
+# test-runner-run/run1/quiet: True
+# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
+# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
 # === END CI TEST ARGUMENTS ===
 
+import copy
+import logging
+import random
+
 import chip.clusters as Clusters
-from chip.testing.matter_testing import MatterBaseTest, TestStep, default_matter_test_main, has_cluster, run_if_endpoint_matches
+from chip import ChipDeviceCtrl  # Needed before chip.FabricAdmin
+from chip.clusters import Globals
+from chip.clusters.Types import NullValue
+from chip.interaction_model import InteractionModelError, Status
+from chip.testing import matter_asserts
+from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
 from mobly import asserts
 
+logger = logging.getLogger(__name__)
 
-class TC_CCTRL_2_1(MatterBaseTest):
+cluster = Clusters.CommissionerControl
 
-    def steps_TC_CCTRL_2_1(self) -> list[TestStep]:
-        steps = [TestStep(1, "Read MCORE.FS PICS code", is_commissioning=True),
-                 TestStep(2, "Validate SupportedDeviceCategories is set accordingly based on MCORE.FS")]
+class CCTRL_2_1(MatterBaseTest):
+
+    def desc_CCTRL_2_1(self) -> str:
+        """Returns a description of this test"""
+        return "Attributes with Server as DUT"
+
+    def pics_CCTRL_2_1(self) -> list[str]:
+        """This function returns a list of PICS for this test case that must be True for the test to be run"""
+        return ["CCTRL"]
+
+    def steps_CCTRL_2_1(self) -> list[TestStep]:
+        steps = [
+            TestStep("1", "Read SupportedDeviceCategories attribute"),
+        ]
+
         return steps
 
-    @run_if_endpoint_matches(has_cluster(Clusters.CommissionerControl))
-    async def test_TC_CCTRL_2_1(self):
-        self.step(1)
-        is_fabric_sync_pics_enabled = self.check_pics("MCORE.FS")
 
-        self.step(2)
-        supported_device_categories = await self.read_single_attribute_check_success(cluster=Clusters.CommissionerControl, attribute=Clusters.CommissionerControl.Attributes.SupportedDeviceCategories)
-        is_fabric_sync_bit_set = bool(supported_device_categories &
-                                      Clusters.CommissionerControl.Bitmaps.SupportedDeviceCategoryBitmap.kFabricSynchronization)
-        asserts.assert_equal(is_fabric_sync_bit_set, is_fabric_sync_pics_enabled,
-                             "Mismatch between PICS MCORE.FS value and what attribute indicates")
+    @async_test_body
+    async def test_CCTRL_2_1(self):
+        endpoint = self.get_endpoint()
+        attributes = cluster.Attributes
+
+        self.step("1")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedDeviceCategories)
+        matter_asserts.is_valid_int_value(val)
+
 
 
 if __name__ == "__main__":

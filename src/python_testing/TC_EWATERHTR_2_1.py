@@ -1,5 +1,5 @@
 #
-#    Copyright (c) 2024 Project CHIP Authors
+#    Copyright (c) 2025 Project CHIP Authors
 #    All rights reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,127 +14,92 @@
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
 
-
 # See https://github.com/project-chip/connectedhomeip/blob/master/docs/testing/python.md#defining-the-ci-test-arguments
 # for details about the block below.
 #
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs:
-#   run1:
-#     app: ${ENERGY_MANAGEMENT_APP}
-#     app-args: >
-#       --discriminator 1234
-#       --KVS kvs1
-#       --trace-to json:${TRACE_APP}.json
-#       --enable-key 000102030405060708090a0b0c0d0e0f
-#       --featureSet 0x03
-#       --application water-heater
-#     script-args: >
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --hex-arg enableKey:000102030405060708090a0b0c0d0e0f
-#       --endpoint 2
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
+# test-runner-runs: run1
+# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
+# test-runner-run/run1/factoryreset: True
+# test-runner-run/run1/quiet: True
+# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
+# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
 # === END CI TEST ARGUMENTS ===
 
+import copy
 import logging
+import random
 
 import chip.clusters as Clusters
+from chip import ChipDeviceCtrl  # Needed before chip.FabricAdmin
+from chip.clusters import Globals
+from chip.clusters.Types import NullValue
+from chip.interaction_model import InteractionModelError, Status
+from chip.testing import matter_asserts
 from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
 from mobly import asserts
-from TC_EWATERHTRBase import EWATERHTRBase
 
 logger = logging.getLogger(__name__)
 
+cluster = Clusters.WaterHeaterManagement
 
-class TC_EWATERHTR_2_1(MatterBaseTest, EWATERHTRBase):
+class EWATERHTR_2_1(MatterBaseTest):
 
-    def desc_TC_EWATERHTR_2_1(self) -> str:
+    def desc_EWATERHTR_2_1(self) -> str:
         """Returns a description of this test"""
-        return "[TC-EWATERHTR-2.1] Attributes with attributes with DUT as Server\n" \
-            "This test case verifies the non-global attributes of the Water Heater Management cluster server."
+        return "Attributes with Server as DUT"
 
-    def pics_TC_EWATERHTR_2_1(self):
-        """ This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["EWATERHTR.S"]
+    def pics_EWATERHTR_2_1(self) -> list[str]:
+        """This function returns a list of PICS for this test case that must be True for the test to be run"""
+        return ["EWATERHTR"]
 
-    def steps_TC_EWATERHTR_2_1(self) -> list[TestStep]:
+    def steps_EWATERHTR_2_1(self) -> list[TestStep]:
         steps = [
-            TestStep("1", "Commission DUT to TH (can be skipped if done in a preceding test).",
-                     is_commissioning=True),
-            TestStep("2", "TH reads from the DUT the FeatureMap attribute.",
-                     "Verify that the DUT response contains the FeatureMap attribute. Store the value as FeatureMap."),
-            TestStep("3", "TH reads from the DUT the HeaterTypes attribute.",
-                     "Verify that the DUT response contains a WaterHeaterTypeBitmap (enum8) greater than 0x00 (at least one type supported), and less than 0x20 (no undefined types supported)"),
-            TestStep("4", "TH reads from the DUT the HeatDemand attribute.",
-                     "Verify that the DUT response contains a WaterHeaterDemandBitmap (enum8) value less than 0x20 (no undefined types supported)."),
-            TestStep("5", "TH reads from the DUT the TankVolume attribute.",
-                     "Verify that the DUT response contains a uint16 value."),
-            TestStep("6", "TH reads from the DUT the EstimatedHeatRequired attribute.",
-                     "Verify that the DUT response contains an energy-mWh value that is greater or equal to 0."),
-            TestStep("7", "TH reads from the DUT the TankPercentage attribute.",
-                     "Verify that the DUT response contains a percent value that is between 0 and 100 inclusive."),
-            TestStep("8", "TH reads from the DUT the BoostState attribute.",
-                     "Verify that the DUT response contains a BoostStateEnum (enum8) value that is less than or equal to 1."),
+            TestStep("1", "Read HeaterTypes attribute"),
+            TestStep("2", "Read HeatDemand attribute"),
+            TestStep("3", "Read TankVolume attribute"),
+            TestStep("4", "Read EstimatedHeatRequired attribute"),
+            TestStep("5", "Read TankPercentage attribute"),
+            TestStep("6", "Read BoostState attribute"),
         ]
 
         return steps
 
+    TargetPercentage = None
+
     @async_test_body
-    async def test_TC_EWATERHTR_2_1(self):
+    async def test_EWATERHTR_2_1(self):
+        endpoint = self.get_endpoint()
+        attributes = cluster.Attributes
 
         self.step("1")
-        # Commission DUT - already done
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.HeaterTypes)
+        matter_asserts.is_valid_int_value(val)
 
-        # Get the feature map for later
         self.step("2")
-        feature_map = await self.read_whm_attribute_expect_success(attribute="FeatureMap")
-        em_supported = bool(feature_map & Clusters.WaterHeaterManagement.Bitmaps.Feature.kEnergyManagement)
-        tp_supported = bool(feature_map & Clusters.WaterHeaterManagement.Bitmaps.Feature.kTankPercent)
-        logger.info(f"FeatureMap: {feature_map} : TP supported: {tp_supported} | EM supported: {em_supported}")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.HeatDemand)
+        matter_asserts.is_valid_int_value(val)
 
         self.step("3")
-        heaterTypes = await self.read_whm_attribute_expect_success(attribute="HeaterTypes")
-        asserts.assert_greater(heaterTypes, 0,
-                               f"Unexpected HeaterTypes value - expected {heaterTypes} > 0")
-        asserts.assert_less_equal(heaterTypes, Clusters.WaterHeaterManagement.Bitmaps.WaterHeaterHeatSourceBitmap.kOther,
-                                  f"Unexpected HeaterTypes value - expected {heaterTypes} <= WaterHeaterHeatSourceBitmap.kOther")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kEnergyManagement):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TankVolume)
+            matter_asserts.assert_valid_uint16(val, 'TankVolume')
 
         self.step("4")
-        heatDemand = await self.read_whm_attribute_expect_success(attribute="HeatDemand")
-        asserts.assert_less_equal(heatDemand, Clusters.WaterHeaterManagement.Bitmaps.WaterHeaterHeatSourceBitmap.kOther,
-                                  f"Unexpected HeatDemand value - expected {heatDemand} <= WaterHeaterHeatSourceBitmap.kOther")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kEnergyManagement):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EstimatedHeatRequired)
+            matter_asserts.assert_valid_int64(val, 'EstimatedHeatRequired')
+            asserts.assert_greater_equal(val, 0)
 
         self.step("5")
-        if em_supported:
-            value = await self.read_whm_attribute_expect_success(attribute="TankVolume")
-        else:
-            logging.info("Skipping step 5 as PICS.EWATERHTR.F00(EnergyManagement) not supported")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTankPercent):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TankPercentage)
+            matter_asserts.assert_valid_uint8(val, 'TankPercentage')
 
         self.step("6")
-        if em_supported:
-            value = await self.read_whm_attribute_expect_success(attribute="EstimatedHeatRequired")
-            asserts.assert_greater_equal(value, 0, f"Unexpected EstimatedHeatRequired value - expected {value} >= 0")
-        else:
-            logging.info("Skipping step 6 as PICS.EWATERHTR.F00(EnergyManagement) not supported")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BoostState)
+        matter_asserts.assert_valid_enum(val, "BoostState attribute must return a Clusters.WaterHeaterManagement.Enums.BoostStateEnum", Clusters.WaterHeaterManagement.Enums.BoostStateEnum)
 
-        self.step("7")
-        if tp_supported:
-            value = await self.read_whm_attribute_expect_success(attribute="TankPercentage")
-            asserts.assert_greater_equal(value, 0, f"Unexpected TankPercentage value - expected {value} >= 0")
-            asserts.assert_less_equal(value, 100, f"Unexpected TankPercentage value - expected {value} <= 100")
-        else:
-            logging.info("Skipping step 7 as PICS.EWATERHTR.F01(TankPercenage) not supported")
-
-        self.step("8")
-        boost_state = await self.read_whm_attribute_expect_success(attribute="BoostState")
-        asserts.assert_less_equal(boost_state, Clusters.WaterHeaterManagement.Enums.BoostStateEnum.kActive,
-                                  f"Unexpected BoostState value - expected {boost_state} should be BoostStateEnum (enum8) value in range 0x00 to 0x01")
 
 
 if __name__ == "__main__":

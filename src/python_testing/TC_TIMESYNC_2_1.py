@@ -1,5 +1,5 @@
 #
-#    Copyright (c) 2023 Project CHIP Authors
+#    Copyright (c) 2025 Project CHIP Authors
 #    All rights reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,181 +13,183 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-#
 
 # See https://github.com/project-chip/connectedhomeip/blob/master/docs/testing/python.md#defining-the-ci-test-arguments
 # for details about the block below.
 #
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs:
-#   run1:
-#     app: ${ALL_CLUSTERS_APP}
-#     app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
-#     script-args: >
-#       --endpoint 0
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --PICS src/app/tests/suites/certification/ci-pics-values
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
+# test-runner-runs: run1
+# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
+# test-runner-run/run1/factoryreset: True
+# test-runner-run/run1/quiet: True
+# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
+# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
 # === END CI TEST ARGUMENTS ===
 
-import ipaddress
-from datetime import timedelta
+import copy
+import logging
+import random
 
 import chip.clusters as Clusters
+from chip import ChipDeviceCtrl  # Needed before chip.FabricAdmin
+from chip.clusters import Globals
 from chip.clusters.Types import NullValue
-from chip.testing.matter_testing import (MatterBaseTest, default_matter_test_main, has_attribute, has_cluster,
-                                         run_if_endpoint_matches)
-from chip.testing.timeoperations import utc_time_in_matter_epoch
+from chip.interaction_model import InteractionModelError, Status
+from chip.testing import matter_asserts
+from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
 from mobly import asserts
 
+logger = logging.getLogger(__name__)
 
-class TC_TIMESYNC_2_1(MatterBaseTest):
-    async def read_ts_attribute_expect_success(self, attribute):
-        cluster = Clusters.Objects.TimeSynchronization
-        return await self.read_single_attribute_check_success(endpoint=None, cluster=cluster, attribute=attribute)
+cluster = Clusters.TimeSynchronization
 
-    @run_if_endpoint_matches(has_cluster(Clusters.TimeSynchronization) and has_attribute(Clusters.TimeSynchronization.Attributes.TimeSource))
-    async def test_TC_TIMESYNC_2_1(self):
-        attributes = Clusters.TimeSynchronization.Attributes
-        features = await self.read_ts_attribute_expect_success(attribute=attributes.FeatureMap)
+class TIMESYNC_2_1(MatterBaseTest):
 
-        self.supports_time_zone = bool(features & Clusters.TimeSynchronization.Bitmaps.Feature.kTimeZone)
-        self.supports_ntpc = bool(features & Clusters.TimeSynchronization.Bitmaps.Feature.kNTPClient)
-        self.supports_ntps = bool(features & Clusters.TimeSynchronization.Bitmaps.Feature.kNTPServer)
-        self.supports_trusted_time_source = bool(features & Clusters.TimeSynchronization.Bitmaps.Feature.kTimeSyncClient)
+    def desc_TIMESYNC_2_1(self) -> str:
+        """Returns a description of this test"""
+        return "Attributes with Server as DUT"
 
-        timesync_attr_list = attributes.AttributeList
-        attribute_list = await self.read_ts_attribute_expect_success(attribute=timesync_attr_list)
-        timesource_attr_id = attributes.TimeSource.attribute_id
+    def pics_TIMESYNC_2_1(self) -> list[str]:
+        """This function returns a list of PICS for this test case that must be True for the test to be run"""
+        return ["TIMESYNC"]
 
-        self.print_step(1, "Commissioning, already done")
+    def steps_TIMESYNC_2_1(self) -> list[TestStep]:
+        steps = [
+            TestStep("1", "Read UTCTime attribute"),
+            TestStep("2", "Read Granularity attribute"),
+            TestStep("3", "Read TimeSource attribute"),
+            TestStep("4", "Read TrustedTimeSource attribute"),
+            TestStep("5", "Read DefaultNTP attribute"),
+            TestStep("6", "Read TimeZone attribute"),
+            TestStep("7", "Read DSTOffset attribute"),
+            TestStep("8", "Read LocalTime attribute"),
+            TestStep("9", "Read TimeZoneDatabase attribute"),
+            TestStep("10", "Read NTPServerAvailable attribute"),
+            TestStep("11", "Read TimeZoneListMaxSize attribute"),
+            TestStep("12", "Read DSTOffsetListMaxSize attribute"),
+            TestStep("13", "Read SupportsDNSResolve attribute"),
+        ]
 
-        self.print_step(2, "Read Granularity attribute")
-        granularity_dut = await self.read_ts_attribute_expect_success(attribute=attributes.Granularity)
-        asserts.assert_less(granularity_dut, Clusters.TimeSynchronization.Enums.GranularityEnum.kUnknownEnumValue,
-                            "Granularity is not in valid range")
+        return steps
 
-        self.print_step(3, "Read TimeSource")
-        if timesource_attr_id in attribute_list:
-            time_source = await self.read_ts_attribute_expect_success(attribute=attributes.TimeSource)
-            asserts.assert_less(time_source, Clusters.TimeSynchronization.Enums.TimeSourceEnum.kUnknownEnumValue,
-                                "TimeSource is not in valid range")
 
-        self.print_step(4, "Read TrustedTimeSource")
-        if self.supports_trusted_time_source:
-            trusted_time_source = await self.read_ts_attribute_expect_success(attribute=attributes.TrustedTimeSource)
-            if trusted_time_source is not NullValue:
-                asserts.assert_less_equal(trusted_time_source.fabricIndex, 0xFE,
-                                          "FabricIndex for the TrustedTimeSource is out of range")
-                asserts.assert_greater_equal(trusted_time_source.fabricIndex, 1,
-                                             "FabricIndex for the TrustedTimeSource is out of range")
+    @async_test_body
+    async def test_TIMESYNC_2_1(self):
+        endpoint = self.get_endpoint()
+        attributes = cluster.Attributes
 
-        self.print_step(5, "Read DefaultNTP")
-        if self.supports_ntpc:
-            default_ntp = await self.read_ts_attribute_expect_success(attribute=attributes.DefaultNTP)
-            if default_ntp is not NullValue:
-                asserts.assert_less_equal(len(default_ntp), 128, "DefaultNTP length must be less than 128")
-                # Assume this is a valid web address if it has at least one . in the name
-                is_web_addr = default_ntp.find('.') != -1
-                try:
-                    ipaddress.IPv6Address(default_ntp)
-                    is_ip_addr = True
-                except ipaddress.AddressValueError:
-                    is_ip_addr = False
-                    pass
-                asserts.assert_true(is_web_addr or is_ip_addr, "Returned DefaultNTP value is not a IP address or web address")
+        self.step("1")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UTCTime)
+        if val is not NullValue:
+            matter_asserts.assert_valid_uint64(val, 'UTCTime')
 
-        self.print_step(6, "Read TimeZone")
-        if self.supports_time_zone:
-            tz_dut = await self.read_ts_attribute_expect_success(attribute=attributes.TimeZone)
-            asserts.assert_greater_equal(len(tz_dut), 1, "TimeZone must have at least one entry in the list")
-            asserts.assert_less_equal(len(tz_dut), 2, "TimeZone may have a maximum of two entries in the list")
-            for entry in tz_dut:
-                asserts.assert_greater_equal(entry.offset, -43200, "TimeZone offset is out of range")
-                asserts.assert_less_equal(entry.offset, 50400, "TimeZone offset is out of range")
-                if entry.name:
-                    asserts.assert_less_equal(len(entry.name), 64, "TimeZone name is too long")
+        self.step("2")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Granularity)
+        matter_asserts.assert_valid_enum(val, "Granularity attribute must return a Clusters.TimeSynchronization.Enums.GranularityEnum", Clusters.TimeSynchronization.Enums.GranularityEnum)
 
-            asserts.assert_equal(tz_dut[0].validAt, 0, "TimeZone list first entry must have a 0 ValidAt time")
-            if len(tz_dut) > 1:
-                asserts.assert_not_equal(tz_dut[1].validAt, 0, "TimeZone list second entry must have a non-zero ValidAt time")
+        self.step("3")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TimeSource):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TimeSource)
+            if val is not None:
+                matter_asserts.assert_valid_enum(val, "TimeSource attribute must return a Clusters.TimeSynchronization.Enums.TimeSourceEnum", Clusters.TimeSynchronization.Enums.TimeSourceEnum)
 
-        self.print_step(7, "Read DSTOffset")
-        if self.supports_time_zone:
-            dst_dut = await self.read_ts_attribute_expect_success(attribute=attributes.DSTOffset)
-            last_valid_until = -1
-            last_valid_starting = -1
-            for dst in dst_dut:
-                asserts.assert_greater(dst.validStarting, last_valid_starting,
-                                       "DSTOffset list must be sorted by ValidStarting time")
-                last_valid_starting = dst.validStarting
-                asserts.assert_greater_equal(dst.validStarting, last_valid_until,
-                                             "DSTOffset list must have every ValidStarting > ValidUntil of the previous entry")
-                last_valid_until = dst.validUntil
-                if dst.validUntil is NullValue or dst.validUntil is None:
-                    asserts.assert_equal(dst, dst_dut[-1], "DSTOffset list must have Null ValidUntil at the end")
+        self.step("4")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeSyncClient):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TrustedTimeSource)
+            if val is not NullValue:
+                asserts.assert_true(isinstance(val, Clusters.TimeSynchronization.Structs.TrustedTimeSourceStruct),
+                                            f"val must be of type Clusters.TimeSynchronization.Structs.TrustedTimeSourceStruct")
+                await self.test_checkTrustedTimeSourceStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
-        self.print_step(8, "Read UTCTime")
-        utc_dut = await self.read_ts_attribute_expect_success(attribute=attributes.UTCTime)
-        if utc_dut is NullValue:
-            asserts.assert_equal(granularity_dut, Clusters.TimeSynchronization.Enums.GranularityEnum.kNoTimeGranularity)
-        else:
-            asserts.assert_not_equal(granularity_dut, Clusters.TimeSynchronization.Enums.GranularityEnum.kNoTimeGranularity)
-            if granularity_dut is Clusters.TimeSynchronization.Enums.GranularityEnum.kMinutesGranularity:
-                toleranace = timedelta(minutes=10)
-            else:
-                toleranace = timedelta(minutes=1)
-            delta_us = abs(utc_dut - utc_time_in_matter_epoch())
-            delta = timedelta(microseconds=delta_us)
-            asserts.assert_less_equal(delta, toleranace, "UTC time is not within tolerance of TH")
+        self.step("5")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kNTPClient):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DefaultNTP)
+            if val is not NullValue:
+                matter_asserts.assert_is_string(val, "DefaultNTP must be a string")
+                asserts.assert_less_equal(len(val), 128, "DefaultNTP must have length at most 128!")
 
-        self.print_step(9, "Read LocalTime")
-        if self.supports_time_zone:
-            utc_dut = await self.read_ts_attribute_expect_success(attribute=attributes.UTCTime)
-            local_dut = await self.read_ts_attribute_expect_success(attribute=attributes.LocalTime)
-            if utc_dut is NullValue:
-                asserts.assert_true(local_dut is NullValue, "LocalTime must be Null if UTC time is Null")
-            elif len(dst_dut) == 0:
-                asserts.assert_true(local_dut is NullValue, "LocalTime must be Null if the DST table is empty")
-            else:
-                local_calculated = utc_dut + dst_dut[0].offset + tz_dut[0].offset
-                delta_us = abs(local_dut, local_calculated)
-                delta = timedelta(microseconds=delta_us)
-                toleranace = timedelta(minutes=1)
-                asserts.assert_less_equal(delta, toleranace, "Local time caluclation is not within tolerance of calculated value")
+        self.step("6")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeZone):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TimeZone)
+            matter_asserts.assert_list(val, "TimeZone attribute must return a list")
+            matter_asserts.assert_list_element_type(val,  "TimeZone attribute must contain Clusters.TimeSynchronization.Structs.TimeZoneStruct elements", Clusters.TimeSynchronization.Structs.TimeZoneStruct)
+            for item in val:
+                await self.test_checkTimeZoneStruct(endpoint=endpoint, cluster=cluster, struct=item)
+            asserts.assert_greater_equal(len(val), 1, "TimeZone must have at least 1 entries!")
+            asserts.assert_less_equal(len(val), 2, "TimeZone must have at most 2 entries!")
 
-        self.print_step(10, "Read TimeZoneDatabase")
-        if self.supports_time_zone:
-            tz_db_dut = await self.read_ts_attribute_expect_success(attribute=attributes.TimeZoneDatabase)
-            asserts.assert_less(tz_db_dut, Clusters.TimeSynchronization.Enums.TimeZoneDatabaseEnum.kUnknownEnumValue,
-                                "TimeZoneDatabase is not in valid range")
+        self.step("7")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeZone):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DSTOffset)
+            matter_asserts.assert_list(val, "DSTOffset attribute must return a list")
+            matter_asserts.assert_list_element_type(val,  "DSTOffset attribute must contain Clusters.TimeSynchronization.Structs.DSTOffsetStruct elements", Clusters.TimeSynchronization.Structs.DSTOffsetStruct)
+            for item in val:
+                await self.test_checkDSTOffsetStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
-        self.print_step(11, "Read NTPServerAvailable")
-        if self.supports_ntps:
-            # bool typechecking happens in the test read functions, so all we need to do here is do the read
-            await self.read_ts_attribute_expect_success(attribute=attributes.NTPServerAvailable)
+        self.step("8")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeZone):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LocalTime)
+            if val is not NullValue:
+                matter_asserts.assert_valid_uint64(val, 'LocalTime')
 
-        self.print_step(12, "Read TimeZoneListMaxSize")
-        if self.supports_time_zone:
-            size = await self.read_ts_attribute_expect_success(attribute=attributes.TimeZoneListMaxSize)
-            asserts.assert_greater_equal(size, 1, "TimeZoneListMaxSize must be at least 1")
-            asserts.assert_less_equal(size, 2, "TimeZoneListMaxSize must be max 2")
+        self.step("9")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeZone):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TimeZoneDatabase)
+            matter_asserts.assert_valid_enum(val, "TimeZoneDatabase attribute must return a Clusters.TimeSynchronization.Enums.TimeZoneDatabaseEnum", Clusters.TimeSynchronization.Enums.TimeZoneDatabaseEnum)
 
-        self.print_step(13, "Read DSTOffsetListMaxSize")
-        if self.supports_time_zone:
-            size = await self.read_ts_attribute_expect_success(attribute=attributes.DSTOffsetListMaxSize)
-            asserts.assert_greater_equal(size, 1, "DSTOffsetListMaxSize must be at least 1")
+        self.step("10")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kNTPServer):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NTPServerAvailable)
+            matter_asserts.assert_valid_bool(val, 'NTPServerAvailable')
 
-        self.print_step(14, "Read SupportsDNSResolve")
-        # bool typechecking happens in the test read functions, so all we need to do here is do the read
-        if self.supports_ntpc:
-            await self.read_ts_attribute_expect_success(attribute=attributes.SupportsDNSResolve)
+        self.step("11")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeZone):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TimeZoneListMaxSize)
+            matter_asserts.assert_valid_uint8(val, 'TimeZoneListMaxSize')
+            asserts.assert_greater_equal(val, 1)
+            asserts.assert_less_equal(val, 2)
+
+        self.step("12")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeZone):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DSTOffsetListMaxSize)
+            matter_asserts.assert_valid_uint8(val, 'DSTOffsetListMaxSize')
+            asserts.assert_greater_equal(val, 1)
+
+        self.step("13")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kNTPClient):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportsDNSResolve)
+            matter_asserts.assert_valid_bool(val, 'SupportsDNSResolve')
+
+
+    async def test_checkDSTOffsetStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.TimeSynchronization = None, 
+                                 struct: Clusters.TimeSynchronization.Structs.DSTOffsetStruct = None):
+        matter_asserts.assert_valid_int32(struct.offset, 'Offset')
+        matter_asserts.assert_valid_uint64(struct.validStarting, 'ValidStarting')
+        if struct.validUntil is not NullValue:
+            matter_asserts.assert_valid_uint64(struct.validUntil, 'ValidUntil')
+
+    async def test_checkTimeZoneStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.TimeSynchronization = None, 
+                                 struct: Clusters.TimeSynchronization.Structs.TimeZoneStruct = None):
+        matter_asserts.assert_valid_int32(struct.offset, 'Offset')
+        asserts.assert_greater_equal(struct.offset, -43200)
+        asserts.assert_less_equal(struct.offset, 50400)
+        matter_asserts.assert_valid_uint64(struct.validAt, 'ValidAt')
+        if struct.name is not None:
+            matter_asserts.assert_is_string(struct.name, "Name must be a string")
+            asserts.assert_greater_equal(len(struct.name), 0, "Name must be at least 0 long!")
+            asserts.assert_less_equal(len(struct.name), 64, "Name must have length at most 64!")
+
+    async def test_checkTrustedTimeSourceStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.TimeSynchronization = None, 
+                                 struct: Clusters.TimeSynchronization.Structs.TrustedTimeSourceStruct = None):
+        matter_asserts.assert_valid_uint8(struct.fabricIndex, 'FabricIndex must be uint8')
+        matter_asserts.assert_valid_uint64(struct.nodeID, 'NodeID must be uint64')
+        matter_asserts.assert_valid_uint16(struct.endpoint, 'Endpoint must be uint16')
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 #
-#    Copyright (c) 2024 Project CHIP Authors
+#    Copyright (c) 2025 Project CHIP Authors
 #    All rights reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,117 +13,90 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-#
 
 # See https://github.com/project-chip/connectedhomeip/blob/master/docs/testing/python.md#defining-the-ci-test-arguments
 # for details about the block below.
 #
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs:
-#   run1:
-#     app: ${ALL_CLUSTERS_APP}
-#     app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
-#     script-args: >
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --endpoint 1
-#       --PICS src/app/tests/suites/certification/ci-pics-values
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
+# test-runner-runs: run1
+# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
+# test-runner-run/run1/factoryreset: True
+# test-runner-run/run1/quiet: True
+# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
+# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
 # === END CI TEST ARGUMENTS ===
 
+import copy
 import logging
+import random
 
 import chip.clusters as Clusters
-from chip.interaction_model import Status
-from chip.testing.matter_testing import MatterBaseTest, TestStep, default_matter_test_main, has_feature, run_if_endpoint_matches
+from chip import ChipDeviceCtrl  # Needed before chip.FabricAdmin
+from chip.clusters import Globals
+from chip.clusters.Types import NullValue
+from chip.interaction_model import InteractionModelError, Status
+from chip.testing import matter_asserts
+from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
 from mobly import asserts
 
 logger = logging.getLogger(__name__)
 
+cluster = Clusters.LaundryWasherControls
 
-MAX_SPIN_SPEEDS = 16
+class WASHERCTRL_2_1(MatterBaseTest):
 
-
-class TC_WASHERCTRL_2_1(MatterBaseTest):
-
-    def desc_TC_WASHERCTRL_2_1(self) -> str:
+    def desc_WASHERCTRL_2_1(self) -> str:
         """Returns a description of this test"""
-        return "[TC-WASHERCTRL-2.1] Optional Spin attributes with DUT as Server"
+        return "Attributes with Server as DUT"
 
-    def pics_TC_WASHERCTRL_2_1(self) -> list[str]:
-        pics = [
-            "WASHERCTRL.S.F00",
-            "WASHERCTRL.S.A0000",
-            "WASHERCTRL.S.A0001"
-        ]
-        return pics
+    def pics_WASHERCTRL_2_1(self) -> list[str]:
+        """This function returns a list of PICS for this test case that must be True for the test to be run"""
+        return ["WASHERCTRL"]
 
-    def steps_TC_WASHERCTRL_2_1(self) -> list[TestStep]:
+    def steps_WASHERCTRL_2_1(self) -> list[TestStep]:
         steps = [
-            TestStep(1, "Commissioning, already done",
-                     is_commissioning=True),
-            TestStep(2, description="TH reads from the DUT the SpinSpeeds attribute",
-                     expectation="Verify that the DUT response contains a list of strings. The maximum size of the list is 16."),
-            TestStep(3, description="TH reads from the DUT the SpinSpeedCurrent attribute",
-                     expectation="Verify that the DUT response contains a uint8 with value between 0 and numSpinSpeeds-1 inclusive."),
-            TestStep(4, description="TH writes a supported SpinSpeedCurrent attribute that is a valid index into the list"
-                     + "of spin speeds (0 to numSpinSpeeds - 1) and then read the SpinSpeedCurrent value",
-                     expectation="Verify DUT responds w/ status SUCCESS(0x00) and the SpinSpeedCurrent value was set accordingly"),
-            TestStep(5, description="TH writes an unsupported SpinSpeedCurrent attribute that is other than 0 to DUT",
-                     expectation="Verify that the DUT response contains Status CONSTRAINT_ERROR response")
+            TestStep("1", "Read SpinSpeeds attribute"),
+            TestStep("2", "Read SpinSpeedCurrent attribute"),
+            TestStep("3", "Read NumberOfRinses attribute"),
+            TestStep("4", "Read SupportedRinses attribute"),
         ]
 
         return steps
 
-    @run_if_endpoint_matches(has_feature(Clusters.LaundryWasherControls,
-                                         Clusters.LaundryWasherControls.Bitmaps.Feature.kSpin))
-    async def test_TC_WASHERCTRL_2_1(self):
 
-        endpoint = self.get_endpoint(default=1)
+    @async_test_body
+    async def test_WASHERCTRL_2_1(self):
+        endpoint = self.get_endpoint()
+        attributes = cluster.Attributes
 
-        self.step(1)
+        self.step("1")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSpin):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SpinSpeeds)
+            matter_asserts.assert_list(val, "SpinSpeeds attribute must return a list")
+            matter_asserts.assert_list_element_type(val,  "SpinSpeeds attribute must contain str elements", str)
+            asserts.assert_less_equal(len(val), 16, "SpinSpeeds must have at most 16 entries!")
+            for val in val:
+                asserts.assert_less_equal(len(val), 64, "SpinSpeeds must have at most 64 entries!")
 
-        # Read the SpinSpeeds attributes
-        self.step(2)
-        list_speed_speeds = await self.read_single_attribute_check_success(endpoint=endpoint,
-                                                                           cluster=Clusters.Objects.LaundryWasherControls,
-                                                                           attribute=Clusters.LaundryWasherControls.Attributes.SpinSpeeds)
+        self.step("2")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSpin):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SpinSpeedCurrent)
+            if val is not NullValue:
+                matter_asserts.assert_valid_uint8(val, 'SpinSpeedCurrent')
+                asserts.assert_less_equal(val, 15)
 
-        asserts.assert_true(isinstance(list_speed_speeds, list), "Returned value was not a list")
-        numSpinSpeeds = len(list_speed_speeds)
-        asserts.assert_less_equal(numSpinSpeeds, MAX_SPIN_SPEEDS, "List of SpinSpeeds larger than maximum allowed")
+        self.step("3")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRinse):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfRinses)
+            matter_asserts.assert_valid_enum(val, "NumberOfRinses attribute must return a Clusters.LaundryWasherControls.Enums.NumberOfRinsesEnum", Clusters.LaundryWasherControls.Enums.NumberOfRinsesEnum)
 
-        # Read the SpinSpeedCurrent attribute
-        self.step(3)
-        spin_speed_current = await self.read_single_attribute_check_success(endpoint=endpoint,
-                                                                            cluster=Clusters.Objects.LaundryWasherControls,
-                                                                            attribute=Clusters.LaundryWasherControls.Attributes.SpinSpeedCurrent)
-        asserts.assert_true(isinstance(spin_speed_current, int), "SpinSpeedCurrent has an invalid value")
-        asserts.assert_true(0 <= spin_speed_current <= (numSpinSpeeds - 1), "SpinSpeedCurrent outside valid range")
+        self.step("4")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRinse):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedRinses)
+            matter_asserts.assert_list(val, "SupportedRinses attribute must return a list")
+            matter_asserts.assert_list_element_type(val,  "SupportedRinses attribute must contain Clusters.LaundryWasherControls.Enums.NumberOfRinsesEnum elements", Clusters.LaundryWasherControls.Enums.NumberOfRinsesEnum)
+            asserts.assert_less_equal(len(val), 4, "SupportedRinses must have at most 4 entries!")
 
-        self.step(4)
-        for requested_speed in range(0, numSpinSpeeds):
-            # Write a valid SpinSpeedCurrent value
-            result = await self.write_single_attribute(attribute_value=Clusters.LaundryWasherControls.Attributes.SpinSpeedCurrent(requested_speed),
-                                                       endpoint_id=endpoint)
-            asserts.assert_equal(result, Status.Success, "Error when trying to write a valid SpinSpeed value")
-
-            # Read SpinSpeedCurrent value and verify that was changed.
-            current_value = await self.read_single_attribute_check_success(endpoint=endpoint,
-                                                                           cluster=Clusters.Objects.LaundryWasherControls,
-                                                                           attribute=Clusters.LaundryWasherControls.Attributes.SpinSpeedCurrent)
-            asserts.assert_equal(current_value, requested_speed, "Value obtained different than the previously written one")
-
-        # Try to write an invalid value (outside supported range)
-        self.step(5)
-        result = await self.write_single_attribute(attribute_value=Clusters.LaundryWasherControls.Attributes.SpinSpeedCurrent(numSpinSpeeds),
-                                                   endpoint_id=endpoint, expect_success=False)
-        asserts.assert_equal(result, Status.ConstraintError, "Trying to write an invalid value should return ConstraintError")
 
 
 if __name__ == "__main__":

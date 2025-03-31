@@ -1,5 +1,5 @@
 #
-#    Copyright (c) 2023 Project CHIP Authors
+#    Copyright (c) 2025 Project CHIP Authors
 #    All rights reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,205 +13,94 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-#
 
 # See https://github.com/project-chip/connectedhomeip/blob/master/docs/testing/python.md#defining-the-ci-test-arguments
 # for details about the block below.
 #
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs:
-#   run1:
-#     app: ${CHIP_RVC_APP}
-#     app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
-#     script-args: >
-#       --PICS examples/rvc-app/rvc-common/pics/rvc-app-pics-values
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --endpoint 1
-#       --int-arg PIXIT.RVCRUNM.MODE_CHANGE_OK:0
-#       --int-arg PIXIT.RVCRUNM.MODE_CHANGE_FAIL:2
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
+# test-runner-runs: run1
+# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
+# test-runner-run/run1/factoryreset: True
+# test-runner-run/run1/quiet: True
+# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
+# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
 # === END CI TEST ARGUMENTS ===
 
+import copy
 import logging
+import random
 
 import chip.clusters as Clusters
-from chip.testing.matter_testing import MatterBaseTest, async_test_body, default_matter_test_main, type_matches
+from chip import ChipDeviceCtrl  # Needed before chip.FabricAdmin
+from chip.clusters import Globals
+from chip.clusters.Types import NullValue
+from chip.interaction_model import InteractionModelError, Status
+from chip.testing import matter_asserts
+from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
 from mobly import asserts
 
-# This test requires several additional command line arguments
-# run with
-# --int-arg PIXIT.RVCRUNM.MODE_CHANGE_OK:<mode id> --int-arg PIXIT.RVCRUNM.MODE_CHANGE_FAIL:<mode id>
-# For running in CI, it is expected that OK=0 and FAIL=2
+logger = logging.getLogger(__name__)
 
+cluster = Clusters.RVCRunMode
 
-class TC_RVCRUNM_2_1(MatterBaseTest):
+class RVCRUNM_2_1(MatterBaseTest):
 
-    def __init__(self, *args):
-        super().__init__(*args)
-        self.endpoint = 0
-        self.mode_ok = 0
-        self.mode_fail = 0
-        self.is_ci = False
-        self.app_pipe = "/tmp/chip_rvc_fifo_"
+    def desc_RVCRUNM_2_1(self) -> str:
+        """Returns a description of this test"""
+        return "Attributes with Server as DUT"
 
-    async def read_mod_attribute_expect_success(self, endpoint, attribute):
-        cluster = Clusters.Objects.RvcRunMode
-        return await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=attribute)
+    def pics_RVCRUNM_2_1(self) -> list[str]:
+        """This function returns a list of PICS for this test case that must be True for the test to be run"""
+        return ["RVCRUNM"]
 
-    async def send_change_to_mode_cmd(self, newMode) -> Clusters.Objects.RvcRunMode.Commands.ChangeToModeResponse:
-        ret = await self.send_single_cmd(cmd=Clusters.Objects.RvcRunMode.Commands.ChangeToMode(newMode=newMode), endpoint=self.endpoint)
-        asserts.assert_true(type_matches(ret, Clusters.Objects.RvcRunMode.Commands.ChangeToModeResponse),
-                            "Unexpected return type for ChangeToMode")
-        return ret
+    def steps_RVCRUNM_2_1(self) -> list[TestStep]:
+        steps = [
+            TestStep("1", "Read SupportedModes attribute"),
+            TestStep("2", "Read CurrentMode attribute"),
+        ]
 
-    def pics_TC_RVCRUNM_2_1(self) -> list[str]:
-        return ["RVCRUNM.S"]
+        return steps
+
 
     @async_test_body
-    async def test_TC_RVCRUNM_2_1(self):
+    async def test_RVCRUNM_2_1(self):
+        endpoint = self.get_endpoint()
+        attributes = cluster.Attributes
 
-        asserts.assert_true('PIXIT.RVCRUNM.MODE_CHANGE_OK' in self.matter_test_config.global_test_params,
-                            "PIXIT.RVCRUNM.MODE_CHANGE_OK must be included on the command line in "
-                            "the --int-arg flag as PIXIT.RVCRUNM.MODE_CHANGE_OK:<mode id>")
-        asserts.assert_true('PIXIT.RVCRUNM.MODE_CHANGE_FAIL' in self.matter_test_config.global_test_params,
-                            "PIXIT.RVCRUNM.MODE_CHANGE_FAIL must be included on the command line in "
-                            "the --int-arg flag as PIXIT.RVCRUNM.MODE_CHANGE_FAIL:<mode id>")
+        self.step("1")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedModes)
+        matter_asserts.assert_list(val, "SupportedModes attribute must return a list")
+        matter_asserts.assert_list_element_type(val,  "SupportedModes attribute must contain Clusters.ModeBase.Structs.ModeOptionStruct elements", Clusters.ModeBase.Structs.ModeOptionStruct)
+        for item in val:
+            await self.test_checkModeOptionStruct(endpoint=endpoint, cluster=cluster, struct=item)
+        asserts.assert_greater_equal(len(val), 2, "SupportedModes must have at least 2 entries!")
+        asserts.assert_less_equal(len(val), 255, "SupportedModes must have at most 255 entries!")
 
-        self.endpoint = self.get_endpoint()
-        self.mode_ok = self.matter_test_config.global_test_params['PIXIT.RVCRUNM.MODE_CHANGE_OK']
-        self.mode_fail = self.matter_test_config.global_test_params['PIXIT.RVCRUNM.MODE_CHANGE_FAIL']
-        self.is_ci = self.check_pics("PICS_SDK_CI_ONLY")
-        if self.is_ci:
-            app_pid = self.matter_test_config.app_pid
-            if app_pid == 0:
-                asserts.fail("The --app-pid flag must be set when PICS_SDK_CI_ONLY is set.c")
-            self.app_pipe = self.app_pipe + str(app_pid)
+        self.step("2")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentMode)
+        matter_asserts.assert_valid_uint8(val, 'CurrentMode')
 
-        asserts.assert_true(self.check_pics("RVCRUNM.S.A0000"), "RVCRUNM.S.A0000 must be supported")
-        asserts.assert_true(self.check_pics("RVCRUNM.S.A0001"), "RVCRUNM.S.A0001 must be supported")
-        asserts.assert_true(self.check_pics("RVCRUNM.S.C00.Rsp"), "RVCRUNM.S.C00.Rsp must be supported")
-        asserts.assert_true(self.check_pics("RVCRUNM.S.C01.Tx"), "RVCRUNM.S.C01.Tx must be supported")
 
-        attributes = Clusters.RvcRunMode.Attributes
+    async def test_checkModeOptionStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.RVCRunMode = None, 
+                                 struct: Clusters.ModeBase.Structs.ModeOptionStruct = None):
+        matter_asserts.assert_is_string(struct.label, "Label must be a string")
+        asserts.assert_less_equal(len(struct.label), 64, "Label must have length at most 64!")
+        matter_asserts.assert_valid_uint8(struct.mode, 'Mode')
+        matter_asserts.assert_list(struct.modeTags, "ModeTags attribute must return a list")
+        matter_asserts.assert_list_element_type(struct.modeTags,  "ModeTags attribute must contain Clusters.ModeBase.Structs.ModeTagStruct elements", Clusters.ModeBase.Structs.ModeTagStruct)
+        for item in struct.modeTags:
+            await self.test_checkModeTagStruct(endpoint=endpoint, cluster=cluster, struct=item)
+        asserts.assert_less_equal(len(struct.modeTags), 8, "ModeTags must have at most 8 entries!")
 
-        self.print_step(1, "Commissioning, already done")
-
-        # Ensure that the device is in the correct state
-        if self.is_ci:
-            self.write_to_app_pipe({"Name": "Reset"})
-
-        self.print_step(2, "Read SupportedModes attribute")
-        supported_modes = await self.read_mod_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.SupportedModes)
-
-        logging.info("SupportedModes: %s" % (supported_modes))
-
-        asserts.assert_greater_equal(len(supported_modes), 2, "SupportedModes must have at least two entries!")
-
-        modes = [m.mode for m in supported_modes]
-
-        self.print_step(3, "Read CurrentMode attribute")
-
-        old_current_mode = await self.read_mod_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.CurrentMode)
-
-        logging.info("CurrentMode: %s" % (old_current_mode))
-
-        # pick a value that's not on the list of supported modes
-        invalid_mode = max(modes) + 1
-
-        from enum import Enum
-
-        class CommonCodes(Enum):
-            SUCCESS = 0x00
-            UNSUPPORTED_MODE = 0x01
-            GENERIC_FAILURE = 0x02
-            INVALID_IN_MODE = 0x03
-
-        rvcRunCodes = [code.value for code in Clusters.RvcRunMode.Enums.StatusCode]
-
-        self.print_step(4, "Send ChangeToMode command with NewMode set to %d" % (old_current_mode))
-
-        ret = await self.send_change_to_mode_cmd(newMode=old_current_mode)
-        asserts.assert_true(ret.status == CommonCodes.SUCCESS.value, "Changing the mode to the current mode should be a no-op")
-
-        if self.check_pics("RVCRUNM.S.M.CAN_TEST_MODE_FAILURE"):
-            asserts.assert_true(self.mode_fail in modes,
-                                "The MODE_CHANGE_FAIL PIXIT value (%d) is not a supported mode" % (self.mode_fail))
-            self.print_step(5, "Manually put the device in a state from which it will FAIL to transition to mode %d" % (self.mode_fail))
-            if self.is_ci:
-                print("Change to RVC Run mode Cleaning")
-                await self.send_change_to_mode_cmd(newMode=1)
-            else:
-                self.wait_for_user_input(
-                    prompt_msg="Manually put the device in a state from which it will FAIL to transition to mode %d, and press Enter when ready." % (self.mode_fail))
-
-            self.print_step(6, "Read CurrentMode attribute")
-            old_current_mode = await self.read_mod_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.CurrentMode)
-
-            logging.info("CurrentMode: %s" % (old_current_mode))
-
-            self.print_step(7, "Send ChangeToMode command with NewMode set to %d" % (self.mode_fail))
-
-            ret = await self.send_change_to_mode_cmd(newMode=self.mode_fail)
-            st = ret.status
-            is_mfg_code = st in range(0x80, 0xC0)
-            is_err_code = (st == CommonCodes.GENERIC_FAILURE.value) or (
-                st == CommonCodes.INVALID_IN_MODE.value) or (st in rvcRunCodes) or is_mfg_code
-            asserts.assert_true(
-                is_err_code, "Changing to mode %d must fail due to the current state of the device" % (self.mode_fail))
-            st_text_len = len(ret.statusText)
-            asserts.assert_true(st_text_len in range(1, 65), "StatusText length (%d) must be between 1 and 64" % (st_text_len))
-
-            self.print_step(8, "Read CurrentMode attribute")
-            current_mode = await self.read_mod_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.CurrentMode)
-
-            logging.info("CurrentMode: %s" % (current_mode))
-
-            asserts.assert_true(current_mode == old_current_mode, "CurrentMode changed after failed ChangeToMode command!")
-
-        self.print_step(9, "Manually put the device in a state from which it will SUCCESSFULLY transition to mode %d" % (self.mode_ok))
-        if self.is_ci:
-            print("Continuing...")
-        else:
-            self.wait_for_user_input(
-                prompt_msg="Manually put the device in a state from which it will SUCCESSFULLY transition to mode %d, and press Enter when ready." % (self.mode_ok))
-
-        self.print_step(10, "Read CurrentMode attribute")
-        old_current_mode = await self.read_mod_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.CurrentMode)
-
-        logging.info("CurrentMode: %s" % (old_current_mode))
-
-        self.print_step(11, "Send ChangeToMode command with NewMode set to %d" % (self.mode_ok))
-
-        ret = await self.send_change_to_mode_cmd(newMode=self.mode_ok)
-        asserts.assert_true(ret.status == CommonCodes.SUCCESS.value,
-                            "Changing to mode %d must succeed due to the current state of the device" % (self.mode_ok))
-
-        self.print_step(12, "Read CurrentMode attribute")
-        current_mode = await self.read_mod_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.CurrentMode)
-
-        logging.info("CurrentMode: %s" % (current_mode))
-
-        asserts.assert_true(current_mode == self.mode_ok,
-                            "CurrentMode doesn't match the argument of the successful ChangeToMode command!")
-
-        self.print_step(13, "Send ChangeToMode command with NewMode set to %d" % (invalid_mode))
-
-        ret = await self.send_change_to_mode_cmd(newMode=invalid_mode)
-        asserts.assert_true(ret.status == CommonCodes.UNSUPPORTED_MODE.value,
-                            "Attempt to change to invalid mode %d didn't fail as expected" % (invalid_mode))
-
-        self.print_step(14, "Read CurrentMode attribute")
-        current_mode = await self.read_mod_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.CurrentMode)
-
-        logging.info("CurrentMode: %s" % (current_mode))
-
-        asserts.assert_true(current_mode == self.mode_ok, "CurrentMode changed after failed ChangeToMode command!")
+    async def test_checkModeTagStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.RVCRunMode = None, 
+                                 struct: Clusters.ModeBase.Structs.ModeTagStruct = None):
+        if struct.mfgCode is not None:
+            matter_asserts.assert_valid_uint16(struct.mfgCode, 'MfgCode must be uint16')
+        matter_asserts.assert_valid_uint16(struct.value, 'Value must be uint16')
 
 
 if __name__ == "__main__":

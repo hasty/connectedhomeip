@@ -1,5 +1,5 @@
 #
-#    Copyright (c) 2024 Project CHIP Authors
+#    Copyright (c) 2025 Project CHIP Authors
 #    All rights reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,143 +13,124 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-#
 
 # See https://github.com/project-chip/connectedhomeip/blob/master/docs/testing/python.md#defining-the-ci-test-arguments
 # for details about the block below.
 #
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs:
-#   run1:
-#     app: ${CHIP_MICROWAVE_OVEN_APP}
-#     app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
-#     script-args: >
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --PICS src/app/tests/suites/certification/ci-pics-values
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
+# test-runner-runs: run1
+# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
+# test-runner-run/run1/factoryreset: True
+# test-runner-run/run1/quiet: True
+# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
+# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
 # === END CI TEST ARGUMENTS ===
 
+import copy
+import logging
+import random
+
 import chip.clusters as Clusters
+from chip import ChipDeviceCtrl  # Needed before chip.FabricAdmin
+from chip.clusters import Globals
+from chip.clusters.Types import NullValue
 from chip.interaction_model import InteractionModelError, Status
+from chip.testing import matter_asserts
 from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
 from mobly import asserts
 
-# This test requires several additional command line arguments
-# run with
-# --endpoint endpoint
+logger = logging.getLogger(__name__)
 
+cluster = Clusters.MicrowaveOvenControl
 
-class TC_MWOCTRL_2_1(MatterBaseTest):
+class MWOCTRL_2_1(MatterBaseTest):
 
-    async def read_mwoctrl_attribute_expect_success(self, endpoint, attribute):
-        cluster = Clusters.Objects.MicrowaveOvenControl
-        return await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=attribute)
+    def desc_MWOCTRL_2_1(self) -> str:
+        """Returns a description of this test"""
+        return "Attributes with Server as DUT"
 
-    async def set_cook_time_expect_success(self, endpoint, value):
-        commands = Clusters.Objects.MicrowaveOvenControl.Commands
-        try:
-            await self.send_single_cmd(cmd=commands.SetCookingParameters(cookTime=value), endpoint=endpoint)
-        except InteractionModelError as e:
-            asserts.assert_equal(e.status, Status.Success, "Unexpected error returned")
+    def pics_MWOCTRL_2_1(self) -> list[str]:
+        """This function returns a list of PICS for this test case that must be True for the test to be run"""
+        return ["MWOCTRL"]
 
-    async def set_bad_cook_time_value_expect_failure(self, endpoint, value):
-        commands = Clusters.Objects.MicrowaveOvenControl.Commands
-        try:
-            await self.send_single_cmd(cmd=commands.SetCookingParameters(cookTime=value), endpoint=endpoint)
-            asserts.assert_fail("Expected an exception but received none.")
-        except InteractionModelError as e:
-            asserts.assert_equal(e.status, Status.ConstraintError, "Expected a CONSTRAINT_ERROR but got a different response.")
-
-    async def read_and_check_cook_time_value(self, endpoint, value):
-        attributes = Clusters.MicrowaveOvenControl.Attributes
-        cooktime = await self.read_mwoctrl_attribute_expect_success(endpoint=endpoint, attribute=attributes.CookTime)
-        asserts.assert_equal(cooktime, value, "Cooktime value not as expected")
-
-    def desc_TC_MWOCTRL_2_1(self) -> str:
-        return "[TC-MWOCTRL-2.1] Primary functionality with DUT as Server"
-
-    def steps_TC_MWOCTRL_2_1(self) -> list[TestStep]:
+    def steps_MWOCTRL_2_1(self) -> list[TestStep]:
         steps = [
-            TestStep(1, "Commissioning, already done", is_commissioning=True),
-            TestStep(2, "Read the MaxCookTime attribute and check limits",
-                     "Verify that the DUT response contains an elapsed-s value between 1 and 86400 inclusive. Save value as MaxCookTime."
-                     ),
-            TestStep(3, "Read the CookTime attribute and check limits",
-                     "Verify that the DUT response contains an elapsed-s value between 1 and MaxCookTime inclusive."
-                     ),
-            TestStep(4, "Set the CookTime attribute to 60", "Verify DUT responds w/ status SUCCESS(0x00)."),
-            TestStep(5, "Read the CookTime attribute and check for 60",
-                     "Verify that the DUT response contains the CookTime value 60."),
-            TestStep(6, "Set the CookTime attribute to 1", "Verify DUT responds w/ status SUCCESS(0x00)"),
-            TestStep(7, "Read the CookTime attribute and check for 1",
-                     "Verify that the DUT response contains the CookTime value 1."),
-            TestStep(8, "Set the CookTime attribute to MaxCookTime", "Verify DUT responds w/ status SUCCESS(0x00)"),
-            TestStep(9, "Read the CookTime attribute and check for MaxCookTime",
-                     "Verify that the DUT response contains the CookTime value MaxCookTime."),
-            TestStep(10, "Read the WattRating attribute, if supported", "Verify that the DUT response contains a uint16 value."),
-            TestStep(11, "Set the CookTime attribute to 0", "Verify DUT responds w/ status CONSTRAINT_ERROR(0x87)"),
-            TestStep(12, "Set the CookTime attribute to MaxCookTime+1", "Verify DUT responds w/ status CONSTRAINT_ERROR(0x87)"),
+            TestStep("1", "Read CookTime attribute"),
+            TestStep("2", "Read MaxCookTime attribute"),
+            TestStep("3", "Read PowerSetting attribute"),
+            TestStep("4", "Read MinPower attribute"),
+            TestStep("5", "Read MaxPower attribute"),
+            TestStep("6", "Read PowerStep attribute"),
+            TestStep("7", "Read SupportedWatts attribute"),
+            TestStep("8", "Read SelectedWattIndex attribute"),
+            TestStep("9", "Read WattRating attribute"),
         ]
+
         return steps
 
-    def pics_TC_MWOCTRL_2_1(self) -> list[str]:
-        pics = [
-            "MWOCTRL.S",
-        ]
-        return pics
+    MaxCookTime = None
+    MinPower = None
 
     @async_test_body
-    async def test_TC_MWOCTRL_2_1(self):
+    async def test_MWOCTRL_2_1(self):
+        endpoint = self.get_endpoint()
+        attributes = cluster.Attributes
 
-        endpoint = self.get_endpoint(default=1)
+        self.step("1")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CookTime)
+        matter_asserts.assert_valid_uint32(val, 'CookTime')
+        asserts.assert_greater_equal(val, 1)
+        asserts.assert_less_equal(val, self.MaxCookTime)
 
-        self.step(1)
-        attributes = Clusters.MicrowaveOvenControl.Attributes
+        self.step("2")
+        self.MaxCookTime = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxCookTime)
+        matter_asserts.assert_valid_uint32(self.MaxCookTime, 'MaxCookTime')
+        asserts.assert_greater_equal(self.MaxCookTime, 1)
+        asserts.assert_less_equal(self.MaxCookTime, 86400)
 
-        self.step(2)
-        maxCookTime = await self.read_mwoctrl_attribute_expect_success(endpoint=endpoint, attribute=attributes.MaxCookTime)
-        asserts.assert_greater_equal(maxCookTime, 1, "maxCookTime is less than 1")
-        asserts.assert_less_equal(maxCookTime, 86400, "maxCookTime is greater than 86400")
+        self.step("3")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerAsNumber):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PowerSetting)
+            matter_asserts.assert_valid_uint8(val, 'PowerSetting')
 
-        self.step(3)
-        cookTime = await self.read_mwoctrl_attribute_expect_success(endpoint=endpoint, attribute=attributes.CookTime)
-        asserts.assert_greater_equal(cookTime, 1, "cookTime is less than 1")
-        asserts.assert_less_equal(cookTime, maxCookTime, "cookTime is greater than maxCookTime")
+        self.step("4")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerNumberLimits):
+            self.MinPower = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinPower)
+            matter_asserts.assert_valid_uint8(self.MinPower, 'MinPower')
+            asserts.assert_greater_equal(self.MinPower, 1)
+            asserts.assert_less_equal(self.MinPower, 99)
 
-        self.step(4)
-        newCookTime = 60
-        await self.set_cook_time_expect_success(endpoint, newCookTime)
+        self.step("5")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerNumberLimits):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxPower)
+            matter_asserts.assert_valid_uint8(val, 'MaxPower')
+            asserts.assert_greater_equal(val, self.MinPower + 1)
+            asserts.assert_less_equal(val, 100)
 
-        self.step(5)
-        await self.read_and_check_cook_time_value(endpoint, newCookTime)
+        self.step("6")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerNumberLimits):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PowerStep)
+            matter_asserts.assert_valid_uint8(val, 'PowerStep')
 
-        self.step(6)
-        await self.set_cook_time_expect_success(endpoint, 1)
+        self.step("7")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerInWatts):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedWatts)
+            matter_asserts.assert_list(val, "SupportedWatts attribute must return a list")
+            matter_asserts.assert_list_element_type(val,  "SupportedWatts attribute must contain int elements", int)
+            asserts.assert_greater_equal(len(val), 1, "SupportedWatts must have at least 1 entries!")
+            asserts.assert_less_equal(len(val), 10, "SupportedWatts must have at most 10 entries!")
 
-        self.step(7)
-        await self.read_and_check_cook_time_value(endpoint, 1)
+        self.step("8")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerInWatts):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SelectedWattIndex)
+            matter_asserts.assert_valid_uint8(val, 'SelectedWattIndex')
 
-        self.step(8)
-        await self.set_cook_time_expect_success(endpoint, maxCookTime)
+        self.step("9")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WattRating):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WattRating)
+            if val is not None:
+                matter_asserts.assert_valid_uint16(val, 'WattRating')
 
-        self.step(9)
-        await self.read_and_check_cook_time_value(endpoint, maxCookTime)
-
-        self.step(10)
-        if self.pics_guard(self.check_pics("MWOCTRL.S.F01")):
-            await self.read_mwoctrl_attribute_expect_success(endpoint=endpoint, attribute=attributes.WattRating)
-
-        self.step(11)
-        await self.set_bad_cook_time_value_expect_failure(endpoint, 0)
-
-        self.step(12)
-        await self.set_bad_cook_time_value_expect_failure(endpoint, maxCookTime+1)
 
 
 if __name__ == "__main__":

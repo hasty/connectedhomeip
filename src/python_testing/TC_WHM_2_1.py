@@ -1,5 +1,5 @@
 #
-#    Copyright (c) 2024 Project CHIP Authors
+#    Copyright (c) 2025 Project CHIP Authors
 #    All rights reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,163 +13,94 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-#
 
 # See https://github.com/project-chip/connectedhomeip/blob/master/docs/testing/python.md#defining-the-ci-test-arguments
 # for details about the block below.
 #
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs:
-#   run1:
-#     app: ${ENERGY_MANAGEMENT_APP}
-#     app-args: >
-#       --discriminator 1234
-#       --KVS kvs1
-#       --trace-to json:${TRACE_APP}.json
-#       --application water-heater
-#     script-args: >
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --endpoint 2
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
+# test-runner-runs: run1
+# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
+# test-runner-run/run1/factoryreset: True
+# test-runner-run/run1/quiet: True
+# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
+# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
 # === END CI TEST ARGUMENTS ===
 
+import copy
 import logging
+import random
 
 import chip.clusters as Clusters
-from chip.interaction_model import Status
-from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main, type_matches
+from chip import ChipDeviceCtrl  # Needed before chip.FabricAdmin
+from chip.clusters import Globals
+from chip.clusters.Types import NullValue
+from chip.interaction_model import InteractionModelError, Status
+from chip.testing import matter_asserts
+from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
 from mobly import asserts
 
+logger = logging.getLogger(__name__)
 
-class TC_WHM_2_1(MatterBaseTest):
+cluster = Clusters.WaterHeaterMode
 
-    def __init__(self, *args):
-        super().__init__(*args)
-        self.endpoint = 0
+class WHM_2_1(MatterBaseTest):
 
-    def steps_TC_WHM_2_1(self) -> list[TestStep]:
+    def desc_WHM_2_1(self) -> str:
+        """Returns a description of this test"""
+        return "Attributes with Server as DUT"
+
+    def pics_WHM_2_1(self) -> list[str]:
+        """This function returns a list of PICS for this test case that must be True for the test to be run"""
+        return ["WHM"]
+
+    def steps_WHM_2_1(self) -> list[TestStep]:
         steps = [
-            TestStep(1, "Commissioning, already done", is_commissioning=True),
-            TestStep(2, "Read the SupportedModes attribute"),
-            TestStep(3, "Read the CurrentMode attribute"),
-            TestStep(4, "Send ChangeToMode command with NewMode"),
-            TestStep(5, "Manually put the device in a state from which it will FAIL to transition"),
-            TestStep(6, "Read CurrentMode attribute"),
-            TestStep(7, "Send ChangeToMode command with NewMode"),
-            TestStep(8, "Read CurrentMode attribute"),
-            TestStep(9, "Manually put the device in a state from which it will SUCCESSFULLY transition"),
-            TestStep(10, "Read CurrentMode attribute"),
-            TestStep(11, "Send ChangeToMode command with NewMode"),
-            TestStep(12, "Read CurrentMode attribute"),
-            TestStep(13, "Send ChangeToMode command with NewMode set to an invalid mode"),
-            TestStep(14, "Read CurrentMode attribute"),
+            TestStep("1", "Read SupportedModes attribute"),
+            TestStep("2", "Read CurrentMode attribute"),
         ]
+
         return steps
 
-    async def read_mode_attribute_expect_success(self, endpoint, attribute):
-        cluster = Clusters.Objects.WaterHeaterMode
-        return await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=attribute)
-
-    async def send_change_to_mode_cmd(self, newMode) -> Clusters.Objects.WaterHeaterMode.Commands.ChangeToModeResponse:
-        ret = await self.send_single_cmd(cmd=Clusters.Objects.WaterHeaterMode.Commands.ChangeToMode(newMode=newMode), endpoint=self.endpoint)
-        asserts.assert_true(type_matches(ret, Clusters.Objects.WaterHeaterMode.Commands.ChangeToModeResponse),
-                            "Unexpected return type for Water Heater Mode ChangeToMode")
-        return ret
-
-    def pics_TC_WHM_2_1(self) -> list[str]:
-        return ["WHM.S"]
 
     @async_test_body
-    async def test_TC_WHM_2_1(self):
+    async def test_WHM_2_1(self):
+        endpoint = self.get_endpoint()
+        attributes = cluster.Attributes
 
-        # Valid modes. Only ModeManual referred to in this test
-        # ModeOff    = 0
-        ModeManual = 1
-        # ModeTimed  = 2
+        self.step("1")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedModes)
+        matter_asserts.assert_list(val, "SupportedModes attribute must return a list")
+        matter_asserts.assert_list_element_type(val,  "SupportedModes attribute must contain Clusters.ModeBase.Structs.ModeOptionStruct elements", Clusters.ModeBase.Structs.ModeOptionStruct)
+        for item in val:
+            await self.test_checkModeOptionStruct(endpoint=endpoint, cluster=cluster, struct=item)
+        asserts.assert_greater_equal(len(val), 2, "SupportedModes must have at least 2 entries!")
+        asserts.assert_less_equal(len(val), 255, "SupportedModes must have at most 255 entries!")
 
-        self.endpoint = self.get_endpoint()
+        self.step("2")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentMode)
+        matter_asserts.assert_valid_uint8(val, 'CurrentMode')
 
-        attributes = Clusters.WaterHeaterMode.Attributes
 
-        self.step(1)
-        # Commission DUT - already done
+    async def test_checkModeOptionStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.WaterHeaterMode = None, 
+                                 struct: Clusters.ModeBase.Structs.ModeOptionStruct = None):
+        matter_asserts.assert_is_string(struct.label, "Label must be a string")
+        asserts.assert_less_equal(len(struct.label), 64, "Label must have length at most 64!")
+        matter_asserts.assert_valid_uint8(struct.mode, 'Mode')
+        matter_asserts.assert_list(struct.modeTags, "ModeTags attribute must return a list")
+        matter_asserts.assert_list_element_type(struct.modeTags,  "ModeTags attribute must contain Clusters.ModeBase.Structs.ModeTagStruct elements", Clusters.ModeBase.Structs.ModeTagStruct)
+        for item in struct.modeTags:
+            await self.test_checkModeTagStruct(endpoint=endpoint, cluster=cluster, struct=item)
+        asserts.assert_less_equal(len(struct.modeTags), 8, "ModeTags must have at most 8 entries!")
 
-        self.step(2)
-
-        supported_modes = await self.read_mode_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.SupportedModes)
-
-        logging.info(f"SupportedModes: {supported_modes}")
-
-        asserts.assert_greater_equal(len(supported_modes), 2,
-                                     "SupportedModes must have at least two entries!")
-
-        self.step(3)
-
-        old_current_mode = await self.read_mode_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.CurrentMode)
-
-        logging.info(f"CurrentMode: {old_current_mode}")
-
-        # pick a value that's not on the list of supported modes
-        modes = [m.mode for m in supported_modes]
-        invalid_mode = max(modes) + 1
-
-        self.step(4)
-
-        ret = await self.send_change_to_mode_cmd(newMode=old_current_mode)
-        logging.info(f"ret.status {ret.status}")
-        asserts.assert_equal(ret.status, Status.Success,
-                             "Changing the mode to the current mode should be a no-op")
-
-        # Steps 5-9 are not performed as WHM.S.M.CAN_TEST_MODE_FAILURE is false
-        # TODO - see issue 34565
-        self.step(5)
-        self.step(6)
-        self.step(7)
-        self.step(8)
-        self.step(9)
-
-        self.step(10)
-
-        old_current_mode = await self.read_mode_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.CurrentMode)
-
-        logging.info(f"CurrentMode: {old_current_mode}")
-
-        self.step(11)
-
-        ret = await self.send_change_to_mode_cmd(newMode=ModeManual)
-        asserts.assert_true(ret.status == Status.Success,
-                            f"Changing to mode {ModeManual}must succeed due to the current state of the device")
-
-        self.step(12)
-
-        current_mode = await self.read_mode_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.CurrentMode)
-
-        logging.info(f"CurrentMode: {current_mode}")
-
-        asserts.assert_true(current_mode == ModeManual,
-                            "CurrentMode doesn't match the argument of the successful ChangeToMode command!")
-
-        self.step(13)
-
-        ret = await self.send_change_to_mode_cmd(newMode=invalid_mode)
-        logging.info(f"ret {ret}")
-        asserts.assert_true(ret.status == Status.Failure,
-                            f"Attempt to change to invalid mode {invalid_mode} didn't fail as expected")
-
-        self.step(14)
-
-        current_mode = await self.read_mode_attribute_expect_success(endpoint=self.endpoint, attribute=attributes.CurrentMode)
-
-        logging.info(f"CurrentMode: {current_mode}")
-
-        asserts.assert_true(current_mode == ModeManual,
-                            "CurrentMode changed after failed ChangeToMode command!")
+    async def test_checkModeTagStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.WaterHeaterMode = None, 
+                                 struct: Clusters.ModeBase.Structs.ModeTagStruct = None):
+        if struct.mfgCode is not None:
+            matter_asserts.assert_valid_uint16(struct.mfgCode, 'MfgCode must be uint16')
+        matter_asserts.assert_valid_uint16(struct.value, 'Value must be uint16')
 
 
 if __name__ == "__main__":

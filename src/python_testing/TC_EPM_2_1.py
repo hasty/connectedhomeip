@@ -1,5 +1,5 @@
 #
-#    Copyright (c) 2024 Project CHIP Authors
+#    Copyright (c) 2025 Project CHIP Authors
 #    All rights reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,259 +18,312 @@
 # for details about the block below.
 #
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs:
-#   run1:
-#     app: ${ENERGY_MANAGEMENT_APP}
-#     app-args: >
-#       --discriminator 1234
-#       --KVS kvs1
-#       --trace-to json:${TRACE_APP}.json
-#       --enable-key 000102030405060708090a0b0c0d0e0f
-#     script-args: >
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --hex-arg enableKey:000102030405060708090a0b0c0d0e0f
-#       --endpoint 1
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
+# test-runner-runs: run1
+# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
+# test-runner-run/run1/factoryreset: True
+# test-runner-run/run1/quiet: True
+# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
+# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
 # === END CI TEST ARGUMENTS ===
 
+import copy
 import logging
+import random
 
 import chip.clusters as Clusters
+from chip import ChipDeviceCtrl  # Needed before chip.FabricAdmin
+from chip.clusters import Globals
+from chip.clusters.Types import NullValue
+from chip.interaction_model import InteractionModelError, Status
+from chip.testing import matter_asserts
 from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
 from mobly import asserts
-from TC_EnergyReporting_Utils import EnergyReportingBaseTestHelper
 
 logger = logging.getLogger(__name__)
 
-MIN_INT64_ALLOWED = -pow(2, 62)  # -(2^62)
-MAX_INT64_ALLOWED = pow(2, 62)  # (2^62)
+cluster = Clusters.ElectricalPowerMeasurement
 
+class EPM_2_1(MatterBaseTest):
 
-class TC_EPM_2_1(MatterBaseTest, EnergyReportingBaseTestHelper):
-
-    def desc_TC_EPM_2_1(self) -> str:
+    def desc_EPM_2_1(self) -> str:
         """Returns a description of this test"""
-        return "5.1.2. [TC-EPM-2.1] Attributes with Server as DUT"
+        return "Attributes with Server as DUT"
 
-    def pics_TC_EPM_2_1(self):
-        """ This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["EPM.S"]
+    def pics_EPM_2_1(self) -> list[str]:
+        """This function returns a list of PICS for this test case that must be True for the test to be run"""
+        return ["EPM"]
 
-    def steps_TC_EPM_2_1(self) -> list[TestStep]:
+    def steps_EPM_2_1(self) -> list[TestStep]:
         steps = [
-            TestStep("1", "Commissioning, already done",
-                     is_commissioning=True),
-            TestStep("2", "TH reads PowerMode attribute",
-                     "Verify that the DUT response contains an enum8 value"),
-            TestStep("3", "TH reads NumberOfMeasurementTypes attribute",
-                     "Verify that the DUT response contains an uint8 value."),
-            TestStep("4", "TH reads Accuracy attribute",
-                     "Verify that the DUT response contains a list of MeasurementAccuracyStruct entries ",
-                     "Verify that the list has between 1 and NumberOfMeasurementTypes entries."),
-            TestStep("5", "TH reads Ranges attribute",
-                     "Verify that the DUT response contains a list of MeasurementRangeStruct entries ",
-                     "Verify that the list has between 0 and NumberOfMeasurementTypes entries."),
-            TestStep("6", "TH reads Voltage attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of -2^62 to 2^62."),
-            TestStep("7", "TH reads ActiveCurrent attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of -2^62 to 2^62."),
-            TestStep("8", "TH reads ReactiveCurrent attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of -2^62 to 2^62."),
-            TestStep("9", "TH reads ApparentCurrent attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of 0 to 2^62."),
-            TestStep("10", "TH reads ActivePower attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of -2^62 to 2^62."),
-            TestStep("11", "TH reads ReactivePower attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of -2^62 to 2^62."),
-            TestStep("12", "TH reads ApparentPower attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of -2^62 to 2^62."),
-            TestStep("13", "TH reads RMSVoltage attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of -2^62 to 2^62."),
-            TestStep("14", "TH reads RMSCurrent attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of -2^62 to 2^62."),
-            TestStep("15", "TH reads RMSPower attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of -2^62 to 2^62."),
-            TestStep("16", "TH reads Frequency attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of 0 to 1000000."),
-            TestStep("17", "TH reads HarmonicCurrents attribute",
-                     "Verify that the DUT response contains a list of HarmonicMeasurementStruct entries."),
-            TestStep("18", "TH reads HarmonicPhases attribute",
-                     "Verify that the DUT response contains a list of HarmonicMeasurementStruct entries."),
-            TestStep("19", "TH reads PowerFactor attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of -10000 to 10000."),
-            TestStep("20", "TH reads NeutralCurrent attribute",
-                     "Verify that the DUT response contains either null or an int64 value. Value has to be between a range of -2^62 to 2^62."),
+            TestStep("1", "Read PowerMode attribute"),
+            TestStep("2", "Read NumberOfMeasurementTypes attribute"),
+            TestStep("3", "Read Accuracy attribute"),
+            TestStep("4", "Read Ranges attribute"),
+            TestStep("5", "Read Voltage attribute"),
+            TestStep("6", "Read ActiveCurrent attribute"),
+            TestStep("7", "Read ReactiveCurrent attribute"),
+            TestStep("8", "Read ApparentCurrent attribute"),
+            TestStep("9", "Read ActivePower attribute"),
+            TestStep("10", "Read ReactivePower attribute"),
+            TestStep("11", "Read ApparentPower attribute"),
+            TestStep("12", "Read RMSVoltage attribute"),
+            TestStep("13", "Read RMSCurrent attribute"),
+            TestStep("14", "Read RMSPower attribute"),
+            TestStep("15", "Read Frequency attribute"),
+            TestStep("16", "Read HarmonicCurrents attribute"),
+            TestStep("17", "Read HarmonicPhases attribute"),
+            TestStep("18", "Read PowerFactor attribute"),
+            TestStep("19", "Read NeutralCurrent attribute"),
         ]
 
         return steps
 
+    MinSystime = None
+    MinTimestamp = None
+    NumberOfMeasurementTypes = None
+    StartSystime = None
+    StartTimestamp = None
+
     @async_test_body
-    async def test_TC_EPM_2_1(self):
+    async def test_EPM_2_1(self):
+        endpoint = self.get_endpoint()
+        attributes = cluster.Attributes
 
         self.step("1")
-        # Commission DUT - already done
-
-        supported_attributes = await self.get_supported_epm_attributes()
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PowerMode)
+        matter_asserts.assert_valid_enum(val, "PowerMode attribute must return a Clusters.ElectricalPowerMeasurement.Enums.PowerModeEnum", Clusters.ElectricalPowerMeasurement.Enums.PowerModeEnum)
 
         self.step("2")
-        power_mode = await self.read_epm_attribute_expect_success("PowerMode")
-        logger.info(f"Rx'd PowerMode: {power_mode}")
-        asserts.assert_not_equal(power_mode, Clusters.ElectricalPowerMeasurement.Enums.PowerModeEnum.kUnknown,
-                                 "PowerMode must not be Unknown")
+        self.NumberOfMeasurementTypes = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfMeasurementTypes)
+        matter_asserts.assert_valid_uint8(self.NumberOfMeasurementTypes, 'NumberOfMeasurementTypes')
+        asserts.assert_greater_equal(self.NumberOfMeasurementTypes, 1)
 
         self.step("3")
-        number_of_measurements = await self.read_epm_attribute_expect_success("NumberOfMeasurementTypes")
-        logger.info(f"Rx'd NumberOfMeasurementTypes: {number_of_measurements}")
-        asserts.assert_greater_equal(number_of_measurements, 1,
-                                     "NumberOfMeasurementTypes must be >= 1")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Accuracy)
+        matter_asserts.assert_list(val, "Accuracy attribute must return a list")
+        matter_asserts.assert_list_element_type(val,  "Accuracy attribute must contain Globals.Structs.MeasurementAccuracyStruct elements", Globals.Structs.MeasurementAccuracyStruct)
+        for item in val:
+            await self.test_checkMeasurementAccuracyStruct(endpoint=endpoint, cluster=cluster, struct=item)
+        asserts.assert_greater_equal(len(val), 1, "Accuracy must have at least 1 entries!")
+        asserts.assert_less_equal(len(val), self.NumberOfMeasurementTypes, "Accuracy must have at most self.NumberOfMeasurementTypes entries!")
 
         self.step("4")
-        accuracy = await self.read_epm_attribute_expect_success("Accuracy")
-        logger.info(f"Rx'd Accuracy: {accuracy}")
-        logger.info("Checking Accuracy meets spec requirements")
-        found_active_power = False
-        for measurement in accuracy:
-            logging.info(
-                f"measurementType:{measurement.measurementType} measured:{measurement.measured} minMeasuredValue:{measurement.minMeasuredValue} maxMeasuredValue:{measurement.maxMeasuredValue}")
-
-            # Scan all measurement types to check we have the mandatory kActivePower
-            if (measurement.measurementType == Clusters.ElectricalPowerMeasurement.Enums.MeasurementTypeEnum.kActivePower):
-                found_active_power = True
-
-            # Check that the ranges are in order from minimum to maximum and don't have gaps
-            asserts.assert_equal(measurement.minMeasuredValue, measurement.accuracyRanges[0].rangeMin,
-                                 "minMeasuredValue must be the same as 1st accuracyRange rangeMin")
-
-            for index, range_entry in enumerate(measurement.accuracyRanges):
-                logging.info(f"   [{index}] rangeMin:{range_entry.rangeMin} rangeMax:{range_entry.rangeMax} percentMax:{range_entry.percentMax} percentMin:{range_entry.percentMin} percentTypical:{range_entry.percentTypical} fixedMax:{range_entry.fixedMax} fixedMin:{range_entry.fixedMin} fixedTypical:{range_entry.fixedTypical}")
-                asserts.assert_greater(
-                    range_entry.rangeMax, range_entry.rangeMin, "rangeMax should be > rangeMin")
-                if index == 0:
-                    minimum_range = range_entry.rangeMin
-                    maximum_range = range_entry.rangeMax
-                    prev_range_max = range_entry.rangeMax
-                else:
-                    minimum_range = min(minimum_range, range_entry.rangeMin)
-                    maximum_range = max(maximum_range, range_entry.rangeMax)
-                    asserts.assert_equal(range_entry.rangeMin, prev_range_max + 1,
-                                         f"Index[{index}] rangeMin was not +1 more then previous index's rangeMax {prev_range_max}")
-                    prev_range_max = range_entry.rangeMax
-
-            # Check that the last range rangeMax has the same value as the measurement.maxMeasuredValue
-            asserts.assert_equal(measurement.maxMeasuredValue, prev_range_max,
-                                 "maxMeasuredValue must be the same as the last accuracyRange rangeMax")
-            asserts.assert_equal(maximum_range, measurement.maxMeasuredValue,
-                                 "The maxMeasuredValue must be the same as any of the maximum of all rangeMax's")
-            asserts.assert_equal(minimum_range, measurement.minMeasuredValue,
-                                 "The minMeasuredValue must be the same as any of the minimum of all rangeMin's")
-
-        asserts.assert_is(found_active_power, True,
-                          "There must be an ActivePower measurement accuracy")
-        asserts.assert_equal(len(accuracy), number_of_measurements,
-                             "The number of accuracy entries should match the NumberOfMeasurementTypes")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Ranges):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Ranges)
+            if val is not None:
+                matter_asserts.assert_list(val, "Ranges attribute must return a list")
+                matter_asserts.assert_list_element_type(val,  "Ranges attribute must contain Clusters.ElectricalPowerMeasurement.Structs.MeasurementRangeStruct elements", Clusters.ElectricalPowerMeasurement.Structs.MeasurementRangeStruct)
+                for item in val:
+                    await self.test_checkMeasurementRangeStruct(endpoint=endpoint, cluster=cluster, struct=item)
+                asserts.assert_greater_equal(len(val), 0, "Ranges must have at least 0 entries!")
+                asserts.assert_less_equal(len(val), self.NumberOfMeasurementTypes, "Ranges must have at most self.NumberOfMeasurementTypes entries!")
 
         self.step("5")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.Ranges.attribute_id in supported_attributes):
-            ranges = await self.read_epm_attribute_expect_success("Ranges")
-            logger.info(f"Rx'd Ranges: {ranges}")
-            # Check list length between 0 and NumberOfMeasurementTypes
-            asserts.assert_greater_equal(len(ranges), 0)
-            asserts.assert_less_equal(len(ranges), number_of_measurements)
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Voltage):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Voltage)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_int64(val, 'Voltage')
+                asserts.assert_greater_equal(val, -2e62)
+                asserts.assert_less_equal(val, 2e62)
 
         self.step("6")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.Voltage.attribute_id in supported_attributes):
-            voltage = await self.check_epm_attribute_in_range("Voltage", MIN_INT64_ALLOWED, MAX_INT64_ALLOWED, allow_null=True)
-            logger.info(f"Rx'd Voltage: {voltage}")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveCurrent):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveCurrent)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_int64(val, 'ActiveCurrent')
+                asserts.assert_greater_equal(val, -2e62)
+                asserts.assert_less_equal(val, 2e62)
 
         self.step("7")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.ActiveCurrent.attribute_id in supported_attributes):
-            active_current = await self.check_epm_attribute_in_range("ActiveCurrent", MIN_INT64_ALLOWED, MAX_INT64_ALLOWED, allow_null=True)
-            logger.info(f"Rx'd ActiveCurrent: {active_current}")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ReactiveCurrent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ReactiveCurrent)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_int64(val, 'ReactiveCurrent')
+                asserts.assert_greater_equal(val, -2e62)
+                asserts.assert_less_equal(val, 2e62)
 
         self.step("8")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.ReactiveCurrent.attribute_id in supported_attributes):
-            reactive_current = await self.check_epm_attribute_in_range("ReactiveCurrent", MIN_INT64_ALLOWED, MAX_INT64_ALLOWED, allow_null=True)
-            logger.info(f"Rx'd ReactiveCurrent: {reactive_current}")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ApparentCurrent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ApparentCurrent)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_int64(val, 'ApparentCurrent')
+                asserts.assert_greater_equal(val, -2e62)
+                asserts.assert_less_equal(val, 2e62)
 
         self.step("9")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.ApparentCurrent.attribute_id in supported_attributes):
-            apparent_current = await self.check_epm_attribute_in_range("ApparentCurrent", 0, MAX_INT64_ALLOWED, allow_null=True)
-            logger.info(f"Rx'd ApparentCurrent: {apparent_current}")
+        val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActivePower)
+        if val is not NullValue:
+            matter_asserts.assert_valid_int64(val, 'ActivePower')
+            asserts.assert_greater_equal(val, -2e62)
+            asserts.assert_less_equal(val, 2e62)
 
         self.step("10")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.ActivePower.attribute_id in supported_attributes):
-            active_power = await self.check_epm_attribute_in_range("ActivePower", MIN_INT64_ALLOWED, MAX_INT64_ALLOWED, allow_null=True)
-            logger.info(f"Rx'd ActivePower: {active_power}")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ReactivePower) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ReactivePower)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_int64(val, 'ReactivePower')
+                asserts.assert_greater_equal(val, -2e62)
+                asserts.assert_less_equal(val, 2e62)
 
         self.step("11")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.ReactivePower.attribute_id in supported_attributes):
-            reactive_power = await self.check_epm_attribute_in_range("ReactivePower", MIN_INT64_ALLOWED, MAX_INT64_ALLOWED, allow_null=True)
-            logger.info(f"Rx'd ReactivePower: {reactive_power}")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ApparentPower) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ApparentPower)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_int64(val, 'ApparentPower')
+                asserts.assert_greater_equal(val, -2e62)
+                asserts.assert_less_equal(val, 2e62)
 
         self.step("12")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.ApparentPower.attribute_id in supported_attributes):
-            apparent_power = await self.check_epm_attribute_in_range("ApparentPower", MIN_INT64_ALLOWED, MAX_INT64_ALLOWED, allow_null=True)
-            logger.info(f"Rx'd ApparentPower: {apparent_power}")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RMSVoltage) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RMSVoltage)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_int64(val, 'RMSVoltage')
+                asserts.assert_greater_equal(val, -2e62)
+                asserts.assert_less_equal(val, 2e62)
 
         self.step("13")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.RMSVoltage.attribute_id in supported_attributes):
-            rms_voltage = await self.check_epm_attribute_in_range("RMSVoltage", MIN_INT64_ALLOWED, MAX_INT64_ALLOWED, allow_null=True)
-            logger.info(f"Rx'd RMSVoltage: {rms_voltage}")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RMSCurrent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RMSCurrent)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_int64(val, 'RMSCurrent')
+                asserts.assert_greater_equal(val, -2e62)
+                asserts.assert_less_equal(val, 2e62)
 
         self.step("14")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.RMSCurrent.attribute_id in supported_attributes):
-            rms_current = await self.check_epm_attribute_in_range("RMSCurrent", MIN_INT64_ALLOWED, MAX_INT64_ALLOWED, allow_null=True)
-            logger.info(f"Rx'd RMSCurrent: {rms_current}")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RMSPower) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RMSPower)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_int64(val, 'RMSPower')
+                asserts.assert_greater_equal(val, -2e62)
+                asserts.assert_less_equal(val, 2e62)
 
         self.step("15")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.RMSPower.attribute_id in supported_attributes):
-            rms_power = await self.check_epm_attribute_in_range("RMSPower", MIN_INT64_ALLOWED, MAX_INT64_ALLOWED, allow_null=True)
-            logger.info(f"Rx'd RMSPower: {rms_power}")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Frequency) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Frequency)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_int64(val, 'Frequency')
+                asserts.assert_greater_equal(val, 0)
+                asserts.assert_less_equal(val, 1000000)
 
         self.step("16")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.Frequency.attribute_id in supported_attributes):
-            frequency = await self.check_epm_attribute_in_range("Frequency", 0, 1000000, allow_null=True)
-            logger.info(f"Rx'd Frequency: {frequency}")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kHarmonics):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.HarmonicCurrents)
+            if val is not NullValue:
+                matter_asserts.assert_list(val, "HarmonicCurrents attribute must return a list")
+                matter_asserts.assert_list_element_type(val,  "HarmonicCurrents attribute must contain Clusters.ElectricalPowerMeasurement.Structs.HarmonicMeasurementStruct elements", Clusters.ElectricalPowerMeasurement.Structs.HarmonicMeasurementStruct)
+                for item in val:
+                    await self.test_checkHarmonicMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("17")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.HarmonicCurrents.attribute_id in supported_attributes):
-            harmonic_currents = await self.read_epm_attribute_expect_success("HarmonicCurrents")
-            logger.info(f"Rx'd HarmonicCurrents: {harmonic_currents}")
-            asserts.assert_is(type(harmonic_currents), list)
-            for index, entry in enumerate(harmonic_currents):
-                logging.info(
-                    f"   [{index}] order:{entry.order} measurement:{entry.measurement}")
-                asserts.assert_greater_equal(entry.order, 1)
-                self.check_value_in_range(
-                    "Measurement", entry.measurement, MIN_INT64_ALLOWED, MAX_INT64_ALLOWED)
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerQuality):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.HarmonicPhases)
+            if val is not NullValue:
+                matter_asserts.assert_list(val, "HarmonicPhases attribute must return a list")
+                matter_asserts.assert_list_element_type(val,  "HarmonicPhases attribute must contain Clusters.ElectricalPowerMeasurement.Structs.HarmonicMeasurementStruct elements", Clusters.ElectricalPowerMeasurement.Structs.HarmonicMeasurementStruct)
+                for item in val:
+                    await self.test_checkHarmonicMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("18")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.HarmonicPhases.attribute_id in supported_attributes):
-            harmonic_phases = await self.read_epm_attribute_expect_success("HarmonicPhases")
-            logger.info(f"Rx'd HarmonicPhases: {harmonic_phases}")
-            asserts.assert_is(type(harmonic_phases), list)
-            for index, entry in enumerate(harmonic_phases):
-                logging.info(
-                    f"   [{index}] order:{entry.order} measurement:{entry.measurement}")
-                asserts.assert_greater_equal(entry.order, 1)
-                self.check_value_in_range(
-                    "Measurement", entry.measurement, MIN_INT64_ALLOWED, MAX_INT64_ALLOWED)
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PowerFactor) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PowerFactor)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_int64(val, 'PowerFactor')
+                asserts.assert_greater_equal(val, -10000)
+                asserts.assert_less_equal(val, 10000)
 
         self.step("19")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.PowerFactor.attribute_id in supported_attributes):
-            power_factor = await self.check_epm_attribute_in_range("PowerFactor", -10000, 10000, allow_null=True)
-            logger.info(f"Rx'd PowerFactor: {power_factor}")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NeutralCurrent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPolyphasePower):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NeutralCurrent)
+            if val is not NullValue and val is not None:
+                matter_asserts.assert_valid_int64(val, 'NeutralCurrent')
+                asserts.assert_greater_equal(val, -2e62)
+                asserts.assert_less_equal(val, 2e62)
 
-        self.step("20")
-        if self.pics_guard(Clusters.ElectricalPowerMeasurement.Attributes.NeutralCurrent.attribute_id in supported_attributes):
-            neutral_current = await self.check_epm_attribute_in_range("NeutralCurrent", MIN_INT64_ALLOWED, MAX_INT64_ALLOWED, allow_null=True)
-            logger.info(f"Rx'd NeutralCurrent: {neutral_current}")
+
+    async def test_checkHarmonicMeasurementStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.ElectricalPowerMeasurement = None, 
+                                 struct: Clusters.ElectricalPowerMeasurement.Structs.HarmonicMeasurementStruct = None):
+        matter_asserts.assert_valid_uint8(struct.order, 'Order')
+        asserts.assert_greater_equal(struct.order, 1)
+        if struct.measurement is not NullValue:
+            matter_asserts.assert_valid_int64(struct.measurement, 'Measurement')
+            asserts.assert_greater_equal(struct.measurement, -2e62)
+            asserts.assert_less_equal(struct.measurement, 2e62)
+
+    async def test_checkMeasurementAccuracyRangeStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.ElectricalPowerMeasurement = None, 
+                                 struct: Globals.Structs.MeasurementAccuracyRangeStruct = None):
+        matter_asserts.assert_valid_int64(struct.rangeMin, 'RangeMin')
+        asserts.assert_greater_equal(struct.rangeMin, -2e62)
+        asserts.assert_less_equal(struct.rangeMin, 2e62)
+        matter_asserts.assert_valid_int64(struct.rangeMax, 'RangeMax')
+        asserts.assert_greater_equal(struct.rangeMax, -2e62)
+        asserts.assert_less_equal(struct.rangeMax, 2e62)
+        if struct.percentMax is not None:
+            matter_asserts.assert_valid_uint16(struct.percentMax, 'PercentMax')
+        if struct.percentMin is not None:
+            matter_asserts.assert_valid_uint16(struct.percentMin, 'PercentMin')
+            asserts.assert_less_equal(struct.percentMin, self.PercentTypical)
+        if struct.percentTypical is not None:
+            matter_asserts.assert_valid_uint16(struct.percentTypical, 'PercentTypical')
+            asserts.assert_greater_equal(struct.percentTypical, self.PercentMin)
+            asserts.assert_less_equal(struct.percentTypical, self.PercentMax)
+        if struct.fixedMax is not None:
+            matter_asserts.assert_valid_uint64(struct.fixedMax, 'FixedMax')
+            asserts.assert_less_equal(struct.fixedMax, 2e62 - 1)
+        if struct.fixedMin is not None:
+            matter_asserts.assert_valid_uint64(struct.fixedMin, 'FixedMin')
+            asserts.assert_less_equal(struct.fixedMin, self.FixedMax)
+        if struct.fixedTypical is not None:
+            matter_asserts.assert_valid_uint64(struct.fixedTypical, 'FixedTypical')
+            asserts.assert_greater_equal(struct.fixedTypical, self.FixedMin)
+            asserts.assert_less_equal(struct.fixedTypical, self.FixedMax)
+
+    async def test_checkMeasurementAccuracyStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.ElectricalPowerMeasurement = None, 
+                                 struct: Globals.Structs.MeasurementAccuracyStruct = None):
+        matter_asserts.assert_valid_enum(struct.measurementType, "MeasurementType attribute must return a Globals.Enums.MeasurementTypeEnum", Globals.Enums.MeasurementTypeEnum)
+        matter_asserts.assert_valid_bool(struct.measured, 'Measured')
+        matter_asserts.assert_valid_int64(struct.minMeasuredValue, 'MinMeasuredValue')
+        asserts.assert_greater_equal(struct.minMeasuredValue, -2e62)
+        asserts.assert_less_equal(struct.minMeasuredValue, 2e62)
+        matter_asserts.assert_valid_int64(struct.maxMeasuredValue, 'MaxMeasuredValue')
+        asserts.assert_greater_equal(struct.maxMeasuredValue, -2e62)
+        asserts.assert_less_equal(struct.maxMeasuredValue, 2e62)
+        matter_asserts.assert_list(struct.accuracyRanges, "AccuracyRanges attribute must return a list")
+        matter_asserts.assert_list_element_type(struct.accuracyRanges,  "AccuracyRanges attribute must contain Globals.Structs.MeasurementAccuracyRangeStruct elements", Globals.Structs.MeasurementAccuracyRangeStruct)
+        for item in struct.accuracyRanges:
+            await self.test_checkMeasurementAccuracyRangeStruct(endpoint=endpoint, cluster=cluster, struct=item)
+        asserts.assert_greater_equal(len(struct.accuracyRanges), 1, "AccuracyRanges must have at least 1 entries!")
+
+    async def test_checkMeasurementRangeStruct(self, 
+                                 endpoint: int = None, 
+                                 cluster: Clusters.ElectricalPowerMeasurement = None, 
+                                 struct: Clusters.ElectricalPowerMeasurement.Structs.MeasurementRangeStruct = None):
+        matter_asserts.assert_valid_enum(struct.measurementType, "MeasurementType attribute must return a Globals.Enums.MeasurementTypeEnum", Globals.Enums.MeasurementTypeEnum)
+        matter_asserts.assert_valid_int64(struct.min, 'Min')
+        asserts.assert_greater_equal(struct.min, -2e62)
+        asserts.assert_less_equal(struct.min, 2e62)
+        matter_asserts.assert_valid_int64(struct.max, 'Max')
+        asserts.assert_greater_equal(struct.max, -2e62)
+        asserts.assert_less_equal(struct.max, 2e62)
+        matter_asserts.assert_valid_uint32(struct.startTimestamp, 'StartTimestamp')
+        if struct.endTimestamp is not None:
+            matter_asserts.assert_valid_uint32(struct.endTimestamp, 'EndTimestamp')
+            asserts.assert_greater_equal(struct.endTimestamp, self.StartTimestamp + 1)
+        matter_asserts.assert_valid_uint32(struct.minTimestamp, 'MinTimestamp')
+        matter_asserts.assert_valid_uint32(struct.maxTimestamp, 'MaxTimestamp')
+        asserts.assert_greater_equal(struct.maxTimestamp, self.MinTimestamp + 1)
+        matter_asserts.assert_valid_uint64(struct.startSystime, 'StartSystime')
+        if struct.endSystime is not None:
+            matter_asserts.assert_valid_uint64(struct.endSystime, 'EndSystime')
+            asserts.assert_greater_equal(struct.endSystime, self.StartSystime + 1)
+        matter_asserts.assert_valid_uint64(struct.minSystime, 'MinSystime')
+        matter_asserts.assert_valid_uint64(struct.maxSystime, 'MaxSystime')
+        asserts.assert_greater_equal(struct.maxSystime, self.MinSystime + 1)
 
 
 if __name__ == "__main__":

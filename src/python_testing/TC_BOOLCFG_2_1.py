@@ -1,5 +1,5 @@
 #
-#    Copyright (c) 2023 Project CHIP Authors
+#    Copyright (c) 2025 Project CHIP Authors
 #    All rights reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,137 +13,114 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-#
 
+# See https://github.com/project-chip/connectedhomeip/blob/master/docs/testing/python.md#defining-the-ci-test-arguments
+# for details about the block below.
+#
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs:
-#   run1:
-#     app: ${ALL_CLUSTERS_APP}
-#     app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
-#     script-args: >
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
+# test-runner-runs: run1
+# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
+# test-runner-run/run1/factoryreset: True
+# test-runner-run/run1/quiet: True
+# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
+# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
 # === END CI TEST ARGUMENTS ===
 
-import functools
+import copy
 import logging
-from operator import ior
+import random
 
 import chip.clusters as Clusters
+from chip import ChipDeviceCtrl  # Needed before chip.FabricAdmin
+from chip.clusters import Globals
+from chip.clusters.Types import NullValue
+from chip.interaction_model import InteractionModelError, Status
+from chip.testing import matter_asserts
 from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
 from mobly import asserts
 
+logger = logging.getLogger(__name__)
 
-class TC_BOOLCFG_2_1(MatterBaseTest):
-    async def read_boolcfg_attribute_expect_success(self, endpoint, attribute):
-        cluster = Clusters.Objects.BooleanStateConfiguration
-        return await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=attribute)
+cluster = Clusters.BooleanStateConfiguration
 
-    def desc_TC_BOOLCFG_2_1(self) -> str:
-        return "[TC-BOOLCFG-2.1] Attributes with DUT as Server"
+class BOOLCFG_2_1(MatterBaseTest):
 
-    def steps_TC_BOOLCFG_2_1(self) -> list[TestStep]:
+    def desc_BOOLCFG_2_1(self) -> str:
+        """Returns a description of this test"""
+        return "Attributes with Server as DUT"
+
+    def pics_BOOLCFG_2_1(self) -> list[str]:
+        """This function returns a list of PICS for this test case that must be True for the test to be run"""
+        return ["BOOLCFG"]
+
+    def steps_BOOLCFG_2_1(self) -> list[TestStep]:
         steps = [
-            TestStep(1, "Commissioning, already done", is_commissioning=True),
-            TestStep(2, "Read attribute list to determine supported attributes"),
-            TestStep(3, "Read SupportedSensitivityLevels attribute, if supported"),
-            TestStep(4, "Read CurrentSensitivityLevel attribute, if supported"),
-            TestStep(5, "Read DefaultSensitivityLevel attribute, if supported"),
-            TestStep(6, "Read AlarmsActive attribute, if supported"),
-            TestStep(7, "Read AlarmsSuppressed attribute, if supported"),
-            TestStep(8, "Read AlarmsEnabled attribute, if supported"),
-            TestStep(9, "Read AlarmsSupported attribute, if supported"),
-            TestStep(10, "Read SensorFault attribute, if supported"),
+            TestStep("1", "Read CurrentSensitivityLevel attribute"),
+            TestStep("2", "Read SupportedSensitivityLevels attribute"),
+            TestStep("3", "Read DefaultSensitivityLevel attribute"),
+            TestStep("4", "Read AlarmsActive attribute"),
+            TestStep("5", "Read AlarmsSuppressed attribute"),
+            TestStep("6", "Read AlarmsEnabled attribute"),
+            TestStep("7", "Read AlarmsSupported attribute"),
+            TestStep("8", "Read SensorFault attribute"),
         ]
+
         return steps
 
-    def pics_TC_BOOLCFG_2_1(self) -> list[str]:
-        pics = [
-            "BOOLCFG.S",
-        ]
-        return pics
+    SupportedSensitivityLevels = None
 
     @async_test_body
-    async def test_TC_BOOLCFG_2_1(self):
+    async def test_BOOLCFG_2_1(self):
+        endpoint = self.get_endpoint()
+        attributes = cluster.Attributes
 
-        endpoint = self.get_endpoint(default=1)
-        all_alarm_mode_bitmap_bits = functools.reduce(
-            ior, [b.value for b in Clusters.BooleanStateConfiguration.Bitmaps.AlarmModeBitmap])
-        all_sensor_fault_bitmap_bits = functools.reduce(
-            ior, [b.value for b in Clusters.BooleanStateConfiguration.Bitmaps.SensorFaultBitmap])
+        self.step("1")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSensitivityLevel):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentSensitivityLevel)
+            matter_asserts.assert_valid_uint8(val, 'CurrentSensitivityLevel')
+            asserts.assert_less_equal(val, self.SupportedSensitivityLevels - 1)
 
-        self.step(1)
-        attributes = Clusters.BooleanStateConfiguration.Attributes
+        self.step("2")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSensitivityLevel):
+            self.SupportedSensitivityLevels = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedSensitivityLevels)
+            matter_asserts.assert_valid_uint8(self.SupportedSensitivityLevels, 'SupportedSensitivityLevels')
+            asserts.assert_greater_equal(self.SupportedSensitivityLevels, 2)
+            asserts.assert_less_equal(self.SupportedSensitivityLevels, 10)
 
-        self.step(2)
-        attribute_list = await self.read_boolcfg_attribute_expect_success(endpoint=endpoint, attribute=attributes.AttributeList)
+        self.step("3")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DefaultSensitivityLevel) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSensitivityLevel):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DefaultSensitivityLevel)
+            if val is not None:
+                matter_asserts.assert_valid_uint8(val, 'DefaultSensitivityLevel')
+                asserts.assert_less_equal(val, self.SupportedSensitivityLevels - 1)
 
-        number_of_supported_levels = 0
+        self.step("4")
+        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kVisual) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAudible)):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AlarmsActive)
+            matter_asserts.is_valid_int_value(val)
 
-        self.step(3)
-        if attributes.SupportedSensitivityLevels.attribute_id in attribute_list:
-            number_of_supported_levels = await self.read_boolcfg_attribute_expect_success(endpoint=endpoint, attribute=attributes.SupportedSensitivityLevels)
-            asserts.assert_less_equal(number_of_supported_levels, 10, "SupportedSensitivityLevels attribute is out of range")
-            asserts.assert_greater_equal(number_of_supported_levels, 2, "SupportedSensitivityLevels attribute is out of range")
-        else:
-            logging.info("Test step skipped")
+        self.step("5")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlarmSuppress):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AlarmsSuppressed)
+            matter_asserts.is_valid_int_value(val)
 
-        self.step(4)
-        if attributes.CurrentSensitivityLevel.attribute_id in attribute_list:
-            current_sensitivity_level_dut = await self.read_boolcfg_attribute_expect_success(endpoint=endpoint, attribute=attributes.CurrentSensitivityLevel)
-            asserts.assert_less_equal(current_sensitivity_level_dut, number_of_supported_levels,
-                                      "CurrentSensitivityLevel is not in valid range")
-        else:
-            logging.info("Test step skipped")
+        self.step("6")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AlarmsEnabled) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kVisual) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAudible)):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AlarmsEnabled)
+            if val is not None:
+                matter_asserts.is_valid_int_value(val)
 
-        self.step(5)
-        if attributes.DefaultSensitivityLevel.attribute_id in attribute_list:
-            default_sensitivity_level_dut = await self.read_boolcfg_attribute_expect_success(endpoint=endpoint, attribute=attributes.DefaultSensitivityLevel)
-            asserts.assert_less_equal(default_sensitivity_level_dut, number_of_supported_levels,
-                                      "DefaultSensitivityLevel is not in valid range")
-        else:
-            logging.info("Test step skipped")
+        self.step("7")
+        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kVisual) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAudible)):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AlarmsSupported)
+            matter_asserts.is_valid_int_value(val)
 
-        self.step(6)
-        if attributes.AlarmsActive.attribute_id in attribute_list:
-            alarms_active_dut = await self.read_boolcfg_attribute_expect_success(endpoint=endpoint, attribute=attributes.AlarmsActive)
-            asserts.assert_equal(alarms_active_dut & ~all_alarm_mode_bitmap_bits, 0, "AlarmsActive is not in valid range")
-        else:
-            logging.info("Test step skipped")
+        self.step("8")
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SensorFault):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SensorFault)
+            if val is not None:
+                matter_asserts.is_valid_int_value(val)
 
-        self.step(7)
-        if attributes.AlarmsSuppressed.attribute_id in attribute_list:
-            alarms_suppressed_dut = await self.read_boolcfg_attribute_expect_success(endpoint=endpoint, attribute=attributes.AlarmsSuppressed)
-            asserts.assert_equal(alarms_suppressed_dut & ~all_alarm_mode_bitmap_bits, 0, "AlarmsSuppressed is not in valid range")
-        else:
-            logging.info("Test step skipped")
-
-        self.step(8)
-        if attributes.AlarmsEnabled.attribute_id in attribute_list:
-            alarms_enabled_dut = await self.read_boolcfg_attribute_expect_success(endpoint=endpoint, attribute=attributes.AlarmsEnabled)
-            asserts.assert_equal(alarms_enabled_dut & ~all_alarm_mode_bitmap_bits, 0, "AlarmsEnabled is not in valid range")
-        else:
-            logging.info("Test step skipped")
-
-        self.step(9)
-        if attributes.AlarmsSupported.attribute_id in attribute_list:
-            alarms_supported_dut = await self.read_boolcfg_attribute_expect_success(endpoint=endpoint, attribute=attributes.AlarmsSupported)
-            asserts.assert_equal(alarms_supported_dut & ~all_alarm_mode_bitmap_bits, 0, "AlarmsSupported is not in valid range")
-        else:
-            logging.info("Test step skipped")
-
-        self.step(10)
-        if attributes.SensorFault.attribute_id in attribute_list:
-            sensor_fault_dut = await self.read_boolcfg_attribute_expect_success(endpoint=endpoint, attribute=attributes.SensorFault)
-            asserts.assert_equal(sensor_fault_dut & ~all_sensor_fault_bitmap_bits, 0, "SensorFault is not in valid range")
-        else:
-            logging.info("Test step skipped")
 
 
 if __name__ == "__main__":

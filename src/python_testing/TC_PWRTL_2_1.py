@@ -1,5 +1,5 @@
 #
-#    Copyright (c) 2024 Project CHIP Authors
+#    Copyright (c) 2025 Project CHIP Authors
 #    All rights reserved.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,83 +13,74 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License.
-#
 
 # See https://github.com/project-chip/connectedhomeip/blob/master/docs/testing/python.md#defining-the-ci-test-arguments
 # for details about the block below.
 #
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs:
-#   run1:
-#     app: ${ALL_CLUSTERS_APP}
-#     app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
-#     script-args: >
-#       --storage-path admin_storage.json
-#       --commissioning-method on-network
-#       --discriminator 1234
-#       --passcode 20202021
-#       --trace-to json:${TRACE_TEST_JSON}.json
-#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
-#     factory-reset: true
-#     quiet: true
+# test-runner-runs: run1
+# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
+# test-runner-run/run1/factoryreset: True
+# test-runner-run/run1/quiet: True
+# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
+# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
 # === END CI TEST ARGUMENTS ===
 
+import copy
 import logging
+import random
 
 import chip.clusters as Clusters
-from chip.testing.matter_testing import MatterBaseTest, async_test_body, default_matter_test_main
+from chip import ChipDeviceCtrl  # Needed before chip.FabricAdmin
+from chip.clusters import Globals
+from chip.clusters.Types import NullValue
+from chip.interaction_model import InteractionModelError, Status
+from chip.testing import matter_asserts
+from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
 from mobly import asserts
 
+logger = logging.getLogger(__name__)
 
-class TC_PWRTL_2_1(MatterBaseTest):
+cluster = Clusters.PowerTopology
 
-    def pics_TC_PWRTL_2_1(self) -> list[str]:
-        return ["PWRTL.S"]
+class PWRTL_2_1(MatterBaseTest):
+
+    def desc_PWRTL_2_1(self) -> str:
+        """Returns a description of this test"""
+        return "Attributes with Server as DUT"
+
+    def pics_PWRTL_2_1(self) -> list[str]:
+        """This function returns a list of PICS for this test case that must be True for the test to be run"""
+        return ["PWRTL"]
+
+    def steps_PWRTL_2_1(self) -> list[TestStep]:
+        steps = [
+            TestStep("1", "Read AvailableEndpoints attribute"),
+            TestStep("2", "Read ActiveEndpoints attribute"),
+        ]
+
+        return steps
+
 
     @async_test_body
-    async def test_TC_PWRTL_2_1(self):
+    async def test_PWRTL_2_1(self):
+        endpoint = self.get_endpoint()
+        attributes = cluster.Attributes
 
-        attributes = Clusters.PowerTopology.Attributes
+        self.step("1")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSetTopology):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AvailableEndpoints)
+            matter_asserts.assert_list(val, "AvailableEndpoints attribute must return a list")
+            matter_asserts.assert_list_element_type(val,  "AvailableEndpoints attribute must contain int elements", int)
+            asserts.assert_less_equal(len(val), 20, "AvailableEndpoints must have at most 20 entries!")
 
-        endpoint = self.get_endpoint(default=1)
+        self.step("2")
+        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kDynamicPowerFlow):
+            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveEndpoints)
+            matter_asserts.assert_list(val, "ActiveEndpoints attribute must return a list")
+            matter_asserts.assert_list_element_type(val,  "ActiveEndpoints attribute must contain int elements", int)
+            asserts.assert_less_equal(len(val), 20, "ActiveEndpoints must have at most 20 entries!")
 
-        powertop_attr_list = Clusters.Objects.PowerTopology.Attributes.AttributeList
-        powertop_cluster = Clusters.Objects.PowerTopology
-        attribute_list = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=powertop_cluster, attribute=powertop_attr_list)
-        avail_endpoints_attr_id = Clusters.Objects.PowerTopology.Attributes.ActiveEndpoints.attribute_id
-        act_endpoints_attr_id = Clusters.Objects.PowerTopology.Attributes.AvailableEndpoints.attribute_id
-
-        self.print_step(1, "Commissioning, already done")
-
-        self.print_step(2, "Read AvailableAttributes attribute")
-        if avail_endpoints_attr_id in attribute_list:
-            available_endpoints = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=Clusters.Objects.PowerTopology, attribute=attributes.AvailableEndpoints)
-
-            if available_endpoints == []:
-                logging.info("AvailableEndpoints is an empty list")
-            else:
-                logging.info("AvailableEndpoints: %s" % (available_endpoints))
-                asserts.assert_less_equal(len(available_endpoints), 20,
-                                          "AvailableEndpoints length %d must be less than 21!" % len(available_endpoints))
-
-        else:
-            self.mark_current_step_skipped()
-
-        self.print_step(3, "Read ActiveEndpoints attribute")
-
-        if act_endpoints_attr_id in attribute_list:
-            active_endpoints = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=Clusters.Objects.PowerTopology,  attribute=attributes.ActiveEndpoints)
-            logging.info("ActiveEndpoints: %s" % (active_endpoints))
-            asserts.assert_less_equal(len(active_endpoints), 20,
-                                      "ActiveEndpoints length %d must be less than 21!" % len(active_endpoints))
-
-            if available_endpoints == []:
-                # Verify that ActiveEndpoints is a subset of AvailableEndpoints
-                asserts.assert_true(set(active_endpoints).issubset(set(available_endpoints)),
-                                    "ActiveEndpoints should be a subset of AvailableEndpoints")
-
-        else:
-            self.mark_current_step_skipped()
 
 
 if __name__ == "__main__":
