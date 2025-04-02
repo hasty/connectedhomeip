@@ -74,7 +74,6 @@ class BOOL_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.BooleanState))
     async def test_BOOL_2_1(self):
         endpoint = self.get_endpoint()

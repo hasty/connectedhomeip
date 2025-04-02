@@ -146,6 +146,8 @@ class CNET_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedThreadFeatures):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedThreadFeatures)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (IsBorderRouterCapable | IsRouterCapable | IsSleepyEndDeviceCapable | IsFullThreadDevice | IsSynchronizedSleepyEndDeviceCapable)
+            asserts.assert_less_equal(val, 31)
 
         self.step("11")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ThreadVersion):

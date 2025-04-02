@@ -77,7 +77,6 @@ class GRPKEY_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.GroupKeyManagement))
     async def test_GRPKEY_2_1(self):
         endpoint = self.get_endpoint()

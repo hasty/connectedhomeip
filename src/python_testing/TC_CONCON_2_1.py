@@ -84,7 +84,6 @@ class CONCON_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.ContentControl))
     async def test_CONCON_2_1(self):
         endpoint = self.get_endpoint()
@@ -216,6 +215,8 @@ class CONCON_2_1(MatterBaseTest):
         if struct.timeWindowIndex is not NullValue:
             matter_asserts.assert_valid_uint16(struct.timeWindowIndex, 'TimeWindowIndex')
         matter_asserts.is_valid_int_value(struct.dayOfWeek)
+        # Check bitmap value less than or equal to (Sunday | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday)
+        asserts.assert_less_equal(struct.dayOfWeek, 127)
         matter_asserts.assert_list(struct.timePeriod, "TimePeriod attribute must return a list")
         matter_asserts.assert_list_element_type(struct.timePeriod,  "TimePeriod attribute must contain TimePeriodStruct elements", cluster.Structs.TimePeriodStruct)
         for item in struct.timePeriod:

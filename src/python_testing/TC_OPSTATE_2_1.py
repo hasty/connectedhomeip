@@ -79,7 +79,6 @@ class OPSTATE_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.OperationalState))
     async def test_OPSTATE_2_1(self):
         endpoint = self.get_endpoint()

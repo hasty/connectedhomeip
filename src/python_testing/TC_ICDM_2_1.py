@@ -127,6 +127,8 @@ class ICDM_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UserActiveModeTriggerHint):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UserActiveModeTriggerHint)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (PowerCycle | SettingsMenu | CustomInstruction | DeviceManual | ActuateSensor | ActuateSensorSeconds | ActuateSensorTimes | ActuateSensorLightsBlink | ResetButton | ResetButtonLightsBlink | ResetButtonSeconds | ResetButtonTimes | SetupButton | SetupButtonSeconds | SetupButtonLightsBlink | SetupButtonTimes | AppDefinedButton)
+            asserts.assert_less_equal(val, 131071)
 
         self.step("8")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UserActiveModeTriggerInstruction)

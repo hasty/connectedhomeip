@@ -77,7 +77,6 @@ class REFALM_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.RefrigeratorAlarm))
     async def test_REFALM_2_1(self):
         endpoint = self.get_endpoint()
@@ -86,19 +85,27 @@ class REFALM_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Mask)
         matter_asserts.is_valid_int_value(val)
+        # Check bitmap value less than or equal to (DoorOpen)
+        asserts.assert_less_equal(val, 1)
 
         self.step("2")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Latch):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Latch)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (DoorOpen)
+            asserts.assert_less_equal(val, 1)
 
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.State)
         matter_asserts.is_valid_int_value(val)
+        # Check bitmap value less than or equal to (DoorOpen)
+        asserts.assert_less_equal(val, 1)
 
         self.step("4")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Supported)
         matter_asserts.is_valid_int_value(val)
+        # Check bitmap value less than or equal to (DoorOpen)
+        asserts.assert_less_equal(val, 1)
 
 if __name__ == "__main__":
     default_matter_test_main()

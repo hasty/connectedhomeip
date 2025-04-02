@@ -118,7 +118,6 @@ class DRLK_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.DoorLock))
     async def test_DRLK_2_1(self):
         endpoint = self.get_endpoint()
@@ -218,6 +217,8 @@ class DRLK_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CredentialRulesSupport):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CredentialRulesSupport)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (Single | Dual | Tri)
+            asserts.assert_less_equal(val, 7)
 
         self.step("19")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfCredentialsSupportedPerUser):
@@ -256,12 +257,16 @@ class DRLK_2_1(MatterBaseTest):
         self.step("25")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedOperatingModes)
         matter_asserts.is_valid_int_value(val)
+        # Check bitmap value less than or equal to (Normal | Vacation | Privacy | NoRemoteLockUnlock | Passage)
+        asserts.assert_less_equal(val, 31)
 
         self.step("26")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DefaultConfigurationRegister):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DefaultConfigurationRegister)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
+                # Check bitmap value less than or equal to (LocalProgramming | KeypadInterface | RemoteInterface | SoundVolume | AutoRelockTime | LEDSettings)
+                asserts.assert_less_equal(val, 231)
 
         self.step("27")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.EnableLocalProgramming):
@@ -292,6 +297,8 @@ class DRLK_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LocalProgrammingFeatures)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
+                # Check bitmap value less than or equal to (AddUsersCredentialsSchedules | ModifyUsersCredentialsSchedules | ClearUsersCredentialsSchedules | AdjustSettings)
+                asserts.assert_less_equal(val, 15)
 
         self.step("32")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WrongCodeEntryLimit):

@@ -79,7 +79,6 @@ class HEPAFREMON_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.HEPAFilterMonitoring))
     async def test_HEPAFREMON_2_1(self):
         endpoint = self.get_endpoint()

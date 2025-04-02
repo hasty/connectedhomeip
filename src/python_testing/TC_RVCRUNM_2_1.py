@@ -75,7 +75,6 @@ class RVCRUNM_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.RVCRunMode))
     async def test_RVCRUNM_2_1(self):
         endpoint = self.get_endpoint()

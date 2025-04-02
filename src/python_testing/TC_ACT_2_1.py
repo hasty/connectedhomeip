@@ -76,7 +76,6 @@ class ACT_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.Actions))
     async def test_ACT_2_1(self):
         endpoint = self.get_endpoint()
@@ -116,6 +115,8 @@ class ACT_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint16(struct.endpointListID, 'EndpointListID')
         matter_asserts.is_valid_int_value(struct.supportedCommands)
         asserts.assert_greater_equal(struct.supportedCommands, 0)
+        asserts.assert_less_equal(struct.supportedCommands, 4095)
+        # Check bitmap value less than or equal to (InstantAction | InstantActionWithTransition | StartAction | StartActionWithDuration | StopAction | PauseAction | PauseActionWithDuration | ResumeAction | EnableAction | EnableActionWithDuration | DisableAction | DisableActionWithDuration)
         asserts.assert_less_equal(struct.supportedCommands, 4095)
         matter_asserts.assert_valid_enum(struct.state, "State attribute must return a ActionStateEnum", cluster.Enums.ActionStateEnum)
 

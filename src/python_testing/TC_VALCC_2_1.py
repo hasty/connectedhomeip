@@ -84,7 +84,6 @@ class VALCC_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.ValveConfigurationAndControl))
     async def test_VALCC_2_1(self):
         endpoint = self.get_endpoint()
@@ -148,6 +147,8 @@ class VALCC_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ValveFault)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
+                # Check bitmap value less than or equal to (GeneralFault | Blocked | Leaking | NotConnected | ShortCircuit | CurrentExceeded)
+                asserts.assert_less_equal(val, 63)
 
         self.step("11")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LevelStep):

@@ -89,10 +89,14 @@ class EWATERHTR_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.HeaterTypes)
         matter_asserts.is_valid_int_value(val)
+        # Check bitmap value less than or equal to (ImmersionElement1 | ImmersionElement2 | HeatPump | Boiler | Other)
+        asserts.assert_less_equal(val, 31)
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.HeatDemand)
         matter_asserts.is_valid_int_value(val)
+        # Check bitmap value less than or equal to (ImmersionElement1 | ImmersionElement2 | HeatPump | Boiler | Other)
+        asserts.assert_less_equal(val, 31)
 
         self.step("3")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TankVolume):

@@ -96,7 +96,6 @@ class EEVSE_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.EnergyEVSE))
     async def test_EEVSE_2_1(self):
         endpoint = self.get_endpoint()

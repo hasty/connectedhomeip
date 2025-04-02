@@ -152,6 +152,8 @@ class WNCV_2_1(MatterBaseTest):
         self.step("8")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ConfigStatus)
         matter_asserts.is_valid_int_value(val)
+        # Check bitmap value less than or equal to (Operational | OnlineReserved | LiftMovementReversed | LiftPositionAware | TiltPositionAware | LiftEncoderControlled | TiltEncoderControlled)
+        asserts.assert_less_equal(val, 127)
 
         self.step("9")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentPositionLiftPercentage):
@@ -168,6 +170,8 @@ class WNCV_2_1(MatterBaseTest):
         self.step("11")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OperationalStatus)
         matter_asserts.is_valid_int_value(val)
+        # Check bitmap value less than or equal to (Global | Lift | Tilt)
+        asserts.assert_less_equal(val, 63)
 
         self.step("12")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TargetPositionLiftPercent100ths):
@@ -226,12 +230,16 @@ class WNCV_2_1(MatterBaseTest):
         self.step("21")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Mode)
         matter_asserts.is_valid_int_value(val)
+        # Check bitmap value less than or equal to (MotorDirectionReversed | CalibrationMode | MaintenanceMode | LedFeedback)
+        asserts.assert_less_equal(val, 15)
 
         self.step("22")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SafetyStatus):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SafetyStatus)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
+                # Check bitmap value less than or equal to (RemoteLockout | TamperDetection | FailedCommunication | PositionFailure | ThermalProtection | ObstacleDetected | Power | StopInput | MotorJammed | HardwareFailure | ManualOperation | Protection)
+                asserts.assert_less_equal(val, 4095)
 
 if __name__ == "__main__":
     default_matter_test_main()

@@ -190,6 +190,8 @@ class CC_2_1(MatterBaseTest):
         self.step("10")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Options)
         matter_asserts.is_valid_int_value(val)
+        # Check bitmap value less than or equal to (ExecuteIfOff)
+        asserts.assert_less_equal(val, 1)
 
         self.step("11")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfPrimaries)
@@ -429,6 +431,8 @@ class CC_2_1(MatterBaseTest):
         self.step("48")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ColorCapabilities)
         matter_asserts.is_valid_int_value(val)
+        asserts.assert_less_equal(val, 31)
+        # Check bitmap value less than or equal to (HueSaturation | EnhancedHue | ColorLoop | XY | ColorTemperature)
         asserts.assert_less_equal(val, 31)
 
         self.step("49")

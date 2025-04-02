@@ -74,7 +74,6 @@ class G_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.Groups))
     async def test_G_2_1(self):
         endpoint = self.get_endpoint()
@@ -83,6 +82,8 @@ class G_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NameSupport)
         matter_asserts.is_valid_int_value(val)
+        # Check bitmap value less than or equal to (GroupNames)
+        asserts.assert_less_equal(val, 128)
 
 if __name__ == "__main__":
     default_matter_test_main()

@@ -74,7 +74,6 @@ class LABEL_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.Label))
     async def test_LABEL_2_1(self):
         endpoint = self.get_endpoint()

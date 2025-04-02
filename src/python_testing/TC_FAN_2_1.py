@@ -141,21 +141,29 @@ class FAN_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RockSupport):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RockSupport)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (RockLeftRight | RockUpDown | RockRound)
+            asserts.assert_less_equal(val, 7)
 
         self.step("10")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RockSetting):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RockSetting)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (RockLeftRight | RockUpDown | RockRound)
+            asserts.assert_less_equal(val, 7)
 
         self.step("11")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WindSupport):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WindSupport)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (SleepWind | NaturalWind)
+            asserts.assert_less_equal(val, 3)
 
         self.step("12")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WindSetting):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WindSetting)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (SleepWind | NaturalWind)
+            asserts.assert_less_equal(val, 3)
 
         self.step("13")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AirflowDirection):

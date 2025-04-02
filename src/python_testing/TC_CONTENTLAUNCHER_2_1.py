@@ -75,7 +75,6 @@ class CONTENTLAUNCHER_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.ContentLauncher))
     async def test_CONTENTLAUNCHER_2_1(self):
         endpoint = self.get_endpoint()
@@ -94,6 +93,8 @@ class CONTENTLAUNCHER_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedStreamingProtocols):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedStreamingProtocols)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (DASH | HLS)
+            asserts.assert_less_equal(val, 3)
 
 if __name__ == "__main__":
     default_matter_test_main()

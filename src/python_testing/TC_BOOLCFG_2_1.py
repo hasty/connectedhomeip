@@ -112,28 +112,38 @@ class BOOLCFG_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AlarmsActive):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AlarmsActive)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (Visual | Audible)
+            asserts.assert_less_equal(val, 3)
 
         self.step("5")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AlarmsSuppressed):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AlarmsSuppressed)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (Visual | Audible)
+            asserts.assert_less_equal(val, 3)
 
         self.step("6")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AlarmsEnabled):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AlarmsEnabled)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
+                # Check bitmap value less than or equal to (Visual | Audible)
+                asserts.assert_less_equal(val, 3)
 
         self.step("7")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AlarmsSupported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AlarmsSupported)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (Visual | Audible)
+            asserts.assert_less_equal(val, 3)
 
         self.step("8")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SensorFault):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SensorFault)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
+                # Check bitmap value less than or equal to (GeneralFault)
+                asserts.assert_less_equal(val, 1)
 
 if __name__ == "__main__":
     default_matter_test_main()

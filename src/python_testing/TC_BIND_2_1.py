@@ -74,7 +74,6 @@ class BIND_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.Binding))
     async def test_BIND_2_1(self):
         endpoint = self.get_endpoint()

@@ -160,6 +160,8 @@ class TSTAT_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Occupancy):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Occupancy)
             matter_asserts.is_valid_int_value(val)
+            # Check bitmap value less than or equal to (Occupied)
+            asserts.assert_less_equal(val, 1)
 
         self.step("4")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AbsMinHeatSetpointLimit):
@@ -263,6 +265,8 @@ class TSTAT_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RemoteSensing)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
+                # Check bitmap value less than or equal to (LocalTemperature | OutdoorTemperature | Occupancy)
+                asserts.assert_less_equal(val, 7)
 
         self.step("21")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ControlSequenceOfOperation)
@@ -311,12 +315,16 @@ class TSTAT_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ThermostatProgrammingOperationMode)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
+                # Check bitmap value less than or equal to (ScheduleActive | AutoRecovery | Economy)
+                asserts.assert_less_equal(val, 7)
 
         self.step("30")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ThermostatRunningState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ThermostatRunningState)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
+                # Check bitmap value less than or equal to (Heat | Cool | Fan | HeatStage2 | CoolStage2 | FanStage2 | FanStage3)
+                asserts.assert_less_equal(val, 127)
 
         self.step("31")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SetpointChangeSource):
@@ -417,6 +425,8 @@ class TSTAT_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ACErrorCode)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
+                # Check bitmap value less than or equal to (CompressorFail | RoomSensorFail | OutdoorSensorFail | CoilSensorFail | FanFail)
+                asserts.assert_less_equal(val, 31)
 
         self.step("46")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ACLouverPosition):
@@ -529,6 +539,8 @@ class TSTAT_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(struct.presetScenario, "PresetScenario attribute must return a PresetScenarioEnum", cluster.Enums.PresetScenarioEnum)
         matter_asserts.assert_valid_uint8(struct.numberOfPresets, 'NumberOfPresets')
         matter_asserts.is_valid_int_value(struct.presetTypeFeatures)
+        # Check bitmap value less than or equal to (Automatic | SupportsNames)
+        asserts.assert_less_equal(struct.presetTypeFeatures, 3)
 
     async def test_checkScheduleStruct(self, 
                                  endpoint: int = None, 
@@ -558,6 +570,8 @@ class TSTAT_2_1(MatterBaseTest):
                                  cluster: Clusters.Thermostat = None, 
                                  struct: Clusters.Thermostat.Structs.ScheduleTransitionStruct = None):
         matter_asserts.is_valid_int_value(struct.dayOfWeek)
+        # Check bitmap value less than or equal to (Sunday | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Away)
+        asserts.assert_less_equal(struct.dayOfWeek, 255)
         matter_asserts.assert_valid_uint16(struct.transitionTime, 'TransitionTime')
         asserts.assert_less_equal(struct.transitionTime, 1439)
         if struct.presetHandle is not None:
@@ -578,6 +592,8 @@ class TSTAT_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint8(struct.numberOfSchedules, 'NumberOfSchedules')
         asserts.assert_less_equal(struct.numberOfSchedules, self.NumberOfSchedules)
         matter_asserts.is_valid_int_value(struct.scheduleTypeFeatures)
+        # Check bitmap value less than or equal to (SupportsPresets | SupportsSetpoints | SupportsNames | SupportsOff)
+        asserts.assert_less_equal(struct.scheduleTypeFeatures, 15)
 
 if __name__ == "__main__":
     default_matter_test_main()

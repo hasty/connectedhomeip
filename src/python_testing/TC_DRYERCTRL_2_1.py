@@ -75,7 +75,6 @@ class DRYERCTRL_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.LaundryDryerControls))
     async def test_DRYERCTRL_2_1(self):
         endpoint = self.get_endpoint()

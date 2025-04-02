@@ -75,7 +75,6 @@ class MESS_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.Messages))
     async def test_MESS_2_1(self):
         endpoint = self.get_endpoint()
@@ -112,6 +111,8 @@ class MESS_2_1(MatterBaseTest):
         asserts.assert_equal(len(struct.messageID), 16, "MessageID must have a length of 16")
         matter_asserts.assert_valid_enum(struct.priority, "Priority attribute must return a MessagePriorityEnum", cluster.Enums.MessagePriorityEnum)
         matter_asserts.is_valid_int_value(struct.messageControl)
+        # Check bitmap value less than or equal to (ConfirmationRequired | ResponseRequired | ReplyMessage | MessageConfirmed | MessageProtected)
+        asserts.assert_less_equal(struct.messageControl, 31)
         if struct.startTime is not NullValue:
             matter_asserts.assert_valid_uint32(struct.startTime, 'StartTime')
         if struct.duration is not NullValue:

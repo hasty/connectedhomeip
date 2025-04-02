@@ -82,7 +82,6 @@ class JFDS_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.JointFabricDatastore))
     async def test_JFDS_2_1(self):
         endpoint = self.get_endpoint()

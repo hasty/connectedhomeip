@@ -101,6 +101,8 @@ class OCC_2_1(MatterBaseTest):
         matter_asserts.is_valid_int_value(val)
         asserts.assert_greater_equal(val, 0)
         asserts.assert_less_equal(val, 1)
+        # Check bitmap value less than or equal to (Occupied)
+        asserts.assert_less_equal(val, 1)
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OccupancySensorType)
@@ -112,6 +114,8 @@ class OCC_2_1(MatterBaseTest):
         if val is not None:
             matter_asserts.is_valid_int_value(val)
             asserts.assert_greater_equal(val, 0)
+            asserts.assert_less_equal(val, 7)
+            # Check bitmap value less than or equal to (PIR | Ultrasonic | PhysicalContact)
             asserts.assert_less_equal(val, 7)
 
         self.step("4")

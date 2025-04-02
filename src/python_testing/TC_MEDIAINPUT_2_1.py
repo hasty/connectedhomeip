@@ -75,7 +75,6 @@ class MEDIAINPUT_2_1(MatterBaseTest):
         ]
         return steps
 
-
     @run_if_endpoint_matches(has_cluster(Clusters.MediaInput))
     async def test_MEDIAINPUT_2_1(self):
         endpoint = self.get_endpoint()
