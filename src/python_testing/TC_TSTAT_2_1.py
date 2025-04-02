@@ -252,22 +252,22 @@ class TSTAT_2_1(MatterBaseTest):
 
         self.step("21")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ControlSequenceOfOperation)
-        matter_asserts.assert_valid_enum(val, "ControlSequenceOfOperation attribute must return a Clusters.Thermostat.Enums.ControlSequenceOfOperationEnum", Clusters.Thermostat.Enums.ControlSequenceOfOperationEnum)
+        matter_asserts.assert_valid_enum(val, "ControlSequenceOfOperation attribute must return a ControlSequenceOfOperationEnum", cluster.Enums.ControlSequenceOfOperationEnum)
 
         self.step("22")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SystemMode)
-        matter_asserts.assert_valid_enum(val, "SystemMode attribute must return a Clusters.Thermostat.Enums.SystemModeEnum", Clusters.Thermostat.Enums.SystemModeEnum)
+        matter_asserts.assert_valid_enum(val, "SystemMode attribute must return a SystemModeEnum", cluster.Enums.SystemModeEnum)
 
         self.step("23")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ThermostatRunningMode):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ThermostatRunningMode)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "ThermostatRunningMode attribute must return a Clusters.Thermostat.Enums.ThermostatRunningModeEnum", Clusters.Thermostat.Enums.ThermostatRunningModeEnum)
+                matter_asserts.assert_valid_enum(val, "ThermostatRunningMode attribute must return a ThermostatRunningModeEnum", cluster.Enums.ThermostatRunningModeEnum)
 
         self.step("24")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.StartOfWeek):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StartOfWeek)
-            matter_asserts.assert_valid_enum(val, "StartOfWeek attribute must return a Clusters.Thermostat.Enums.StartOfWeekEnum", Clusters.Thermostat.Enums.StartOfWeekEnum)
+            matter_asserts.assert_valid_enum(val, "StartOfWeek attribute must return a StartOfWeekEnum", cluster.Enums.StartOfWeekEnum)
 
         self.step("25")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfWeeklyTransitions):
@@ -283,7 +283,7 @@ class TSTAT_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TemperatureSetpointHold):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TemperatureSetpointHold)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "TemperatureSetpointHold attribute must return a Clusters.Thermostat.Enums.TemperatureSetpointHoldEnum", Clusters.Thermostat.Enums.TemperatureSetpointHoldEnum)
+                matter_asserts.assert_valid_enum(val, "TemperatureSetpointHold attribute must return a TemperatureSetpointHoldEnum", cluster.Enums.TemperatureSetpointHoldEnum)
 
         self.step("28")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TemperatureSetpointHoldDuration):
@@ -308,7 +308,7 @@ class TSTAT_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SetpointChangeSource):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SetpointChangeSource)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "SetpointChangeSource attribute must return a Clusters.Thermostat.Enums.SetpointChangeSourceEnum", Clusters.Thermostat.Enums.SetpointChangeSourceEnum)
+                matter_asserts.assert_valid_enum(val, "SetpointChangeSource attribute must return a SetpointChangeSourceEnum", cluster.Enums.SetpointChangeSourceEnum)
 
         self.step("32")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SetpointChangeAmount):
@@ -378,7 +378,7 @@ class TSTAT_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ACType):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ACType)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "ACType attribute must return a Clusters.Thermostat.Enums.ACTypeEnum", Clusters.Thermostat.Enums.ACTypeEnum)
+                matter_asserts.assert_valid_enum(val, "ACType attribute must return a ACTypeEnum", cluster.Enums.ACTypeEnum)
 
         self.step("42")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ACCapacity):
@@ -390,13 +390,13 @@ class TSTAT_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ACRefrigerantType):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ACRefrigerantType)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "ACRefrigerantType attribute must return a Clusters.Thermostat.Enums.ACRefrigerantTypeEnum", Clusters.Thermostat.Enums.ACRefrigerantTypeEnum)
+                matter_asserts.assert_valid_enum(val, "ACRefrigerantType attribute must return a ACRefrigerantTypeEnum", cluster.Enums.ACRefrigerantTypeEnum)
 
         self.step("44")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ACCompressorType):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ACCompressorType)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "ACCompressorType attribute must return a Clusters.Thermostat.Enums.ACCompressorTypeEnum", Clusters.Thermostat.Enums.ACCompressorTypeEnum)
+                matter_asserts.assert_valid_enum(val, "ACCompressorType attribute must return a ACCompressorTypeEnum", cluster.Enums.ACCompressorTypeEnum)
 
         self.step("45")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ACErrorCode):
@@ -408,7 +408,7 @@ class TSTAT_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ACLouverPosition):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ACLouverPosition)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "ACLouverPosition attribute must return a Clusters.Thermostat.Enums.ACLouverPositionEnum", Clusters.Thermostat.Enums.ACLouverPositionEnum)
+                matter_asserts.assert_valid_enum(val, "ACLouverPosition attribute must return a ACLouverPositionEnum", cluster.Enums.ACLouverPositionEnum)
 
         self.step("47")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ACCoilTemperature):
@@ -417,16 +417,12 @@ class TSTAT_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_int16(val, 'ACCoilTemperature')
 
         self.step("48")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ACCapacityFormat):
-            val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ACCapacityFormat)
-            if val is not None:
-                matter_asserts.assert_valid_enum(val, "ACCapacityFormat attribute must return a Clusters.Thermostat.Enums.ACCapacityFormatEnum", Clusters.Thermostat.Enums.ACCapacityFormatEnum)
 
         self.step("49")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PresetTypes):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PresetTypes)
             matter_asserts.assert_list(val, "PresetTypes attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "PresetTypes attribute must contain Clusters.Thermostat.Structs.PresetTypeStruct elements", Clusters.Thermostat.Structs.PresetTypeStruct)
+            matter_asserts.assert_list_element_type(val,  "PresetTypes attribute must contain PresetTypeStruct elements", cluster.Structs.PresetTypeStruct)
             for item in val:
                 await self.test_checkPresetTypeStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -434,7 +430,7 @@ class TSTAT_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ScheduleTypes):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ScheduleTypes)
             matter_asserts.assert_list(val, "ScheduleTypes attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "ScheduleTypes attribute must contain Clusters.Thermostat.Structs.ScheduleTypeStruct elements", Clusters.Thermostat.Structs.ScheduleTypeStruct)
+            matter_asserts.assert_list_element_type(val,  "ScheduleTypes attribute must contain ScheduleTypeStruct elements", cluster.Structs.ScheduleTypeStruct)
             for item in val:
                 await self.test_checkScheduleTypeStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -477,7 +473,7 @@ class TSTAT_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Presets):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Presets)
             matter_asserts.assert_list(val, "Presets attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "Presets attribute must contain Clusters.Thermostat.Structs.PresetStruct elements", Clusters.Thermostat.Structs.PresetStruct)
+            matter_asserts.assert_list_element_type(val,  "Presets attribute must contain PresetStruct elements", cluster.Structs.PresetStruct)
             for item in val:
                 await self.test_checkPresetStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_less_equal(len(val), self.NumberOfPresets, "Presets must have at most self.NumberOfPresets entries!")
@@ -486,7 +482,7 @@ class TSTAT_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Schedules):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Schedules)
             matter_asserts.assert_list(val, "Schedules attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "Schedules attribute must contain Clusters.Thermostat.Structs.ScheduleStruct elements", Clusters.Thermostat.Structs.ScheduleStruct)
+            matter_asserts.assert_list_element_type(val,  "Schedules attribute must contain ScheduleStruct elements", cluster.Structs.ScheduleStruct)
             for item in val:
                 await self.test_checkScheduleStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -504,7 +500,7 @@ class TSTAT_2_1(MatterBaseTest):
         if struct.presetHandle is not NullValue:
             matter_asserts.assert_is_octstr(struct.presetHandle, "PresetHandle must be an octstr")
             asserts.assert_less_equal(len(struct.presetHandle), 16, "PresetHandle must have length at most 16!")
-        matter_asserts.assert_valid_enum(struct.presetScenario, "PresetScenario attribute must return a Clusters.Thermostat.Enums.PresetScenarioEnum", Clusters.Thermostat.Enums.PresetScenarioEnum)
+        matter_asserts.assert_valid_enum(struct.presetScenario, "PresetScenario attribute must return a PresetScenarioEnum", cluster.Enums.PresetScenarioEnum)
         if struct.name is not NullValue and struct.name is not None:
             matter_asserts.assert_is_string(struct.name, "Name must be a string")
             asserts.assert_less_equal(len(struct.name), 64, "Name must have length at most 64!")
@@ -517,7 +513,7 @@ class TSTAT_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.Thermostat = None, 
                                  struct: Clusters.Thermostat.Structs.PresetTypeStruct = None):
-        matter_asserts.assert_valid_enum(struct.presetScenario, "PresetScenario attribute must return a Clusters.Thermostat.Enums.PresetScenarioEnum", Clusters.Thermostat.Enums.PresetScenarioEnum)
+        matter_asserts.assert_valid_enum(struct.presetScenario, "PresetScenario attribute must return a PresetScenarioEnum", cluster.Enums.PresetScenarioEnum)
         matter_asserts.assert_valid_uint8(struct.numberOfPresets, 'NumberOfPresets')
         matter_asserts.is_valid_int_value(struct.presetTypeFeatures)
 
@@ -528,7 +524,7 @@ class TSTAT_2_1(MatterBaseTest):
         if struct.scheduleHandle is not NullValue:
             matter_asserts.assert_is_octstr(struct.scheduleHandle, "ScheduleHandle must be an octstr")
             asserts.assert_less_equal(len(struct.scheduleHandle), 16, "ScheduleHandle must have length at most 16!")
-        matter_asserts.assert_valid_enum(struct.systemMode, "SystemMode attribute must return a Clusters.Thermostat.Enums.SystemModeEnum", Clusters.Thermostat.Enums.SystemModeEnum)
+        matter_asserts.assert_valid_enum(struct.systemMode, "SystemMode attribute must return a SystemModeEnum", cluster.Enums.SystemModeEnum)
         if struct.name is not None:
             matter_asserts.assert_is_string(struct.name, "Name must be a string")
             asserts.assert_less_equal(len(struct.name), 64, "Name must have length at most 64!")
@@ -536,7 +532,7 @@ class TSTAT_2_1(MatterBaseTest):
             matter_asserts.assert_is_octstr(struct.presetHandle, "PresetHandle must be an octstr")
             asserts.assert_less_equal(len(struct.presetHandle), 16, "PresetHandle must have length at most 16!")
         matter_asserts.assert_list(struct.transitions, "Transitions attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.transitions,  "Transitions attribute must contain Clusters.Thermostat.Structs.ScheduleTransitionStruct elements", Clusters.Thermostat.Structs.ScheduleTransitionStruct)
+        matter_asserts.assert_list_element_type(struct.transitions,  "Transitions attribute must contain ScheduleTransitionStruct elements", cluster.Structs.ScheduleTransitionStruct)
         for item in struct.transitions:
             await self.test_checkScheduleTransitionStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_greater_equal(len(struct.transitions), 1, "Transitions must have at least 1 entries!")
@@ -555,7 +551,7 @@ class TSTAT_2_1(MatterBaseTest):
             matter_asserts.assert_is_octstr(struct.presetHandle, "PresetHandle must be an octstr")
             asserts.assert_less_equal(len(struct.presetHandle), 16, "PresetHandle must have length at most 16!")
         if struct.systemMode is not None:
-            matter_asserts.assert_valid_enum(struct.systemMode, "SystemMode attribute must return a Clusters.Thermostat.Enums.SystemModeEnum", Clusters.Thermostat.Enums.SystemModeEnum)
+            matter_asserts.assert_valid_enum(struct.systemMode, "SystemMode attribute must return a SystemModeEnum", cluster.Enums.SystemModeEnum)
         if struct.coolingSetpoint is not None:
             matter_asserts.assert_valid_int16(struct.coolingSetpoint, 'CoolingSetpoint')
         if struct.heatingSetpoint is not None:
@@ -565,7 +561,7 @@ class TSTAT_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.Thermostat = None, 
                                  struct: Clusters.Thermostat.Structs.ScheduleTypeStruct = None):
-        matter_asserts.assert_valid_enum(struct.systemMode, "SystemMode attribute must return a Clusters.Thermostat.Enums.SystemModeEnum", Clusters.Thermostat.Enums.SystemModeEnum)
+        matter_asserts.assert_valid_enum(struct.systemMode, "SystemMode attribute must return a SystemModeEnum", cluster.Enums.SystemModeEnum)
         matter_asserts.assert_valid_uint8(struct.numberOfSchedules, 'NumberOfSchedules')
         asserts.assert_less_equal(struct.numberOfSchedules, self.NumberOfSchedules)
         matter_asserts.is_valid_int_value(struct.scheduleTypeFeatures)

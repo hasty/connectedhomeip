@@ -91,15 +91,15 @@ class EEVSE_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.State)
         if val is not NullValue:
-            matter_asserts.assert_valid_enum(val, "State attribute must return a Clusters.EnergyEVSE.Enums.StateEnum", Clusters.EnergyEVSE.Enums.StateEnum)
+            matter_asserts.assert_valid_enum(val, "State attribute must return a StateEnum", cluster.Enums.StateEnum)
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupplyState)
-        matter_asserts.assert_valid_enum(val, "SupplyState attribute must return a Clusters.EnergyEVSE.Enums.SupplyStateEnum", Clusters.EnergyEVSE.Enums.SupplyStateEnum)
+        matter_asserts.assert_valid_enum(val, "SupplyState attribute must return a SupplyStateEnum", cluster.Enums.SupplyStateEnum)
 
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.FaultState)
-        matter_asserts.assert_valid_enum(val, "FaultState attribute must return a Clusters.EnergyEVSE.Enums.FaultStateEnum", Clusters.EnergyEVSE.Enums.FaultStateEnum)
+        matter_asserts.assert_valid_enum(val, "FaultState attribute must return a FaultStateEnum", cluster.Enums.FaultStateEnum)
 
         self.step("4")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ChargingEnabledUntil)

@@ -70,17 +70,17 @@ class TSUIC_2_1(MatterBaseTest):
 
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TemperatureDisplayMode)
-        matter_asserts.assert_valid_enum(val, "TemperatureDisplayMode attribute must return a Clusters.ThermostatUserInterfaceConfiguration.Enums.TemperatureDisplayModeEnum", Clusters.ThermostatUserInterfaceConfiguration.Enums.TemperatureDisplayModeEnum)
+        matter_asserts.assert_valid_enum(val, "TemperatureDisplayMode attribute must return a TemperatureDisplayModeEnum", cluster.Enums.TemperatureDisplayModeEnum)
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.KeypadLockout)
-        matter_asserts.assert_valid_enum(val, "KeypadLockout attribute must return a Clusters.ThermostatUserInterfaceConfiguration.Enums.KeypadLockoutEnum", Clusters.ThermostatUserInterfaceConfiguration.Enums.KeypadLockoutEnum)
+        matter_asserts.assert_valid_enum(val, "KeypadLockout attribute must return a KeypadLockoutEnum", cluster.Enums.KeypadLockoutEnum)
 
         self.step("3")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ScheduleProgrammingVisibility):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ScheduleProgrammingVisibility)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "ScheduleProgrammingVisibility attribute must return a Clusters.ThermostatUserInterfaceConfiguration.Enums.ScheduleProgrammingVisibilityEnum", Clusters.ThermostatUserInterfaceConfiguration.Enums.ScheduleProgrammingVisibilityEnum)
+                matter_asserts.assert_valid_enum(val, "ScheduleProgrammingVisibility attribute must return a ScheduleProgrammingVisibilityEnum", cluster.Enums.ScheduleProgrammingVisibilityEnum)
 
 
 

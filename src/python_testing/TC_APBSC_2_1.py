@@ -98,13 +98,12 @@ class APBSC_2_1(MatterBaseTest):
 
         self.step("5")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Application)
-        asserts.assert_true(isinstance(val, Clusters.ApplicationBasic.Structs.ApplicationStruct),
-                                    f"val must be of type Clusters.ApplicationBasic.Structs.ApplicationStruct")
+        asserts.assert_true(isinstance(val, cluster.Structs.ApplicationStruct), f"val must be of type ApplicationStruct")
         await self.test_checkApplicationStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("6")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Status)
-        matter_asserts.assert_valid_enum(val, "Status attribute must return a Clusters.ApplicationBasic.Enums.ApplicationStatusEnum", Clusters.ApplicationBasic.Enums.ApplicationStatusEnum)
+        matter_asserts.assert_valid_enum(val, "Status attribute must return a ApplicationStatusEnum", cluster.Enums.ApplicationStatusEnum)
 
         self.step("7")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ApplicationVersion)

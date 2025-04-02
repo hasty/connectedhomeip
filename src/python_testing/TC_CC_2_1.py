@@ -154,7 +154,7 @@ class CC_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DriftCompensation):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DriftCompensation)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "DriftCompensation attribute must return a Clusters.ColorControl.Enums.DriftCompensationEnum", Clusters.ColorControl.Enums.DriftCompensationEnum)
+                matter_asserts.assert_valid_enum(val, "DriftCompensation attribute must return a DriftCompensationEnum", cluster.Enums.DriftCompensationEnum)
 
         self.step("7")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CompensationText):
@@ -171,7 +171,7 @@ class CC_2_1(MatterBaseTest):
 
         self.step("9")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ColorMode)
-        matter_asserts.assert_valid_enum(val, "ColorMode attribute must return a Clusters.ColorControl.Enums.ColorModeEnum", Clusters.ColorControl.Enums.ColorModeEnum)
+        matter_asserts.assert_valid_enum(val, "ColorMode attribute must return a ColorModeEnum", cluster.Enums.ColorModeEnum)
 
         self.step("10")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Options)
@@ -384,7 +384,7 @@ class CC_2_1(MatterBaseTest):
 
         self.step("42")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EnhancedColorMode)
-        matter_asserts.assert_valid_enum(val, "EnhancedColorMode attribute must return a Clusters.ColorControl.Enums.EnhancedColorModeEnum", Clusters.ColorControl.Enums.EnhancedColorModeEnum)
+        matter_asserts.assert_valid_enum(val, "EnhancedColorMode attribute must return a EnhancedColorModeEnum", cluster.Enums.EnhancedColorModeEnum)
 
         self.step("43")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorLoopActive):
@@ -395,7 +395,7 @@ class CC_2_1(MatterBaseTest):
         self.step("44")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorLoopDirection):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ColorLoopDirection)
-            matter_asserts.assert_valid_enum(val, "ColorLoopDirection attribute must return a Clusters.ColorControl.Enums.ColorLoopDirectionEnum", Clusters.ColorControl.Enums.ColorLoopDirectionEnum)
+            matter_asserts.assert_valid_enum(val, "ColorLoopDirection attribute must return a ColorLoopDirectionEnum", cluster.Enums.ColorLoopDirectionEnum)
 
         self.step("45")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorLoopTime):

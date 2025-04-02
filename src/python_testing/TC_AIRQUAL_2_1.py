@@ -68,7 +68,7 @@ class AIRQUAL_2_1(MatterBaseTest):
 
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AirQuality)
-        matter_asserts.assert_valid_enum(val, "AirQuality attribute must return a Clusters.AirQuality.Enums.AirQualityEnum", Clusters.AirQuality.Enums.AirQualityEnum)
+        matter_asserts.assert_valid_enum(val, "AirQuality attribute must return a AirQualityEnum", cluster.Enums.AirQualityEnum)
 
 
 

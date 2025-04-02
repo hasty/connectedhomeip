@@ -70,7 +70,7 @@ class CADMIN_2_1(MatterBaseTest):
 
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WindowStatus)
-        matter_asserts.assert_valid_enum(val, "WindowStatus attribute must return a Clusters.AdministratorCommissioning.Enums.CommissioningWindowStatusEnum", Clusters.AdministratorCommissioning.Enums.CommissioningWindowStatusEnum)
+        matter_asserts.assert_valid_enum(val, "WindowStatus attribute must return a CommissioningWindowStatusEnum", cluster.Enums.CommissioningWindowStatusEnum)
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AdminFabricIndex)

@@ -74,7 +74,7 @@ class EPREF_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.EnergyBalances):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EnergyBalances)
             matter_asserts.assert_list(val, "EnergyBalances attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "EnergyBalances attribute must contain Clusters.EnergyPreference.Structs.BalanceStruct elements", Clusters.EnergyPreference.Structs.BalanceStruct)
+            matter_asserts.assert_list_element_type(val,  "EnergyBalances attribute must contain BalanceStruct elements", cluster.Structs.BalanceStruct)
             for item in val:
                 await self.test_checkBalanceStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_greater_equal(len(val), 2, "EnergyBalances must have at least 2 entries!")
@@ -89,13 +89,13 @@ class EPREF_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.EnergyPriorities):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EnergyPriorities)
             matter_asserts.assert_list(val, "EnergyPriorities attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "EnergyPriorities attribute must contain Clusters.EnergyPreference.Enums.EnergyPriorityEnum elements", Clusters.EnergyPreference.Enums.EnergyPriorityEnum)
+            matter_asserts.assert_list_element_type(val,  "EnergyPriorities attribute must contain EnergyPriorityEnum elements", cluster.Enums.EnergyPriorityEnum)
 
         self.step("4")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LowPowerModeSensitivities):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LowPowerModeSensitivities)
             matter_asserts.assert_list(val, "LowPowerModeSensitivities attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "LowPowerModeSensitivities attribute must contain Clusters.EnergyPreference.Structs.BalanceStruct elements", Clusters.EnergyPreference.Structs.BalanceStruct)
+            matter_asserts.assert_list_element_type(val,  "LowPowerModeSensitivities attribute must contain BalanceStruct elements", cluster.Structs.BalanceStruct)
             for item in val:
                 await self.test_checkBalanceStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_greater_equal(len(val), 2, "LowPowerModeSensitivities must have at least 2 entries!")

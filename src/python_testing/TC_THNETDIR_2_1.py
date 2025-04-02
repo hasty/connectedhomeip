@@ -77,7 +77,7 @@ class THNETDIR_2_1(MatterBaseTest):
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ThreadNetworks)
         matter_asserts.assert_list(val, "ThreadNetworks attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "ThreadNetworks attribute must contain Clusters.ThreadNetworkDirectory.Structs.ThreadNetworkStruct elements", Clusters.ThreadNetworkDirectory.Structs.ThreadNetworkStruct)
+        matter_asserts.assert_list_element_type(val,  "ThreadNetworks attribute must contain ThreadNetworkStruct elements", cluster.Structs.ThreadNetworkStruct)
         for item in val:
             await self.test_checkThreadNetworkStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(val), self.ThreadNetworkTableSize, "ThreadNetworks must have at most self.ThreadNetworkTableSize entries!")

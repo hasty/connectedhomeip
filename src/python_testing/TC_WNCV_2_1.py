@@ -93,7 +93,7 @@ class WNCV_2_1(MatterBaseTest):
 
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Type)
-        matter_asserts.assert_valid_enum(val, "Type attribute must return a Clusters.WindowCovering.Enums.TypeEnum", Clusters.WindowCovering.Enums.TypeEnum)
+        matter_asserts.assert_valid_enum(val, "Type attribute must return a TypeEnum", cluster.Enums.TypeEnum)
 
         self.step("2")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalClosedLimitLift):
@@ -169,7 +169,7 @@ class WNCV_2_1(MatterBaseTest):
 
         self.step("14")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EndProductType)
-        matter_asserts.assert_valid_enum(val, "EndProductType attribute must return a Clusters.WindowCovering.Enums.EndProductTypeEnum", Clusters.WindowCovering.Enums.EndProductTypeEnum)
+        matter_asserts.assert_valid_enum(val, "EndProductType attribute must return a EndProductTypeEnum", cluster.Enums.EndProductTypeEnum)
 
         self.step("15")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentPositionLiftPercent100ths):

@@ -138,7 +138,7 @@ class DGTHREAD_2_1(MatterBaseTest):
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RoutingRole)
         if val is not NullValue:
-            matter_asserts.assert_valid_enum(val, "RoutingRole attribute must return a Clusters.ThreadNetworkDiagnostics.Enums.RoutingRoleEnum", Clusters.ThreadNetworkDiagnostics.Enums.RoutingRoleEnum)
+            matter_asserts.assert_valid_enum(val, "RoutingRole attribute must return a RoutingRoleEnum", cluster.Enums.RoutingRoleEnum)
 
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NetworkName)
@@ -170,14 +170,14 @@ class DGTHREAD_2_1(MatterBaseTest):
         self.step("8")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NeighborTable)
         matter_asserts.assert_list(val, "NeighborTable attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "NeighborTable attribute must contain Clusters.ThreadNetworkDiagnostics.Structs.NeighborTableStruct elements", Clusters.ThreadNetworkDiagnostics.Structs.NeighborTableStruct)
+        matter_asserts.assert_list_element_type(val,  "NeighborTable attribute must contain NeighborTableStruct elements", cluster.Structs.NeighborTableStruct)
         for item in val:
             await self.test_checkNeighborTableStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("9")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RouteTable)
         matter_asserts.assert_list(val, "RouteTable attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "RouteTable attribute must contain Clusters.ThreadNetworkDiagnostics.Structs.RouteTableStruct elements", Clusters.ThreadNetworkDiagnostics.Structs.RouteTableStruct)
+        matter_asserts.assert_list_element_type(val,  "RouteTable attribute must contain RouteTableStruct elements", cluster.Structs.RouteTableStruct)
         for item in val:
             await self.test_checkRouteTableStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -483,8 +483,7 @@ class DGTHREAD_2_1(MatterBaseTest):
         self.step("60")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SecurityPolicy)
         if val is not NullValue:
-            asserts.assert_true(isinstance(val, Clusters.ThreadNetworkDiagnostics.Structs.SecurityPolicy),
-                                        f"val must be of type Clusters.ThreadNetworkDiagnostics.Structs.SecurityPolicy")
+            asserts.assert_true(isinstance(val, cluster.Structs.SecurityPolicy), f"val must be of type SecurityPolicy")
             await self.test_checkSecurityPolicy(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("61")
@@ -495,14 +494,13 @@ class DGTHREAD_2_1(MatterBaseTest):
         self.step("62")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OperationalDatasetComponents)
         if val is not NullValue:
-            asserts.assert_true(isinstance(val, Clusters.ThreadNetworkDiagnostics.Structs.OperationalDatasetComponents),
-                                        f"val must be of type Clusters.ThreadNetworkDiagnostics.Structs.OperationalDatasetComponents")
+            asserts.assert_true(isinstance(val, cluster.Structs.OperationalDatasetComponents), f"val must be of type OperationalDatasetComponents")
             await self.test_checkOperationalDatasetComponents(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("63")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveNetworkFaultsList)
         matter_asserts.assert_list(val, "ActiveNetworkFaultsList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "ActiveNetworkFaultsList attribute must contain Clusters.ThreadNetworkDiagnostics.Enums.NetworkFaultEnum elements", Clusters.ThreadNetworkDiagnostics.Enums.NetworkFaultEnum)
+        matter_asserts.assert_list_element_type(val,  "ActiveNetworkFaultsList attribute must contain NetworkFaultEnum elements", cluster.Enums.NetworkFaultEnum)
         asserts.assert_less_equal(len(val), 4, "ActiveNetworkFaultsList must have at most 4 entries!")
 
         self.step("64")

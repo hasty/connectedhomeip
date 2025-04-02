@@ -75,48 +75,42 @@ class EEM_2_1(MatterBaseTest):
 
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Accuracy)
-        asserts.assert_true(isinstance(val, Globals.Structs.MeasurementAccuracyStruct),
-                                    f"val must be of type Globals.Structs.MeasurementAccuracyStruct")
+        asserts.assert_true(isinstance(val, Globals.Structs.MeasurementAccuracyStruct), f"val must be of type MeasurementAccuracyStruct")
         await self.test_checkMeasurementAccuracyStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("2")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CumulativeEnergyImported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CumulativeEnergyImported)
             if val is not NullValue:
-                asserts.assert_true(isinstance(val, Clusters.ElectricalEnergyMeasurement.Structs.EnergyMeasurementStruct),
-                                            f"val must be of type Clusters.ElectricalEnergyMeasurement.Structs.EnergyMeasurementStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.EnergyMeasurementStruct), f"val must be of type EnergyMeasurementStruct")
                 await self.test_checkEnergyMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("3")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CumulativeEnergyExported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CumulativeEnergyExported)
             if val is not NullValue:
-                asserts.assert_true(isinstance(val, Clusters.ElectricalEnergyMeasurement.Structs.EnergyMeasurementStruct),
-                                            f"val must be of type Clusters.ElectricalEnergyMeasurement.Structs.EnergyMeasurementStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.EnergyMeasurementStruct), f"val must be of type EnergyMeasurementStruct")
                 await self.test_checkEnergyMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("4")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PeriodicEnergyImported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PeriodicEnergyImported)
             if val is not NullValue:
-                asserts.assert_true(isinstance(val, Clusters.ElectricalEnergyMeasurement.Structs.EnergyMeasurementStruct),
-                                            f"val must be of type Clusters.ElectricalEnergyMeasurement.Structs.EnergyMeasurementStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.EnergyMeasurementStruct), f"val must be of type EnergyMeasurementStruct")
                 await self.test_checkEnergyMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("5")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PeriodicEnergyExported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PeriodicEnergyExported)
             if val is not NullValue:
-                asserts.assert_true(isinstance(val, Clusters.ElectricalEnergyMeasurement.Structs.EnergyMeasurementStruct),
-                                            f"val must be of type Clusters.ElectricalEnergyMeasurement.Structs.EnergyMeasurementStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.EnergyMeasurementStruct), f"val must be of type EnergyMeasurementStruct")
                 await self.test_checkEnergyMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("6")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CumulativeEnergyReset):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CumulativeEnergyReset)
             if val is not NullValue and val is not None:
-                asserts.assert_true(isinstance(val, Clusters.ElectricalEnergyMeasurement.Structs.CumulativeEnergyResetStruct),
-                                            f"val must be of type Clusters.ElectricalEnergyMeasurement.Structs.CumulativeEnergyResetStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.CumulativeEnergyResetStruct), f"val must be of type CumulativeEnergyResetStruct")
                 await self.test_checkCumulativeEnergyResetStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
 
@@ -191,7 +185,7 @@ class EEM_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.ElectricalEnergyMeasurement = None, 
                                  struct: Globals.Structs.MeasurementAccuracyStruct = None):
-        matter_asserts.assert_valid_enum(struct.measurementType, "MeasurementType attribute must return a Globals.Enums.MeasurementTypeEnum", Globals.Enums.MeasurementTypeEnum)
+        matter_asserts.assert_valid_enum(struct.measurementType, "MeasurementType attribute must return a MeasurementTypeEnum", Globals.Enums.MeasurementTypeEnum)
         matter_asserts.assert_valid_bool(struct.measured, 'Measured')
         matter_asserts.assert_valid_int64(struct.minMeasuredValue, 'MinMeasuredValue')
         asserts.assert_greater_equal(struct.minMeasuredValue, -2e62)
@@ -200,7 +194,7 @@ class EEM_2_1(MatterBaseTest):
         asserts.assert_greater_equal(struct.maxMeasuredValue, -2e62)
         asserts.assert_less_equal(struct.maxMeasuredValue, 2e62)
         matter_asserts.assert_list(struct.accuracyRanges, "AccuracyRanges attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.accuracyRanges,  "AccuracyRanges attribute must contain Globals.Structs.MeasurementAccuracyRangeStruct elements", Globals.Structs.MeasurementAccuracyRangeStruct)
+        matter_asserts.assert_list_element_type(struct.accuracyRanges,  "AccuracyRanges attribute must contain MeasurementAccuracyRangeStruct elements", Globals.Structs.MeasurementAccuracyRangeStruct)
         for item in struct.accuracyRanges:
             await self.test_checkMeasurementAccuracyRangeStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_greater_equal(len(struct.accuracyRanges), 1, "AccuracyRanges must have at least 1 entries!")

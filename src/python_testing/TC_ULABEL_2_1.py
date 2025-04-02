@@ -69,7 +69,7 @@ class ULABEL_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LabelList)
         matter_asserts.assert_list(val, "LabelList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "LabelList attribute must contain Clusters.FixedLabel.Structs.LabelStruct elements", Clusters.FixedLabel.Structs.LabelStruct)
+        matter_asserts.assert_list_element_type(val,  "LabelList attribute must contain LabelStruct elements", Clusters.FixedLabel.Structs.LabelStruct)
         for item in val:
             await self.test_checkLabelStruct(endpoint=endpoint, cluster=cluster, struct=item)
 

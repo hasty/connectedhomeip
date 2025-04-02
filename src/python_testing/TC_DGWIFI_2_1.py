@@ -86,12 +86,12 @@ class DGWIFI_2_1(MatterBaseTest):
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SecurityType)
         if val is not NullValue:
-            matter_asserts.assert_valid_enum(val, "SecurityType attribute must return a Clusters.WiFiNetworkDiagnostics.Enums.SecurityTypeEnum", Clusters.WiFiNetworkDiagnostics.Enums.SecurityTypeEnum)
+            matter_asserts.assert_valid_enum(val, "SecurityType attribute must return a SecurityTypeEnum", cluster.Enums.SecurityTypeEnum)
 
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WiFiVersion)
         if val is not NullValue:
-            matter_asserts.assert_valid_enum(val, "WiFiVersion attribute must return a Clusters.WiFiNetworkDiagnostics.Enums.WiFiVersionEnum", Clusters.WiFiNetworkDiagnostics.Enums.WiFiVersionEnum)
+            matter_asserts.assert_valid_enum(val, "WiFiVersion attribute must return a WiFiVersionEnum", cluster.Enums.WiFiVersionEnum)
 
         self.step("4")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ChannelNumber)

@@ -113,11 +113,11 @@ class DRLK_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LockState)
         if val is not NullValue:
-            matter_asserts.assert_valid_enum(val, "LockState attribute must return a Clusters.DoorLock.Enums.LockStateEnum", Clusters.DoorLock.Enums.LockStateEnum)
+            matter_asserts.assert_valid_enum(val, "LockState attribute must return a LockStateEnum", cluster.Enums.LockStateEnum)
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LockType)
-        matter_asserts.assert_valid_enum(val, "LockType attribute must return a Clusters.DoorLock.Enums.LockTypeEnum", Clusters.DoorLock.Enums.LockTypeEnum)
+        matter_asserts.assert_valid_enum(val, "LockType attribute must return a LockTypeEnum", cluster.Enums.LockTypeEnum)
 
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActuatorEnabled)
@@ -127,7 +127,7 @@ class DRLK_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DoorState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DoorState)
             if val is not NullValue:
-                matter_asserts.assert_valid_enum(val, "DoorState attribute must return a Clusters.DoorLock.Enums.DoorStateEnum", Clusters.DoorLock.Enums.DoorStateEnum)
+                matter_asserts.assert_valid_enum(val, "DoorState attribute must return a DoorStateEnum", cluster.Enums.DoorStateEnum)
 
         self.step("5")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DoorOpenEvents):
@@ -221,7 +221,7 @@ class DRLK_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LEDSettings):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LEDSettings)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "LEDSettings attribute must return a Clusters.DoorLock.Enums.LEDSettingEnum", Clusters.DoorLock.Enums.LEDSettingEnum)
+                matter_asserts.assert_valid_enum(val, "LEDSettings attribute must return a LEDSettingEnum", cluster.Enums.LEDSettingEnum)
 
         self.step("22")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AutoRelockTime):
@@ -233,11 +233,11 @@ class DRLK_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SoundVolume):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SoundVolume)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "SoundVolume attribute must return a Clusters.DoorLock.Enums.SoundVolumeEnum", Clusters.DoorLock.Enums.SoundVolumeEnum)
+                matter_asserts.assert_valid_enum(val, "SoundVolume attribute must return a SoundVolumeEnum", cluster.Enums.SoundVolumeEnum)
 
         self.step("24")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OperatingMode)
-        matter_asserts.assert_valid_enum(val, "OperatingMode attribute must return a Clusters.DoorLock.Enums.OperatingModeEnum", Clusters.DoorLock.Enums.OperatingModeEnum)
+        matter_asserts.assert_valid_enum(val, "OperatingMode attribute must return a OperatingModeEnum", cluster.Enums.OperatingModeEnum)
 
         self.step("25")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedOperatingModes)

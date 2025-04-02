@@ -81,16 +81,16 @@ class FAN_2_1(MatterBaseTest):
 
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.FanMode)
-        matter_asserts.assert_valid_enum(val, "FanMode attribute must return a Clusters.FanControl.Enums.FanModeEnum", Clusters.FanControl.Enums.FanModeEnum)
+        matter_asserts.assert_valid_enum(val, "FanMode attribute must return a FanModeEnum", cluster.Enums.FanModeEnum)
 
         self.step("2")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.FanModeSequence):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.FanModeSequence)
-            matter_asserts.assert_valid_enum(val, "FanModeSequence attribute must return a Clusters.FanControl.Enums.FanModeSequenceEnum", Clusters.FanControl.Enums.FanModeSequenceEnum)
+            matter_asserts.assert_valid_enum(val, "FanModeSequence attribute must return a FanModeSequenceEnum", cluster.Enums.FanModeSequenceEnum)
 
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.FanModeSequence)
-        matter_asserts.assert_valid_enum(val, "FanModeSequence attribute must return a Clusters.FanControl.Enums.FanModeSequenceEnum", Clusters.FanControl.Enums.FanModeSequenceEnum)
+        matter_asserts.assert_valid_enum(val, "FanModeSequence attribute must return a FanModeSequenceEnum", cluster.Enums.FanModeSequenceEnum)
 
         self.step("4")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PercentSetting)
@@ -146,7 +146,7 @@ class FAN_2_1(MatterBaseTest):
         self.step("13")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AirflowDirection):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AirflowDirection)
-            matter_asserts.assert_valid_enum(val, "AirflowDirection attribute must return a Clusters.FanControl.Enums.AirflowDirectionEnum", Clusters.FanControl.Enums.AirflowDirectionEnum)
+            matter_asserts.assert_valid_enum(val, "AirflowDirection attribute must return a AirflowDirectionEnum", cluster.Enums.AirflowDirectionEnum)
 
 
 

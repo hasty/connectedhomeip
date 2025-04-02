@@ -70,7 +70,7 @@ class AUDIOOUTPUT_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OutputList)
         matter_asserts.assert_list(val, "OutputList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "OutputList attribute must contain Clusters.AudioOutput.Structs.OutputInfoStruct elements", Clusters.AudioOutput.Structs.OutputInfoStruct)
+        matter_asserts.assert_list_element_type(val,  "OutputList attribute must contain OutputInfoStruct elements", cluster.Structs.OutputInfoStruct)
         for item in val:
             await self.test_checkOutputInfoStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -84,7 +84,7 @@ class AUDIOOUTPUT_2_1(MatterBaseTest):
                                  cluster: Clusters.AudioOutput = None, 
                                  struct: Clusters.AudioOutput.Structs.OutputInfoStruct = None):
         matter_asserts.assert_valid_uint8(struct.index, 'Index')
-        matter_asserts.assert_valid_enum(struct.outputType, "OutputType attribute must return a Clusters.AudioOutput.Enums.OutputTypeEnum", Clusters.AudioOutput.Enums.OutputTypeEnum)
+        matter_asserts.assert_valid_enum(struct.outputType, "OutputType attribute must return a OutputTypeEnum", cluster.Enums.OutputTypeEnum)
         matter_asserts.assert_is_string(struct.name, "Name must be a string")
 
 

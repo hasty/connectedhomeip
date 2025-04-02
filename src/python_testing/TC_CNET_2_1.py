@@ -85,7 +85,7 @@ class CNET_2_1(MatterBaseTest):
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Networks)
         matter_asserts.assert_list(val, "Networks attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "Networks attribute must contain Clusters.NetworkCommissioning.Structs.NetworkInfoStruct elements", Clusters.NetworkCommissioning.Structs.NetworkInfoStruct)
+        matter_asserts.assert_list_element_type(val,  "Networks attribute must contain NetworkInfoStruct elements", cluster.Structs.NetworkInfoStruct)
         for item in val:
             await self.test_checkNetworkInfoStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(val), self.MaxNetworks, "Networks must have at most self.MaxNetworks entries!")
@@ -107,7 +107,7 @@ class CNET_2_1(MatterBaseTest):
         self.step("6")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LastNetworkingStatus)
         if val is not NullValue:
-            matter_asserts.assert_valid_enum(val, "LastNetworkingStatus attribute must return a Clusters.NetworkCommissioning.Enums.NetworkCommissioningStatusEnum", Clusters.NetworkCommissioning.Enums.NetworkCommissioningStatusEnum)
+            matter_asserts.assert_valid_enum(val, "LastNetworkingStatus attribute must return a NetworkCommissioningStatusEnum", cluster.Enums.NetworkCommissioningStatusEnum)
 
         self.step("7")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LastNetworkID)
@@ -125,7 +125,7 @@ class CNET_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedWiFiBands):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedWiFiBands)
             matter_asserts.assert_list(val, "SupportedWiFiBands attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "SupportedWiFiBands attribute must contain Clusters.NetworkCommissioning.Enums.WiFiBandEnum elements", Clusters.NetworkCommissioning.Enums.WiFiBandEnum)
+            matter_asserts.assert_list_element_type(val,  "SupportedWiFiBands attribute must contain WiFiBandEnum elements", cluster.Enums.WiFiBandEnum)
             asserts.assert_greater_equal(len(val), 1, "SupportedWiFiBands must have at least 1 entries!")
 
         self.step("10")

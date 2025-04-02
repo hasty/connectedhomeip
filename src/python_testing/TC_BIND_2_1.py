@@ -69,7 +69,7 @@ class BIND_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Binding)
         matter_asserts.assert_list(val, "Binding attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "Binding attribute must contain Clusters.Binding.Structs.TargetStruct elements", Clusters.Binding.Structs.TargetStruct)
+        matter_asserts.assert_list_element_type(val,  "Binding attribute must contain TargetStruct elements", cluster.Structs.TargetStruct)
         for item in val:
             await self.test_checkTargetStruct(endpoint=endpoint, cluster=cluster, struct=item)
 

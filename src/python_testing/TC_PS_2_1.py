@@ -99,7 +99,7 @@ class PS_2_1(MatterBaseTest):
 
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Status)
-        matter_asserts.assert_valid_enum(val, "Status attribute must return a Clusters.PowerSource.Enums.PowerSourceStatusEnum", Clusters.PowerSource.Enums.PowerSourceStatusEnum)
+        matter_asserts.assert_valid_enum(val, "Status attribute must return a PowerSourceStatusEnum", cluster.Enums.PowerSourceStatusEnum)
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Order)
@@ -125,7 +125,7 @@ class PS_2_1(MatterBaseTest):
         self.step("6")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredCurrentType):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WiredCurrentType)
-            matter_asserts.assert_valid_enum(val, "WiredCurrentType attribute must return a Clusters.PowerSource.Enums.WiredCurrentTypeEnum", Clusters.PowerSource.Enums.WiredCurrentTypeEnum)
+            matter_asserts.assert_valid_enum(val, "WiredCurrentType attribute must return a WiredCurrentTypeEnum", cluster.Enums.WiredCurrentTypeEnum)
 
         self.step("7")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredAssessedCurrent):
@@ -156,7 +156,7 @@ class PS_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveWiredFaults)
             if val is not None:
                 matter_asserts.assert_list(val, "ActiveWiredFaults attribute must return a list")
-                matter_asserts.assert_list_element_type(val,  "ActiveWiredFaults attribute must contain Clusters.PowerSource.Enums.WiredFaultEnum elements", Clusters.PowerSource.Enums.WiredFaultEnum)
+                matter_asserts.assert_list_element_type(val,  "ActiveWiredFaults attribute must contain WiredFaultEnum elements", cluster.Enums.WiredFaultEnum)
                 asserts.assert_less_equal(len(val), 8, "ActiveWiredFaults must have at most 8 entries!")
 
         self.step("12")
@@ -181,7 +181,7 @@ class PS_2_1(MatterBaseTest):
         self.step("15")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatChargeLevel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatChargeLevel)
-            matter_asserts.assert_valid_enum(val, "BatChargeLevel attribute must return a Clusters.PowerSource.Enums.BatChargeLevelEnum", Clusters.PowerSource.Enums.BatChargeLevelEnum)
+            matter_asserts.assert_valid_enum(val, "BatChargeLevel attribute must return a BatChargeLevelEnum", cluster.Enums.BatChargeLevelEnum)
 
         self.step("16")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatReplacementNeeded):
@@ -191,7 +191,7 @@ class PS_2_1(MatterBaseTest):
         self.step("17")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatReplaceability):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatReplaceability)
-            matter_asserts.assert_valid_enum(val, "BatReplaceability attribute must return a Clusters.PowerSource.Enums.BatReplaceabilityEnum", Clusters.PowerSource.Enums.BatReplaceabilityEnum)
+            matter_asserts.assert_valid_enum(val, "BatReplaceability attribute must return a BatReplaceabilityEnum", cluster.Enums.BatReplaceabilityEnum)
 
         self.step("18")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatPresent):
@@ -204,7 +204,7 @@ class PS_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveBatFaults)
             if val is not None:
                 matter_asserts.assert_list(val, "ActiveBatFaults attribute must return a list")
-                matter_asserts.assert_list_element_type(val,  "ActiveBatFaults attribute must contain Clusters.PowerSource.Enums.BatFaultEnum elements", Clusters.PowerSource.Enums.BatFaultEnum)
+                matter_asserts.assert_list_element_type(val,  "ActiveBatFaults attribute must contain BatFaultEnum elements", cluster.Enums.BatFaultEnum)
                 asserts.assert_less_equal(len(val), 8, "ActiveBatFaults must have at most 8 entries!")
 
         self.step("20")
@@ -217,7 +217,7 @@ class PS_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatCommonDesignation):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatCommonDesignation)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "BatCommonDesignation attribute must return a Clusters.PowerSource.Enums.BatCommonDesignationEnum", Clusters.PowerSource.Enums.BatCommonDesignationEnum)
+                matter_asserts.assert_valid_enum(val, "BatCommonDesignation attribute must return a BatCommonDesignationEnum", cluster.Enums.BatCommonDesignationEnum)
 
         self.step("22")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatANSIDesignation):
@@ -237,7 +237,7 @@ class PS_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatApprovedChemistry):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatApprovedChemistry)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "BatApprovedChemistry attribute must return a Clusters.PowerSource.Enums.BatApprovedChemistryEnum", Clusters.PowerSource.Enums.BatApprovedChemistryEnum)
+                matter_asserts.assert_valid_enum(val, "BatApprovedChemistry attribute must return a BatApprovedChemistryEnum", cluster.Enums.BatApprovedChemistryEnum)
 
         self.step("25")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatCapacity):
@@ -253,7 +253,7 @@ class PS_2_1(MatterBaseTest):
         self.step("27")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatChargeState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatChargeState)
-            matter_asserts.assert_valid_enum(val, "BatChargeState attribute must return a Clusters.PowerSource.Enums.BatChargeStateEnum", Clusters.PowerSource.Enums.BatChargeStateEnum)
+            matter_asserts.assert_valid_enum(val, "BatChargeState attribute must return a BatChargeStateEnum", cluster.Enums.BatChargeStateEnum)
 
         self.step("28")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatTimeToFullCharge):
@@ -277,7 +277,7 @@ class PS_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveBatChargeFaults)
             if val is not None:
                 matter_asserts.assert_list(val, "ActiveBatChargeFaults attribute must return a list")
-                matter_asserts.assert_list_element_type(val,  "ActiveBatChargeFaults attribute must contain Clusters.PowerSource.Enums.BatChargeFaultEnum elements", Clusters.PowerSource.Enums.BatChargeFaultEnum)
+                matter_asserts.assert_list_element_type(val,  "ActiveBatChargeFaults attribute must contain BatChargeFaultEnum elements", cluster.Enums.BatChargeFaultEnum)
                 asserts.assert_less_equal(len(val), 16, "ActiveBatChargeFaults must have at most 16 entries!")
 
         self.step("32")

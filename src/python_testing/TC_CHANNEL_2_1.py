@@ -72,7 +72,7 @@ class CHANNEL_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ChannelList):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ChannelList)
             matter_asserts.assert_list(val, "ChannelList attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "ChannelList attribute must contain Clusters.Channel.Structs.ChannelInfoStruct elements", Clusters.Channel.Structs.ChannelInfoStruct)
+            matter_asserts.assert_list_element_type(val,  "ChannelList attribute must contain ChannelInfoStruct elements", cluster.Structs.ChannelInfoStruct)
             for item in val:
                 await self.test_checkChannelInfoStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -80,16 +80,14 @@ class CHANNEL_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Lineup):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Lineup)
             if val is not NullValue:
-                asserts.assert_true(isinstance(val, Clusters.Channel.Structs.LineupInfoStruct),
-                                            f"val must be of type Clusters.Channel.Structs.LineupInfoStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.LineupInfoStruct), f"val must be of type LineupInfoStruct")
                 await self.test_checkLineupInfoStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("3")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentChannel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentChannel)
             if val is not NullValue and val is not None:
-                asserts.assert_true(isinstance(val, Clusters.Channel.Structs.ChannelInfoStruct),
-                                            f"val must be of type Clusters.Channel.Structs.ChannelInfoStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.ChannelInfoStruct), f"val must be of type ChannelInfoStruct")
                 await self.test_checkChannelInfoStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
 
@@ -108,7 +106,7 @@ class CHANNEL_2_1(MatterBaseTest):
         if struct.identifier is not None:
             matter_asserts.assert_is_string(struct.identifier, "Identifier must be a string")
         if struct.type is not None:
-            matter_asserts.assert_valid_enum(struct.type, "Type attribute must return a Clusters.Channel.Enums.ChannelTypeEnum", Clusters.Channel.Enums.ChannelTypeEnum)
+            matter_asserts.assert_valid_enum(struct.type, "Type attribute must return a ChannelTypeEnum", cluster.Enums.ChannelTypeEnum)
 
     async def test_checkLineupInfoStruct(self, 
                                  endpoint: int = None, 
@@ -119,7 +117,7 @@ class CHANNEL_2_1(MatterBaseTest):
             matter_asserts.assert_is_string(struct.lineupName, "LineupName must be a string")
         if struct.postalCode is not None:
             matter_asserts.assert_is_string(struct.postalCode, "PostalCode must be a string")
-        matter_asserts.assert_valid_enum(struct.lineupInfoType, "LineupInfoType attribute must return a Clusters.Channel.Enums.LineupInfoTypeEnum", Clusters.Channel.Enums.LineupInfoTypeEnum)
+        matter_asserts.assert_valid_enum(struct.lineupInfoType, "LineupInfoType attribute must return a LineupInfoTypeEnum", cluster.Enums.LineupInfoTypeEnum)
 
 
 if __name__ == "__main__":

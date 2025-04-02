@@ -95,18 +95,17 @@ class RVCOPSTATE_2_1(MatterBaseTest):
         self.step("4")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OperationalStateList)
         matter_asserts.assert_list(val, "OperationalStateList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "OperationalStateList attribute must contain Clusters.OperationalState.Structs.OperationalStateStruct elements", Clusters.OperationalState.Structs.OperationalStateStruct)
+        matter_asserts.assert_list_element_type(val,  "OperationalStateList attribute must contain OperationalStateStruct elements", Clusters.OperationalState.Structs.OperationalStateStruct)
         for item in val:
             await self.test_checkOperationalStateStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("5")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OperationalState)
-        matter_asserts.assert_valid_enum(val, "OperationalState attribute must return a Clusters.RVCOperationalState.Enums.OperationalStateEnum", Clusters.RVCOperationalState.Enums.OperationalStateEnum)
+        matter_asserts.assert_valid_enum(val, "OperationalState attribute must return a OperationalStateEnum", cluster.Enums.OperationalStateEnum)
 
         self.step("6")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OperationalError)
-        asserts.assert_true(isinstance(val, Clusters.OperationalState.Structs.ErrorStateStruct),
-                                    f"val must be of type Clusters.OperationalState.Structs.ErrorStateStruct")
+        asserts.assert_true(isinstance(val, Clusters.OperationalState.Structs.ErrorStateStruct), f"val must be of type ErrorStateStruct")
         await self.test_checkErrorStateStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
 
@@ -114,7 +113,7 @@ class RVCOPSTATE_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.RVCOperationalState = None, 
                                  struct: Clusters.OperationalState.Structs.ErrorStateStruct = None):
-        matter_asserts.assert_valid_enum(struct.errorStateID, "ErrorStateID attribute must return a Clusters.OperationalState.Enums.ErrorStateEnum", Clusters.OperationalState.Enums.ErrorStateEnum)
+        matter_asserts.assert_valid_enum(struct.errorStateID, "ErrorStateID attribute must return a ErrorStateEnum", Clusters.OperationalState.Enums.ErrorStateEnum)
         matter_asserts.assert_is_string(struct.errorStateLabel, "ErrorStateLabel must be a string")
         asserts.assert_less_equal(len(struct.errorStateLabel), 64, "ErrorStateLabel must have length at most 64!")
         if struct.errorStateDetails is not None:
@@ -125,7 +124,7 @@ class RVCOPSTATE_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.RVCOperationalState = None, 
                                  struct: Clusters.OperationalState.Structs.OperationalStateStruct = None):
-        matter_asserts.assert_valid_enum(struct.operationalStateID, "OperationalStateID attribute must return a Clusters.OperationalState.Enums.OperationalStateEnum", Clusters.OperationalState.Enums.OperationalStateEnum)
+        matter_asserts.assert_valid_enum(struct.operationalStateID, "OperationalStateID attribute must return a OperationalStateEnum", Clusters.OperationalState.Enums.OperationalStateEnum)
         matter_asserts.assert_is_string(struct.operationalStateLabel, "OperationalStateLabel must be a string")
         asserts.assert_less_equal(len(struct.operationalStateLabel), 64, "OperationalStateLabel must have length at most 64!")
 

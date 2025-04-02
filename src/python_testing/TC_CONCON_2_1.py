@@ -84,7 +84,7 @@ class CONCON_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OnDemandRatings):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OnDemandRatings)
             matter_asserts.assert_list(val, "OnDemandRatings attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "OnDemandRatings attribute must contain Clusters.ContentControl.Structs.RatingNameStruct elements", Clusters.ContentControl.Structs.RatingNameStruct)
+            matter_asserts.assert_list_element_type(val,  "OnDemandRatings attribute must contain RatingNameStruct elements", cluster.Structs.RatingNameStruct)
             for item in val:
                 await self.test_checkRatingNameStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -98,7 +98,7 @@ class CONCON_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ScheduledContentRatings):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ScheduledContentRatings)
             matter_asserts.assert_list(val, "ScheduledContentRatings attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "ScheduledContentRatings attribute must contain Clusters.ContentControl.Structs.RatingNameStruct elements", Clusters.ContentControl.Structs.RatingNameStruct)
+            matter_asserts.assert_list_element_type(val,  "ScheduledContentRatings attribute must contain RatingNameStruct elements", cluster.Structs.RatingNameStruct)
             for item in val:
                 await self.test_checkRatingNameStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -129,7 +129,7 @@ class CONCON_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BlockChannelList):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BlockChannelList)
             matter_asserts.assert_list(val, "BlockChannelList attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "BlockChannelList attribute must contain Clusters.ContentControl.Structs.BlockChannelStruct elements", Clusters.ContentControl.Structs.BlockChannelStruct)
+            matter_asserts.assert_list_element_type(val,  "BlockChannelList attribute must contain BlockChannelStruct elements", cluster.Structs.BlockChannelStruct)
             for item in val:
                 await self.test_checkBlockChannelStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -137,7 +137,7 @@ class CONCON_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BlockApplicationList):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BlockApplicationList)
             matter_asserts.assert_list(val, "BlockApplicationList attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "BlockApplicationList attribute must contain Clusters.ContentControl.Structs.AppInfoStruct elements", Clusters.ContentControl.Structs.AppInfoStruct)
+            matter_asserts.assert_list_element_type(val,  "BlockApplicationList attribute must contain AppInfoStruct elements", cluster.Structs.AppInfoStruct)
             for item in val:
                 await self.test_checkAppInfoStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -145,7 +145,7 @@ class CONCON_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BlockContentTimeWindow):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BlockContentTimeWindow)
             matter_asserts.assert_list(val, "BlockContentTimeWindow attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "BlockContentTimeWindow attribute must contain Clusters.ContentControl.Structs.TimeWindowStruct elements", Clusters.ContentControl.Structs.TimeWindowStruct)
+            matter_asserts.assert_list_element_type(val,  "BlockContentTimeWindow attribute must contain TimeWindowStruct elements", cluster.Structs.TimeWindowStruct)
             for item in val:
                 await self.test_checkTimeWindowStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_less_equal(len(val), 7, "BlockContentTimeWindow must have at most 7 entries!")
@@ -204,7 +204,7 @@ class CONCON_2_1(MatterBaseTest):
             matter_asserts.assert_valid_uint16(struct.timeWindowIndex, 'TimeWindowIndex')
         matter_asserts.is_valid_int_value(struct.dayOfWeek)
         matter_asserts.assert_list(struct.timePeriod, "TimePeriod attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.timePeriod,  "TimePeriod attribute must contain Clusters.ContentControl.Structs.TimePeriodStruct elements", Clusters.ContentControl.Structs.TimePeriodStruct)
+        matter_asserts.assert_list_element_type(struct.timePeriod,  "TimePeriod attribute must contain TimePeriodStruct elements", cluster.Structs.TimePeriodStruct)
         for item in struct.timePeriod:
             await self.test_checkTimePeriodStruct(endpoint=endpoint, cluster=cluster, struct=item)
 

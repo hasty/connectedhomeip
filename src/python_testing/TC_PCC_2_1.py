@@ -173,11 +173,11 @@ class PCC_2_1(MatterBaseTest):
 
         self.step("15")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EffectiveOperationMode)
-        matter_asserts.assert_valid_enum(val, "EffectiveOperationMode attribute must return a Clusters.PumpConfigurationAndControl.Enums.OperationModeEnum", Clusters.PumpConfigurationAndControl.Enums.OperationModeEnum)
+        matter_asserts.assert_valid_enum(val, "EffectiveOperationMode attribute must return a OperationModeEnum", cluster.Enums.OperationModeEnum)
 
         self.step("16")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EffectiveControlMode)
-        matter_asserts.assert_valid_enum(val, "EffectiveControlMode attribute must return a Clusters.PumpConfigurationAndControl.Enums.ControlModeEnum", Clusters.PumpConfigurationAndControl.Enums.ControlModeEnum)
+        matter_asserts.assert_valid_enum(val, "EffectiveControlMode attribute must return a ControlModeEnum", cluster.Enums.ControlModeEnum)
 
         self.step("17")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Capacity)
@@ -210,13 +210,13 @@ class PCC_2_1(MatterBaseTest):
 
         self.step("22")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OperationMode)
-        matter_asserts.assert_valid_enum(val, "OperationMode attribute must return a Clusters.PumpConfigurationAndControl.Enums.OperationModeEnum", Clusters.PumpConfigurationAndControl.Enums.OperationModeEnum)
+        matter_asserts.assert_valid_enum(val, "OperationMode attribute must return a OperationModeEnum", cluster.Enums.OperationModeEnum)
 
         self.step("23")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ControlMode):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ControlMode)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "ControlMode attribute must return a Clusters.PumpConfigurationAndControl.Enums.ControlModeEnum", Clusters.PumpConfigurationAndControl.Enums.ControlModeEnum)
+                matter_asserts.assert_valid_enum(val, "ControlMode attribute must return a ControlModeEnum", cluster.Enums.ControlModeEnum)
 
 
 

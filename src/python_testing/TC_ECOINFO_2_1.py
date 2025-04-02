@@ -70,14 +70,14 @@ class ECOINFO_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DeviceDirectory)
         matter_asserts.assert_list(val, "DeviceDirectory attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "DeviceDirectory attribute must contain Clusters.EcosystemInformation.Structs.EcosystemDeviceStruct elements", Clusters.EcosystemInformation.Structs.EcosystemDeviceStruct)
+        matter_asserts.assert_list_element_type(val,  "DeviceDirectory attribute must contain EcosystemDeviceStruct elements", cluster.Structs.EcosystemDeviceStruct)
         for item in val:
             await self.test_checkEcosystemDeviceStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LocationDirectory)
         matter_asserts.assert_list(val, "LocationDirectory attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "LocationDirectory attribute must contain Clusters.EcosystemInformation.Structs.EcosystemLocationStruct elements", Clusters.EcosystemInformation.Structs.EcosystemLocationStruct)
+        matter_asserts.assert_list_element_type(val,  "LocationDirectory attribute must contain EcosystemLocationStruct elements", cluster.Structs.EcosystemLocationStruct)
         for item in val:
             await self.test_checkEcosystemLocationStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -103,7 +103,7 @@ class ECOINFO_2_1(MatterBaseTest):
         if struct.originalEndpoint is not None:
             matter_asserts.assert_valid_uint16(struct.originalEndpoint, 'OriginalEndpoint must be uint16')
         matter_asserts.assert_list(struct.deviceTypes, "DeviceTypes attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.deviceTypes,  "DeviceTypes attribute must contain Clusters.Descriptor.Structs.DeviceTypeStruct elements", Clusters.Descriptor.Structs.DeviceTypeStruct)
+        matter_asserts.assert_list_element_type(struct.deviceTypes,  "DeviceTypes attribute must contain DeviceTypeStruct elements", Clusters.Descriptor.Structs.DeviceTypeStruct)
         for item in struct.deviceTypes:
             await self.test_checkDeviceTypeStruct(endpoint=endpoint, cluster=cluster, struct=item)
         matter_asserts.assert_list(struct.uniqueLocationIDs, "UniqueLocationIDs attribute must return a list")
@@ -119,8 +119,7 @@ class ECOINFO_2_1(MatterBaseTest):
                                  struct: Clusters.EcosystemInformation.Structs.EcosystemLocationStruct = None):
         matter_asserts.assert_is_string(struct.uniqueLocationID, "UniqueLocationID must be a string")
         asserts.assert_less_equal(len(struct.uniqueLocationID), 64, "UniqueLocationID must have length at most 64!")
-        asserts.assert_true(isinstance(struct.locationDescriptor, Globals.Structs.LocationDescriptorStruct),
-                                    f"struct.locationDescriptor must be of type Globals.Structs.LocationDescriptorStruct")
+        asserts.assert_true(isinstance(struct.locationDescriptor, Globals.Structs.LocationDescriptorStruct), f"struct.locationDescriptor must be of type LocationDescriptorStruct")
         await self.test_checkLocationDescriptorStruct(endpoint=endpoint, cluster=cluster, struct=struct.locationDescriptor)
         matter_asserts.assert_valid_uint64(struct.locationDescriptorLastEdit, 'LocationDescriptorLastEdit')
 

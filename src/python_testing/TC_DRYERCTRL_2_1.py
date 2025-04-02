@@ -70,14 +70,14 @@ class DRYERCTRL_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedDrynessLevels)
         matter_asserts.assert_list(val, "SupportedDrynessLevels attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "SupportedDrynessLevels attribute must contain Clusters.LaundryDryerControls.Enums.DrynessLevelEnum elements", Clusters.LaundryDryerControls.Enums.DrynessLevelEnum)
+        matter_asserts.assert_list_element_type(val,  "SupportedDrynessLevels attribute must contain DrynessLevelEnum elements", cluster.Enums.DrynessLevelEnum)
         asserts.assert_greater_equal(len(val), 1, "SupportedDrynessLevels must have at least 1 entries!")
         asserts.assert_less_equal(len(val), 4, "SupportedDrynessLevels must have at most 4 entries!")
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SelectedDrynessLevel)
         if val is not NullValue:
-            matter_asserts.assert_valid_enum(val, "SelectedDrynessLevel attribute must return a Clusters.LaundryDryerControls.Enums.DrynessLevelEnum", Clusters.LaundryDryerControls.Enums.DrynessLevelEnum)
+            matter_asserts.assert_valid_enum(val, "SelectedDrynessLevel attribute must return a DrynessLevelEnum", cluster.Enums.DrynessLevelEnum)
 
 
 

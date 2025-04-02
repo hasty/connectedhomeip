@@ -79,25 +79,23 @@ class CLCTRL_2_1(MatterBaseTest):
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MainState)
-        matter_asserts.assert_valid_enum(val, "MainState attribute must return a Clusters.ClosureControl.Enums.MainStateEnum", Clusters.ClosureControl.Enums.MainStateEnum)
+        matter_asserts.assert_valid_enum(val, "MainState attribute must return a MainStateEnum", cluster.Enums.MainStateEnum)
 
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentErrorList)
         matter_asserts.assert_list(val, "CurrentErrorList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "CurrentErrorList attribute must contain Clusters.ClosureControl.Enums.ClosureErrorEnum elements", Clusters.ClosureControl.Enums.ClosureErrorEnum)
+        matter_asserts.assert_list_element_type(val,  "CurrentErrorList attribute must contain ClosureErrorEnum elements", cluster.Enums.ClosureErrorEnum)
 
         self.step("4")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OverallState)
         if val is not NullValue:
-            asserts.assert_true(isinstance(val, Clusters.ClosureControl.Structs.OverallStateStruct),
-                                        f"val must be of type Clusters.ClosureControl.Structs.OverallStateStruct")
+            asserts.assert_true(isinstance(val, cluster.Structs.OverallStateStruct), f"val must be of type OverallStateStruct")
             await self.test_checkOverallStateStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("5")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OverallTarget)
         if val is not NullValue:
-            asserts.assert_true(isinstance(val, Clusters.ClosureControl.Structs.OverallTargetStruct),
-                                        f"val must be of type Clusters.ClosureControl.Structs.OverallTargetStruct")
+            asserts.assert_true(isinstance(val, cluster.Structs.OverallTargetStruct), f"val must be of type OverallTargetStruct")
             await self.test_checkOverallTargetStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
 
@@ -106,19 +104,19 @@ class CLCTRL_2_1(MatterBaseTest):
                                  cluster: Clusters.ClosureControl = None, 
                                  struct: Clusters.ClosureControl.Structs.OverallStateStruct = None):
         if struct.positioning is not NullValue:
-            matter_asserts.assert_valid_enum(struct.positioning, "Positioning attribute must return a Clusters.ClosureControl.Enums.PositioningEnum", Clusters.ClosureControl.Enums.PositioningEnum)
+            matter_asserts.assert_valid_enum(struct.positioning, "Positioning attribute must return a PositioningEnum", cluster.Enums.PositioningEnum)
         if struct.latching is not NullValue:
-            matter_asserts.assert_valid_enum(struct.latching, "Latching attribute must return a Clusters.ClosureControl.Enums.LatchingEnum", Clusters.ClosureControl.Enums.LatchingEnum)
+            matter_asserts.assert_valid_enum(struct.latching, "Latching attribute must return a LatchingEnum", cluster.Enums.LatchingEnum)
         if struct.speed is not NullValue:
-            matter_asserts.assert_valid_enum(struct.speed, "Speed attribute must return a Globals.Enums.ThreeLevelAutoEnum", Globals.Enums.ThreeLevelAutoEnum)
+            matter_asserts.assert_valid_enum(struct.speed, "Speed attribute must return a ThreeLevelAutoEnum", Globals.Enums.ThreeLevelAutoEnum)
 
     async def test_checkOverallTargetStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ClosureControl = None, 
                                  struct: Clusters.ClosureControl.Structs.OverallTargetStruct = None):
-        matter_asserts.assert_valid_enum(struct.position, "Position attribute must return a Clusters.ClosureControl.Enums.TargetPositionEnum", Clusters.ClosureControl.Enums.TargetPositionEnum)
-        matter_asserts.assert_valid_enum(struct.latch, "Latch attribute must return a Clusters.ClosureControl.Enums.TargetLatchEnum", Clusters.ClosureControl.Enums.TargetLatchEnum)
-        matter_asserts.assert_valid_enum(struct.speed, "Speed attribute must return a Globals.Enums.ThreeLevelAutoEnum", Globals.Enums.ThreeLevelAutoEnum)
+        matter_asserts.assert_valid_enum(struct.position, "Position attribute must return a TargetPositionEnum", cluster.Enums.TargetPositionEnum)
+        matter_asserts.assert_valid_enum(struct.latch, "Latch attribute must return a TargetLatchEnum", cluster.Enums.TargetLatchEnum)
+        matter_asserts.assert_valid_enum(struct.speed, "Speed attribute must return a ThreeLevelAutoEnum", Globals.Enums.ThreeLevelAutoEnum)
 
 
 if __name__ == "__main__":

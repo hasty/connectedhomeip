@@ -77,7 +77,7 @@ class ACL_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ACL)
         matter_asserts.assert_list(val, "ACL attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "ACL attribute must contain Clusters.AccessControl.Structs.AccessControlEntryStruct elements", Clusters.AccessControl.Structs.AccessControlEntryStruct)
+        matter_asserts.assert_list_element_type(val,  "ACL attribute must contain AccessControlEntryStruct elements", cluster.Structs.AccessControlEntryStruct)
         for item in val:
             await self.test_checkAccessControlEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -85,7 +85,7 @@ class ACL_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Extension):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Extension)
             matter_asserts.assert_list(val, "Extension attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "Extension attribute must contain Clusters.AccessControl.Structs.AccessControlExtensionStruct elements", Clusters.AccessControl.Structs.AccessControlExtensionStruct)
+            matter_asserts.assert_list_element_type(val,  "Extension attribute must contain AccessControlExtensionStruct elements", cluster.Structs.AccessControlExtensionStruct)
             for item in val:
                 await self.test_checkAccessControlExtensionStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -108,7 +108,7 @@ class ACL_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CommissioningARL):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CommissioningARL)
             matter_asserts.assert_list(val, "CommissioningARL attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "CommissioningARL attribute must contain Clusters.AccessControl.Structs.CommissioningAccessRestrictionEntryStruct elements", Clusters.AccessControl.Structs.CommissioningAccessRestrictionEntryStruct)
+            matter_asserts.assert_list_element_type(val,  "CommissioningARL attribute must contain CommissioningAccessRestrictionEntryStruct elements", cluster.Structs.CommissioningAccessRestrictionEntryStruct)
             for item in val:
                 await self.test_checkCommissioningAccessRestrictionEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -116,7 +116,7 @@ class ACL_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ARL):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ARL)
             matter_asserts.assert_list(val, "ARL attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "ARL attribute must contain Clusters.AccessControl.Structs.AccessRestrictionEntryStruct elements", Clusters.AccessControl.Structs.AccessRestrictionEntryStruct)
+            matter_asserts.assert_list_element_type(val,  "ARL attribute must contain AccessRestrictionEntryStruct elements", cluster.Structs.AccessRestrictionEntryStruct)
             for item in val:
                 await self.test_checkAccessRestrictionEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -125,15 +125,15 @@ class ACL_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.AccessControl = None, 
                                  struct: Clusters.AccessControl.Structs.AccessControlEntryStruct = None):
-        matter_asserts.assert_valid_enum(struct.privilege, "Privilege attribute must return a Clusters.AccessControl.Enums.AccessControlEntryPrivilegeEnum", Clusters.AccessControl.Enums.AccessControlEntryPrivilegeEnum)
-        matter_asserts.assert_valid_enum(struct.authMode, "AuthMode attribute must return a Clusters.AccessControl.Enums.AccessControlEntryAuthModeEnum", Clusters.AccessControl.Enums.AccessControlEntryAuthModeEnum)
+        matter_asserts.assert_valid_enum(struct.privilege, "Privilege attribute must return a AccessControlEntryPrivilegeEnum", cluster.Enums.AccessControlEntryPrivilegeEnum)
+        matter_asserts.assert_valid_enum(struct.authMode, "AuthMode attribute must return a AccessControlEntryAuthModeEnum", cluster.Enums.AccessControlEntryAuthModeEnum)
         if struct.subjects is not NullValue:
             matter_asserts.assert_list(struct.subjects, "Subjects attribute must return a list")
             matter_asserts.assert_list_element_type(struct.subjects,  "Subjects attribute must contain int elements", int)
             asserts.assert_less_equal(len(struct.subjects), self.SubjectsPerAccessControlEntry, "Subjects must have at most self.SubjectsPerAccessControlEntry entries!")
         if struct.targets is not NullValue:
             matter_asserts.assert_list(struct.targets, "Targets attribute must return a list")
-            matter_asserts.assert_list_element_type(struct.targets,  "Targets attribute must contain Clusters.AccessControl.Structs.AccessControlTargetStruct elements", Clusters.AccessControl.Structs.AccessControlTargetStruct)
+            matter_asserts.assert_list_element_type(struct.targets,  "Targets attribute must contain AccessControlTargetStruct elements", cluster.Structs.AccessControlTargetStruct)
             for item in struct.targets:
                 await self.test_checkAccessControlTargetStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_less_equal(len(struct.targets), self.TargetsPerAccessControlEntry, "Targets must have at most self.TargetsPerAccessControlEntry entries!")
@@ -163,7 +163,7 @@ class ACL_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint16(struct.endpoint, 'Endpoint must be uint16')
         matter_asserts.assert_valid_uint32(struct.cluster, 'Cluster must be uint32')
         matter_asserts.assert_list(struct.restrictions, "Restrictions attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.restrictions,  "Restrictions attribute must contain Clusters.AccessControl.Structs.AccessRestrictionStruct elements", Clusters.AccessControl.Structs.AccessRestrictionStruct)
+        matter_asserts.assert_list_element_type(struct.restrictions,  "Restrictions attribute must contain AccessRestrictionStruct elements", cluster.Structs.AccessRestrictionStruct)
         for item in struct.restrictions:
             await self.test_checkAccessRestrictionStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_greater_equal(len(struct.restrictions), 1, "Restrictions must have at least 1 entries!")
@@ -172,7 +172,7 @@ class ACL_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.AccessControl = None, 
                                  struct: Clusters.AccessControl.Structs.AccessRestrictionStruct = None):
-        matter_asserts.assert_valid_enum(struct.type, "Type attribute must return a Clusters.AccessControl.Enums.AccessRestrictionTypeEnum", Clusters.AccessControl.Enums.AccessRestrictionTypeEnum)
+        matter_asserts.assert_valid_enum(struct.type, "Type attribute must return a AccessRestrictionTypeEnum", cluster.Enums.AccessRestrictionTypeEnum)
         if struct.id is not NullValue:
             matter_asserts.assert_valid_uint32(struct.iD, 'ID')
 
@@ -183,7 +183,7 @@ class ACL_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint16(struct.endpoint, 'Endpoint must be uint16')
         matter_asserts.assert_valid_uint32(struct.cluster, 'Cluster must be uint32')
         matter_asserts.assert_list(struct.restrictions, "Restrictions attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.restrictions,  "Restrictions attribute must contain Clusters.AccessControl.Structs.AccessRestrictionStruct elements", Clusters.AccessControl.Structs.AccessRestrictionStruct)
+        matter_asserts.assert_list_element_type(struct.restrictions,  "Restrictions attribute must contain AccessRestrictionStruct elements", cluster.Structs.AccessRestrictionStruct)
         for item in struct.restrictions:
             await self.test_checkAccessRestrictionStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_greater_equal(len(struct.restrictions), 1, "Restrictions must have at least 1 entries!")

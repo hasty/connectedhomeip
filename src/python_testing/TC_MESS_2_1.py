@@ -70,7 +70,7 @@ class MESS_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Messages)
         matter_asserts.assert_list(val, "Messages attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "Messages attribute must contain Clusters.Messages.Structs.MessageStruct elements", Clusters.Messages.Structs.MessageStruct)
+        matter_asserts.assert_list_element_type(val,  "Messages attribute must contain MessageStruct elements", cluster.Structs.MessageStruct)
         for item in val:
             await self.test_checkMessageStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(val), 8, "Messages must have at most 8 entries!")
@@ -97,7 +97,7 @@ class MESS_2_1(MatterBaseTest):
                                  struct: Clusters.Messages.Structs.MessageStruct = None):
         asserts.assert_true(isinstance(struct.messageID, bytes), "MessageID must be of type bytes")
         asserts.assert_equal(len(struct.messageID), 16, "MessageID must have a length of 16")
-        matter_asserts.assert_valid_enum(struct.priority, "Priority attribute must return a Clusters.Messages.Enums.MessagePriorityEnum", Clusters.Messages.Enums.MessagePriorityEnum)
+        matter_asserts.assert_valid_enum(struct.priority, "Priority attribute must return a MessagePriorityEnum", cluster.Enums.MessagePriorityEnum)
         matter_asserts.is_valid_int_value(struct.messageControl)
         if struct.startTime is not NullValue:
             matter_asserts.assert_valid_uint32(struct.startTime, 'StartTime')
@@ -106,7 +106,7 @@ class MESS_2_1(MatterBaseTest):
         matter_asserts.assert_is_string(struct.messageText, "MessageText must be a string")
         asserts.assert_less_equal(len(struct.messageText), 256, "MessageText must have length at most 256!")
         matter_asserts.assert_list(struct.responses, "Responses attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.responses,  "Responses attribute must contain Clusters.Messages.Structs.MessageResponseOptionStruct elements", Clusters.Messages.Structs.MessageResponseOptionStruct)
+        matter_asserts.assert_list_element_type(struct.responses,  "Responses attribute must contain MessageResponseOptionStruct elements", cluster.Structs.MessageResponseOptionStruct)
         for item in struct.responses:
             await self.test_checkMessageResponseOptionStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(struct.responses), 4, "Responses must have at most 4 entries!")

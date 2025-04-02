@@ -70,7 +70,7 @@ class MEDIAINPUT_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.InputList)
         matter_asserts.assert_list(val, "InputList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "InputList attribute must contain Clusters.MediaInput.Structs.InputInfoStruct elements", Clusters.MediaInput.Structs.InputInfoStruct)
+        matter_asserts.assert_list_element_type(val,  "InputList attribute must contain InputInfoStruct elements", cluster.Structs.InputInfoStruct)
         for item in val:
             await self.test_checkInputInfoStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -84,7 +84,7 @@ class MEDIAINPUT_2_1(MatterBaseTest):
                                  cluster: Clusters.MediaInput = None, 
                                  struct: Clusters.MediaInput.Structs.InputInfoStruct = None):
         matter_asserts.assert_valid_uint8(struct.index, 'Index')
-        matter_asserts.assert_valid_enum(struct.inputType, "InputType attribute must return a Clusters.MediaInput.Enums.InputTypeEnum", Clusters.MediaInput.Enums.InputTypeEnum)
+        matter_asserts.assert_valid_enum(struct.inputType, "InputType attribute must return a InputTypeEnum", cluster.Enums.InputTypeEnum)
         matter_asserts.assert_is_string(struct.name, "Name must be a string")
         matter_asserts.assert_is_string(struct.description, "Description must be a string")
 

@@ -69,7 +69,7 @@ class LUNIT_2_1(MatterBaseTest):
         self.step("1")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TemperatureUnit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TemperatureUnit)
-            matter_asserts.assert_valid_enum(val, "TemperatureUnit attribute must return a Clusters.UnitLocalization.Enums.TempUnitEnum", Clusters.UnitLocalization.Enums.TempUnitEnum)
+            matter_asserts.assert_valid_enum(val, "TemperatureUnit attribute must return a TempUnitEnum", cluster.Enums.TempUnitEnum)
 
 
 

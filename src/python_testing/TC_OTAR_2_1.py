@@ -72,7 +72,7 @@ class OTAR_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DefaultOTAProviders)
         matter_asserts.assert_list(val, "DefaultOTAProviders attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "DefaultOTAProviders attribute must contain Clusters.OTASoftwareUpdateRequestor.Structs.ProviderLocation elements", Clusters.OTASoftwareUpdateRequestor.Structs.ProviderLocation)
+        matter_asserts.assert_list_element_type(val,  "DefaultOTAProviders attribute must contain ProviderLocation elements", cluster.Structs.ProviderLocation)
         for item in val:
             await self.test_checkProviderLocation(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -82,7 +82,7 @@ class OTAR_2_1(MatterBaseTest):
 
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UpdateState)
-        matter_asserts.assert_valid_enum(val, "UpdateState attribute must return a Clusters.OTASoftwareUpdateRequestor.Enums.UpdateStateEnum", Clusters.OTASoftwareUpdateRequestor.Enums.UpdateStateEnum)
+        matter_asserts.assert_valid_enum(val, "UpdateState attribute must return a UpdateStateEnum", cluster.Enums.UpdateStateEnum)
 
         self.step("4")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UpdateStateProgress)

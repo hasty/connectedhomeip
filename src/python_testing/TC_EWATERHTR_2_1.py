@@ -98,7 +98,7 @@ class EWATERHTR_2_1(MatterBaseTest):
 
         self.step("6")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BoostState)
-        matter_asserts.assert_valid_enum(val, "BoostState attribute must return a Clusters.WaterHeaterManagement.Enums.BoostStateEnum", Clusters.WaterHeaterManagement.Enums.BoostStateEnum)
+        matter_asserts.assert_valid_enum(val, "BoostState attribute must return a BoostStateEnum", cluster.Enums.BoostStateEnum)
 
 
 

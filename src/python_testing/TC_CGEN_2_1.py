@@ -81,17 +81,16 @@ class CGEN_2_1(MatterBaseTest):
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BasicCommissioningInfo)
-        asserts.assert_true(isinstance(val, Clusters.GeneralCommissioning.Structs.BasicCommissioningInfo),
-                                    f"val must be of type Clusters.GeneralCommissioning.Structs.BasicCommissioningInfo")
+        asserts.assert_true(isinstance(val, cluster.Structs.BasicCommissioningInfo), f"val must be of type BasicCommissioningInfo")
         await self.test_checkBasicCommissioningInfo(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RegulatoryConfig)
-        matter_asserts.assert_valid_enum(val, "RegulatoryConfig attribute must return a Clusters.GeneralCommissioning.Enums.RegulatoryLocationTypeEnum", Clusters.GeneralCommissioning.Enums.RegulatoryLocationTypeEnum)
+        matter_asserts.assert_valid_enum(val, "RegulatoryConfig attribute must return a RegulatoryLocationTypeEnum", cluster.Enums.RegulatoryLocationTypeEnum)
 
         self.step("4")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LocationCapability)
-        matter_asserts.assert_valid_enum(val, "LocationCapability attribute must return a Clusters.GeneralCommissioning.Enums.RegulatoryLocationTypeEnum", Clusters.GeneralCommissioning.Enums.RegulatoryLocationTypeEnum)
+        matter_asserts.assert_valid_enum(val, "LocationCapability attribute must return a RegulatoryLocationTypeEnum", cluster.Enums.RegulatoryLocationTypeEnum)
 
         self.step("5")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportsConcurrentConnection)

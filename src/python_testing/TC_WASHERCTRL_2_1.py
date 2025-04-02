@@ -88,13 +88,13 @@ class WASHERCTRL_2_1(MatterBaseTest):
         self.step("3")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfRinses):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfRinses)
-            matter_asserts.assert_valid_enum(val, "NumberOfRinses attribute must return a Clusters.LaundryWasherControls.Enums.NumberOfRinsesEnum", Clusters.LaundryWasherControls.Enums.NumberOfRinsesEnum)
+            matter_asserts.assert_valid_enum(val, "NumberOfRinses attribute must return a NumberOfRinsesEnum", cluster.Enums.NumberOfRinsesEnum)
 
         self.step("4")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedRinses):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedRinses)
             matter_asserts.assert_list(val, "SupportedRinses attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "SupportedRinses attribute must contain Clusters.LaundryWasherControls.Enums.NumberOfRinsesEnum elements", Clusters.LaundryWasherControls.Enums.NumberOfRinsesEnum)
+            matter_asserts.assert_list_element_type(val,  "SupportedRinses attribute must contain NumberOfRinsesEnum elements", cluster.Enums.NumberOfRinsesEnum)
             asserts.assert_less_equal(len(val), 4, "SupportedRinses must have at most 4 entries!")
 
 

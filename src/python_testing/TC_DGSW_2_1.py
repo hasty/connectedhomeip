@@ -74,7 +74,7 @@ class DGSW_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ThreadMetrics)
             if val is not None:
                 matter_asserts.assert_list(val, "ThreadMetrics attribute must return a list")
-                matter_asserts.assert_list_element_type(val,  "ThreadMetrics attribute must contain Clusters.SoftwareDiagnostics.Structs.ThreadMetricsStruct elements", Clusters.SoftwareDiagnostics.Structs.ThreadMetricsStruct)
+                matter_asserts.assert_list_element_type(val,  "ThreadMetrics attribute must contain ThreadMetricsStruct elements", cluster.Structs.ThreadMetricsStruct)
                 for item in val:
                     await self.test_checkThreadMetricsStruct(endpoint=endpoint, cluster=cluster, struct=item)
                 asserts.assert_less_equal(len(val), 64, "ThreadMetrics must have at most 64 entries!")

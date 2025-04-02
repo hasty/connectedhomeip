@@ -85,20 +85,19 @@ class TIMESYNC_2_1(MatterBaseTest):
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Granularity)
-        matter_asserts.assert_valid_enum(val, "Granularity attribute must return a Clusters.TimeSynchronization.Enums.GranularityEnum", Clusters.TimeSynchronization.Enums.GranularityEnum)
+        matter_asserts.assert_valid_enum(val, "Granularity attribute must return a GranularityEnum", cluster.Enums.GranularityEnum)
 
         self.step("3")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TimeSource):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TimeSource)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "TimeSource attribute must return a Clusters.TimeSynchronization.Enums.TimeSourceEnum", Clusters.TimeSynchronization.Enums.TimeSourceEnum)
+                matter_asserts.assert_valid_enum(val, "TimeSource attribute must return a TimeSourceEnum", cluster.Enums.TimeSourceEnum)
 
         self.step("4")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TrustedTimeSource):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TrustedTimeSource)
             if val is not NullValue:
-                asserts.assert_true(isinstance(val, Clusters.TimeSynchronization.Structs.TrustedTimeSourceStruct),
-                                            f"val must be of type Clusters.TimeSynchronization.Structs.TrustedTimeSourceStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.TrustedTimeSourceStruct), f"val must be of type TrustedTimeSourceStruct")
                 await self.test_checkTrustedTimeSourceStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("5")
@@ -112,7 +111,7 @@ class TIMESYNC_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TimeZone):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TimeZone)
             matter_asserts.assert_list(val, "TimeZone attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "TimeZone attribute must contain Clusters.TimeSynchronization.Structs.TimeZoneStruct elements", Clusters.TimeSynchronization.Structs.TimeZoneStruct)
+            matter_asserts.assert_list_element_type(val,  "TimeZone attribute must contain TimeZoneStruct elements", cluster.Structs.TimeZoneStruct)
             for item in val:
                 await self.test_checkTimeZoneStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_greater_equal(len(val), 1, "TimeZone must have at least 1 entries!")
@@ -122,7 +121,7 @@ class TIMESYNC_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DSTOffset):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DSTOffset)
             matter_asserts.assert_list(val, "DSTOffset attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "DSTOffset attribute must contain Clusters.TimeSynchronization.Structs.DSTOffsetStruct elements", Clusters.TimeSynchronization.Structs.DSTOffsetStruct)
+            matter_asserts.assert_list_element_type(val,  "DSTOffset attribute must contain DSTOffsetStruct elements", cluster.Structs.DSTOffsetStruct)
             for item in val:
                 await self.test_checkDSTOffsetStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -135,7 +134,7 @@ class TIMESYNC_2_1(MatterBaseTest):
         self.step("9")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TimeZoneDatabase):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TimeZoneDatabase)
-            matter_asserts.assert_valid_enum(val, "TimeZoneDatabase attribute must return a Clusters.TimeSynchronization.Enums.TimeZoneDatabaseEnum", Clusters.TimeSynchronization.Enums.TimeZoneDatabaseEnum)
+            matter_asserts.assert_valid_enum(val, "TimeZoneDatabase attribute must return a TimeZoneDatabaseEnum", cluster.Enums.TimeZoneDatabaseEnum)
 
         self.step("10")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NTPServerAvailable):

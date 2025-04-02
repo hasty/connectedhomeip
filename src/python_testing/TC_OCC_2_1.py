@@ -91,7 +91,7 @@ class OCC_2_1(MatterBaseTest):
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OccupancySensorType)
         if val is not None:
-            matter_asserts.assert_valid_enum(val, "OccupancySensorType attribute must return a Clusters.OccupancySensing.Enums.OccupancySensorTypeEnum", Clusters.OccupancySensing.Enums.OccupancySensorTypeEnum)
+            matter_asserts.assert_valid_enum(val, "OccupancySensorType attribute must return a OccupancySensorTypeEnum", cluster.Enums.OccupancySensorTypeEnum)
 
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OccupancySensorTypeBitmap)
@@ -111,8 +111,7 @@ class OCC_2_1(MatterBaseTest):
         self.step("5")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTimeLimits):
             self.HoldTimeLimits = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.HoldTimeLimits)
-            asserts.assert_true(isinstance(self.HoldTimeLimits, Clusters.OccupancySensing.Structs.HoldTimeLimitsStruct),
-                                        f"self.HoldTimeLimits must be of type Clusters.OccupancySensing.Structs.HoldTimeLimitsStruct")
+            asserts.assert_true(isinstance(self.HoldTimeLimits, cluster.Structs.HoldTimeLimitsStruct), f"self.HoldTimeLimits must be of type HoldTimeLimitsStruct")
             await self.test_checkHoldTimeLimitsStruct(endpoint=endpoint, cluster=cluster, struct=self.HoldTimeLimits)
 
         self.step("6")

@@ -71,7 +71,7 @@ class ACT_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActionList)
         matter_asserts.assert_list(val, "ActionList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "ActionList attribute must contain Clusters.Actions.Structs.ActionStruct elements", Clusters.Actions.Structs.ActionStruct)
+        matter_asserts.assert_list_element_type(val,  "ActionList attribute must contain ActionStruct elements", cluster.Structs.ActionStruct)
         for item in val:
             await self.test_checkActionStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(val), 256, "ActionList must have at most 256 entries!")
@@ -79,7 +79,7 @@ class ACT_2_1(MatterBaseTest):
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EndpointLists)
         matter_asserts.assert_list(val, "EndpointLists attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "EndpointLists attribute must contain Clusters.Actions.Structs.EndpointListStruct elements", Clusters.Actions.Structs.EndpointListStruct)
+        matter_asserts.assert_list_element_type(val,  "EndpointLists attribute must contain EndpointListStruct elements", cluster.Structs.EndpointListStruct)
         for item in val:
             await self.test_checkEndpointListStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(val), 256, "EndpointLists must have at most 256 entries!")
@@ -99,12 +99,12 @@ class ACT_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint16(struct.actionID, 'ActionID')
         matter_asserts.assert_is_string(struct.name, "Name must be a string")
         asserts.assert_less_equal(len(struct.name), 128, "Name must have length at most 128!")
-        matter_asserts.assert_valid_enum(struct.type, "Type attribute must return a Clusters.Actions.Enums.ActionTypeEnum", Clusters.Actions.Enums.ActionTypeEnum)
+        matter_asserts.assert_valid_enum(struct.type, "Type attribute must return a ActionTypeEnum", cluster.Enums.ActionTypeEnum)
         matter_asserts.assert_valid_uint16(struct.endpointListID, 'EndpointListID')
         matter_asserts.is_valid_int_value(struct.supportedCommands)
         asserts.assert_greater_equal(struct.supportedCommands, 0)
         asserts.assert_less_equal(struct.supportedCommands, 4095)
-        matter_asserts.assert_valid_enum(struct.state, "State attribute must return a Clusters.Actions.Enums.ActionStateEnum", Clusters.Actions.Enums.ActionStateEnum)
+        matter_asserts.assert_valid_enum(struct.state, "State attribute must return a ActionStateEnum", cluster.Enums.ActionStateEnum)
 
     async def test_checkEndpointListStruct(self, 
                                  endpoint: int = None, 
@@ -113,7 +113,7 @@ class ACT_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint16(struct.endpointListID, 'EndpointListID')
         matter_asserts.assert_is_string(struct.name, "Name must be a string")
         asserts.assert_less_equal(len(struct.name), 128, "Name must have length at most 128!")
-        matter_asserts.assert_valid_enum(struct.type, "Type attribute must return a Clusters.Actions.Enums.EndpointListTypeEnum", Clusters.Actions.Enums.EndpointListTypeEnum)
+        matter_asserts.assert_valid_enum(struct.type, "Type attribute must return a EndpointListTypeEnum", cluster.Enums.EndpointListTypeEnum)
         matter_asserts.assert_list(struct.endpoints, "Endpoints attribute must return a list")
         matter_asserts.assert_list_element_type(struct.endpoints,  "Endpoints attribute must contain int elements", int)
         asserts.assert_less_equal(len(struct.endpoints), 256, "Endpoints must have at most 256 entries!")

@@ -94,7 +94,7 @@ class ICDM_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RegisteredClients):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RegisteredClients)
             matter_asserts.assert_list(val, "RegisteredClients attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "RegisteredClients attribute must contain Clusters.ICDManagement.Structs.MonitoringRegistrationStruct elements", Clusters.ICDManagement.Structs.MonitoringRegistrationStruct)
+            matter_asserts.assert_list_element_type(val,  "RegisteredClients attribute must contain MonitoringRegistrationStruct elements", cluster.Structs.MonitoringRegistrationStruct)
             for item in val:
                 await self.test_checkMonitoringRegistrationStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -123,7 +123,7 @@ class ICDM_2_1(MatterBaseTest):
         self.step("9")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OperatingMode):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OperatingMode)
-            matter_asserts.assert_valid_enum(val, "OperatingMode attribute must return a Clusters.ICDManagement.Enums.OperatingModeEnum", Clusters.ICDManagement.Enums.OperatingModeEnum)
+            matter_asserts.assert_valid_enum(val, "OperatingMode attribute must return a OperatingModeEnum", cluster.Enums.OperatingModeEnum)
 
         self.step("10")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaximumCheckInBackoff):
@@ -139,7 +139,7 @@ class ICDM_2_1(MatterBaseTest):
                                  struct: Clusters.ICDManagement.Structs.MonitoringRegistrationStruct = None):
         matter_asserts.assert_valid_uint64(struct.checkInNodeID, 'CheckInNodeID must be uint64')
         matter_asserts.assert_valid_uint64(struct.monitoredSubject, 'MonitoredSubject must be uint64')
-        matter_asserts.assert_valid_enum(struct.clientType, "ClientType attribute must return a Clusters.ICDManagement.Enums.ClientTypeEnum", Clusters.ICDManagement.Enums.ClientTypeEnum)
+        matter_asserts.assert_valid_enum(struct.clientType, "ClientType attribute must return a ClientTypeEnum", cluster.Enums.ClientTypeEnum)
 
 
 if __name__ == "__main__":

@@ -70,7 +70,7 @@ class TGTNAV_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TargetList)
         matter_asserts.assert_list(val, "TargetList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "TargetList attribute must contain Clusters.TargetNavigator.Structs.TargetInfoStruct elements", Clusters.TargetNavigator.Structs.TargetInfoStruct)
+        matter_asserts.assert_list_element_type(val,  "TargetList attribute must contain TargetInfoStruct elements", cluster.Structs.TargetInfoStruct)
         for item in val:
             await self.test_checkTargetInfoStruct(endpoint=endpoint, cluster=cluster, struct=item)
 

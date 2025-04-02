@@ -78,7 +78,7 @@ class DGETH_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PHYRate):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PHYRate)
             if val is not NullValue and val is not None:
-                matter_asserts.assert_valid_enum(val, "PHYRate attribute must return a Clusters.EthernetNetworkDiagnostics.Enums.PHYRateEnum", Clusters.EthernetNetworkDiagnostics.Enums.PHYRateEnum)
+                matter_asserts.assert_valid_enum(val, "PHYRate attribute must return a PHYRateEnum", cluster.Enums.PHYRateEnum)
 
         self.step("2")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.FullDuplex):

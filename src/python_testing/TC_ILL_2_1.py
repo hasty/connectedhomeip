@@ -103,7 +103,7 @@ class ILL_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LightSensorType):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LightSensorType)
             if val is not NullValue and val is not None:
-                matter_asserts.assert_valid_enum(val, "LightSensorType attribute must return a Clusters.IlluminanceMeasurement.Enums.LightSensorTypeEnum", Clusters.IlluminanceMeasurement.Enums.LightSensorTypeEnum)
+                matter_asserts.assert_valid_enum(val, "LightSensorType attribute must return a LightSensorTypeEnum", cluster.Enums.LightSensorTypeEnum)
 
 
 

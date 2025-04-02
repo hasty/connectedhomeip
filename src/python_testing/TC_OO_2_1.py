@@ -93,7 +93,7 @@ class OO_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.StartUpOnOff):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StartUpOnOff)
             if val is not NullValue:
-                matter_asserts.assert_valid_enum(val, "StartUpOnOff attribute must return a Clusters.On/Off.Enums.StartUpOnOffEnum", Clusters.On/Off.Enums.StartUpOnOffEnum)
+                matter_asserts.assert_valid_enum(val, "StartUpOnOff attribute must return a StartUpOnOffEnum", cluster.Enums.StartUpOnOffEnum)
 
 
 

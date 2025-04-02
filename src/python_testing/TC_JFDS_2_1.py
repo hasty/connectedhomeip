@@ -94,35 +94,34 @@ class JFDS_2_1(MatterBaseTest):
         self.step("5")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.GroupKeySetList)
         matter_asserts.assert_list(val, "GroupKeySetList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "GroupKeySetList attribute must contain Clusters.GroupKeyManagement.Structs.GroupKeySetStruct elements", Clusters.GroupKeyManagement.Structs.GroupKeySetStruct)
+        matter_asserts.assert_list_element_type(val,  "GroupKeySetList attribute must contain GroupKeySetStruct elements", Clusters.GroupKeyManagement.Structs.GroupKeySetStruct)
         for item in val:
             await self.test_checkGroupKeySetStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("6")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.GroupList)
         matter_asserts.assert_list(val, "GroupList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "GroupList attribute must contain Clusters.JointFabricDatastore.Structs.DatastoreGroupInformationEntryStruct elements", Clusters.JointFabricDatastore.Structs.DatastoreGroupInformationEntryStruct)
+        matter_asserts.assert_list_element_type(val,  "GroupList attribute must contain DatastoreGroupInformationEntryStruct elements", cluster.Structs.DatastoreGroupInformationEntryStruct)
         for item in val:
             await self.test_checkDatastoreGroupInformationEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("7")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NodeList)
         matter_asserts.assert_list(val, "NodeList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "NodeList attribute must contain Clusters.JointFabricDatastore.Structs.DatastoreNodeInformationEntryStruct elements", Clusters.JointFabricDatastore.Structs.DatastoreNodeInformationEntryStruct)
+        matter_asserts.assert_list_element_type(val,  "NodeList attribute must contain DatastoreNodeInformationEntryStruct elements", cluster.Structs.DatastoreNodeInformationEntryStruct)
         for item in val:
             await self.test_checkDatastoreNodeInformationEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("8")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AdminList)
         matter_asserts.assert_list(val, "AdminList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "AdminList attribute must contain Clusters.JointFabricDatastore.Structs.DatastoreAdministratorInformationEntryStruct elements", Clusters.JointFabricDatastore.Structs.DatastoreAdministratorInformationEntryStruct)
+        matter_asserts.assert_list_element_type(val,  "AdminList attribute must contain DatastoreAdministratorInformationEntryStruct elements", cluster.Structs.DatastoreAdministratorInformationEntryStruct)
         for item in val:
             await self.test_checkDatastoreAdministratorInformationEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("9")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StatusEntry)
-        asserts.assert_true(isinstance(val, Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct),
-                                    f"val must be of type Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct")
+        asserts.assert_true(isinstance(val, cluster.Structs.DatastoreStatusEntryStruct), f"val must be of type DatastoreStatusEntryStruct")
         await self.test_checkDatastoreStatusEntryStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
 
@@ -130,15 +129,15 @@ class JFDS_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.JointFabricDatastore = None, 
                                  struct: Clusters.AccessControl.Structs.AccessControlEntryStruct = None):
-        matter_asserts.assert_valid_enum(struct.privilege, "Privilege attribute must return a Clusters.AccessControl.Enums.AccessControlEntryPrivilegeEnum", Clusters.AccessControl.Enums.AccessControlEntryPrivilegeEnum)
-        matter_asserts.assert_valid_enum(struct.authMode, "AuthMode attribute must return a Clusters.AccessControl.Enums.AccessControlEntryAuthModeEnum", Clusters.AccessControl.Enums.AccessControlEntryAuthModeEnum)
+        matter_asserts.assert_valid_enum(struct.privilege, "Privilege attribute must return a AccessControlEntryPrivilegeEnum", Clusters.AccessControl.Enums.AccessControlEntryPrivilegeEnum)
+        matter_asserts.assert_valid_enum(struct.authMode, "AuthMode attribute must return a AccessControlEntryAuthModeEnum", Clusters.AccessControl.Enums.AccessControlEntryAuthModeEnum)
         if struct.subjects is not NullValue:
             matter_asserts.assert_list(struct.subjects, "Subjects attribute must return a list")
             matter_asserts.assert_list_element_type(struct.subjects,  "Subjects attribute must contain int elements", int)
             asserts.assert_less_equal(len(struct.subjects), self.SubjectsPerAccessControlEntry, "Subjects must have at most self.SubjectsPerAccessControlEntry entries!")
         if struct.targets is not NullValue:
             matter_asserts.assert_list(struct.targets, "Targets attribute must return a list")
-            matter_asserts.assert_list_element_type(struct.targets,  "Targets attribute must contain Clusters.AccessControl.Structs.AccessControlTargetStruct elements", Clusters.AccessControl.Structs.AccessControlTargetStruct)
+            matter_asserts.assert_list_element_type(struct.targets,  "Targets attribute must contain AccessControlTargetStruct elements", Clusters.AccessControl.Structs.AccessControlTargetStruct)
             for item in struct.targets:
                 await self.test_checkAccessControlTargetStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_less_equal(len(struct.targets), self.TargetsPerAccessControlEntry, "Targets must have at most self.TargetsPerAccessControlEntry entries!")
@@ -159,11 +158,9 @@ class JFDS_2_1(MatterBaseTest):
                                  cluster: Clusters.JointFabricDatastore = None, 
                                  struct: Clusters.JointFabricDatastore.Structs.DatastoreACLEntryStruct = None):
         matter_asserts.assert_valid_uint16(struct.listID, 'ListID')
-        asserts.assert_true(isinstance(struct.aclEntry, Clusters.AccessControl.Structs.AccessControlEntryStruct),
-                                    f"struct.aclEntry must be of type Clusters.AccessControl.Structs.AccessControlEntryStruct")
+        asserts.assert_true(isinstance(struct.aclEntry, Clusters.AccessControl.Structs.AccessControlEntryStruct), f"struct.aclEntry must be of type AccessControlEntryStruct")
         await self.test_checkAccessControlEntryStruct(endpoint=endpoint, cluster=cluster, struct=struct.aclEntry)
-        asserts.assert_true(isinstance(struct.statusEntry, Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct),
-                                    f"struct.statusEntry must be of type Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct")
+        asserts.assert_true(isinstance(struct.statusEntry, cluster.Structs.DatastoreStatusEntryStruct), f"struct.statusEntry must be of type DatastoreStatusEntryStruct")
         await self.test_checkDatastoreStatusEntryStruct(endpoint=endpoint, cluster=cluster, struct=struct.statusEntry)
 
     async def test_checkDatastoreAdministratorInformationEntryStruct(self, 
@@ -182,11 +179,9 @@ class JFDS_2_1(MatterBaseTest):
                                  cluster: Clusters.JointFabricDatastore = None, 
                                  struct: Clusters.JointFabricDatastore.Structs.DatastoreBindingEntryStruct = None):
         matter_asserts.assert_valid_uint16(struct.listID, 'ListID')
-        asserts.assert_true(isinstance(struct.binding, Clusters.Binding.Structs.TargetStruct),
-                                    f"struct.binding must be of type Clusters.Binding.Structs.TargetStruct")
+        asserts.assert_true(isinstance(struct.binding, Clusters.Binding.Structs.TargetStruct), f"struct.binding must be of type TargetStruct")
         await self.test_checkTargetStruct(endpoint=endpoint, cluster=cluster, struct=struct.binding)
-        asserts.assert_true(isinstance(struct.statusEntry, Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct),
-                                    f"struct.statusEntry must be of type Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct")
+        asserts.assert_true(isinstance(struct.statusEntry, cluster.Structs.DatastoreStatusEntryStruct), f"struct.statusEntry must be of type DatastoreStatusEntryStruct")
         await self.test_checkDatastoreStatusEntryStruct(endpoint=endpoint, cluster=cluster, struct=struct.statusEntry)
 
     async def test_checkDatastoreEndpointEntryStruct(self, 
@@ -197,15 +192,14 @@ class JFDS_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint64(struct.nodeID, 'NodeID must be uint64')
         matter_asserts.assert_is_string(struct.friendlyName, "FriendlyName must be a string")
         asserts.assert_less_equal(len(struct.friendlyName), 32, "FriendlyName must have length at most 32!")
-        asserts.assert_true(isinstance(struct.statusEntry, Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct),
-                                    f"struct.statusEntry must be of type Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct")
+        asserts.assert_true(isinstance(struct.statusEntry, cluster.Structs.DatastoreStatusEntryStruct), f"struct.statusEntry must be of type DatastoreStatusEntryStruct")
         await self.test_checkDatastoreStatusEntryStruct(endpoint=endpoint, cluster=cluster, struct=struct.statusEntry)
         matter_asserts.assert_list(struct.groupIdList, "GroupIDList attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.groupIdList,  "GroupIDList attribute must contain Clusters.JointFabricDatastore.Structs.DatastoreGroupIDEntryStruct elements", Clusters.JointFabricDatastore.Structs.DatastoreGroupIDEntryStruct)
+        matter_asserts.assert_list_element_type(struct.groupIdList,  "GroupIDList attribute must contain DatastoreGroupIDEntryStruct elements", cluster.Structs.DatastoreGroupIDEntryStruct)
         for item in struct.groupIdList:
             await self.test_checkDatastoreGroupIDEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
         matter_asserts.assert_list(struct.bindingList, "BindingList attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.bindingList,  "BindingList attribute must contain Clusters.JointFabricDatastore.Structs.DatastoreBindingEntryStruct elements", Clusters.JointFabricDatastore.Structs.DatastoreBindingEntryStruct)
+        matter_asserts.assert_list_element_type(struct.bindingList,  "BindingList attribute must contain DatastoreBindingEntryStruct elements", cluster.Structs.DatastoreBindingEntryStruct)
         for item in struct.bindingList:
             await self.test_checkDatastoreBindingEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -214,8 +208,7 @@ class JFDS_2_1(MatterBaseTest):
                                  cluster: Clusters.JointFabricDatastore = None, 
                                  struct: Clusters.JointFabricDatastore.Structs.DatastoreGroupIDEntryStruct = None):
         matter_asserts.assert_valid_uint16(struct.groupID, 'GroupID must be uint16')
-        asserts.assert_true(isinstance(struct.statusEntry, Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct),
-                                    f"struct.statusEntry must be of type Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct")
+        asserts.assert_true(isinstance(struct.statusEntry, cluster.Structs.DatastoreStatusEntryStruct), f"struct.statusEntry must be of type DatastoreStatusEntryStruct")
         await self.test_checkDatastoreStatusEntryStruct(endpoint=endpoint, cluster=cluster, struct=struct.statusEntry)
 
     async def test_checkDatastoreGroupInformationEntryStruct(self, 
@@ -234,7 +227,7 @@ class JFDS_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint16(struct.groupCatVersion, 'GroupCATVersion')
         asserts.assert_greater_equal(struct.groupCatVersion, 1)
         asserts.assert_less_equal(struct.groupCatVersion, 65535)
-        matter_asserts.assert_valid_enum(struct.groupPermission, "GroupPermission attribute must return a Clusters.AccessControl.Enums.AccessControlEntryPrivilegeEnum", Clusters.AccessControl.Enums.AccessControlEntryPrivilegeEnum)
+        matter_asserts.assert_valid_enum(struct.groupPermission, "GroupPermission attribute must return a AccessControlEntryPrivilegeEnum", Clusters.AccessControl.Enums.AccessControlEntryPrivilegeEnum)
 
     async def test_checkDatastoreNodeInformationEntryStruct(self, 
                                  endpoint: int = None, 
@@ -243,19 +236,18 @@ class JFDS_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint64(struct.nodeID, 'NodeID must be uint64')
         matter_asserts.assert_is_string(struct.friendlyName, "FriendlyName must be a string")
         asserts.assert_less_equal(len(struct.friendlyName), 32, "FriendlyName must have length at most 32!")
-        asserts.assert_true(isinstance(struct.commissioningStatusEntry, Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct),
-                                    f"struct.commissioningStatusEntry must be of type Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct")
+        asserts.assert_true(isinstance(struct.commissioningStatusEntry, cluster.Structs.DatastoreStatusEntryStruct), f"struct.commissioningStatusEntry must be of type DatastoreStatusEntryStruct")
         await self.test_checkDatastoreStatusEntryStruct(endpoint=endpoint, cluster=cluster, struct=struct.commissioningStatusEntry)
         matter_asserts.assert_list(struct.nodeKeySetList, "NodeKeySetList attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.nodeKeySetList,  "NodeKeySetList attribute must contain Clusters.JointFabricDatastore.Structs.DatastoreNodeKeyEntryStruct elements", Clusters.JointFabricDatastore.Structs.DatastoreNodeKeyEntryStruct)
+        matter_asserts.assert_list_element_type(struct.nodeKeySetList,  "NodeKeySetList attribute must contain DatastoreNodeKeyEntryStruct elements", cluster.Structs.DatastoreNodeKeyEntryStruct)
         for item in struct.nodeKeySetList:
             await self.test_checkDatastoreNodeKeyEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
         matter_asserts.assert_list(struct.aclList, "ACLList attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.aclList,  "ACLList attribute must contain Clusters.JointFabricDatastore.Structs.DatastoreACLEntryStruct elements", Clusters.JointFabricDatastore.Structs.DatastoreACLEntryStruct)
+        matter_asserts.assert_list_element_type(struct.aclList,  "ACLList attribute must contain DatastoreACLEntryStruct elements", cluster.Structs.DatastoreACLEntryStruct)
         for item in struct.aclList:
             await self.test_checkDatastoreACLEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
         matter_asserts.assert_list(struct.endpointList, "EndpointList attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.endpointList,  "EndpointList attribute must contain Clusters.JointFabricDatastore.Structs.DatastoreEndpointEntryStruct elements", Clusters.JointFabricDatastore.Structs.DatastoreEndpointEntryStruct)
+        matter_asserts.assert_list_element_type(struct.endpointList,  "EndpointList attribute must contain DatastoreEndpointEntryStruct elements", cluster.Structs.DatastoreEndpointEntryStruct)
         for item in struct.endpointList:
             await self.test_checkDatastoreEndpointEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -264,15 +256,14 @@ class JFDS_2_1(MatterBaseTest):
                                  cluster: Clusters.JointFabricDatastore = None, 
                                  struct: Clusters.JointFabricDatastore.Structs.DatastoreNodeKeyEntryStruct = None):
         matter_asserts.assert_valid_uint16(struct.groupKeySetID, 'GroupKeySetID')
-        asserts.assert_true(isinstance(struct.statusEntry, Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct),
-                                    f"struct.statusEntry must be of type Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct")
+        asserts.assert_true(isinstance(struct.statusEntry, cluster.Structs.DatastoreStatusEntryStruct), f"struct.statusEntry must be of type DatastoreStatusEntryStruct")
         await self.test_checkDatastoreStatusEntryStruct(endpoint=endpoint, cluster=cluster, struct=struct.statusEntry)
 
     async def test_checkDatastoreStatusEntryStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.JointFabricDatastore = None, 
                                  struct: Clusters.JointFabricDatastore.Structs.DatastoreStatusEntryStruct = None):
-        matter_asserts.assert_valid_enum(struct.state, "State attribute must return a Clusters.JointFabricDatastore.Enums.DatastoreStateEnum", Clusters.JointFabricDatastore.Enums.DatastoreStateEnum)
+        matter_asserts.assert_valid_enum(struct.state, "State attribute must return a DatastoreStateEnum", cluster.Enums.DatastoreStateEnum)
         matter_asserts.assert_valid_uint32(struct.updateTimestamp, 'UpdateTimestamp')
         matter_asserts.assert_valid_uint8(struct.failureCode, 'FailureCode must be uint8')
 
@@ -281,7 +272,7 @@ class JFDS_2_1(MatterBaseTest):
                                  cluster: Clusters.JointFabricDatastore = None, 
                                  struct: Clusters.GroupKeyManagement.Structs.GroupKeySetStruct = None):
         matter_asserts.assert_valid_uint16(struct.groupKeySetID, 'GroupKeySetID')
-        matter_asserts.assert_valid_enum(struct.groupKeySecurityPolicy, "GroupKeySecurityPolicy attribute must return a Clusters.GroupKeyManagement.Enums.GroupKeySecurityPolicyEnum", Clusters.GroupKeyManagement.Enums.GroupKeySecurityPolicyEnum)
+        matter_asserts.assert_valid_enum(struct.groupKeySecurityPolicy, "GroupKeySecurityPolicy attribute must return a GroupKeySecurityPolicyEnum", Clusters.GroupKeyManagement.Enums.GroupKeySecurityPolicyEnum)
         if struct.epochKey0 is not NullValue:
             matter_asserts.assert_is_octstr(struct.epochKey0, "EpochKey0 must be an octstr")
         if struct.epochStartTime0 is not NullValue:
@@ -294,7 +285,7 @@ class JFDS_2_1(MatterBaseTest):
             matter_asserts.assert_is_octstr(struct.epochKey2, "EpochKey2 must be an octstr")
         if struct.epochStartTime2 is not NullValue:
             matter_asserts.assert_valid_uint64(struct.epochStartTime2, 'EpochStartTime2')
-        matter_asserts.assert_valid_enum(struct.groupKeyMulticastPolicy, "GroupKeyMulticastPolicy attribute must return a Clusters.GroupKeyManagement.Enums.GroupKeyMulticastPolicyEnum", Clusters.GroupKeyManagement.Enums.GroupKeyMulticastPolicyEnum)
+        matter_asserts.assert_valid_enum(struct.groupKeyMulticastPolicy, "GroupKeyMulticastPolicy attribute must return a GroupKeyMulticastPolicyEnum", Clusters.GroupKeyManagement.Enums.GroupKeyMulticastPolicyEnum)
 
     async def test_checkTargetStruct(self, 
                                  endpoint: int = None, 

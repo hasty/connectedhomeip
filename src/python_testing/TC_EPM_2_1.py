@@ -91,7 +91,7 @@ class EPM_2_1(MatterBaseTest):
 
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PowerMode)
-        matter_asserts.assert_valid_enum(val, "PowerMode attribute must return a Clusters.ElectricalPowerMeasurement.Enums.PowerModeEnum", Clusters.ElectricalPowerMeasurement.Enums.PowerModeEnum)
+        matter_asserts.assert_valid_enum(val, "PowerMode attribute must return a PowerModeEnum", cluster.Enums.PowerModeEnum)
 
         self.step("2")
         self.NumberOfMeasurementTypes = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfMeasurementTypes)
@@ -101,7 +101,7 @@ class EPM_2_1(MatterBaseTest):
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Accuracy)
         matter_asserts.assert_list(val, "Accuracy attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "Accuracy attribute must contain Globals.Structs.MeasurementAccuracyStruct elements", Globals.Structs.MeasurementAccuracyStruct)
+        matter_asserts.assert_list_element_type(val,  "Accuracy attribute must contain MeasurementAccuracyStruct elements", Globals.Structs.MeasurementAccuracyStruct)
         for item in val:
             await self.test_checkMeasurementAccuracyStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_greater_equal(len(val), 1, "Accuracy must have at least 1 entries!")
@@ -112,7 +112,7 @@ class EPM_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Ranges)
             if val is not None:
                 matter_asserts.assert_list(val, "Ranges attribute must return a list")
-                matter_asserts.assert_list_element_type(val,  "Ranges attribute must contain Clusters.ElectricalPowerMeasurement.Structs.MeasurementRangeStruct elements", Clusters.ElectricalPowerMeasurement.Structs.MeasurementRangeStruct)
+                matter_asserts.assert_list_element_type(val,  "Ranges attribute must contain MeasurementRangeStruct elements", cluster.Structs.MeasurementRangeStruct)
                 for item in val:
                     await self.test_checkMeasurementRangeStruct(endpoint=endpoint, cluster=cluster, struct=item)
                 asserts.assert_greater_equal(len(val), 0, "Ranges must have at least 0 entries!")
@@ -210,7 +210,7 @@ class EPM_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.HarmonicCurrents)
             if val is not NullValue:
                 matter_asserts.assert_list(val, "HarmonicCurrents attribute must return a list")
-                matter_asserts.assert_list_element_type(val,  "HarmonicCurrents attribute must contain Clusters.ElectricalPowerMeasurement.Structs.HarmonicMeasurementStruct elements", Clusters.ElectricalPowerMeasurement.Structs.HarmonicMeasurementStruct)
+                matter_asserts.assert_list_element_type(val,  "HarmonicCurrents attribute must contain HarmonicMeasurementStruct elements", cluster.Structs.HarmonicMeasurementStruct)
                 for item in val:
                     await self.test_checkHarmonicMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -219,7 +219,7 @@ class EPM_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.HarmonicPhases)
             if val is not NullValue:
                 matter_asserts.assert_list(val, "HarmonicPhases attribute must return a list")
-                matter_asserts.assert_list_element_type(val,  "HarmonicPhases attribute must contain Clusters.ElectricalPowerMeasurement.Structs.HarmonicMeasurementStruct elements", Clusters.ElectricalPowerMeasurement.Structs.HarmonicMeasurementStruct)
+                matter_asserts.assert_list_element_type(val,  "HarmonicPhases attribute must contain HarmonicMeasurementStruct elements", cluster.Structs.HarmonicMeasurementStruct)
                 for item in val:
                     await self.test_checkHarmonicMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -285,7 +285,7 @@ class EPM_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.ElectricalPowerMeasurement = None, 
                                  struct: Globals.Structs.MeasurementAccuracyStruct = None):
-        matter_asserts.assert_valid_enum(struct.measurementType, "MeasurementType attribute must return a Globals.Enums.MeasurementTypeEnum", Globals.Enums.MeasurementTypeEnum)
+        matter_asserts.assert_valid_enum(struct.measurementType, "MeasurementType attribute must return a MeasurementTypeEnum", Globals.Enums.MeasurementTypeEnum)
         matter_asserts.assert_valid_bool(struct.measured, 'Measured')
         matter_asserts.assert_valid_int64(struct.minMeasuredValue, 'MinMeasuredValue')
         asserts.assert_greater_equal(struct.minMeasuredValue, -2e62)
@@ -294,7 +294,7 @@ class EPM_2_1(MatterBaseTest):
         asserts.assert_greater_equal(struct.maxMeasuredValue, -2e62)
         asserts.assert_less_equal(struct.maxMeasuredValue, 2e62)
         matter_asserts.assert_list(struct.accuracyRanges, "AccuracyRanges attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.accuracyRanges,  "AccuracyRanges attribute must contain Globals.Structs.MeasurementAccuracyRangeStruct elements", Globals.Structs.MeasurementAccuracyRangeStruct)
+        matter_asserts.assert_list_element_type(struct.accuracyRanges,  "AccuracyRanges attribute must contain MeasurementAccuracyRangeStruct elements", Globals.Structs.MeasurementAccuracyRangeStruct)
         for item in struct.accuracyRanges:
             await self.test_checkMeasurementAccuracyRangeStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_greater_equal(len(struct.accuracyRanges), 1, "AccuracyRanges must have at least 1 entries!")
@@ -303,7 +303,7 @@ class EPM_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.ElectricalPowerMeasurement = None, 
                                  struct: Clusters.ElectricalPowerMeasurement.Structs.MeasurementRangeStruct = None):
-        matter_asserts.assert_valid_enum(struct.measurementType, "MeasurementType attribute must return a Globals.Enums.MeasurementTypeEnum", Globals.Enums.MeasurementTypeEnum)
+        matter_asserts.assert_valid_enum(struct.measurementType, "MeasurementType attribute must return a MeasurementTypeEnum", Globals.Enums.MeasurementTypeEnum)
         matter_asserts.assert_valid_int64(struct.min, 'Min')
         asserts.assert_greater_equal(struct.min, -2e62)
         asserts.assert_less_equal(struct.min, 2e62)

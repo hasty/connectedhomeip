@@ -75,7 +75,7 @@ class OPCREDS_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NOCs)
         matter_asserts.assert_list(val, "NOCs attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "NOCs attribute must contain Clusters.OperationalCredentials.Structs.NOCStruct elements", Clusters.OperationalCredentials.Structs.NOCStruct)
+        matter_asserts.assert_list_element_type(val,  "NOCs attribute must contain NOCStruct elements", cluster.Structs.NOCStruct)
         for item in val:
             await self.test_checkNOCStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(val), self.SupportedFabrics, "NOCs must have at most self.SupportedFabrics entries!")
@@ -83,7 +83,7 @@ class OPCREDS_2_1(MatterBaseTest):
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Fabrics)
         matter_asserts.assert_list(val, "Fabrics attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "Fabrics attribute must contain Clusters.OperationalCredentials.Structs.FabricDescriptorStruct elements", Clusters.OperationalCredentials.Structs.FabricDescriptorStruct)
+        matter_asserts.assert_list_element_type(val,  "Fabrics attribute must contain FabricDescriptorStruct elements", cluster.Structs.FabricDescriptorStruct)
         for item in val:
             await self.test_checkFabricDescriptorStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(val), self.SupportedFabrics, "Fabrics must have at most self.SupportedFabrics entries!")

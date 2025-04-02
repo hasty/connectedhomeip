@@ -73,7 +73,7 @@ class I_2_1(MatterBaseTest):
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.IdentifyType)
-        matter_asserts.assert_valid_enum(val, "IdentifyType attribute must return a Clusters.Identify.Enums.IdentifyTypeEnum", Clusters.Identify.Enums.IdentifyTypeEnum)
+        matter_asserts.assert_valid_enum(val, "IdentifyType attribute must return a IdentifyTypeEnum", cluster.Enums.IdentifyTypeEnum)
 
 
 

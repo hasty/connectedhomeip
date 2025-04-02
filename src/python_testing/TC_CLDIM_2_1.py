@@ -81,15 +81,13 @@ class CLDIM_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Current)
         if val is not NullValue:
-            asserts.assert_true(isinstance(val, Clusters.ClosureDimension.Structs.CurrentStruct),
-                                        f"val must be of type Clusters.ClosureDimension.Structs.CurrentStruct")
+            asserts.assert_true(isinstance(val, cluster.Structs.CurrentStruct), f"val must be of type CurrentStruct")
             await self.test_checkCurrentStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Target)
         if val is not NullValue:
-            asserts.assert_true(isinstance(val, Clusters.ClosureDimension.Structs.TargetStruct),
-                                        f"val must be of type Clusters.ClosureDimension.Structs.TargetStruct")
+            asserts.assert_true(isinstance(val, cluster.Structs.TargetStruct), f"val must be of type TargetStruct")
             await self.test_checkTargetStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("3")
@@ -106,43 +104,41 @@ class CLDIM_2_1(MatterBaseTest):
         self.step("5")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Unit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Unit)
-            matter_asserts.assert_valid_enum(val, "Unit attribute must return a Clusters.ClosureDimension.Enums.ClosureUnitEnum", Clusters.ClosureDimension.Enums.ClosureUnitEnum)
+            matter_asserts.assert_valid_enum(val, "Unit attribute must return a ClosureUnitEnum", cluster.Enums.ClosureUnitEnum)
 
         self.step("6")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UnitRange):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UnitRange)
             if val is not NullValue:
-                asserts.assert_true(isinstance(val, Clusters.ClosureDimension.Structs.UnitRangeStruct),
-                                            f"val must be of type Clusters.ClosureDimension.Structs.UnitRangeStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.UnitRangeStruct), f"val must be of type UnitRangeStruct")
                 await self.test_checkUnitRangeStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("7")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LimitRange):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LimitRange)
-            asserts.assert_true(isinstance(val, Clusters.ClosureDimension.Structs.RangePercent100thsStruct),
-                                        f"val must be of type Clusters.ClosureDimension.Structs.RangePercent100thsStruct")
+            asserts.assert_true(isinstance(val, cluster.Structs.RangePercent100thsStruct), f"val must be of type RangePercent100thsStruct")
             await self.test_checkRangePercent100thsStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("8")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TranslationDirection):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TranslationDirection)
-            matter_asserts.assert_valid_enum(val, "TranslationDirection attribute must return a Clusters.ClosureDimension.Enums.TranslationDirectionEnum", Clusters.ClosureDimension.Enums.TranslationDirectionEnum)
+            matter_asserts.assert_valid_enum(val, "TranslationDirection attribute must return a TranslationDirectionEnum", cluster.Enums.TranslationDirectionEnum)
 
         self.step("9")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RotationAxis):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RotationAxis)
-            matter_asserts.assert_valid_enum(val, "RotationAxis attribute must return a Clusters.ClosureDimension.Enums.RotationAxisEnum", Clusters.ClosureDimension.Enums.RotationAxisEnum)
+            matter_asserts.assert_valid_enum(val, "RotationAxis attribute must return a RotationAxisEnum", cluster.Enums.RotationAxisEnum)
 
         self.step("10")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Overflow):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Overflow)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "Overflow attribute must return a Clusters.ClosureDimension.Enums.OverflowEnum", Clusters.ClosureDimension.Enums.OverflowEnum)
+                matter_asserts.assert_valid_enum(val, "Overflow attribute must return a OverflowEnum", cluster.Enums.OverflowEnum)
 
         self.step("11")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ModulationType):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ModulationType)
-            matter_asserts.assert_valid_enum(val, "ModulationType attribute must return a Clusters.ClosureDimension.Enums.ModulationTypeEnum", Clusters.ClosureDimension.Enums.ModulationTypeEnum)
+            matter_asserts.assert_valid_enum(val, "ModulationType attribute must return a ModulationTypeEnum", cluster.Enums.ModulationTypeEnum)
 
 
     async def test_checkCurrentStruct(self, 
@@ -150,8 +146,8 @@ class CLDIM_2_1(MatterBaseTest):
                                  cluster: Clusters.ClosureDimension = None, 
                                  struct: Clusters.ClosureDimension.Structs.CurrentStruct = None):
         matter_asserts.assert_valid_uint16(struct.position, 'Position')
-        matter_asserts.assert_valid_enum(struct.latching, "Latching attribute must return a Clusters.ClosureDimension.Enums.LatchingEnum", Clusters.ClosureDimension.Enums.LatchingEnum)
-        matter_asserts.assert_valid_enum(struct.speed, "Speed attribute must return a Globals.Enums.ThreeLevelAutoEnum", Globals.Enums.ThreeLevelAutoEnum)
+        matter_asserts.assert_valid_enum(struct.latching, "Latching attribute must return a LatchingEnum", cluster.Enums.LatchingEnum)
+        matter_asserts.assert_valid_enum(struct.speed, "Speed attribute must return a ThreeLevelAutoEnum", Globals.Enums.ThreeLevelAutoEnum)
 
     async def test_checkRangePercent100thsStruct(self, 
                                  endpoint: int = None, 
@@ -167,8 +163,8 @@ class CLDIM_2_1(MatterBaseTest):
                                  cluster: Clusters.ClosureDimension = None, 
                                  struct: Clusters.ClosureDimension.Structs.TargetStruct = None):
         matter_asserts.assert_valid_uint16(struct.position, 'Position')
-        matter_asserts.assert_valid_enum(struct.latch, "Latch attribute must return a Clusters.ClosureDimension.Enums.TargetLatchEnum", Clusters.ClosureDimension.Enums.TargetLatchEnum)
-        matter_asserts.assert_valid_enum(struct.speed, "Speed attribute must return a Globals.Enums.ThreeLevelAutoEnum", Globals.Enums.ThreeLevelAutoEnum)
+        matter_asserts.assert_valid_enum(struct.latch, "Latch attribute must return a TargetLatchEnum", cluster.Enums.TargetLatchEnum)
+        matter_asserts.assert_valid_enum(struct.speed, "Speed attribute must return a ThreeLevelAutoEnum", Globals.Enums.ThreeLevelAutoEnum)
 
     async def test_checkUnitRangeStruct(self, 
                                  endpoint: int = None, 

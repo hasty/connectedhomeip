@@ -77,8 +77,7 @@ class APPLAUNCHER_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentApp):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentApp)
             if val is not NullValue and val is not None:
-                asserts.assert_true(isinstance(val, Clusters.ApplicationLauncher.Structs.ApplicationEPStruct),
-                                            f"val must be of type Clusters.ApplicationLauncher.Structs.ApplicationEPStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.ApplicationEPStruct), f"val must be of type ApplicationEPStruct")
                 await self.test_checkApplicationEPStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
 
@@ -86,8 +85,7 @@ class APPLAUNCHER_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.ApplicationLauncher = None, 
                                  struct: Clusters.ApplicationLauncher.Structs.ApplicationEPStruct = None):
-        asserts.assert_true(isinstance(struct.application, Clusters.ApplicationLauncher.Structs.ApplicationStruct),
-                                    f"struct.application must be of type Clusters.ApplicationLauncher.Structs.ApplicationStruct")
+        asserts.assert_true(isinstance(struct.application, cluster.Structs.ApplicationStruct), f"struct.application must be of type ApplicationStruct")
         await self.test_checkApplicationStruct(endpoint=endpoint, cluster=cluster, struct=struct.application)
         if struct.endpoint is not None:
             matter_asserts.assert_valid_uint16(struct.endpoint, 'Endpoint must be uint16')

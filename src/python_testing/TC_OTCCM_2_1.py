@@ -70,7 +70,7 @@ class OTCCM_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedModes)
         matter_asserts.assert_list(val, "SupportedModes attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "SupportedModes attribute must contain Clusters.ModeBase.Structs.ModeOptionStruct elements", Clusters.ModeBase.Structs.ModeOptionStruct)
+        matter_asserts.assert_list_element_type(val,  "SupportedModes attribute must contain ModeOptionStruct elements", Clusters.ModeBase.Structs.ModeOptionStruct)
         for item in val:
             await self.test_checkModeOptionStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_greater_equal(len(val), 2, "SupportedModes must have at least 2 entries!")
@@ -89,7 +89,7 @@ class OTCCM_2_1(MatterBaseTest):
         asserts.assert_less_equal(len(struct.label), 64, "Label must have length at most 64!")
         matter_asserts.assert_valid_uint8(struct.mode, 'Mode')
         matter_asserts.assert_list(struct.modeTags, "ModeTags attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.modeTags,  "ModeTags attribute must contain Clusters.ModeBase.Structs.ModeTagStruct elements", Clusters.ModeBase.Structs.ModeTagStruct)
+        matter_asserts.assert_list_element_type(struct.modeTags,  "ModeTags attribute must contain ModeTagStruct elements", Clusters.ModeBase.Structs.ModeTagStruct)
         for item in struct.modeTags:
             await self.test_checkModeTagStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(struct.modeTags), 8, "ModeTags must have at most 8 entries!")

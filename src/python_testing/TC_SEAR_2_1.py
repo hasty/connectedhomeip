@@ -74,7 +74,7 @@ class SEAR_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedAreas)
         matter_asserts.assert_list(val, "SupportedAreas attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "SupportedAreas attribute must contain Clusters.ServiceArea.Structs.AreaStruct elements", Clusters.ServiceArea.Structs.AreaStruct)
+        matter_asserts.assert_list_element_type(val,  "SupportedAreas attribute must contain AreaStruct elements", cluster.Structs.AreaStruct)
         for item in val:
             await self.test_checkAreaStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(val), 255, "SupportedAreas must have at most 255 entries!")
@@ -83,7 +83,7 @@ class SEAR_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedMaps):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedMaps)
             matter_asserts.assert_list(val, "SupportedMaps attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "SupportedMaps attribute must contain Clusters.ServiceArea.Structs.MapStruct elements", Clusters.ServiceArea.Structs.MapStruct)
+            matter_asserts.assert_list_element_type(val,  "SupportedMaps attribute must contain MapStruct elements", cluster.Structs.MapStruct)
             for item in val:
                 await self.test_checkMapStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_less_equal(len(val), 255, "SupportedMaps must have at most 255 entries!")
@@ -108,7 +108,7 @@ class SEAR_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Progress):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Progress)
             matter_asserts.assert_list(val, "Progress attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "Progress attribute must contain Clusters.ServiceArea.Structs.ProgressStruct elements", Clusters.ServiceArea.Structs.ProgressStruct)
+            matter_asserts.assert_list_element_type(val,  "Progress attribute must contain ProgressStruct elements", cluster.Structs.ProgressStruct)
             for item in val:
                 await self.test_checkProgressStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_less_equal(len(val), 255, "Progress must have at most 255 entries!")
@@ -119,12 +119,10 @@ class SEAR_2_1(MatterBaseTest):
                                  cluster: Clusters.ServiceArea = None, 
                                  struct: Clusters.ServiceArea.Structs.AreaInfoStruct = None):
         if struct.locationInfo is not NullValue:
-            asserts.assert_true(isinstance(struct.locationInfo, Globals.Structs.LocationDescriptorStruct),
-                                        f"struct.locationInfo must be of type Globals.Structs.LocationDescriptorStruct")
+            asserts.assert_true(isinstance(struct.locationInfo, Globals.Structs.LocationDescriptorStruct), f"struct.locationInfo must be of type LocationDescriptorStruct")
             await self.test_checkLocationDescriptorStruct(endpoint=endpoint, cluster=cluster, struct=struct.locationInfo)
         if struct.landmarkInfo is not NullValue:
-            asserts.assert_true(isinstance(struct.landmarkInfo, Clusters.ServiceArea.Structs.LandmarkInfoStruct),
-                                        f"struct.landmarkInfo must be of type Clusters.ServiceArea.Structs.LandmarkInfoStruct")
+            asserts.assert_true(isinstance(struct.landmarkInfo, cluster.Structs.LandmarkInfoStruct), f"struct.landmarkInfo must be of type LandmarkInfoStruct")
             await self.test_checkLandmarkInfoStruct(endpoint=endpoint, cluster=cluster, struct=struct.landmarkInfo)
 
     async def test_checkAreaStruct(self, 
@@ -134,8 +132,7 @@ class SEAR_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint32(struct.areaID, 'AreaID')
         if struct.mapId is not NullValue:
             matter_asserts.assert_valid_uint32(struct.mapID, 'MapID')
-        asserts.assert_true(isinstance(struct.areaInfo, Clusters.ServiceArea.Structs.AreaInfoStruct),
-                                    f"struct.areaInfo must be of type Clusters.ServiceArea.Structs.AreaInfoStruct")
+        asserts.assert_true(isinstance(struct.areaInfo, cluster.Structs.AreaInfoStruct), f"struct.areaInfo must be of type AreaInfoStruct")
         await self.test_checkAreaInfoStruct(endpoint=endpoint, cluster=cluster, struct=struct.areaInfo)
 
     async def test_checkLandmarkInfoStruct(self, 
@@ -170,7 +167,7 @@ class SEAR_2_1(MatterBaseTest):
                                  cluster: Clusters.ServiceArea = None, 
                                  struct: Clusters.ServiceArea.Structs.ProgressStruct = None):
         matter_asserts.assert_valid_uint32(struct.areaID, 'AreaID')
-        matter_asserts.assert_valid_enum(struct.status, "Status attribute must return a Clusters.ServiceArea.Enums.OperationalStatusEnum", Clusters.ServiceArea.Enums.OperationalStatusEnum)
+        matter_asserts.assert_valid_enum(struct.status, "Status attribute must return a OperationalStatusEnum", cluster.Enums.OperationalStatusEnum)
         if struct.totalOperationalTime is not NullValue and struct.totalOperationalTime is not None:
             matter_asserts.assert_valid_uint32(struct.totalOperationalTime, 'TotalOperationalTime')
         if struct.initialTimeEstimate is not NullValue and struct.initialTimeEstimate is not None:

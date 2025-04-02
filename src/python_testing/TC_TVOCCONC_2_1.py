@@ -136,16 +136,16 @@ class TVOCCONC_2_1(MatterBaseTest):
         self.step("9")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MeasurementUnit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MeasurementUnit)
-            matter_asserts.assert_valid_enum(val, "MeasurementUnit attribute must return a Clusters.CarbonMonoxideConcentrationMeasurement.Enums.MeasurementUnitEnum", Clusters.CarbonMonoxideConcentrationMeasurement.Enums.MeasurementUnitEnum)
+            matter_asserts.assert_valid_enum(val, "MeasurementUnit attribute must return a MeasurementUnitEnum", Clusters.CarbonMonoxideConcentrationMeasurement.Enums.MeasurementUnitEnum)
 
         self.step("10")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MeasurementMedium)
-        matter_asserts.assert_valid_enum(val, "MeasurementMedium attribute must return a Clusters.CarbonMonoxideConcentrationMeasurement.Enums.MeasurementMediumEnum", Clusters.CarbonMonoxideConcentrationMeasurement.Enums.MeasurementMediumEnum)
+        matter_asserts.assert_valid_enum(val, "MeasurementMedium attribute must return a MeasurementMediumEnum", Clusters.CarbonMonoxideConcentrationMeasurement.Enums.MeasurementMediumEnum)
 
         self.step("11")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LevelValue):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LevelValue)
-            matter_asserts.assert_valid_enum(val, "LevelValue attribute must return a Clusters.CarbonMonoxideConcentrationMeasurement.Enums.LevelValueEnum", Clusters.CarbonMonoxideConcentrationMeasurement.Enums.LevelValueEnum)
+            matter_asserts.assert_valid_enum(val, "LevelValue attribute must return a LevelValueEnum", Clusters.CarbonMonoxideConcentrationMeasurement.Enums.LevelValueEnum)
 
 
 

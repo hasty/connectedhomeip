@@ -195,16 +195,14 @@ class BINFO_2_1(MatterBaseTest):
 
         self.step("20")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CapabilityMinima)
-        asserts.assert_true(isinstance(val, Clusters.BasicInformation.Structs.CapabilityMinimaStruct),
-                                    f"val must be of type Clusters.BasicInformation.Structs.CapabilityMinimaStruct")
+        asserts.assert_true(isinstance(val, cluster.Structs.CapabilityMinimaStruct), f"val must be of type CapabilityMinimaStruct")
         await self.test_checkCapabilityMinimaStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("21")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ProductAppearance):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ProductAppearance)
             if val is not None:
-                asserts.assert_true(isinstance(val, Clusters.BasicInformation.Structs.ProductAppearanceStruct),
-                                            f"val must be of type Clusters.BasicInformation.Structs.ProductAppearanceStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.ProductAppearanceStruct), f"val must be of type ProductAppearanceStruct")
                 await self.test_checkProductAppearanceStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("22")
@@ -235,9 +233,9 @@ class BINFO_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.BasicInformation = None, 
                                  struct: Clusters.BasicInformation.Structs.ProductAppearanceStruct = None):
-        matter_asserts.assert_valid_enum(struct.finish, "Finish attribute must return a Clusters.BasicInformation.Enums.ProductFinishEnum", Clusters.BasicInformation.Enums.ProductFinishEnum)
+        matter_asserts.assert_valid_enum(struct.finish, "Finish attribute must return a ProductFinishEnum", cluster.Enums.ProductFinishEnum)
         if struct.primaryColor is not NullValue:
-            matter_asserts.assert_valid_enum(struct.primaryColor, "PrimaryColor attribute must return a Clusters.BasicInformation.Enums.ColorEnum", Clusters.BasicInformation.Enums.ColorEnum)
+            matter_asserts.assert_valid_enum(struct.primaryColor, "PrimaryColor attribute must return a ColorEnum", cluster.Enums.ColorEnum)
 
 
 if __name__ == "__main__":

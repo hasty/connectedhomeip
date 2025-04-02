@@ -78,7 +78,7 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
 
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentState)
-        matter_asserts.assert_valid_enum(val, "CurrentState attribute must return a Clusters.MediaPlayback.Enums.PlaybackStateEnum", Clusters.MediaPlayback.Enums.PlaybackStateEnum)
+        matter_asserts.assert_valid_enum(val, "CurrentState attribute must return a PlaybackStateEnum", cluster.Enums.PlaybackStateEnum)
 
         self.step("2")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.StartTime):
@@ -96,8 +96,7 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SampledPosition):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SampledPosition)
             if val is not NullValue:
-                asserts.assert_true(isinstance(val, Clusters.MediaPlayback.Structs.PlaybackPositionStruct),
-                                            f"val must be of type Clusters.MediaPlayback.Structs.PlaybackPositionStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.PlaybackPositionStruct), f"val must be of type PlaybackPositionStruct")
                 await self.test_checkPlaybackPositionStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("5")
@@ -121,8 +120,7 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveAudioTrack):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveAudioTrack)
             if val is not NullValue:
-                asserts.assert_true(isinstance(val, Clusters.MediaPlayback.Structs.TrackStruct),
-                                            f"val must be of type Clusters.MediaPlayback.Structs.TrackStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.TrackStruct), f"val must be of type TrackStruct")
                 await self.test_checkTrackStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("9")
@@ -130,7 +128,7 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AvailableAudioTracks)
             if val is not NullValue:
                 matter_asserts.assert_list(val, "AvailableAudioTracks attribute must return a list")
-                matter_asserts.assert_list_element_type(val,  "AvailableAudioTracks attribute must contain Clusters.MediaPlayback.Structs.TrackStruct elements", Clusters.MediaPlayback.Structs.TrackStruct)
+                matter_asserts.assert_list_element_type(val,  "AvailableAudioTracks attribute must contain TrackStruct elements", cluster.Structs.TrackStruct)
                 for item in val:
                     await self.test_checkTrackStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -138,8 +136,7 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveTextTrack):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveTextTrack)
             if val is not NullValue:
-                asserts.assert_true(isinstance(val, Clusters.MediaPlayback.Structs.TrackStruct),
-                                            f"val must be of type Clusters.MediaPlayback.Structs.TrackStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.TrackStruct), f"val must be of type TrackStruct")
                 await self.test_checkTrackStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("11")
@@ -147,7 +144,7 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AvailableTextTracks)
             if val is not NullValue:
                 matter_asserts.assert_list(val, "AvailableTextTracks attribute must return a list")
-                matter_asserts.assert_list_element_type(val,  "AvailableTextTracks attribute must contain Clusters.MediaPlayback.Structs.TrackStruct elements", Clusters.MediaPlayback.Structs.TrackStruct)
+                matter_asserts.assert_list_element_type(val,  "AvailableTextTracks attribute must contain TrackStruct elements", cluster.Structs.TrackStruct)
                 for item in val:
                     await self.test_checkTrackStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -168,7 +165,7 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
         asserts.assert_less_equal(len(struct.languageCode), 32, "LanguageCode must have length at most 32!")
         if struct.characteristics is not NullValue and struct.characteristics is not None:
             matter_asserts.assert_list(struct.characteristics, "Characteristics attribute must return a list")
-            matter_asserts.assert_list_element_type(struct.characteristics,  "Characteristics attribute must contain Clusters.MediaPlayback.Enums.CharacteristicEnum elements", Clusters.MediaPlayback.Enums.CharacteristicEnum)
+            matter_asserts.assert_list_element_type(struct.characteristics,  "Characteristics attribute must contain CharacteristicEnum elements", cluster.Enums.CharacteristicEnum)
         if struct.displayName is not NullValue and struct.displayName is not None:
             matter_asserts.assert_is_string(struct.displayName, "DisplayName must be a string")
             asserts.assert_less_equal(len(struct.displayName), 256, "DisplayName must have length at most 256!")
@@ -179,8 +176,7 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
                                  struct: Clusters.MediaPlayback.Structs.TrackStruct = None):
         matter_asserts.assert_is_string(struct.iD, "ID must be a string")
         asserts.assert_less_equal(len(struct.iD), 32, "ID must have length at most 32!")
-        asserts.assert_true(isinstance(struct.trackAttributes, Clusters.MediaPlayback.Structs.TrackAttributesStruct),
-                                    f"struct.trackAttributes must be of type Clusters.MediaPlayback.Structs.TrackAttributesStruct")
+        asserts.assert_true(isinstance(struct.trackAttributes, cluster.Structs.TrackAttributesStruct), f"struct.trackAttributes must be of type TrackAttributesStruct")
         await self.test_checkTrackAttributesStruct(endpoint=endpoint, cluster=cluster, struct=struct.trackAttributes)
 
 

@@ -77,7 +77,7 @@ class DGGEN_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NetworkInterfaces)
         matter_asserts.assert_list(val, "NetworkInterfaces attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "NetworkInterfaces attribute must contain Clusters.GeneralDiagnostics.Structs.NetworkInterface elements", Clusters.GeneralDiagnostics.Structs.NetworkInterface)
+        matter_asserts.assert_list_element_type(val,  "NetworkInterfaces attribute must contain NetworkInterface elements", cluster.Structs.NetworkInterface)
         for item in val:
             await self.test_checkNetworkInterface(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(val), 8, "NetworkInterfaces must have at most 8 entries!")
@@ -100,14 +100,14 @@ class DGGEN_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BootReason):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BootReason)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "BootReason attribute must return a Clusters.GeneralDiagnostics.Enums.BootReasonEnum", Clusters.GeneralDiagnostics.Enums.BootReasonEnum)
+                matter_asserts.assert_valid_enum(val, "BootReason attribute must return a BootReasonEnum", cluster.Enums.BootReasonEnum)
 
         self.step("6")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveHardwareFaults):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveHardwareFaults)
             if val is not None:
                 matter_asserts.assert_list(val, "ActiveHardwareFaults attribute must return a list")
-                matter_asserts.assert_list_element_type(val,  "ActiveHardwareFaults attribute must contain Clusters.GeneralDiagnostics.Enums.HardwareFaultEnum elements", Clusters.GeneralDiagnostics.Enums.HardwareFaultEnum)
+                matter_asserts.assert_list_element_type(val,  "ActiveHardwareFaults attribute must contain HardwareFaultEnum elements", cluster.Enums.HardwareFaultEnum)
                 asserts.assert_less_equal(len(val), 11, "ActiveHardwareFaults must have at most 11 entries!")
 
         self.step("7")
@@ -115,7 +115,7 @@ class DGGEN_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveRadioFaults)
             if val is not None:
                 matter_asserts.assert_list(val, "ActiveRadioFaults attribute must return a list")
-                matter_asserts.assert_list_element_type(val,  "ActiveRadioFaults attribute must contain Clusters.GeneralDiagnostics.Enums.RadioFaultEnum elements", Clusters.GeneralDiagnostics.Enums.RadioFaultEnum)
+                matter_asserts.assert_list_element_type(val,  "ActiveRadioFaults attribute must contain RadioFaultEnum elements", cluster.Enums.RadioFaultEnum)
                 asserts.assert_less_equal(len(val), 7, "ActiveRadioFaults must have at most 7 entries!")
 
         self.step("8")
@@ -123,7 +123,7 @@ class DGGEN_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveNetworkFaults)
             if val is not None:
                 matter_asserts.assert_list(val, "ActiveNetworkFaults attribute must return a list")
-                matter_asserts.assert_list_element_type(val,  "ActiveNetworkFaults attribute must contain Clusters.GeneralDiagnostics.Enums.NetworkFaultEnum elements", Clusters.GeneralDiagnostics.Enums.NetworkFaultEnum)
+                matter_asserts.assert_list_element_type(val,  "ActiveNetworkFaults attribute must contain NetworkFaultEnum elements", cluster.Enums.NetworkFaultEnum)
                 asserts.assert_less_equal(len(val), 4, "ActiveNetworkFaults must have at most 4 entries!")
 
         self.step("9")
@@ -151,7 +151,7 @@ class DGGEN_2_1(MatterBaseTest):
         matter_asserts.assert_list(struct.iPv6Addresses, "IPv6Addresses attribute must return a list")
         matter_asserts.assert_list_element_type(struct.iPv6Addresses,  "IPv6Addresses attribute must contain bytes elements", bytes)
         asserts.assert_less_equal(len(struct.iPv6Addresses), 8, "IPv6Addresses must have at most 8 entries!")
-        matter_asserts.assert_valid_enum(struct.type, "Type attribute must return a Clusters.GeneralDiagnostics.Enums.InterfaceTypeEnum", Clusters.GeneralDiagnostics.Enums.InterfaceTypeEnum)
+        matter_asserts.assert_valid_enum(struct.type, "Type attribute must return a InterfaceTypeEnum", cluster.Enums.InterfaceTypeEnum)
 
 
 if __name__ == "__main__":

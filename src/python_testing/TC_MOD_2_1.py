@@ -84,7 +84,7 @@ class MOD_2_1(MatterBaseTest):
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedModes)
         matter_asserts.assert_list(val, "SupportedModes attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "SupportedModes attribute must contain Clusters.ModeSelect.Structs.ModeOptionStruct elements", Clusters.ModeSelect.Structs.ModeOptionStruct)
+        matter_asserts.assert_list_element_type(val,  "SupportedModes attribute must contain ModeOptionStruct elements", cluster.Structs.ModeOptionStruct)
         for item in val:
             await self.test_checkModeOptionStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(val), 255, "SupportedModes must have at most 255 entries!")
@@ -114,7 +114,7 @@ class MOD_2_1(MatterBaseTest):
         asserts.assert_less_equal(len(struct.label), 64, "Label must have length at most 64!")
         matter_asserts.assert_valid_uint8(struct.mode, 'Mode')
         matter_asserts.assert_list(struct.semanticTags, "SemanticTags attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.semanticTags,  "SemanticTags attribute must contain Clusters.ModeSelect.Structs.SemanticTagStruct elements", Clusters.ModeSelect.Structs.SemanticTagStruct)
+        matter_asserts.assert_list_element_type(struct.semanticTags,  "SemanticTags attribute must contain SemanticTagStruct elements", cluster.Structs.SemanticTagStruct)
         for item in struct.semanticTags:
             await self.test_checkSemanticTagStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(struct.semanticTags), 64, "SemanticTags must have at most 64 entries!")

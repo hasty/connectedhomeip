@@ -78,7 +78,7 @@ class DEM_2_1(MatterBaseTest):
 
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ESAType)
-        matter_asserts.assert_valid_enum(val, "ESAType attribute must return a Clusters.DeviceEnergyManagement.Enums.ESATypeEnum", Clusters.DeviceEnergyManagement.Enums.ESATypeEnum)
+        matter_asserts.assert_valid_enum(val, "ESAType attribute must return a ESATypeEnum", cluster.Enums.ESATypeEnum)
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ESACanGenerate)
@@ -86,7 +86,7 @@ class DEM_2_1(MatterBaseTest):
 
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ESAState)
-        matter_asserts.assert_valid_enum(val, "ESAState attribute must return a Clusters.DeviceEnergyManagement.Enums.ESAStateEnum", Clusters.DeviceEnergyManagement.Enums.ESAStateEnum)
+        matter_asserts.assert_valid_enum(val, "ESAState attribute must return a ESAStateEnum", cluster.Enums.ESAStateEnum)
 
         self.step("4")
         self.AbsMinPower = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AbsMinPower)
@@ -101,29 +101,27 @@ class DEM_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PowerAdjustmentCapability):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PowerAdjustmentCapability)
             if val is not NullValue:
-                asserts.assert_true(isinstance(val, Clusters.DeviceEnergyManagement.Structs.PowerAdjustCapabilityStruct),
-                                            f"val must be of type Clusters.DeviceEnergyManagement.Structs.PowerAdjustCapabilityStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.PowerAdjustCapabilityStruct), f"val must be of type PowerAdjustCapabilityStruct")
                 await self.test_checkPowerAdjustCapabilityStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("7")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Forecast):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Forecast)
             if val is not NullValue:
-                asserts.assert_true(isinstance(val, Clusters.DeviceEnergyManagement.Structs.ForecastStruct),
-                                            f"val must be of type Clusters.DeviceEnergyManagement.Structs.ForecastStruct")
+                asserts.assert_true(isinstance(val, cluster.Structs.ForecastStruct), f"val must be of type ForecastStruct")
                 await self.test_checkForecastStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("8")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OptOutState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OptOutState)
-            matter_asserts.assert_valid_enum(val, "OptOutState attribute must return a Clusters.DeviceEnergyManagement.Enums.OptOutStateEnum", Clusters.DeviceEnergyManagement.Enums.OptOutStateEnum)
+            matter_asserts.assert_valid_enum(val, "OptOutState attribute must return a OptOutStateEnum", cluster.Enums.OptOutStateEnum)
 
 
     async def test_checkCostStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.DeviceEnergyManagement = None, 
                                  struct: Clusters.DeviceEnergyManagement.Structs.CostStruct = None):
-        matter_asserts.assert_valid_enum(struct.costType, "CostType attribute must return a Clusters.DeviceEnergyManagement.Enums.CostTypeEnum", Clusters.DeviceEnergyManagement.Enums.CostTypeEnum)
+        matter_asserts.assert_valid_enum(struct.costType, "CostType attribute must return a CostTypeEnum", cluster.Enums.CostTypeEnum)
         matter_asserts.assert_valid_int32(struct.value, 'Value')
         matter_asserts.assert_valid_uint8(struct.decimalPoints, 'DecimalPoints')
         if struct.currency is not None:
@@ -144,11 +142,11 @@ class DEM_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint32(struct.latestEndTime, 'LatestEndTime')
         matter_asserts.assert_valid_bool(struct.isPausable, 'IsPausable')
         matter_asserts.assert_list(struct.slots, "Slots attribute must return a list")
-        matter_asserts.assert_list_element_type(struct.slots,  "Slots attribute must contain Clusters.DeviceEnergyManagement.Structs.SlotStruct elements", Clusters.DeviceEnergyManagement.Structs.SlotStruct)
+        matter_asserts.assert_list_element_type(struct.slots,  "Slots attribute must contain SlotStruct elements", cluster.Structs.SlotStruct)
         for item in struct.slots:
             await self.test_checkSlotStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(struct.slots), 10, "Slots must have at most 10 entries!")
-        matter_asserts.assert_valid_enum(struct.forecastUpdateReason, "ForecastUpdateReason attribute must return a Clusters.DeviceEnergyManagement.Enums.ForecastUpdateReasonEnum", Clusters.DeviceEnergyManagement.Enums.ForecastUpdateReasonEnum)
+        matter_asserts.assert_valid_enum(struct.forecastUpdateReason, "ForecastUpdateReason attribute must return a ForecastUpdateReasonEnum", cluster.Enums.ForecastUpdateReasonEnum)
 
     async def test_checkPowerAdjustCapabilityStruct(self, 
                                  endpoint: int = None, 
@@ -156,11 +154,11 @@ class DEM_2_1(MatterBaseTest):
                                  struct: Clusters.DeviceEnergyManagement.Structs.PowerAdjustCapabilityStruct = None):
         if struct.powerAdjustCapability is not NullValue:
             matter_asserts.assert_list(struct.powerAdjustCapability, "PowerAdjustCapability attribute must return a list")
-            matter_asserts.assert_list_element_type(struct.powerAdjustCapability,  "PowerAdjustCapability attribute must contain Clusters.DeviceEnergyManagement.Structs.PowerAdjustStruct elements", Clusters.DeviceEnergyManagement.Structs.PowerAdjustStruct)
+            matter_asserts.assert_list_element_type(struct.powerAdjustCapability,  "PowerAdjustCapability attribute must contain PowerAdjustStruct elements", cluster.Structs.PowerAdjustStruct)
             for item in struct.powerAdjustCapability:
                 await self.test_checkPowerAdjustStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_less_equal(len(struct.powerAdjustCapability), 8, "PowerAdjustCapability must have at most 8 entries!")
-        matter_asserts.assert_valid_enum(struct.cause, "Cause attribute must return a Clusters.DeviceEnergyManagement.Enums.PowerAdjustReasonEnum", Clusters.DeviceEnergyManagement.Enums.PowerAdjustReasonEnum)
+        matter_asserts.assert_valid_enum(struct.cause, "Cause attribute must return a PowerAdjustReasonEnum", cluster.Enums.PowerAdjustReasonEnum)
 
     async def test_checkPowerAdjustStruct(self, 
                                  endpoint: int = None, 
@@ -192,7 +190,7 @@ class DEM_2_1(MatterBaseTest):
         matter_asserts.assert_valid_int64(struct.nominalEnergy, 'NominalEnergy')
         if struct.costs is not None:
             matter_asserts.assert_list(struct.costs, "Costs attribute must return a list")
-            matter_asserts.assert_list_element_type(struct.costs,  "Costs attribute must contain Clusters.DeviceEnergyManagement.Structs.CostStruct elements", Clusters.DeviceEnergyManagement.Structs.CostStruct)
+            matter_asserts.assert_list_element_type(struct.costs,  "Costs attribute must contain CostStruct elements", cluster.Structs.CostStruct)
             for item in struct.costs:
                 await self.test_checkCostStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_less_equal(len(struct.costs), 5, "Costs must have at most 5 entries!")

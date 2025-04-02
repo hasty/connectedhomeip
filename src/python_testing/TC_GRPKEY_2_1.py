@@ -72,14 +72,14 @@ class GRPKEY_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.GroupKeyMap)
         matter_asserts.assert_list(val, "GroupKeyMap attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "GroupKeyMap attribute must contain Clusters.GroupKeyManagement.Structs.GroupKeyMapStruct elements", Clusters.GroupKeyManagement.Structs.GroupKeyMapStruct)
+        matter_asserts.assert_list_element_type(val,  "GroupKeyMap attribute must contain GroupKeyMapStruct elements", cluster.Structs.GroupKeyMapStruct)
         for item in val:
             await self.test_checkGroupKeyMapStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.GroupTable)
         matter_asserts.assert_list(val, "GroupTable attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "GroupTable attribute must contain Clusters.GroupKeyManagement.Structs.GroupInfoMapStruct elements", Clusters.GroupKeyManagement.Structs.GroupInfoMapStruct)
+        matter_asserts.assert_list_element_type(val,  "GroupTable attribute must contain GroupInfoMapStruct elements", cluster.Structs.GroupInfoMapStruct)
         for item in val:
             await self.test_checkGroupInfoMapStruct(endpoint=endpoint, cluster=cluster, struct=item)
 

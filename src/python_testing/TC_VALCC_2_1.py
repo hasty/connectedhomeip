@@ -102,12 +102,12 @@ class VALCC_2_1(MatterBaseTest):
         self.step("5")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentState)
         if val is not NullValue:
-            matter_asserts.assert_valid_enum(val, "CurrentState attribute must return a Clusters.ValveConfigurationAndControl.Enums.ValveStateEnum", Clusters.ValveConfigurationAndControl.Enums.ValveStateEnum)
+            matter_asserts.assert_valid_enum(val, "CurrentState attribute must return a ValveStateEnum", cluster.Enums.ValveStateEnum)
 
         self.step("6")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TargetState)
         if val is not NullValue:
-            matter_asserts.assert_valid_enum(val, "TargetState attribute must return a Clusters.ValveConfigurationAndControl.Enums.ValveStateEnum", Clusters.ValveConfigurationAndControl.Enums.ValveStateEnum)
+            matter_asserts.assert_valid_enum(val, "TargetState attribute must return a ValveStateEnum", cluster.Enums.ValveStateEnum)
 
         self.step("7")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentLevel):

@@ -73,7 +73,7 @@ class DESC_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DeviceTypeList)
         matter_asserts.assert_list(val, "DeviceTypeList attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "DeviceTypeList attribute must contain Clusters.Descriptor.Structs.DeviceTypeStruct elements", Clusters.Descriptor.Structs.DeviceTypeStruct)
+        matter_asserts.assert_list_element_type(val,  "DeviceTypeList attribute must contain DeviceTypeStruct elements", cluster.Structs.DeviceTypeStruct)
         for item in val:
             await self.test_checkDeviceTypeStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_greater_equal(len(val), 1, "DeviceTypeList must have at least 1 entries!")
@@ -97,7 +97,7 @@ class DESC_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TagList):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TagList)
             matter_asserts.assert_list(val, "TagList attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "TagList attribute must contain Clusters.Descriptor.Structs.SemanticTagStruct elements", Clusters.Descriptor.Structs.SemanticTagStruct)
+            matter_asserts.assert_list_element_type(val,  "TagList attribute must contain SemanticTagStruct elements", cluster.Structs.SemanticTagStruct)
             for item in val:
                 await self.test_checkSemanticTagStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_greater_equal(len(val), 1, "TagList must have at least 1 entries!")

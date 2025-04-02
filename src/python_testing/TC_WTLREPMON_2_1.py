@@ -79,11 +79,11 @@ class WTLREPMON_2_1(MatterBaseTest):
         self.step("2")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DegradationDirection):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DegradationDirection)
-            matter_asserts.assert_valid_enum(val, "DegradationDirection attribute must return a Clusters.HEPAFilterMonitoring.Enums.DegradationDirectionEnum", Clusters.HEPAFilterMonitoring.Enums.DegradationDirectionEnum)
+            matter_asserts.assert_valid_enum(val, "DegradationDirection attribute must return a DegradationDirectionEnum", Clusters.HEPAFilterMonitoring.Enums.DegradationDirectionEnum)
 
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ChangeIndication)
-        matter_asserts.assert_valid_enum(val, "ChangeIndication attribute must return a Clusters.HEPAFilterMonitoring.Enums.ChangeIndicationEnum", Clusters.HEPAFilterMonitoring.Enums.ChangeIndicationEnum)
+        matter_asserts.assert_valid_enum(val, "ChangeIndication attribute must return a ChangeIndicationEnum", Clusters.HEPAFilterMonitoring.Enums.ChangeIndicationEnum)
 
         self.step("4")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.InPlaceIndicator):
@@ -101,7 +101,7 @@ class WTLREPMON_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ReplacementProductList):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ReplacementProductList)
             matter_asserts.assert_list(val, "ReplacementProductList attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "ReplacementProductList attribute must contain Clusters.HEPAFilterMonitoring.Structs.ReplacementProductStruct elements", Clusters.HEPAFilterMonitoring.Structs.ReplacementProductStruct)
+            matter_asserts.assert_list_element_type(val,  "ReplacementProductList attribute must contain ReplacementProductStruct elements", Clusters.HEPAFilterMonitoring.Structs.ReplacementProductStruct)
             for item in val:
                 await self.test_checkReplacementProductStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_less_equal(len(val), 5, "ReplacementProductList must have at most 5 entries!")
@@ -111,7 +111,7 @@ class WTLREPMON_2_1(MatterBaseTest):
                                  endpoint: int = None, 
                                  cluster: Clusters.WaterTankLevelMonitoring = None, 
                                  struct: Clusters.HEPAFilterMonitoring.Structs.ReplacementProductStruct = None):
-        matter_asserts.assert_valid_enum(struct.productIdentifierType, "ProductIdentifierType attribute must return a Clusters.HEPAFilterMonitoring.Enums.ProductIdentifierTypeEnum", Clusters.HEPAFilterMonitoring.Enums.ProductIdentifierTypeEnum)
+        matter_asserts.assert_valid_enum(struct.productIdentifierType, "ProductIdentifierType attribute must return a ProductIdentifierTypeEnum", Clusters.HEPAFilterMonitoring.Enums.ProductIdentifierTypeEnum)
         matter_asserts.assert_is_string(struct.productIdentifierValue, "ProductIdentifierValue must be a string")
         asserts.assert_less_equal(len(struct.productIdentifierValue), 20, "ProductIdentifierValue must have length at most 20!")
 

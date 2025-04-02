@@ -74,7 +74,7 @@ class S_2_1(MatterBaseTest):
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.FabricSceneInfo)
         matter_asserts.assert_list(val, "FabricSceneInfo attribute must return a list")
-        matter_asserts.assert_list_element_type(val,  "FabricSceneInfo attribute must contain Clusters.ScenesManagement.Structs.SceneInfoStruct elements", Clusters.ScenesManagement.Structs.SceneInfoStruct)
+        matter_asserts.assert_list_element_type(val,  "FabricSceneInfo attribute must contain SceneInfoStruct elements", cluster.Structs.SceneInfoStruct)
         for item in val:
             await self.test_checkSceneInfoStruct(endpoint=endpoint, cluster=cluster, struct=item)
 

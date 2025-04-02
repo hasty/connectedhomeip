@@ -80,27 +80,27 @@ class SMOKECO_2_1(MatterBaseTest):
 
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ExpressedState)
-        matter_asserts.assert_valid_enum(val, "ExpressedState attribute must return a Clusters.SmokeCOAlarm.Enums.ExpressedStateEnum", Clusters.SmokeCOAlarm.Enums.ExpressedStateEnum)
+        matter_asserts.assert_valid_enum(val, "ExpressedState attribute must return a ExpressedStateEnum", cluster.Enums.ExpressedStateEnum)
 
         self.step("2")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SmokeState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SmokeState)
-            matter_asserts.assert_valid_enum(val, "SmokeState attribute must return a Clusters.SmokeCOAlarm.Enums.AlarmStateEnum", Clusters.SmokeCOAlarm.Enums.AlarmStateEnum)
+            matter_asserts.assert_valid_enum(val, "SmokeState attribute must return a AlarmStateEnum", cluster.Enums.AlarmStateEnum)
 
         self.step("3")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.COState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.COState)
-            matter_asserts.assert_valid_enum(val, "COState attribute must return a Clusters.SmokeCOAlarm.Enums.AlarmStateEnum", Clusters.SmokeCOAlarm.Enums.AlarmStateEnum)
+            matter_asserts.assert_valid_enum(val, "COState attribute must return a AlarmStateEnum", cluster.Enums.AlarmStateEnum)
 
         self.step("4")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatteryAlert)
-        matter_asserts.assert_valid_enum(val, "BatteryAlert attribute must return a Clusters.SmokeCOAlarm.Enums.AlarmStateEnum", Clusters.SmokeCOAlarm.Enums.AlarmStateEnum)
+        matter_asserts.assert_valid_enum(val, "BatteryAlert attribute must return a AlarmStateEnum", cluster.Enums.AlarmStateEnum)
 
         self.step("5")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DeviceMuted):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DeviceMuted)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "DeviceMuted attribute must return a Clusters.SmokeCOAlarm.Enums.MuteStateEnum", Clusters.SmokeCOAlarm.Enums.MuteStateEnum)
+                matter_asserts.assert_valid_enum(val, "DeviceMuted attribute must return a MuteStateEnum", cluster.Enums.MuteStateEnum)
 
         self.step("6")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TestInProgress)
@@ -112,31 +112,31 @@ class SMOKECO_2_1(MatterBaseTest):
 
         self.step("8")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EndOfServiceAlert)
-        matter_asserts.assert_valid_enum(val, "EndOfServiceAlert attribute must return a Clusters.SmokeCOAlarm.Enums.EndOfServiceEnum", Clusters.SmokeCOAlarm.Enums.EndOfServiceEnum)
+        matter_asserts.assert_valid_enum(val, "EndOfServiceAlert attribute must return a EndOfServiceEnum", cluster.Enums.EndOfServiceEnum)
 
         self.step("9")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.InterconnectSmokeAlarm):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.InterconnectSmokeAlarm)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "InterconnectSmokeAlarm attribute must return a Clusters.SmokeCOAlarm.Enums.AlarmStateEnum", Clusters.SmokeCOAlarm.Enums.AlarmStateEnum)
+                matter_asserts.assert_valid_enum(val, "InterconnectSmokeAlarm attribute must return a AlarmStateEnum", cluster.Enums.AlarmStateEnum)
 
         self.step("10")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.InterconnectCOAlarm):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.InterconnectCOAlarm)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "InterconnectCOAlarm attribute must return a Clusters.SmokeCOAlarm.Enums.AlarmStateEnum", Clusters.SmokeCOAlarm.Enums.AlarmStateEnum)
+                matter_asserts.assert_valid_enum(val, "InterconnectCOAlarm attribute must return a AlarmStateEnum", cluster.Enums.AlarmStateEnum)
 
         self.step("11")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ContaminationState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ContaminationState)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "ContaminationState attribute must return a Clusters.SmokeCOAlarm.Enums.ContaminationStateEnum", Clusters.SmokeCOAlarm.Enums.ContaminationStateEnum)
+                matter_asserts.assert_valid_enum(val, "ContaminationState attribute must return a ContaminationStateEnum", cluster.Enums.ContaminationStateEnum)
 
         self.step("12")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SmokeSensitivityLevel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SmokeSensitivityLevel)
             if val is not None:
-                matter_asserts.assert_valid_enum(val, "SmokeSensitivityLevel attribute must return a Clusters.SmokeCOAlarm.Enums.SensitivityEnum", Clusters.SmokeCOAlarm.Enums.SensitivityEnum)
+                matter_asserts.assert_valid_enum(val, "SmokeSensitivityLevel attribute must return a SensitivityEnum", cluster.Enums.SensitivityEnum)
 
         self.step("13")
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ExpiryDate):
