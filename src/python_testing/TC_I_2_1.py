@@ -58,7 +58,6 @@ class I_2_1(MatterBaseTest):
             TestStep("1", "Read IdentifyTime attribute"),
             TestStep("2", "Read IdentifyType attribute"),
         ]
-
         return steps
 
 
@@ -74,8 +73,6 @@ class I_2_1(MatterBaseTest):
         self.step("2")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.IdentifyType)
         matter_asserts.assert_valid_enum(val, "IdentifyType attribute must return a IdentifyTypeEnum", cluster.Enums.IdentifyTypeEnum)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

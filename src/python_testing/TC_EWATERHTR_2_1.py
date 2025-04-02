@@ -62,7 +62,6 @@ class EWATERHTR_2_1(MatterBaseTest):
             TestStep("5", "Read TankPercentage attribute"),
             TestStep("6", "Read BoostState attribute"),
         ]
-
         return steps
 
     TargetPercentage = None
@@ -99,8 +98,6 @@ class EWATERHTR_2_1(MatterBaseTest):
         self.step("6")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BoostState)
         matter_asserts.assert_valid_enum(val, "BoostState attribute must return a BoostStateEnum", cluster.Enums.BoostStateEnum)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

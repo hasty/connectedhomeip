@@ -66,7 +66,6 @@ class ICDM_2_1(MatterBaseTest):
             TestStep("9", "Read OperatingMode attribute"),
             TestStep("10", "Read MaximumCheckInBackoff attribute"),
         ]
-
         return steps
 
     IdleModeDuration = None
@@ -132,7 +131,6 @@ class ICDM_2_1(MatterBaseTest):
             asserts.assert_greater_equal(val, self.IdleModeDuration)
             asserts.assert_less_equal(val, 64800)
 
-
     async def test_checkMonitoringRegistrationStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ICDManagement = None, 
@@ -140,7 +138,6 @@ class ICDM_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint64(struct.checkInNodeID, 'CheckInNodeID must be uint64')
         matter_asserts.assert_valid_uint64(struct.monitoredSubject, 'MonitoredSubject must be uint64')
         matter_asserts.assert_valid_enum(struct.clientType, "ClientType attribute must return a ClientTypeEnum", cluster.Enums.ClientTypeEnum)
-
 
 if __name__ == "__main__":
     default_matter_test_main()

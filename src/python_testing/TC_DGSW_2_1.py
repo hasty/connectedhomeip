@@ -60,7 +60,6 @@ class DGSW_2_1(MatterBaseTest):
             TestStep("3", "Read CurrentHeapUsed attribute"),
             TestStep("4", "Read CurrentHeapHighWatermark attribute"),
         ]
-
         return steps
 
 
@@ -96,7 +95,6 @@ class DGSW_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentHeapHighWatermark)
             matter_asserts.assert_valid_uint64(val, 'CurrentHeapHighWatermark')
 
-
     async def test_checkThreadMetricsStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.SoftwareDiagnostics = None, 
@@ -111,7 +109,6 @@ class DGSW_2_1(MatterBaseTest):
             matter_asserts.assert_valid_uint32(struct.stackFreeMinimum, 'StackFreeMinimum')
         if struct.stackSize is not None:
             matter_asserts.assert_valid_uint32(struct.stackSize, 'StackSize')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

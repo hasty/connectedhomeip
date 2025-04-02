@@ -58,7 +58,6 @@ class AUDIOOUTPUT_2_1(MatterBaseTest):
             TestStep("1", "Read OutputList attribute"),
             TestStep("2", "Read CurrentOutput attribute"),
         ]
-
         return steps
 
 
@@ -78,7 +77,6 @@ class AUDIOOUTPUT_2_1(MatterBaseTest):
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentOutput)
         matter_asserts.assert_valid_uint8(val, 'CurrentOutput')
 
-
     async def test_checkOutputInfoStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.AudioOutput = None, 
@@ -86,7 +84,6 @@ class AUDIOOUTPUT_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint8(struct.index, 'Index')
         matter_asserts.assert_valid_enum(struct.outputType, "OutputType attribute must return a OutputTypeEnum", cluster.Enums.OutputTypeEnum)
         matter_asserts.assert_is_string(struct.name, "Name must be a string")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

@@ -62,7 +62,6 @@ class MOD_2_1(MatterBaseTest):
             TestStep("5", "Read StartUpMode attribute"),
             TestStep("6", "Read OnMode attribute"),
         ]
-
         return steps
 
 
@@ -105,7 +104,6 @@ class MOD_2_1(MatterBaseTest):
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'OnMode')
 
-
     async def test_checkModeOptionStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ModeSelect = None, 
@@ -125,7 +123,6 @@ class MOD_2_1(MatterBaseTest):
                                  struct: Clusters.ModeSelect.Structs.SemanticTagStruct = None):
         matter_asserts.assert_valid_uint16(struct.mfgCode, 'MfgCode must be uint16')
         matter_asserts.assert_valid_uint16(struct.value, 'Value must be uint16')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

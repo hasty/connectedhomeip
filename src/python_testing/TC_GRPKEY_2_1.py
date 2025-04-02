@@ -60,7 +60,6 @@ class GRPKEY_2_1(MatterBaseTest):
             TestStep("3", "Read MaxGroupsPerFabric attribute"),
             TestStep("4", "Read MaxGroupKeysPerFabric attribute"),
         ]
-
         return steps
 
 
@@ -93,7 +92,6 @@ class GRPKEY_2_1(MatterBaseTest):
         asserts.assert_greater_equal(val, 1)
         asserts.assert_less_equal(val, 65535)
 
-
     async def test_checkGroupInfoMapStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.GroupKeyManagement = None, 
@@ -114,7 +112,6 @@ class GRPKEY_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint16(struct.groupKeySetID, 'GroupKeySetID')
         asserts.assert_greater_equal(struct.groupKeySetID, 1)
         asserts.assert_less_equal(struct.groupKeySetID, 65535)
-
 
 if __name__ == "__main__":
     default_matter_test_main()

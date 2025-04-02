@@ -69,7 +69,6 @@ class SMOKECO_2_1(MatterBaseTest):
             TestStep("12", "Read SmokeSensitivityLevel attribute"),
             TestStep("13", "Read ExpiryDate attribute"),
         ]
-
         return steps
 
 
@@ -143,8 +142,6 @@ class SMOKECO_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ExpiryDate)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'ExpiryDate')
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

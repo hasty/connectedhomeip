@@ -64,7 +64,6 @@ class BOOLCFG_2_1(MatterBaseTest):
             TestStep("7", "Read AlarmsSupported attribute"),
             TestStep("8", "Read SensorFault attribute"),
         ]
-
         return steps
 
     SupportedSensitivityLevels = None
@@ -120,8 +119,6 @@ class BOOLCFG_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SensorFault)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

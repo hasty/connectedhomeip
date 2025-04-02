@@ -67,7 +67,6 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
             TestStep("10", "Read ActiveTextTrack attribute"),
             TestStep("11", "Read AvailableTextTracks attribute"),
         ]
-
         return steps
 
 
@@ -148,7 +147,6 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
                 for item in val:
                     await self.test_checkTrackStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
-
     async def test_checkPlaybackPositionStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.MediaPlayback = None, 
@@ -178,7 +176,6 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
         asserts.assert_less_equal(len(struct.iD), 32, "ID must have length at most 32!")
         asserts.assert_true(isinstance(struct.trackAttributes, cluster.Structs.TrackAttributesStruct), f"struct.trackAttributes must be of type TrackAttributesStruct")
         await self.test_checkTrackAttributesStruct(endpoint=endpoint, cluster=cluster, struct=struct.trackAttributes)
-
 
 if __name__ == "__main__":
     default_matter_test_main()

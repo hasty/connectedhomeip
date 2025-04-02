@@ -67,7 +67,6 @@ class CONCON_2_1(MatterBaseTest):
             TestStep("10", "Read BlockApplicationList attribute"),
             TestStep("11", "Read BlockContentTimeWindow attribute"),
         ]
-
         return steps
 
 
@@ -150,7 +149,6 @@ class CONCON_2_1(MatterBaseTest):
                 await self.test_checkTimeWindowStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_less_equal(len(val), 7, "BlockContentTimeWindow must have at most 7 entries!")
 
-
     async def test_checkAppInfoStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ContentControl = None, 
@@ -207,7 +205,6 @@ class CONCON_2_1(MatterBaseTest):
         matter_asserts.assert_list_element_type(struct.timePeriod,  "TimePeriod attribute must contain TimePeriodStruct elements", cluster.Structs.TimePeriodStruct)
         for item in struct.timePeriod:
             await self.test_checkTimePeriodStruct(endpoint=endpoint, cluster=cluster, struct=item)
-
 
 if __name__ == "__main__":
     default_matter_test_main()

@@ -58,7 +58,6 @@ class WIFINM_2_1(MatterBaseTest):
             TestStep("1", "Read SSID attribute"),
             TestStep("2", "Read PassphraseSurrogate attribute"),
         ]
-
         return steps
 
 
@@ -78,8 +77,6 @@ class WIFINM_2_1(MatterBaseTest):
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PassphraseSurrogate)
         if val is not NullValue:
             matter_asserts.assert_valid_uint64(val, 'PassphraseSurrogate')
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

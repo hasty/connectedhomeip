@@ -62,7 +62,6 @@ class OPSTATE_2_1(MatterBaseTest):
             TestStep("5", "Read OperationalState attribute"),
             TestStep("6", "Read OperationalError attribute"),
         ]
-
         return steps
 
 
@@ -108,7 +107,6 @@ class OPSTATE_2_1(MatterBaseTest):
         asserts.assert_true(isinstance(val, cluster.Structs.ErrorStateStruct), f"val must be of type ErrorStateStruct")
         await self.test_checkErrorStateStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
-
     async def test_checkErrorStateStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.OperationalState = None, 
@@ -127,7 +125,6 @@ class OPSTATE_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(struct.operationalStateID, "OperationalStateID attribute must return a OperationalStateEnum", cluster.Enums.OperationalStateEnum)
         matter_asserts.assert_is_string(struct.operationalStateLabel, "OperationalStateLabel must be a string")
         asserts.assert_less_equal(len(struct.operationalStateLabel), 64, "OperationalStateLabel must have length at most 64!")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

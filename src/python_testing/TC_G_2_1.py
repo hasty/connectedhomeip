@@ -57,7 +57,6 @@ class G_2_1(MatterBaseTest):
         steps = [
             TestStep("1", "Read NameSupport attribute"),
         ]
-
         return steps
 
 
@@ -69,8 +68,6 @@ class G_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NameSupport)
         matter_asserts.is_valid_int_value(val)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

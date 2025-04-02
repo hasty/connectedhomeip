@@ -58,7 +58,6 @@ class ECOINFO_2_1(MatterBaseTest):
             TestStep("1", "Read DeviceDirectory attribute"),
             TestStep("2", "Read LocationDirectory attribute"),
         ]
-
         return steps
 
 
@@ -80,7 +79,6 @@ class ECOINFO_2_1(MatterBaseTest):
         matter_asserts.assert_list_element_type(val,  "LocationDirectory attribute must contain EcosystemLocationStruct elements", cluster.Structs.EcosystemLocationStruct)
         for item in val:
             await self.test_checkEcosystemLocationStruct(endpoint=endpoint, cluster=cluster, struct=item)
-
 
     async def test_checkDeviceTypeStruct(self, 
                                  endpoint: int = None, 
@@ -133,7 +131,6 @@ class ECOINFO_2_1(MatterBaseTest):
             matter_asserts.assert_valid_int16(struct.floorNumber, 'FloorNumber')
         if struct.areaType is not NullValue:
             matter_asserts.assert_valid_uint8(struct.areaType, 'AreaType must be uint8')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

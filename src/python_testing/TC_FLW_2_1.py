@@ -60,7 +60,6 @@ class FLW_2_1(MatterBaseTest):
             TestStep("3", "Read MaxMeasuredValue attribute"),
             TestStep("4", "Read Tolerance attribute"),
         ]
-
         return steps
 
     MaxMeasuredValue = None
@@ -96,8 +95,6 @@ class FLW_2_1(MatterBaseTest):
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Tolerance')
                 asserts.assert_less_equal(val, 2048)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

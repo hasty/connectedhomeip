@@ -65,7 +65,6 @@ class JFDS_2_1(MatterBaseTest):
             TestStep("8", "Read AdminList attribute"),
             TestStep("9", "Read StatusEntry attribute"),
         ]
-
         return steps
 
 
@@ -123,7 +122,6 @@ class JFDS_2_1(MatterBaseTest):
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StatusEntry)
         asserts.assert_true(isinstance(val, cluster.Structs.DatastoreStatusEntryStruct), f"val must be of type DatastoreStatusEntryStruct")
         await self.test_checkDatastoreStatusEntryStruct(endpoint=endpoint, cluster=cluster, struct=val)
-
 
     async def test_checkAccessControlEntryStruct(self, 
                                  endpoint: int = None, 
@@ -297,7 +295,6 @@ class JFDS_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint16(struct.endpoint, 'Endpoint must be uint16')
         if struct.cluster is not None:
             matter_asserts.assert_valid_uint32(struct.cluster, 'Cluster must be uint32')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

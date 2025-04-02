@@ -69,7 +69,6 @@ class DGWIFI_2_1(MatterBaseTest):
             TestStep("12", "Read CurrentMaxRate attribute"),
             TestStep("13", "Read OverrunCount attribute"),
         ]
-
         return steps
 
 
@@ -152,8 +151,6 @@ class DGWIFI_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OverrunCount)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint64(val, 'OverrunCount')
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

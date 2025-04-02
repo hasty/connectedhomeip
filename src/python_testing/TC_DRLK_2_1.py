@@ -101,7 +101,6 @@ class DRLK_2_1(MatterBaseTest):
             TestStep("44", "Read NumberOfAliroCredentialIssuerKeysSupported attribute"),
             TestStep("45", "Read NumberOfAliroEndpointKeysSupported attribute"),
         ]
-
         return steps
 
 
@@ -363,8 +362,6 @@ class DRLK_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfAliroEndpointKeysSupported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfAliroEndpointKeysSupported)
             matter_asserts.assert_valid_uint16(val, 'NumberOfAliroEndpointKeysSupported')
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

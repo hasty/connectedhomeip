@@ -58,7 +58,6 @@ class MESS_2_1(MatterBaseTest):
             TestStep("1", "Read Messages attribute"),
             TestStep("2", "Read ActiveMessageIDs attribute"),
         ]
-
         return steps
 
 
@@ -80,7 +79,6 @@ class MESS_2_1(MatterBaseTest):
         matter_asserts.assert_list(val, "ActiveMessageIDs attribute must return a list")
         matter_asserts.assert_list_element_type(val,  "ActiveMessageIDs attribute must contain bytes elements", bytes)
         asserts.assert_less_equal(len(val), 8, "ActiveMessageIDs must have at most 8 entries!")
-
 
     async def test_checkMessageResponseOptionStruct(self, 
                                  endpoint: int = None, 
@@ -110,7 +108,6 @@ class MESS_2_1(MatterBaseTest):
         for item in struct.responses:
             await self.test_checkMessageResponseOptionStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_less_equal(len(struct.responses), 4, "Responses must have at most 4 entries!")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

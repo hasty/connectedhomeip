@@ -57,7 +57,6 @@ class BOOL_2_1(MatterBaseTest):
         steps = [
             TestStep("1", "Read StateValue attribute"),
         ]
-
         return steps
 
 
@@ -69,8 +68,6 @@ class BOOL_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StateValue)
         matter_asserts.assert_valid_bool(val, 'StateValue')
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

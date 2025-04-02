@@ -65,7 +65,6 @@ class DGGEN_2_1(MatterBaseTest):
             TestStep("8", "Read ActiveNetworkFaults attribute"),
             TestStep("9", "Read TestEventTriggersEnabled attribute"),
         ]
-
         return steps
 
 
@@ -130,7 +129,6 @@ class DGGEN_2_1(MatterBaseTest):
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TestEventTriggersEnabled)
         matter_asserts.assert_valid_bool(val, 'TestEventTriggersEnabled')
 
-
     async def test_checkNetworkInterface(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.GeneralDiagnostics = None, 
@@ -152,7 +150,6 @@ class DGGEN_2_1(MatterBaseTest):
         matter_asserts.assert_list_element_type(struct.iPv6Addresses,  "IPv6Addresses attribute must contain bytes elements", bytes)
         asserts.assert_less_equal(len(struct.iPv6Addresses), 8, "IPv6Addresses must have at most 8 entries!")
         matter_asserts.assert_valid_enum(struct.type, "Type attribute must return a InterfaceTypeEnum", cluster.Enums.InterfaceTypeEnum)
-
 
 if __name__ == "__main__":
     default_matter_test_main()

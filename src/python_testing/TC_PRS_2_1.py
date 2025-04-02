@@ -65,7 +65,6 @@ class PRS_2_1(MatterBaseTest):
             TestStep("8", "Read ScaledTolerance attribute"),
             TestStep("9", "Read Scale attribute"),
         ]
-
         return steps
 
     MaxMeasuredValue = None
@@ -140,8 +139,6 @@ class PRS_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Scale)
             matter_asserts.assert_valid_int8(val, 'Scale')
             asserts.assert_greater_equal(val, -127)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

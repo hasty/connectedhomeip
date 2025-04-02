@@ -74,7 +74,6 @@ class BRBINFO_2_1(MatterBaseTest):
             TestStep("17", "Read ProductAppearance attribute"),
             TestStep("18", "Read ConfigurationVersion attribute"),
         ]
-
         return steps
 
 
@@ -199,8 +198,6 @@ class BRBINFO_2_1(MatterBaseTest):
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'ConfigurationVersion')
                 asserts.assert_greater_equal(val, 1)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

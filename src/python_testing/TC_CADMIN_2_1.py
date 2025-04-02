@@ -59,7 +59,6 @@ class CADMIN_2_1(MatterBaseTest):
             TestStep("2", "Read AdminFabricIndex attribute"),
             TestStep("3", "Read AdminVendorId attribute"),
         ]
-
         return steps
 
 
@@ -81,8 +80,6 @@ class CADMIN_2_1(MatterBaseTest):
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AdminVendorId)
         if val is not NullValue:
             matter_asserts.assert_valid_uint16(val, 'AdminVendorId must be uint16')
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

@@ -59,7 +59,6 @@ class THNETDIR_2_1(MatterBaseTest):
             TestStep("2", "Read ThreadNetworks attribute"),
             TestStep("3", "Read ThreadNetworkTableSize attribute"),
         ]
-
         return steps
 
     ThreadNetworkTableSize = None
@@ -86,7 +85,6 @@ class THNETDIR_2_1(MatterBaseTest):
         self.ThreadNetworkTableSize = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ThreadNetworkTableSize)
         matter_asserts.assert_valid_uint8(self.ThreadNetworkTableSize, 'ThreadNetworkTableSize')
 
-
     async def test_checkThreadNetworkStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ThreadNetworkDirectory = None, 
@@ -97,7 +95,6 @@ class THNETDIR_2_1(MatterBaseTest):
         asserts.assert_less_equal(len(struct.networkName), 16, "NetworkName must have length at most 16!")
         matter_asserts.assert_valid_uint16(struct.channel, 'Channel')
         matter_asserts.assert_valid_uint64(struct.activeTimestamp, 'ActiveTimestamp')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

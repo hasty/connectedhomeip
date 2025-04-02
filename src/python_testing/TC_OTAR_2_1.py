@@ -60,7 +60,6 @@ class OTAR_2_1(MatterBaseTest):
             TestStep("3", "Read UpdateState attribute"),
             TestStep("4", "Read UpdateStateProgress attribute"),
         ]
-
         return steps
 
 
@@ -91,14 +90,12 @@ class OTAR_2_1(MatterBaseTest):
             asserts.assert_greater_equal(val, 0)
             asserts.assert_less_equal(val, 100)
 
-
     async def test_checkProviderLocation(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.OTASoftwareUpdateRequestor = None, 
                                  struct: Clusters.OTASoftwareUpdateRequestor.Structs.ProviderLocation = None):
         matter_asserts.assert_valid_uint64(struct.providerNodeID, 'ProviderNodeID must be uint64')
         matter_asserts.assert_valid_uint16(struct.endpoint, 'Endpoint must be uint16')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

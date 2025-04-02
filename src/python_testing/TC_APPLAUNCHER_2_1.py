@@ -58,7 +58,6 @@ class APPLAUNCHER_2_1(MatterBaseTest):
             TestStep("1", "Read CatalogList attribute"),
             TestStep("2", "Read CurrentApp attribute"),
         ]
-
         return steps
 
 
@@ -80,7 +79,6 @@ class APPLAUNCHER_2_1(MatterBaseTest):
                 asserts.assert_true(isinstance(val, cluster.Structs.ApplicationEPStruct), f"val must be of type ApplicationEPStruct")
                 await self.test_checkApplicationEPStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
-
     async def test_checkApplicationEPStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ApplicationLauncher = None, 
@@ -96,7 +94,6 @@ class APPLAUNCHER_2_1(MatterBaseTest):
                                  struct: Clusters.ApplicationLauncher.Structs.ApplicationStruct = None):
         matter_asserts.assert_valid_uint16(struct.catalogVendorID, 'CatalogVendorID')
         matter_asserts.assert_is_string(struct.applicationID, "ApplicationID must be a string")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

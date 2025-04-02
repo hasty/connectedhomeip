@@ -58,7 +58,6 @@ class MEDIAINPUT_2_1(MatterBaseTest):
             TestStep("1", "Read InputList attribute"),
             TestStep("2", "Read CurrentInput attribute"),
         ]
-
         return steps
 
 
@@ -78,7 +77,6 @@ class MEDIAINPUT_2_1(MatterBaseTest):
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentInput)
         matter_asserts.assert_valid_uint8(val, 'CurrentInput')
 
-
     async def test_checkInputInfoStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.MediaInput = None, 
@@ -87,7 +85,6 @@ class MEDIAINPUT_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(struct.inputType, "InputType attribute must return a InputTypeEnum", cluster.Enums.InputTypeEnum)
         matter_asserts.assert_is_string(struct.name, "Name must be a string")
         matter_asserts.assert_is_string(struct.description, "Description must be a string")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

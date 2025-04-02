@@ -61,7 +61,6 @@ class ILL_2_1(MatterBaseTest):
             TestStep("4", "Read Tolerance attribute"),
             TestStep("5", "Read LightSensorType attribute"),
         ]
-
         return steps
 
     MaxMeasuredValue = None
@@ -104,8 +103,6 @@ class ILL_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LightSensorType)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_enum(val, "LightSensorType attribute must return a LightSensorTypeEnum", cluster.Enums.LightSensorTypeEnum)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

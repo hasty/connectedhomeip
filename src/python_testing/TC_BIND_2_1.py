@@ -57,7 +57,6 @@ class BIND_2_1(MatterBaseTest):
         steps = [
             TestStep("1", "Read Binding attribute"),
         ]
-
         return steps
 
 
@@ -73,7 +72,6 @@ class BIND_2_1(MatterBaseTest):
         for item in val:
             await self.test_checkTargetStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
-
     async def test_checkTargetStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.Binding = None, 
@@ -84,7 +82,6 @@ class BIND_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint16(struct.endpoint, 'Endpoint must be uint16')
         if struct.cluster is not None:
             matter_asserts.assert_valid_uint32(struct.cluster, 'Cluster must be uint32')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

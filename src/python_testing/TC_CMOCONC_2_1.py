@@ -67,7 +67,6 @@ class CMOCONC_2_1(MatterBaseTest):
             TestStep("10", "Read MeasurementMedium attribute"),
             TestStep("11", "Read LevelValue attribute"),
         ]
-
         return steps
 
     MaxMeasuredValue = None
@@ -146,8 +145,6 @@ class CMOCONC_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LevelValue):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LevelValue)
             matter_asserts.assert_valid_enum(val, "LevelValue attribute must return a LevelValueEnum", cluster.Enums.LevelValueEnum)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

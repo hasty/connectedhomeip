@@ -58,7 +58,6 @@ class S_2_1(MatterBaseTest):
             TestStep("1", "Read SceneTableSize attribute"),
             TestStep("2", "Read FabricSceneInfo attribute"),
         ]
-
         return steps
 
 
@@ -78,7 +77,6 @@ class S_2_1(MatterBaseTest):
         for item in val:
             await self.test_checkSceneInfoStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
-
     async def test_checkSceneInfoStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ScenesManagement = None, 
@@ -89,7 +87,6 @@ class S_2_1(MatterBaseTest):
         matter_asserts.assert_valid_bool(struct.sceneValid, 'SceneValid')
         matter_asserts.assert_valid_uint8(struct.remainingCapacity, 'RemainingCapacity')
         asserts.assert_less_equal(struct.remainingCapacity, 253)
-
 
 if __name__ == "__main__":
     default_matter_test_main()

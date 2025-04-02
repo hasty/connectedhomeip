@@ -58,7 +58,6 @@ class TGTNAV_2_1(MatterBaseTest):
             TestStep("1", "Read TargetList attribute"),
             TestStep("2", "Read CurrentTarget attribute"),
         ]
-
         return steps
 
 
@@ -80,7 +79,6 @@ class TGTNAV_2_1(MatterBaseTest):
             if val is not None:
                 matter_asserts.assert_valid_uint8(val, 'CurrentTarget')
 
-
     async def test_checkTargetInfoStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.TargetNavigator = None, 
@@ -88,7 +86,6 @@ class TGTNAV_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint8(struct.identifier, 'Identifier')
         asserts.assert_less_equal(struct.identifier, 254)
         matter_asserts.assert_is_string(struct.name, "Name must be a string")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

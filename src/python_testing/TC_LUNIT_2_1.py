@@ -57,7 +57,6 @@ class LUNIT_2_1(MatterBaseTest):
         steps = [
             TestStep("1", "Read TemperatureUnit attribute"),
         ]
-
         return steps
 
 
@@ -70,8 +69,6 @@ class LUNIT_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TemperatureUnit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TemperatureUnit)
             matter_asserts.assert_valid_enum(val, "TemperatureUnit attribute must return a TempUnitEnum", cluster.Enums.TempUnitEnum)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

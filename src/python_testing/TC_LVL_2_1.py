@@ -71,7 +71,6 @@ class LVL_2_1(MatterBaseTest):
             TestStep("14", "Read Options attribute"),
             TestStep("15", "Read StartUpCurrentLevel attribute"),
         ]
-
         return steps
 
     MaxFrequency = None
@@ -178,8 +177,6 @@ class LVL_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StartUpCurrentLevel)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'StartUpCurrentLevel')
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

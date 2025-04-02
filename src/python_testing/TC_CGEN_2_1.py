@@ -66,7 +66,6 @@ class CGEN_2_1(MatterBaseTest):
             TestStep("9", "Read TCAcknowledgementsRequired attribute"),
             TestStep("10", "Read TCUpdateDeadline attribute"),
         ]
-
         return steps
 
 
@@ -122,14 +121,12 @@ class CGEN_2_1(MatterBaseTest):
             if val is not NullValue:
                 matter_asserts.assert_valid_uint32(val, 'TCUpdateDeadline')
 
-
     async def test_checkBasicCommissioningInfo(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.GeneralCommissioning = None, 
                                  struct: Clusters.GeneralCommissioning.Structs.BasicCommissioningInfo = None):
         matter_asserts.assert_valid_uint16(struct.failSafeExpiryLengthSeconds, 'FailSafeExpiryLengthSeconds')
         matter_asserts.assert_valid_uint16(struct.maxCumulativeFailsafeSeconds, 'MaxCumulativeFailsafeSeconds')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

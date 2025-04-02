@@ -58,7 +58,6 @@ class DRYERCTRL_2_1(MatterBaseTest):
             TestStep("1", "Read SupportedDrynessLevels attribute"),
             TestStep("2", "Read SelectedDrynessLevel attribute"),
         ]
-
         return steps
 
 
@@ -78,8 +77,6 @@ class DRYERCTRL_2_1(MatterBaseTest):
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SelectedDrynessLevel)
         if val is not NullValue:
             matter_asserts.assert_valid_enum(val, "SelectedDrynessLevel attribute must return a DrynessLevelEnum", cluster.Enums.DrynessLevelEnum)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

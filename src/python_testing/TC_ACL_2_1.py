@@ -63,7 +63,6 @@ class ACL_2_1(MatterBaseTest):
             TestStep("6", "Read CommissioningARL attribute"),
             TestStep("7", "Read ARL attribute"),
         ]
-
         return steps
 
     SubjectsPerAccessControlEntry = None
@@ -119,7 +118,6 @@ class ACL_2_1(MatterBaseTest):
             matter_asserts.assert_list_element_type(val,  "ARL attribute must contain AccessRestrictionEntryStruct elements", cluster.Structs.AccessRestrictionEntryStruct)
             for item in val:
                 await self.test_checkAccessRestrictionEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
-
 
     async def test_checkAccessControlEntryStruct(self, 
                                  endpoint: int = None, 
@@ -187,7 +185,6 @@ class ACL_2_1(MatterBaseTest):
         for item in struct.restrictions:
             await self.test_checkAccessRestrictionStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_greater_equal(len(struct.restrictions), 1, "Restrictions must have at least 1 entries!")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

@@ -115,7 +115,6 @@ class TSTAT_2_1(MatterBaseTest):
             TestStep("58", "Read Schedules attribute"),
             TestStep("59", "Read SetpointHoldExpiryTimestamp attribute"),
         ]
-
         return steps
 
     NumberOfPresets = None
@@ -492,7 +491,6 @@ class TSTAT_2_1(MatterBaseTest):
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint32(val, 'SetpointHoldExpiryTimestamp')
 
-
     async def test_checkPresetStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.Thermostat = None, 
@@ -565,7 +563,6 @@ class TSTAT_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint8(struct.numberOfSchedules, 'NumberOfSchedules')
         asserts.assert_less_equal(struct.numberOfSchedules, self.NumberOfSchedules)
         matter_asserts.is_valid_int_value(struct.scheduleTypeFeatures)
-
 
 if __name__ == "__main__":
     default_matter_test_main()

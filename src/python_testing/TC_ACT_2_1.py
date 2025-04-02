@@ -59,7 +59,6 @@ class ACT_2_1(MatterBaseTest):
             TestStep("2", "Read EndpointLists attribute"),
             TestStep("3", "Read SetupURL attribute"),
         ]
-
         return steps
 
 
@@ -91,7 +90,6 @@ class ACT_2_1(MatterBaseTest):
                 matter_asserts.assert_is_string(val, "SetupURL must be a string")
                 asserts.assert_less_equal(len(val), 512, "SetupURL must have length at most 512!")
 
-
     async def test_checkActionStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.Actions = None, 
@@ -117,7 +115,6 @@ class ACT_2_1(MatterBaseTest):
         matter_asserts.assert_list(struct.endpoints, "Endpoints attribute must return a list")
         matter_asserts.assert_list_element_type(struct.endpoints,  "Endpoints attribute must contain int elements", int)
         asserts.assert_less_equal(len(struct.endpoints), 256, "Endpoints must have at most 256 entries!")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

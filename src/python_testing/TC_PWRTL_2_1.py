@@ -58,7 +58,6 @@ class PWRTL_2_1(MatterBaseTest):
             TestStep("1", "Read AvailableEndpoints attribute"),
             TestStep("2", "Read ActiveEndpoints attribute"),
         ]
-
         return steps
 
 
@@ -80,8 +79,6 @@ class PWRTL_2_1(MatterBaseTest):
             matter_asserts.assert_list(val, "ActiveEndpoints attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "ActiveEndpoints attribute must contain int elements", int)
             asserts.assert_less_equal(len(val), 20, "ActiveEndpoints must have at most 20 entries!")
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

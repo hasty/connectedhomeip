@@ -70,7 +70,6 @@ class OCC_2_1(MatterBaseTest):
             TestStep("13", "Read PhysicalContactUnoccupiedToOccupiedDelay attribute"),
             TestStep("14", "Read PhysicalContactUnoccupiedToOccupiedThreshold attribute"),
         ]
-
         return steps
 
     HoldTimeLimits = None
@@ -174,7 +173,6 @@ class OCC_2_1(MatterBaseTest):
                 asserts.assert_greater_equal(val, 1)
                 asserts.assert_less_equal(val, 254)
 
-
     async def test_checkHoldTimeLimitsStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.OccupancySensing = None, 
@@ -187,7 +185,6 @@ class OCC_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint16(struct.holdTimeDefault, 'HoldTimeDefault')
         asserts.assert_greater_equal(struct.holdTimeDefault, struct.HoldTimeMin)
         asserts.assert_less_equal(struct.holdTimeDefault, struct.HoldTimeMax)
-
 
 if __name__ == "__main__":
     default_matter_test_main()

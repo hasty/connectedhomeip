@@ -58,7 +58,6 @@ class CONTENTLAUNCHER_2_1(MatterBaseTest):
             TestStep("1", "Read AcceptHeader attribute"),
             TestStep("2", "Read SupportedStreamingProtocols attribute"),
         ]
-
         return steps
 
 
@@ -80,8 +79,6 @@ class CONTENTLAUNCHER_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedStreamingProtocols):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedStreamingProtocols)
             matter_asserts.is_valid_int_value(val)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

@@ -60,7 +60,6 @@ class MODB_2_1(MatterBaseTest):
             TestStep("3", "Read StartUpMode attribute"),
             TestStep("4", "Read OnMode attribute"),
         ]
-
         return steps
 
 
@@ -94,7 +93,6 @@ class MODB_2_1(MatterBaseTest):
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'OnMode')
 
-
     async def test_checkModeOptionStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ModeBase = None, 
@@ -115,7 +113,6 @@ class MODB_2_1(MatterBaseTest):
         if struct.mfgCode is not None:
             matter_asserts.assert_valid_uint16(struct.mfgCode, 'MfgCode must be uint16')
         matter_asserts.assert_valid_uint16(struct.value, 'Value must be uint16')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

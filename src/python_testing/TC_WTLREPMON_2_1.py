@@ -62,7 +62,6 @@ class WTLREPMON_2_1(MatterBaseTest):
             TestStep("5", "Read LastChangedTime attribute"),
             TestStep("6", "Read ReplacementProductList attribute"),
         ]
-
         return steps
 
 
@@ -106,7 +105,6 @@ class WTLREPMON_2_1(MatterBaseTest):
                 await self.test_checkReplacementProductStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_less_equal(len(val), 5, "ReplacementProductList must have at most 5 entries!")
 
-
     async def test_checkReplacementProductStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.WaterTankLevelMonitoring = None, 
@@ -114,7 +112,6 @@ class WTLREPMON_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(struct.productIdentifierType, "ProductIdentifierType attribute must return a ProductIdentifierTypeEnum", Clusters.HEPAFilterMonitoring.Enums.ProductIdentifierTypeEnum)
         matter_asserts.assert_is_string(struct.productIdentifierValue, "ProductIdentifierValue must be a string")
         asserts.assert_less_equal(len(struct.productIdentifierValue), 20, "ProductIdentifierValue must have length at most 20!")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

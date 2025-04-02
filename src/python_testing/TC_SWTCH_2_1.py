@@ -59,7 +59,6 @@ class SWTCH_2_1(MatterBaseTest):
             TestStep("2", "Read CurrentPosition attribute"),
             TestStep("3", "Read MultiPressMax attribute"),
         ]
-
         return steps
 
     NumberOfPositions = None
@@ -84,8 +83,6 @@ class SWTCH_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MultiPressMax)
             matter_asserts.assert_valid_uint8(val, 'MultiPressMax')
             asserts.assert_greater_equal(val, 2)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

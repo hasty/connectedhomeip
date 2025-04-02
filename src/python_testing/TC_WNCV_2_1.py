@@ -78,7 +78,6 @@ class WNCV_2_1(MatterBaseTest):
             TestStep("21", "Read Mode attribute"),
             TestStep("22", "Read SafetyStatus attribute"),
         ]
-
         return steps
 
     InstalledClosedLimitLift = None
@@ -218,8 +217,6 @@ class WNCV_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SafetyStatus)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

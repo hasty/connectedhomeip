@@ -62,7 +62,6 @@ class SEAR_2_1(MatterBaseTest):
             TestStep("5", "Read EstimatedEndTime attribute"),
             TestStep("6", "Read Progress attribute"),
         ]
-
         return steps
 
 
@@ -112,7 +111,6 @@ class SEAR_2_1(MatterBaseTest):
             for item in val:
                 await self.test_checkProgressStruct(endpoint=endpoint, cluster=cluster, struct=item)
             asserts.assert_less_equal(len(val), 255, "Progress must have at most 255 entries!")
-
 
     async def test_checkAreaInfoStruct(self, 
                                  endpoint: int = None, 
@@ -172,7 +170,6 @@ class SEAR_2_1(MatterBaseTest):
             matter_asserts.assert_valid_uint32(struct.totalOperationalTime, 'TotalOperationalTime')
         if struct.initialTimeEstimate is not NullValue and struct.initialTimeEstimate is not None:
             matter_asserts.assert_valid_uint32(struct.initialTimeEstimate, 'InitialTimeEstimate')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

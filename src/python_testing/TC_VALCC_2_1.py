@@ -67,7 +67,6 @@ class VALCC_2_1(MatterBaseTest):
             TestStep("10", "Read ValveFault attribute"),
             TestStep("11", "Read LevelStep attribute"),
         ]
-
         return steps
 
 
@@ -142,8 +141,6 @@ class VALCC_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_uint8(val, 'LevelStep')
                 asserts.assert_greater_equal(val, 1)
                 asserts.assert_less_equal(val, 50)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

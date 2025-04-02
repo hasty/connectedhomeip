@@ -108,7 +108,6 @@ class CC_2_1(MatterBaseTest):
             TestStep("51", "Read CoupleColorTempToLevelMinMireds attribute"),
             TestStep("52", "Read StartUpColorTemperatureMireds attribute"),
         ]
-
         return steps
 
     ColorTempPhysicalMinMireds = None
@@ -444,8 +443,6 @@ class CC_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_uint16(val, 'StartUpColorTemperatureMireds')
                 asserts.assert_greater_equal(val, 1)
                 asserts.assert_less_equal(val, 65279)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

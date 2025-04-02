@@ -88,7 +88,6 @@ class PS_2_1(MatterBaseTest):
             TestStep("31", "Read ActiveBatChargeFaults attribute"),
             TestStep("32", "Read EndpointList attribute"),
         ]
-
         return steps
 
 
@@ -284,8 +283,6 @@ class PS_2_1(MatterBaseTest):
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EndpointList)
         matter_asserts.assert_list(val, "EndpointList attribute must return a list")
         matter_asserts.assert_list_element_type(val,  "EndpointList attribute must contain int elements", int)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

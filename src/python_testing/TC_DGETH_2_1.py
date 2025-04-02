@@ -65,7 +65,6 @@ class DGETH_2_1(MatterBaseTest):
             TestStep("8", "Read CarrierDetect attribute"),
             TestStep("9", "Read TimeSinceReset attribute"),
         ]
-
         return steps
 
 
@@ -122,8 +121,6 @@ class DGETH_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TimeSinceReset)
             if val is not None:
                 matter_asserts.assert_valid_uint64(val, 'TimeSinceReset')
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

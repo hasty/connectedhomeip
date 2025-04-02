@@ -64,7 +64,6 @@ class DEM_2_1(MatterBaseTest):
             TestStep("7", "Read Forecast attribute"),
             TestStep("8", "Read OptOutState attribute"),
         ]
-
         return steps
 
     AbsMinPower = None
@@ -115,7 +114,6 @@ class DEM_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OptOutState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OptOutState)
             matter_asserts.assert_valid_enum(val, "OptOutState attribute must return a OptOutStateEnum", cluster.Enums.OptOutStateEnum)
-
 
     async def test_checkCostStruct(self, 
                                  endpoint: int = None, 
@@ -198,7 +196,6 @@ class DEM_2_1(MatterBaseTest):
         matter_asserts.assert_valid_int64(struct.maxPowerAdjustment, 'MaxPowerAdjustment')
         matter_asserts.assert_valid_uint32(struct.minDurationAdjustment, 'MinDurationAdjustment')
         matter_asserts.assert_valid_uint32(struct.maxDurationAdjustment, 'MaxDurationAdjustment')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

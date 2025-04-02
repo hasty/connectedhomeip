@@ -62,7 +62,6 @@ class EEM_2_1(MatterBaseTest):
             TestStep("5", "Read PeriodicEnergyExported attribute"),
             TestStep("6", "Read CumulativeEnergyReset attribute"),
         ]
-
         return steps
 
     StartSystime = None
@@ -112,7 +111,6 @@ class EEM_2_1(MatterBaseTest):
             if val is not NullValue and val is not None:
                 asserts.assert_true(isinstance(val, cluster.Structs.CumulativeEnergyResetStruct), f"val must be of type CumulativeEnergyResetStruct")
                 await self.test_checkCumulativeEnergyResetStruct(endpoint=endpoint, cluster=cluster, struct=val)
-
 
     async def test_checkCumulativeEnergyResetStruct(self, 
                                  endpoint: int = None, 
@@ -198,7 +196,6 @@ class EEM_2_1(MatterBaseTest):
         for item in struct.accuracyRanges:
             await self.test_checkMeasurementAccuracyRangeStruct(endpoint=endpoint, cluster=cluster, struct=item)
         asserts.assert_greater_equal(len(struct.accuracyRanges), 1, "AccuracyRanges must have at least 1 entries!")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

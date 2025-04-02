@@ -62,7 +62,6 @@ class OPCREDS_2_1(MatterBaseTest):
             TestStep("5", "Read TrustedRootCertificates attribute"),
             TestStep("6", "Read CurrentFabricIndex attribute"),
         ]
-
         return steps
 
     SupportedFabrics = None
@@ -111,7 +110,6 @@ class OPCREDS_2_1(MatterBaseTest):
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentFabricIndex)
         matter_asserts.assert_valid_uint8(val, 'CurrentFabricIndex')
 
-
     async def test_checkFabricDescriptorStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.OperationalCredentials = None, 
@@ -137,7 +135,6 @@ class OPCREDS_2_1(MatterBaseTest):
         if struct.vvsc is not None:
             matter_asserts.assert_is_octstr(struct.vVSC, "VVSC must be an octstr")
             asserts.assert_less_equal(len(struct.vVSC), 400, "VVSC must have length at most 400!")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

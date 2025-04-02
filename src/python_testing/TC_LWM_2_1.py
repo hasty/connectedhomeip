@@ -58,7 +58,6 @@ class LWM_2_1(MatterBaseTest):
             TestStep("1", "Read SupportedModes attribute"),
             TestStep("2", "Read CurrentMode attribute"),
         ]
-
         return steps
 
 
@@ -80,7 +79,6 @@ class LWM_2_1(MatterBaseTest):
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentMode)
         matter_asserts.assert_valid_uint8(val, 'CurrentMode')
 
-
     async def test_checkModeOptionStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.LaundryWasherMode = None, 
@@ -101,7 +99,6 @@ class LWM_2_1(MatterBaseTest):
         if struct.mfgCode is not None:
             matter_asserts.assert_valid_uint16(struct.mfgCode, 'MfgCode must be uint16')
         matter_asserts.assert_valid_uint16(struct.value, 'Value must be uint16')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

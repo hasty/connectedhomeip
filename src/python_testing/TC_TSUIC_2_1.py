@@ -59,7 +59,6 @@ class TSUIC_2_1(MatterBaseTest):
             TestStep("2", "Read KeypadLockout attribute"),
             TestStep("3", "Read ScheduleProgrammingVisibility attribute"),
         ]
-
         return steps
 
 
@@ -81,8 +80,6 @@ class TSUIC_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ScheduleProgrammingVisibility)
             if val is not None:
                 matter_asserts.assert_valid_enum(val, "ScheduleProgrammingVisibility attribute must return a ScheduleProgrammingVisibilityEnum", cluster.Enums.ScheduleProgrammingVisibilityEnum)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

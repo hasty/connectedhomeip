@@ -60,7 +60,6 @@ class REFALM_2_1(MatterBaseTest):
             TestStep("3", "Read State attribute"),
             TestStep("4", "Read Supported attribute"),
         ]
-
         return steps
 
 
@@ -85,8 +84,6 @@ class REFALM_2_1(MatterBaseTest):
         self.step("4")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Supported)
         matter_asserts.is_valid_int_value(val)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

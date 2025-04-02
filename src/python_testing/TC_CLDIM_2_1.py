@@ -67,7 +67,6 @@ class CLDIM_2_1(MatterBaseTest):
             TestStep("10", "Read Overflow attribute"),
             TestStep("11", "Read ModulationType attribute"),
         ]
-
         return steps
 
     Min = None
@@ -140,7 +139,6 @@ class CLDIM_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ModulationType)
             matter_asserts.assert_valid_enum(val, "ModulationType attribute must return a ModulationTypeEnum", cluster.Enums.ModulationTypeEnum)
 
-
     async def test_checkCurrentStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ClosureDimension = None, 
@@ -174,7 +172,6 @@ class CLDIM_2_1(MatterBaseTest):
         matter_asserts.assert_valid_int16(struct.max, 'Max')
         asserts.assert_greater_equal(struct.max, struct.Min)
         asserts.assert_less_equal(struct.max, 32767)
-
 
 if __name__ == "__main__":
     default_matter_test_main()

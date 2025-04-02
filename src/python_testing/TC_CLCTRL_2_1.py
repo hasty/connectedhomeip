@@ -61,7 +61,6 @@ class CLCTRL_2_1(MatterBaseTest):
             TestStep("4", "Read OverallState attribute"),
             TestStep("5", "Read OverallTarget attribute"),
         ]
-
         return steps
 
 
@@ -98,7 +97,6 @@ class CLCTRL_2_1(MatterBaseTest):
             asserts.assert_true(isinstance(val, cluster.Structs.OverallTargetStruct), f"val must be of type OverallTargetStruct")
             await self.test_checkOverallTargetStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
-
     async def test_checkOverallStateStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ClosureControl = None, 
@@ -117,7 +115,6 @@ class CLCTRL_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(struct.position, "Position attribute must return a TargetPositionEnum", cluster.Enums.TargetPositionEnum)
         matter_asserts.assert_valid_enum(struct.latch, "Latch attribute must return a TargetLatchEnum", cluster.Enums.TargetLatchEnum)
         matter_asserts.assert_valid_enum(struct.speed, "Speed attribute must return a ThreeLevelAutoEnum", Globals.Enums.ThreeLevelAutoEnum)
-
 
 if __name__ == "__main__":
     default_matter_test_main()

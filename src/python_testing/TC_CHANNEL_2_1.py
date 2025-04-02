@@ -59,7 +59,6 @@ class CHANNEL_2_1(MatterBaseTest):
             TestStep("2", "Read Lineup attribute"),
             TestStep("3", "Read CurrentChannel attribute"),
         ]
-
         return steps
 
 
@@ -90,7 +89,6 @@ class CHANNEL_2_1(MatterBaseTest):
                 asserts.assert_true(isinstance(val, cluster.Structs.ChannelInfoStruct), f"val must be of type ChannelInfoStruct")
                 await self.test_checkChannelInfoStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
-
     async def test_checkChannelInfoStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.Channel = None, 
@@ -118,7 +116,6 @@ class CHANNEL_2_1(MatterBaseTest):
         if struct.postalCode is not None:
             matter_asserts.assert_is_string(struct.postalCode, "PostalCode must be a string")
         matter_asserts.assert_valid_enum(struct.lineupInfoType, "LineupInfoType attribute must return a LineupInfoTypeEnum", cluster.Enums.LineupInfoTypeEnum)
-
 
 if __name__ == "__main__":
     default_matter_test_main()

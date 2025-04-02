@@ -69,7 +69,6 @@ class TIMESYNC_2_1(MatterBaseTest):
             TestStep("12", "Read DSTOffsetListMaxSize attribute"),
             TestStep("13", "Read SupportsDNSResolve attribute"),
         ]
-
         return steps
 
 
@@ -159,7 +158,6 @@ class TIMESYNC_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportsDNSResolve)
             matter_asserts.assert_valid_bool(val, 'SupportsDNSResolve')
 
-
     async def test_checkDSTOffsetStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.TimeSynchronization = None, 
@@ -189,7 +187,6 @@ class TIMESYNC_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint8(struct.fabricIndex, 'FabricIndex must be uint8')
         matter_asserts.assert_valid_uint64(struct.nodeID, 'NodeID must be uint64')
         matter_asserts.assert_valid_uint16(struct.endpoint, 'Endpoint must be uint16')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

@@ -60,7 +60,6 @@ class WASHERCTRL_2_1(MatterBaseTest):
             TestStep("3", "Read NumberOfRinses attribute"),
             TestStep("4", "Read SupportedRinses attribute"),
         ]
-
         return steps
 
 
@@ -96,8 +95,6 @@ class WASHERCTRL_2_1(MatterBaseTest):
             matter_asserts.assert_list(val, "SupportedRinses attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "SupportedRinses attribute must contain NumberOfRinsesEnum elements", cluster.Enums.NumberOfRinsesEnum)
             asserts.assert_less_equal(len(val), 4, "SupportedRinses must have at most 4 entries!")
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

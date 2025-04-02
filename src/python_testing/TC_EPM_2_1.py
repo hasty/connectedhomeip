@@ -75,7 +75,6 @@ class EPM_2_1(MatterBaseTest):
             TestStep("18", "Read PowerFactor attribute"),
             TestStep("19", "Read NeutralCurrent attribute"),
         ]
-
         return steps
 
     MinSystime = None
@@ -239,7 +238,6 @@ class EPM_2_1(MatterBaseTest):
                 asserts.assert_greater_equal(val, -2e62)
                 asserts.assert_less_equal(val, 2e62)
 
-
     async def test_checkHarmonicMeasurementStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ElectricalPowerMeasurement = None, 
@@ -324,7 +322,6 @@ class EPM_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint64(struct.minSystime, 'MinSystime')
         matter_asserts.assert_valid_uint64(struct.maxSystime, 'MaxSystime')
         asserts.assert_greater_equal(struct.maxSystime, struct.MinSystime + 1)
-
 
 if __name__ == "__main__":
     default_matter_test_main()

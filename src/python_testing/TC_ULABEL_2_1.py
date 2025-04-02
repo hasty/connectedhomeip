@@ -57,7 +57,6 @@ class ULABEL_2_1(MatterBaseTest):
         steps = [
             TestStep("1", "Read LabelList attribute"),
         ]
-
         return steps
 
 
@@ -73,7 +72,6 @@ class ULABEL_2_1(MatterBaseTest):
         for item in val:
             await self.test_checkLabelStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
-
     async def test_checkLabelStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.UserLabel = None, 
@@ -82,7 +80,6 @@ class ULABEL_2_1(MatterBaseTest):
         asserts.assert_less_equal(len(struct.label), 16, "Label must have length at most 16!")
         matter_asserts.assert_is_string(struct.value, "Value must be a string")
         asserts.assert_less_equal(len(struct.value), 16, "Value must have length at most 16!")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

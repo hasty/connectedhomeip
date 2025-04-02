@@ -69,7 +69,6 @@ class FAN_2_1(MatterBaseTest):
             TestStep("12", "Read WindSetting attribute"),
             TestStep("13", "Read AirflowDirection attribute"),
         ]
-
         return steps
 
     SpeedMax = None
@@ -147,8 +146,6 @@ class FAN_2_1(MatterBaseTest):
         if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AirflowDirection):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AirflowDirection)
             matter_asserts.assert_valid_enum(val, "AirflowDirection attribute must return a AirflowDirectionEnum", cluster.Enums.AirflowDirectionEnum)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

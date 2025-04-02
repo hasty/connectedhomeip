@@ -62,7 +62,6 @@ class TCTL_2_1(MatterBaseTest):
             TestStep("5", "Read SelectedTemperatureLevel attribute"),
             TestStep("6", "Read SupportedTemperatureLevels attribute"),
         ]
-
         return steps
 
     MaxTemperature = None
@@ -111,8 +110,6 @@ class TCTL_2_1(MatterBaseTest):
             asserts.assert_less_equal(len(val), 32, "SupportedTemperatureLevels must have at most 32 entries!")
             for val in val:
                 asserts.assert_less_equal(len(val), 16, "SupportedTemperatureLevels must have at most 16 entries!")
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

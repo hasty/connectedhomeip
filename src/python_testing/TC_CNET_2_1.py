@@ -67,7 +67,6 @@ class CNET_2_1(MatterBaseTest):
             TestStep("10", "Read SupportedThreadFeatures attribute"),
             TestStep("11", "Read ThreadVersion attribute"),
         ]
-
         return steps
 
     MaxNetworks = None
@@ -138,7 +137,6 @@ class CNET_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ThreadVersion)
             matter_asserts.assert_valid_uint16(val, 'ThreadVersion')
 
-
     async def test_checkNetworkInfoStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.NetworkCommissioning = None, 
@@ -147,7 +145,6 @@ class CNET_2_1(MatterBaseTest):
         asserts.assert_greater_equal(len(struct.networkID), 1, "NetworkID must be at least 1 long!")
         asserts.assert_less_equal(len(struct.networkID), 32, "NetworkID must have length at most 32!")
         matter_asserts.assert_valid_bool(struct.connected, 'Connected')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

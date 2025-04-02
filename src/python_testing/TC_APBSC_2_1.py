@@ -64,7 +64,6 @@ class APBSC_2_1(MatterBaseTest):
             TestStep("7", "Read ApplicationVersion attribute"),
             TestStep("8", "Read AllowedVendorList attribute"),
         ]
-
         return steps
 
 
@@ -115,14 +114,12 @@ class APBSC_2_1(MatterBaseTest):
         matter_asserts.assert_list(val, "AllowedVendorList attribute must return a list")
         matter_asserts.assert_list_element_type(val,  "AllowedVendorList attribute must contain int elements", int)
 
-
     async def test_checkApplicationStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ApplicationBasic = None, 
                                  struct: Clusters.ApplicationBasic.Structs.ApplicationStruct = None):
         matter_asserts.assert_valid_uint16(struct.catalogVendorID, 'CatalogVendorID')
         matter_asserts.assert_is_string(struct.applicationID, "ApplicationID must be a string")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

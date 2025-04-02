@@ -57,7 +57,6 @@ class AIRQUAL_2_1(MatterBaseTest):
         steps = [
             TestStep("1", "Read AirQuality attribute"),
         ]
-
         return steps
 
 
@@ -69,8 +68,6 @@ class AIRQUAL_2_1(MatterBaseTest):
         self.step("1")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AirQuality)
         matter_asserts.assert_valid_enum(val, "AirQuality attribute must return a AirQualityEnum", cluster.Enums.AirQualityEnum)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

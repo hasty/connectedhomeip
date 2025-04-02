@@ -79,7 +79,6 @@ class EEVSE_2_1(MatterBaseTest):
             TestStep("22", "Read SessionEnergyCharged attribute"),
             TestStep("23", "Read SessionEnergyDischarged attribute"),
         ]
-
         return steps
 
 
@@ -219,8 +218,6 @@ class EEVSE_2_1(MatterBaseTest):
             if val is not NullValue:
                 matter_asserts.assert_valid_int64(val, 'SessionEnergyDischarged')
                 asserts.assert_greater_equal(val, 0)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

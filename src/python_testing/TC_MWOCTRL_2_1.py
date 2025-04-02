@@ -65,7 +65,6 @@ class MWOCTRL_2_1(MatterBaseTest):
             TestStep("8", "Read SelectedWattIndex attribute"),
             TestStep("9", "Read WattRating attribute"),
         ]
-
         return steps
 
     MaxCookTime = None
@@ -130,8 +129,6 @@ class MWOCTRL_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WattRating)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'WattRating')
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

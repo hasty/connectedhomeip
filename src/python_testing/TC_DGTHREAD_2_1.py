@@ -121,7 +121,6 @@ class DGTHREAD_2_1(MatterBaseTest):
             TestStep("64", "Read ExtAddress attribute"),
             TestStep("65", "Read Rloc16 attribute"),
         ]
-
         return steps
 
 
@@ -513,7 +512,6 @@ class DGTHREAD_2_1(MatterBaseTest):
         if val is not NullValue:
             matter_asserts.assert_valid_uint16(val, 'Rloc16')
 
-
     async def test_checkNeighborTableStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.ThreadNetworkDiagnostics = None, 
@@ -583,7 +581,6 @@ class DGTHREAD_2_1(MatterBaseTest):
                                  struct: Clusters.ThreadNetworkDiagnostics.Structs.SecurityPolicy = None):
         matter_asserts.assert_valid_uint16(struct.rotationTime, 'RotationTime')
         matter_asserts.assert_valid_uint16(struct.flags, 'Flags')
-
 
 if __name__ == "__main__":
     default_matter_test_main()

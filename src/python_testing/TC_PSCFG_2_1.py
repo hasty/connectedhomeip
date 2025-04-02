@@ -57,7 +57,6 @@ class PSCFG_2_1(MatterBaseTest):
         steps = [
             TestStep("1", "Read Sources attribute"),
         ]
-
         return steps
 
 
@@ -71,8 +70,6 @@ class PSCFG_2_1(MatterBaseTest):
         matter_asserts.assert_list(val, "Sources attribute must return a list")
         matter_asserts.assert_list_element_type(val,  "Sources attribute must contain int elements", int)
         asserts.assert_less_equal(len(val), 6, "Sources must have at most 6 entries!")
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

@@ -79,7 +79,6 @@ class PCC_2_1(MatterBaseTest):
             TestStep("22", "Read OperationMode attribute"),
             TestStep("23", "Read ControlMode attribute"),
         ]
-
         return steps
 
 
@@ -217,8 +216,6 @@ class PCC_2_1(MatterBaseTest):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ControlMode)
             if val is not None:
                 matter_asserts.assert_valid_enum(val, "ControlMode attribute must return a ControlModeEnum", cluster.Enums.ControlModeEnum)
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

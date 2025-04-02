@@ -62,7 +62,6 @@ class TBRM_2_1(MatterBaseTest):
             TestStep("5", "Read ActiveDatasetTimestamp attribute"),
             TestStep("6", "Read PendingDatasetTimestamp attribute"),
         ]
-
         return steps
 
 
@@ -98,8 +97,6 @@ class TBRM_2_1(MatterBaseTest):
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PendingDatasetTimestamp)
         if val is not NullValue:
             matter_asserts.assert_valid_uint64(val, 'PendingDatasetTimestamp')
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

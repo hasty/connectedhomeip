@@ -58,7 +58,6 @@ class LCFG_2_1(MatterBaseTest):
             TestStep("1", "Read ActiveLocale attribute"),
             TestStep("2", "Read SupportedLocales attribute"),
         ]
-
         return steps
 
 
@@ -79,8 +78,6 @@ class LCFG_2_1(MatterBaseTest):
         asserts.assert_less_equal(len(val), 32, "SupportedLocales must have at most 32 entries!")
         for val in val:
             asserts.assert_less_equal(len(val), 35, "SupportedLocales must have at most 35 entries!")
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

@@ -58,7 +58,6 @@ class WAKEONLAN_2_1(MatterBaseTest):
             TestStep("1", "Read MACAddress attribute"),
             TestStep("2", "Read LinkLocalAddress attribute"),
         ]
-
         return steps
 
 
@@ -80,8 +79,6 @@ class WAKEONLAN_2_1(MatterBaseTest):
             if val is not None:
                 asserts.assert_true(isinstance(val, bytes), "LinkLocalAddress must be of type bytes")
                 asserts.assert_equal(len(val), 16, "LinkLocalAddress must have a length of 16")
-
-
 
 if __name__ == "__main__":
     default_matter_test_main()

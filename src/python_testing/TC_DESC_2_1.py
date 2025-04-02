@@ -61,7 +61,6 @@ class DESC_2_1(MatterBaseTest):
             TestStep("4", "Read PartsList attribute"),
             TestStep("5", "Read TagList attribute"),
         ]
-
         return steps
 
 
@@ -103,7 +102,6 @@ class DESC_2_1(MatterBaseTest):
             asserts.assert_greater_equal(len(val), 1, "TagList must have at least 1 entries!")
             asserts.assert_less_equal(len(val), 6, "TagList must have at most 6 entries!")
 
-
     async def test_checkDeviceTypeStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.Descriptor = None, 
@@ -123,7 +121,6 @@ class DESC_2_1(MatterBaseTest):
         if struct.label is not NullValue and struct.label is not None:
             matter_asserts.assert_is_string(struct.label, "Label must be a string")
             asserts.assert_less_equal(len(struct.label), 64, "Label must have length at most 64!")
-
 
 if __name__ == "__main__":
     default_matter_test_main()

@@ -80,7 +80,6 @@ class BINFO_2_1(MatterBaseTest):
             TestStep("23", "Read MaxPathsPerInvoke attribute"),
             TestStep("24", "Read ConfigurationVersion attribute"),
         ]
-
         return steps
 
 
@@ -219,7 +218,6 @@ class BINFO_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint32(val, 'ConfigurationVersion')
         asserts.assert_greater_equal(val, 1)
 
-
     async def test_checkCapabilityMinimaStruct(self, 
                                  endpoint: int = None, 
                                  cluster: Clusters.BasicInformation = None, 
@@ -236,7 +234,6 @@ class BINFO_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(struct.finish, "Finish attribute must return a ProductFinishEnum", cluster.Enums.ProductFinishEnum)
         if struct.primaryColor is not NullValue:
             matter_asserts.assert_valid_enum(struct.primaryColor, "PrimaryColor attribute must return a ColorEnum", cluster.Enums.ColorEnum)
-
 
 if __name__ == "__main__":
     default_matter_test_main()
