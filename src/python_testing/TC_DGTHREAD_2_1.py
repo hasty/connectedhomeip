@@ -51,7 +51,7 @@ class DGTHREAD_2_1(MatterBaseTest):
 
     def pics_DGTHREAD_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["DGTHREAD"]
+        return ["DGTHREAD.S"]
 
     def steps_DGTHREAD_2_1(self) -> list[TestStep]:
         steps = [

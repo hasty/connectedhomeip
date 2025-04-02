@@ -51,7 +51,7 @@ class RVCCLEANM_2_1(MatterBaseTest):
 
     def pics_RVCCLEANM_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["RVCCLEANM"]
+        return ["RVCCLEANM.S"]
 
     def steps_RVCCLEANM_2_1(self) -> list[TestStep]:
         steps = [

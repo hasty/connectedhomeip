@@ -51,7 +51,7 @@ class MWOCTRL_2_1(MatterBaseTest):
 
     def pics_MWOCTRL_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["MWOCTRL"]
+        return ["MWOCTRL.S"]
 
     def steps_MWOCTRL_2_1(self) -> list[TestStep]:
         steps = [

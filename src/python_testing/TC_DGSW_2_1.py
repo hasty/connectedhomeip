@@ -51,7 +51,7 @@ class DGSW_2_1(MatterBaseTest):
 
     def pics_DGSW_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["DGSW"]
+        return ["DGSW.S"]
 
     def steps_DGSW_2_1(self) -> list[TestStep]:
         steps = [

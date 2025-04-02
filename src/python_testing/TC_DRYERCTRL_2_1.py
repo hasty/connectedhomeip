@@ -51,7 +51,7 @@ class DRYERCTRL_2_1(MatterBaseTest):
 
     def pics_DRYERCTRL_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["DRYERCTRL"]
+        return ["DRYERCTRL.S"]
 
     def steps_DRYERCTRL_2_1(self) -> list[TestStep]:
         steps = [

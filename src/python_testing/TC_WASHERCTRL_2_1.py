@@ -51,7 +51,7 @@ class WASHERCTRL_2_1(MatterBaseTest):
 
     def pics_WASHERCTRL_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["WASHERCTRL"]
+        return ["WASHERCTRL.S"]
 
     def steps_WASHERCTRL_2_1(self) -> list[TestStep]:
         steps = [

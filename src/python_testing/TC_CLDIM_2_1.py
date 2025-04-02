@@ -51,7 +51,7 @@ class CLDIM_2_1(MatterBaseTest):
 
     def pics_CLDIM_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["CLDIM"]
+        return ["CLDIM.S"]
 
     def steps_CLDIM_2_1(self) -> list[TestStep]:
         steps = [

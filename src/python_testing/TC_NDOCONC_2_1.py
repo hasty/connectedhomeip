@@ -51,7 +51,7 @@ class NDOCONC_2_1(MatterBaseTest):
 
     def pics_NDOCONC_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["NDOCONC"]
+        return ["NDOCONC.S"]
 
     def steps_NDOCONC_2_1(self) -> list[TestStep]:
         steps = [

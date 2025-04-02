@@ -51,7 +51,7 @@ class REFALM_2_1(MatterBaseTest):
 
     def pics_REFALM_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["REFALM"]
+        return ["REFALM.S"]
 
     def steps_REFALM_2_1(self) -> list[TestStep]:
         steps = [

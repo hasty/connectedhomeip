@@ -51,7 +51,7 @@ class G_2_1(MatterBaseTest):
 
     def pics_G_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["G"]
+        return ["G.S"]
 
     def steps_G_2_1(self) -> list[TestStep]:
         steps = [

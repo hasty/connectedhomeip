@@ -51,7 +51,7 @@ class DRLK_2_1(MatterBaseTest):
 
     def pics_DRLK_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["DRLK"]
+        return ["DRLK.S"]
 
     def steps_DRLK_2_1(self) -> list[TestStep]:
         steps = [

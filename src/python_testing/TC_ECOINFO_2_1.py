@@ -51,7 +51,7 @@ class ECOINFO_2_1(MatterBaseTest):
 
     def pics_ECOINFO_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["ECOINFO"]
+        return ["ECOINFO.S"]
 
     def steps_ECOINFO_2_1(self) -> list[TestStep]:
         steps = [

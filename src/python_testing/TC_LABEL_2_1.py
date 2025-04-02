@@ -51,7 +51,7 @@ class LABEL_2_1(MatterBaseTest):
 
     def pics_LABEL_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["LABEL"]
+        return ["LABEL.S"]
 
     def steps_LABEL_2_1(self) -> list[TestStep]:
         steps = [

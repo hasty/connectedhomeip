@@ -51,7 +51,7 @@ class EWATERHTR_2_1(MatterBaseTest):
 
     def pics_EWATERHTR_2_1(self) -> list[str]:
         """This function returns a list of PICS for this test case that must be True for the test to be run"""
-        return ["EWATERHTR"]
+        return ["EWATERHTR.S"]
 
     def steps_EWATERHTR_2_1(self) -> list[TestStep]:
         steps = [
