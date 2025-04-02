@@ -18,12 +18,27 @@
 # for details about the block below.
 #
 # === BEGIN CI TEST ARGUMENTS ===
-# test-runner-runs: run1
-# test-runner-run/run1/app: ${ALL_CLUSTERS_APP}
-# test-runner-run/run1/factoryreset: True
-# test-runner-run/run1/quiet: True
-# test-runner-run/run1/app-args: --discriminator 1234 --KVS kvs1 --trace-to json:${TRACE_APP}.json
-# test-runner-run/run1/script-args: --storage-path admin_storage.json --commissioning-method on-network --discriminator 1234 --passcode 20202021 --endpoint 1 --trace-to json:${TRACE_TEST_JSON}.json --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
+# test-runner-runs:
+#   run1:
+#     app: ${ALL_CLUSTERS_APP}
+#     app-args: >
+#       --discriminator 1234
+#       --KVS kvs1
+#       --trace-to json:${TRACE_APP}.json
+#       --enable-key 000102030405060708090a0b0c0d0e0f
+#       --featureSet 0xa
+#       --application evse
+#     script-args: >
+#       --storage-path admin_storage.json
+#       --commissioning-method on-network
+#       --discriminator 1234
+#       --passcode 20202021
+#       --hex-arg enableKey:000102030405060708090a0b0c0d0e0f
+#       --endpoint 1
+#       --trace-to json:${TRACE_TEST_JSON}.json
+#       --trace-to perfetto:${TRACE_TEST_PERFETTO}.perfetto
+#     factory-reset: true
+#     quiet: true
 # === END CI TEST ARGUMENTS ===
 
 import copy
@@ -36,7 +51,7 @@ from chip.clusters import Globals
 from chip.clusters.Types import NullValue
 from chip.interaction_model import InteractionModelError, Status
 from chip.testing import matter_asserts
-from chip.testing.matter_testing import MatterBaseTest, TestStep, async_test_body, default_matter_test_main
+from chip.testing.matter_testing import MatterBaseTest, TestStep, run_if_endpoint_matches, has_cluster, default_matter_test_main
 from mobly import asserts
 
 logger = logging.getLogger(__name__)
@@ -59,11 +74,9 @@ class COMMODITY_METERING_2_1(MatterBaseTest):
             TestStep("2", "Read MeteredQuantityTimestamp attribute"),
             TestStep("3", "Read MeasurementType attribute"),
         ]
-
         return steps
 
-
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.CommodityMetering))
     async def test_COMMODITY_METERING_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes
@@ -72,7 +85,7 @@ class COMMODITY_METERING_2_1(MatterBaseTest):
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MeteredQuantity)
         if val is not NullValue:
             matter_asserts.assert_list(val, "MeteredQuantity attribute must return a list")
-            matter_asserts.assert_list_element_type(val,  "MeteredQuantity attribute must contain Clusters.CommodityMetering.Structs.MeteredQuantityStruct elements", Clusters.CommodityMetering.Structs.MeteredQuantityStruct)
+            matter_asserts.assert_list_element_type(val,  "MeteredQuantity attribute must contain MeteredQuantityStruct elements", cluster.Structs.MeteredQuantityStruct)
             for item in val:
                 await self.test_checkMeteredQuantityStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
@@ -84,8 +97,7 @@ class COMMODITY_METERING_2_1(MatterBaseTest):
         self.step("3")
         val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MeasurementType)
         if val is not NullValue:
-            matter_asserts.assert_valid_enum(val, "MeasurementType attribute must return a Globals.Enums.MeasurementTypeEnum", Globals.Enums.MeasurementTypeEnum)
-
+            matter_asserts.assert_valid_enum(val, "MeasurementType attribute must return a MeasurementTypeEnum", Globals.Enums.MeasurementTypeEnum)
 
     async def test_checkMeteredQuantityStruct(self, 
                                  endpoint: int = None, 
@@ -94,7 +106,6 @@ class COMMODITY_METERING_2_1(MatterBaseTest):
         matter_asserts.assert_list(struct.tariffComponentIDs, "TariffComponentIDs attribute must return a list")
         matter_asserts.assert_list_element_type(struct.tariffComponentIDs,  "TariffComponentIDs attribute must contain int elements", int)
         matter_asserts.assert_valid_int64(struct.quantity, 'Quantity')
-
 
 if __name__ == "__main__":
     default_matter_test_main()
