@@ -63,7 +63,7 @@ class THNETDIR_2_1(MatterBaseTest):
 
     ThreadNetworkTableSize = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.ThreadNetworkDirectory))
     async def test_THNETDIR_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

@@ -71,7 +71,7 @@ class CNET_2_1(MatterBaseTest):
 
     MaxNetworks = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.NetworkCommissioning))
     async def test_CNET_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

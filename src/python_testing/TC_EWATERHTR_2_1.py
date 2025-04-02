@@ -66,7 +66,7 @@ class EWATERHTR_2_1(MatterBaseTest):
 
     TargetPercentage = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.WaterHeaterManagement))
     async def test_EWATERHTR_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

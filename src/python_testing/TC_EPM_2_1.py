@@ -83,7 +83,7 @@ class EPM_2_1(MatterBaseTest):
     StartSystime = None
     StartTimestamp = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.ElectricalPowerMeasurement))
     async def test_EPM_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

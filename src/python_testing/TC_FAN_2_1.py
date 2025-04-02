@@ -73,7 +73,7 @@ class FAN_2_1(MatterBaseTest):
 
     SpeedMax = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.FanControl))
     async def test_FAN_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

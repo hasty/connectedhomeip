@@ -64,7 +64,7 @@ class EPREF_2_1(MatterBaseTest):
         return steps
 
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.EnergyPreference))
     async def test_EPREF_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

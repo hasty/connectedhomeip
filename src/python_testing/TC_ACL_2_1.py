@@ -68,7 +68,7 @@ class ACL_2_1(MatterBaseTest):
     SubjectsPerAccessControlEntry = None
     TargetsPerAccessControlEntry = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.AccessControl))
     async def test_ACL_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

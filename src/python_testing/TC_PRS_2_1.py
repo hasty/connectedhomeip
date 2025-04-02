@@ -72,7 +72,7 @@ class PRS_2_1(MatterBaseTest):
     MinMeasuredValue = None
     MinScaledValue = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.PressureMeasurement))
     async def test_PRS_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

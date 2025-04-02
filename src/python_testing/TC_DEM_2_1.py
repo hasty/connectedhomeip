@@ -70,7 +70,7 @@ class DEM_2_1(MatterBaseTest):
     MinDuration = None
     MinPower = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.DeviceEnergyManagement))
     async def test_DEM_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

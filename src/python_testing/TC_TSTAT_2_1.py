@@ -125,7 +125,7 @@ class TSTAT_2_1(MatterBaseTest):
     UnoccupiedSetbackMax = None
     UnoccupiedSetbackMin = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.Thermostat))
     async def test_TSTAT_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

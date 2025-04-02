@@ -60,7 +60,7 @@ class ULABEL_2_1(MatterBaseTest):
         return steps
 
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.UserLabel))
     async def test_ULABEL_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

@@ -66,7 +66,7 @@ class OPCREDS_2_1(MatterBaseTest):
 
     SupportedFabrics = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.OperationalCredentials))
     async def test_OPCREDS_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

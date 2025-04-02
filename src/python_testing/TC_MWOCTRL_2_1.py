@@ -70,7 +70,7 @@ class MWOCTRL_2_1(MatterBaseTest):
     MaxCookTime = None
     MinPower = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.MicrowaveOvenControl))
     async def test_MWOCTRL_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

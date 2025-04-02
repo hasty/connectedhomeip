@@ -63,7 +63,7 @@ class SWTCH_2_1(MatterBaseTest):
 
     NumberOfPositions = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.Switch))
     async def test_SWTCH_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

@@ -64,7 +64,7 @@ class OO_2_1(MatterBaseTest):
         return steps
 
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.On/Off))
     async def test_OO_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

@@ -113,7 +113,7 @@ class CC_2_1(MatterBaseTest):
     ColorTempPhysicalMinMireds = None
     ColorTemperatureMireds = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.ColorControl))
     async def test_CC_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

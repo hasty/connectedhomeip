@@ -67,7 +67,7 @@ class TCTL_2_1(MatterBaseTest):
     MaxTemperature = None
     MinTemperature = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.TemperatureControl))
     async def test_TCTL_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

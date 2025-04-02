@@ -69,7 +69,7 @@ class CGEN_2_1(MatterBaseTest):
         return steps
 
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.GeneralCommissioning))
     async def test_CGEN_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes

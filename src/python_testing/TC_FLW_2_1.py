@@ -65,7 +65,7 @@ class FLW_2_1(MatterBaseTest):
     MaxMeasuredValue = None
     MinMeasuredValue = None
 
-    @async_test_body
+    @run_if_endpoint_matches(has_cluster(Clusters.FlowMeasurement))
     async def test_FLW_2_1(self):
         endpoint = self.get_endpoint()
         attributes = cluster.Attributes
