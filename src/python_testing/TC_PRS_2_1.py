@@ -106,7 +106,7 @@ class PRS_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 2048)
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kExtended):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ScaledValue):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ScaledValue)
             if val is not NullValue:
                 matter_asserts.assert_valid_int16(val, 'ScaledValue')
@@ -114,14 +114,14 @@ class PRS_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, self.MaxScaledValue)
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kExtended):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinScaledValue):
             self.MinScaledValue = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinScaledValue)
             if self.MinScaledValue is not NullValue:
                 matter_asserts.assert_valid_int16(self.MinScaledValue, 'MinScaledValue')
                 asserts.assert_less_equal(self.MinScaledValue, 32766)
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kExtended):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxScaledValue):
             self.MaxScaledValue = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxScaledValue)
             if self.MaxScaledValue is not NullValue:
                 matter_asserts.assert_valid_int16(self.MaxScaledValue, 'MaxScaledValue')
@@ -129,14 +129,14 @@ class PRS_2_1(MatterBaseTest):
                 asserts.assert_less_equal(self.MaxScaledValue, 32767)
 
         self.step("8")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ScaledTolerance) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kExtended):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ScaledTolerance):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ScaledTolerance)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'ScaledTolerance')
                 asserts.assert_less_equal(val, 2048)
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kExtended):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Scale):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Scale)
             matter_asserts.assert_valid_int8(val, 'Scale')
             asserts.assert_greater_equal(val, -127)

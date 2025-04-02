@@ -81,18 +81,18 @@ class EWATERHTR_2_1(MatterBaseTest):
         matter_asserts.is_valid_int_value(val)
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kEnergyManagement):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TankVolume):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TankVolume)
             matter_asserts.assert_valid_uint16(val, 'TankVolume')
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kEnergyManagement):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.EstimatedHeatRequired):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EstimatedHeatRequired)
             matter_asserts.assert_valid_int64(val, 'EstimatedHeatRequired')
             asserts.assert_greater_equal(val, 0)
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTankPercent):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TankPercentage):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TankPercentage)
             matter_asserts.assert_valid_uint8(val, 'TankPercentage')
 

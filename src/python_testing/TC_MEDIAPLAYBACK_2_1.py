@@ -81,19 +81,19 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(val, "CurrentState attribute must return a Clusters.MediaPlayback.Enums.PlaybackStateEnum", Clusters.MediaPlayback.Enums.PlaybackStateEnum)
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAdvancedSeek):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.StartTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StartTime)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint64(val, 'StartTime')
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAdvancedSeek):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Duration):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Duration)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint64(val, 'Duration')
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAdvancedSeek):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SampledPosition):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SampledPosition)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, Clusters.MediaPlayback.Structs.PlaybackPositionStruct),
@@ -101,24 +101,24 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
                 await self.test_checkPlaybackPositionStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAdvancedSeek):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PlaybackSpeed):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PlaybackSpeed)
             asserts.assert_true(isinstance(val, float), f"val must be a float")
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAdvancedSeek):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SeekRangeEnd):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SeekRangeEnd)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint64(val, 'SeekRangeEnd')
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAdvancedSeek):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SeekRangeStart):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SeekRangeStart)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint64(val, 'SeekRangeStart')
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAudioTracks):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveAudioTrack):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveAudioTrack)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, Clusters.MediaPlayback.Structs.TrackStruct),
@@ -126,7 +126,7 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
                 await self.test_checkTrackStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAudioTracks):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AvailableAudioTracks):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AvailableAudioTracks)
             if val is not NullValue:
                 matter_asserts.assert_list(val, "AvailableAudioTracks attribute must return a list")
@@ -135,7 +135,7 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
                     await self.test_checkTrackStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("10")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTextTracks):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveTextTrack):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveTextTrack)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, Clusters.MediaPlayback.Structs.TrackStruct),
@@ -143,7 +143,7 @@ class MEDIAPLAYBACK_2_1(MatterBaseTest):
                 await self.test_checkTrackStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("11")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTextTracks):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AvailableTextTracks):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AvailableTextTracks)
             if val is not NullValue:
                 matter_asserts.assert_list(val, "AvailableTextTracks attribute must return a list")

@@ -111,48 +111,48 @@ class PS_2_1(MatterBaseTest):
         asserts.assert_less_equal(len(val), 60, "Description must have length at most 60!")
 
         self.step("4")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredAssessedInputVoltage) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWired):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredAssessedInputVoltage):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WiredAssessedInputVoltage)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint32(val, 'WiredAssessedInputVoltage')
 
         self.step("5")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredAssessedInputFrequency) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWired):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredAssessedInputFrequency):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WiredAssessedInputFrequency)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint16(val, 'WiredAssessedInputFrequency')
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWired):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredCurrentType):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WiredCurrentType)
             matter_asserts.assert_valid_enum(val, "WiredCurrentType attribute must return a Clusters.PowerSource.Enums.WiredCurrentTypeEnum", Clusters.PowerSource.Enums.WiredCurrentTypeEnum)
 
         self.step("7")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredAssessedCurrent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWired):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredAssessedCurrent):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WiredAssessedCurrent)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint32(val, 'WiredAssessedCurrent')
 
         self.step("8")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredNominalVoltage) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWired):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredNominalVoltage):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WiredNominalVoltage)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'WiredNominalVoltage')
 
         self.step("9")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredMaximumCurrent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWired):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredMaximumCurrent):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WiredMaximumCurrent)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'WiredMaximumCurrent')
 
         self.step("10")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredPresent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWired):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WiredPresent):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WiredPresent)
             if val is not None:
                 matter_asserts.assert_valid_bool(val, 'WiredPresent')
 
         self.step("11")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveWiredFaults) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWired):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveWiredFaults):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveWiredFaults)
             if val is not None:
                 matter_asserts.assert_list(val, "ActiveWiredFaults attribute must return a list")
@@ -160,47 +160,47 @@ class PS_2_1(MatterBaseTest):
                 asserts.assert_less_equal(len(val), 8, "ActiveWiredFaults must have at most 8 entries!")
 
         self.step("12")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatVoltage) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kBattery):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatVoltage):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatVoltage)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint32(val, 'BatVoltage')
 
         self.step("13")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatPercentRemaining) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kBattery):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatPercentRemaining):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatPercentRemaining)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint8(val, 'BatPercentRemaining')
                 asserts.assert_less_equal(val, 200)
 
         self.step("14")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatTimeRemaining) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kBattery):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatTimeRemaining):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatTimeRemaining)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint32(val, 'BatTimeRemaining')
 
         self.step("15")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kBattery):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatChargeLevel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatChargeLevel)
             matter_asserts.assert_valid_enum(val, "BatChargeLevel attribute must return a Clusters.PowerSource.Enums.BatChargeLevelEnum", Clusters.PowerSource.Enums.BatChargeLevelEnum)
 
         self.step("16")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kBattery):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatReplacementNeeded):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatReplacementNeeded)
             matter_asserts.assert_valid_bool(val, 'BatReplacementNeeded')
 
         self.step("17")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kBattery):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatReplaceability):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatReplaceability)
             matter_asserts.assert_valid_enum(val, "BatReplaceability attribute must return a Clusters.PowerSource.Enums.BatReplaceabilityEnum", Clusters.PowerSource.Enums.BatReplaceabilityEnum)
 
         self.step("18")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatPresent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kBattery):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatPresent):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatPresent)
             if val is not None:
                 matter_asserts.assert_valid_bool(val, 'BatPresent')
 
         self.step("19")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveBatFaults) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kBattery):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveBatFaults):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveBatFaults)
             if val is not None:
                 matter_asserts.assert_list(val, "ActiveBatFaults attribute must return a list")
@@ -208,72 +208,72 @@ class PS_2_1(MatterBaseTest):
                 asserts.assert_less_equal(len(val), 8, "ActiveBatFaults must have at most 8 entries!")
 
         self.step("20")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kReplaceable):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatReplacementDescription):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatReplacementDescription)
             matter_asserts.assert_is_string(val, "BatReplacementDescription must be a string")
             asserts.assert_less_equal(len(val), 60, "BatReplacementDescription must have length at most 60!")
 
         self.step("21")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatCommonDesignation) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kReplaceable):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatCommonDesignation):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatCommonDesignation)
             if val is not None:
                 matter_asserts.assert_valid_enum(val, "BatCommonDesignation attribute must return a Clusters.PowerSource.Enums.BatCommonDesignationEnum", Clusters.PowerSource.Enums.BatCommonDesignationEnum)
 
         self.step("22")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatANSIDesignation) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kReplaceable):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatANSIDesignation):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatANSIDesignation)
             if val is not None:
                 matter_asserts.assert_is_string(val, "BatANSIDesignation must be a string")
                 asserts.assert_less_equal(len(val), 20, "BatANSIDesignation must have length at most 20!")
 
         self.step("23")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatIECDesignation) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kReplaceable):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatIECDesignation):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatIECDesignation)
             if val is not None:
                 matter_asserts.assert_is_string(val, "BatIECDesignation must be a string")
                 asserts.assert_less_equal(len(val), 20, "BatIECDesignation must have length at most 20!")
 
         self.step("24")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatApprovedChemistry) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kReplaceable):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatApprovedChemistry):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatApprovedChemistry)
             if val is not None:
                 matter_asserts.assert_valid_enum(val, "BatApprovedChemistry attribute must return a Clusters.PowerSource.Enums.BatApprovedChemistryEnum", Clusters.PowerSource.Enums.BatApprovedChemistryEnum)
 
         self.step("25")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatCapacity) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kReplaceable) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRechargeable)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatCapacity):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatCapacity)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'BatCapacity')
 
         self.step("26")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kReplaceable):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatQuantity):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatQuantity)
             matter_asserts.assert_valid_uint8(val, 'BatQuantity')
 
         self.step("27")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRechargeable):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatChargeState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatChargeState)
             matter_asserts.assert_valid_enum(val, "BatChargeState attribute must return a Clusters.PowerSource.Enums.BatChargeStateEnum", Clusters.PowerSource.Enums.BatChargeStateEnum)
 
         self.step("28")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatTimeToFullCharge) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRechargeable):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatTimeToFullCharge):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatTimeToFullCharge)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint32(val, 'BatTimeToFullCharge')
 
         self.step("29")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRechargeable):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatFunctionalWhileCharging):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatFunctionalWhileCharging)
             matter_asserts.assert_valid_bool(val, 'BatFunctionalWhileCharging')
 
         self.step("30")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatChargingCurrent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRechargeable):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatChargingCurrent):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatChargingCurrent)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint32(val, 'BatChargingCurrent')
 
         self.step("31")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveBatChargeFaults) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRechargeable):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveBatChargeFaults):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveBatChargeFaults)
             if val is not None:
                 matter_asserts.assert_list(val, "ActiveBatChargeFaults attribute must return a list")

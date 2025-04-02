@@ -109,26 +109,26 @@ class OCC_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, self.HoldTimeLimits)
 
         self.step("5")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTimeLimits):
             self.HoldTimeLimits = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.HoldTimeLimits)
             asserts.assert_true(isinstance(self.HoldTimeLimits, Clusters.OccupancySensing.Structs.HoldTimeLimitsStruct),
                                         f"self.HoldTimeLimits must be of type Clusters.OccupancySensing.Structs.HoldTimeLimitsStruct")
             await self.test_checkHoldTimeLimitsStruct(endpoint=endpoint, cluster=cluster, struct=self.HoldTimeLimits)
 
         self.step("6")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PIROccupiedToUnoccupiedDelay) and (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPassiveInfrared) or (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPassiveInfrared) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUltrasonic) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPhysicalContact)))):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PIROccupiedToUnoccupiedDelay):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PIROccupiedToUnoccupiedDelay)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'PIROccupiedToUnoccupiedDelay')
 
         self.step("7")
-        if ((await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPassiveInfrared) or (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPassiveInfrared) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUltrasonic) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPhysicalContact)))) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.PIRUnoccupiedToOccupiedThreshold)) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.PIRUnoccupiedToOccupiedDelay) and (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPassiveInfrared) or (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPassiveInfrared) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUltrasonic) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPhysicalContact)))):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PIRUnoccupiedToOccupiedDelay):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PIRUnoccupiedToOccupiedDelay)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'PIRUnoccupiedToOccupiedDelay')
 
         self.step("8")
-        if ((await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPassiveInfrared) or (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPassiveInfrared) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUltrasonic) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPhysicalContact)))) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.PIRUnoccupiedToOccupiedDelay)) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.PIRUnoccupiedToOccupiedThreshold) and (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPassiveInfrared) or (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPassiveInfrared) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUltrasonic) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPhysicalContact)))):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PIRUnoccupiedToOccupiedThreshold):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PIRUnoccupiedToOccupiedThreshold)
             if val is not None:
                 matter_asserts.assert_valid_uint8(val, 'PIRUnoccupiedToOccupiedThreshold')
@@ -136,19 +136,19 @@ class OCC_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 254)
 
         self.step("9")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UltrasonicOccupiedToUnoccupiedDelay) and (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUltrasonic)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UltrasonicOccupiedToUnoccupiedDelay):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UltrasonicOccupiedToUnoccupiedDelay)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'UltrasonicOccupiedToUnoccupiedDelay')
 
         self.step("10")
-        if (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUltrasonic) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.UltrasonicUnoccupiedToOccupiedThreshold)) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.UltrasonicUnoccupiedToOccupiedDelay) and (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUltrasonic)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UltrasonicUnoccupiedToOccupiedDelay):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UltrasonicUnoccupiedToOccupiedDelay)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'UltrasonicUnoccupiedToOccupiedDelay')
 
         self.step("11")
-        if (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUltrasonic) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.UltrasonicUnoccupiedToOccupiedDelay)) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.UltrasonicUnoccupiedToOccupiedThreshold) and (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUltrasonic)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UltrasonicUnoccupiedToOccupiedThreshold):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UltrasonicUnoccupiedToOccupiedThreshold)
             if val is not None:
                 matter_asserts.assert_valid_uint8(val, 'UltrasonicUnoccupiedToOccupiedThreshold')
@@ -156,19 +156,19 @@ class OCC_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 254)
 
         self.step("12")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalContactOccupiedToUnoccupiedDelay) and (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPhysicalContact)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalContactOccupiedToUnoccupiedDelay):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PhysicalContactOccupiedToUnoccupiedDelay)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'PhysicalContactOccupiedToUnoccupiedDelay')
 
         self.step("13")
-        if (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPhysicalContact) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalContactUnoccupiedToOccupiedThreshold)) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalContactUnoccupiedToOccupiedDelay) and (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPhysicalContact)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalContactUnoccupiedToOccupiedDelay):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PhysicalContactUnoccupiedToOccupiedDelay)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'PhysicalContactUnoccupiedToOccupiedDelay')
 
         self.step("14")
-        if (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPhysicalContact) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalContactUnoccupiedToOccupiedDelay)) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalContactUnoccupiedToOccupiedThreshold) and (await self.attribute_guard(endpoint=endpoint, attribute=attributes.HoldTime) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPhysicalContact)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalContactUnoccupiedToOccupiedThreshold):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PhysicalContactUnoccupiedToOccupiedThreshold)
             if val is not None:
                 matter_asserts.assert_valid_uint8(val, 'PhysicalContactUnoccupiedToOccupiedThreshold')
@@ -183,11 +183,11 @@ class OCC_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint16(struct.holdTimeMin, 'HoldTimeMin')
         asserts.assert_greater_equal(struct.holdTimeMin, 1)
         matter_asserts.assert_valid_uint16(struct.holdTimeMax, 'HoldTimeMax')
-        asserts.assert_greater_equal(struct.holdTimeMax, self.HoldTimeMin)
+        asserts.assert_greater_equal(struct.holdTimeMax, struct.HoldTimeMin)
         asserts.assert_greater_equal(struct.holdTimeMax, 10)
         matter_asserts.assert_valid_uint16(struct.holdTimeDefault, 'HoldTimeDefault')
-        asserts.assert_greater_equal(struct.holdTimeDefault, self.HoldTimeMin)
-        asserts.assert_less_equal(struct.holdTimeDefault, self.HoldTimeMax)
+        asserts.assert_greater_equal(struct.holdTimeDefault, struct.HoldTimeMin)
+        asserts.assert_less_equal(struct.holdTimeDefault, struct.HoldTimeMax)
 
 
 if __name__ == "__main__":

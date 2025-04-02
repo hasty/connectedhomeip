@@ -84,7 +84,7 @@ class FAN_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(val, "FanMode attribute must return a Clusters.FanControl.Enums.FanModeEnum", Clusters.FanControl.Enums.FanModeEnum)
 
         self.step("2")
-        if True:
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.FanModeSequence):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.FanModeSequence)
             matter_asserts.assert_valid_enum(val, "FanModeSequence attribute must return a Clusters.FanControl.Enums.FanModeSequenceEnum", Clusters.FanControl.Enums.FanModeSequenceEnum)
 
@@ -104,47 +104,47 @@ class FAN_2_1(MatterBaseTest):
         asserts.assert_less_equal(val, 100)
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMultiSpeed):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SpeedMax):
             self.SpeedMax = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SpeedMax)
             matter_asserts.assert_valid_uint8(self.SpeedMax, 'SpeedMax')
             asserts.assert_greater_equal(self.SpeedMax, 1)
             asserts.assert_less_equal(self.SpeedMax, 100)
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMultiSpeed):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SpeedSetting):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SpeedSetting)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'SpeedSetting')
                 asserts.assert_less_equal(val, self.SpeedMax)
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMultiSpeed):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SpeedCurrent):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SpeedCurrent)
             matter_asserts.assert_valid_uint8(val, 'SpeedCurrent')
             asserts.assert_less_equal(val, self.SpeedMax)
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRocking):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RockSupport):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RockSupport)
             matter_asserts.is_valid_int_value(val)
 
         self.step("10")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRocking):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RockSetting):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RockSetting)
             matter_asserts.is_valid_int_value(val)
 
         self.step("11")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWind):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WindSupport):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WindSupport)
             matter_asserts.is_valid_int_value(val)
 
         self.step("12")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWind):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WindSetting):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WindSetting)
             matter_asserts.is_valid_int_value(val)
 
         self.step("13")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAirflowDirection):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AirflowDirection):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AirflowDirection)
             matter_asserts.assert_valid_enum(val, "AirflowDirection attribute must return a Clusters.FanControl.Enums.AirflowDirectionEnum", Clusters.FanControl.Enums.AirflowDirectionEnum)
 

@@ -89,31 +89,31 @@ class MWOCTRL_2_1(MatterBaseTest):
         asserts.assert_less_equal(self.MaxCookTime, 86400)
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerAsNumber):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PowerSetting):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PowerSetting)
             matter_asserts.assert_valid_uint8(val, 'PowerSetting')
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerNumberLimits):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinPower):
             self.MinPower = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinPower)
             matter_asserts.assert_valid_uint8(self.MinPower, 'MinPower')
             asserts.assert_greater_equal(self.MinPower, 1)
             asserts.assert_less_equal(self.MinPower, 99)
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerNumberLimits):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxPower):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxPower)
             matter_asserts.assert_valid_uint8(val, 'MaxPower')
             asserts.assert_greater_equal(val, self.MinPower + 1)
             asserts.assert_less_equal(val, 100)
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerNumberLimits):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PowerStep):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PowerStep)
             matter_asserts.assert_valid_uint8(val, 'PowerStep')
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerInWatts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedWatts):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedWatts)
             matter_asserts.assert_list(val, "SupportedWatts attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "SupportedWatts attribute must contain int elements", int)
@@ -121,7 +121,7 @@ class MWOCTRL_2_1(MatterBaseTest):
             asserts.assert_less_equal(len(val), 10, "SupportedWatts must have at most 10 entries!")
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerInWatts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SelectedWattIndex):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SelectedWattIndex)
             matter_asserts.assert_valid_uint8(val, 'SelectedWattIndex')
 

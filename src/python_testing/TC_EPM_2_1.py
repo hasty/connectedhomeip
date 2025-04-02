@@ -135,7 +135,7 @@ class EPM_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 2e62)
 
         self.step("7")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ReactiveCurrent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ReactiveCurrent):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ReactiveCurrent)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int64(val, 'ReactiveCurrent')
@@ -143,7 +143,7 @@ class EPM_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 2e62)
 
         self.step("8")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ApparentCurrent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ApparentCurrent):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ApparentCurrent)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int64(val, 'ApparentCurrent')
@@ -158,7 +158,7 @@ class EPM_2_1(MatterBaseTest):
             asserts.assert_less_equal(val, 2e62)
 
         self.step("10")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ReactivePower) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ReactivePower):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ReactivePower)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int64(val, 'ReactivePower')
@@ -166,7 +166,7 @@ class EPM_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 2e62)
 
         self.step("11")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ApparentPower) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ApparentPower):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ApparentPower)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int64(val, 'ApparentPower')
@@ -174,7 +174,7 @@ class EPM_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 2e62)
 
         self.step("12")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RMSVoltage) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RMSVoltage):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RMSVoltage)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int64(val, 'RMSVoltage')
@@ -182,7 +182,7 @@ class EPM_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 2e62)
 
         self.step("13")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RMSCurrent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RMSCurrent):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RMSCurrent)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int64(val, 'RMSCurrent')
@@ -190,7 +190,7 @@ class EPM_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 2e62)
 
         self.step("14")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RMSPower) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RMSPower):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RMSPower)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int64(val, 'RMSPower')
@@ -198,7 +198,7 @@ class EPM_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 2e62)
 
         self.step("15")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Frequency) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Frequency):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Frequency)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int64(val, 'Frequency')
@@ -206,7 +206,7 @@ class EPM_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 1000000)
 
         self.step("16")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kHarmonics):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.HarmonicCurrents):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.HarmonicCurrents)
             if val is not NullValue:
                 matter_asserts.assert_list(val, "HarmonicCurrents attribute must return a list")
@@ -215,7 +215,7 @@ class EPM_2_1(MatterBaseTest):
                     await self.test_checkHarmonicMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("17")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerQuality):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.HarmonicPhases):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.HarmonicPhases)
             if val is not NullValue:
                 matter_asserts.assert_list(val, "HarmonicPhases attribute must return a list")
@@ -224,7 +224,7 @@ class EPM_2_1(MatterBaseTest):
                     await self.test_checkHarmonicMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("18")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PowerFactor) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlternatingCurrent):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PowerFactor):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PowerFactor)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int64(val, 'PowerFactor')
@@ -232,7 +232,7 @@ class EPM_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 10000)
 
         self.step("19")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NeutralCurrent) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPolyphasePower):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NeutralCurrent):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NeutralCurrent)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int64(val, 'NeutralCurrent')
@@ -265,21 +265,21 @@ class EPM_2_1(MatterBaseTest):
             matter_asserts.assert_valid_uint16(struct.percentMax, 'PercentMax')
         if struct.percentMin is not None:
             matter_asserts.assert_valid_uint16(struct.percentMin, 'PercentMin')
-            asserts.assert_less_equal(struct.percentMin, self.PercentTypical)
+            asserts.assert_less_equal(struct.percentMin, struct.PercentTypical)
         if struct.percentTypical is not None:
             matter_asserts.assert_valid_uint16(struct.percentTypical, 'PercentTypical')
-            asserts.assert_greater_equal(struct.percentTypical, self.PercentMin)
-            asserts.assert_less_equal(struct.percentTypical, self.PercentMax)
+            asserts.assert_greater_equal(struct.percentTypical, struct.PercentMin)
+            asserts.assert_less_equal(struct.percentTypical, struct.PercentMax)
         if struct.fixedMax is not None:
             matter_asserts.assert_valid_uint64(struct.fixedMax, 'FixedMax')
             asserts.assert_less_equal(struct.fixedMax, 2e62 - 1)
         if struct.fixedMin is not None:
             matter_asserts.assert_valid_uint64(struct.fixedMin, 'FixedMin')
-            asserts.assert_less_equal(struct.fixedMin, self.FixedMax)
+            asserts.assert_less_equal(struct.fixedMin, struct.FixedMax)
         if struct.fixedTypical is not None:
             matter_asserts.assert_valid_uint64(struct.fixedTypical, 'FixedTypical')
-            asserts.assert_greater_equal(struct.fixedTypical, self.FixedMin)
-            asserts.assert_less_equal(struct.fixedTypical, self.FixedMax)
+            asserts.assert_greater_equal(struct.fixedTypical, struct.FixedMin)
+            asserts.assert_less_equal(struct.fixedTypical, struct.FixedMax)
 
     async def test_checkMeasurementAccuracyStruct(self, 
                                  endpoint: int = None, 
@@ -313,17 +313,17 @@ class EPM_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint32(struct.startTimestamp, 'StartTimestamp')
         if struct.endTimestamp is not None:
             matter_asserts.assert_valid_uint32(struct.endTimestamp, 'EndTimestamp')
-            asserts.assert_greater_equal(struct.endTimestamp, self.StartTimestamp + 1)
+            asserts.assert_greater_equal(struct.endTimestamp, struct.StartTimestamp + 1)
         matter_asserts.assert_valid_uint32(struct.minTimestamp, 'MinTimestamp')
         matter_asserts.assert_valid_uint32(struct.maxTimestamp, 'MaxTimestamp')
-        asserts.assert_greater_equal(struct.maxTimestamp, self.MinTimestamp + 1)
+        asserts.assert_greater_equal(struct.maxTimestamp, struct.MinTimestamp + 1)
         matter_asserts.assert_valid_uint64(struct.startSystime, 'StartSystime')
         if struct.endSystime is not None:
             matter_asserts.assert_valid_uint64(struct.endSystime, 'EndSystime')
-            asserts.assert_greater_equal(struct.endSystime, self.StartSystime + 1)
+            asserts.assert_greater_equal(struct.endSystime, struct.StartSystime + 1)
         matter_asserts.assert_valid_uint64(struct.minSystime, 'MinSystime')
         matter_asserts.assert_valid_uint64(struct.maxSystime, 'MaxSystime')
-        asserts.assert_greater_equal(struct.maxSystime, self.MinSystime + 1)
+        asserts.assert_greater_equal(struct.maxSystime, struct.MinSystime + 1)
 
 
 if __name__ == "__main__":

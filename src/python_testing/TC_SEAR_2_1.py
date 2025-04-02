@@ -80,7 +80,7 @@ class SEAR_2_1(MatterBaseTest):
         asserts.assert_less_equal(len(val), 255, "SupportedAreas must have at most 255 entries!")
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMaps):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedMaps):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedMaps)
             matter_asserts.assert_list(val, "SupportedMaps attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "SupportedMaps attribute must contain Clusters.ServiceArea.Structs.MapStruct elements", Clusters.ServiceArea.Structs.MapStruct)
@@ -99,13 +99,13 @@ class SEAR_2_1(MatterBaseTest):
             matter_asserts.assert_valid_uint32(val, 'CurrentArea')
 
         self.step("5")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.EstimatedEndTime) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentArea):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.EstimatedEndTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EstimatedEndTime)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint32(val, 'EstimatedEndTime')
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kProgressReporting):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Progress):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Progress)
             matter_asserts.assert_list(val, "Progress attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "Progress attribute must contain Clusters.ServiceArea.Structs.ProgressStruct elements", Clusters.ServiceArea.Structs.ProgressStruct)

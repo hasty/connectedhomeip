@@ -98,7 +98,7 @@ class DEM_2_1(MatterBaseTest):
         asserts.assert_greater_equal(val, self.AbsMinPower)
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerAdjustment):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PowerAdjustmentCapability):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PowerAdjustmentCapability)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, Clusters.DeviceEnergyManagement.Structs.PowerAdjustCapabilityStruct),
@@ -106,7 +106,7 @@ class DEM_2_1(MatterBaseTest):
                 await self.test_checkPowerAdjustCapabilityStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("7")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerForecastReporting) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kStateForecastReporting)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Forecast):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Forecast)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, Clusters.DeviceEnergyManagement.Structs.ForecastStruct),
@@ -114,7 +114,7 @@ class DEM_2_1(MatterBaseTest):
                 await self.test_checkForecastStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("8")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPowerAdjustment) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kStartTimeAdjustment) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPausable) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kForecastAdjustment) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kConstraintBasedAdjustment)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OptOutState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OptOutState)
             matter_asserts.assert_valid_enum(val, "OptOutState attribute must return a Clusters.DeviceEnergyManagement.Enums.OptOutStateEnum", Clusters.DeviceEnergyManagement.Enums.OptOutStateEnum)
 
@@ -168,10 +168,10 @@ class DEM_2_1(MatterBaseTest):
                                  struct: Clusters.DeviceEnergyManagement.Structs.PowerAdjustStruct = None):
         matter_asserts.assert_valid_int64(struct.minPower, 'MinPower')
         matter_asserts.assert_valid_int64(struct.maxPower, 'MaxPower')
-        asserts.assert_greater_equal(struct.maxPower, self.MinPower)
+        asserts.assert_greater_equal(struct.maxPower, struct.MinPower)
         matter_asserts.assert_valid_uint32(struct.minDuration, 'MinDuration')
         matter_asserts.assert_valid_uint32(struct.maxDuration, 'MaxDuration')
-        asserts.assert_greater_equal(struct.maxDuration, self.MinDuration)
+        asserts.assert_greater_equal(struct.maxDuration, struct.MinDuration)
 
     async def test_checkSlotStruct(self, 
                                  endpoint: int = None, 

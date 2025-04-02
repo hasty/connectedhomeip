@@ -124,89 +124,89 @@ class DRLK_2_1(MatterBaseTest):
         matter_asserts.assert_valid_bool(val, 'ActuatorEnabled')
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kDoorPositionSensor):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DoorState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DoorState)
             if val is not NullValue:
                 matter_asserts.assert_valid_enum(val, "DoorState attribute must return a Clusters.DoorLock.Enums.DoorStateEnum", Clusters.DoorLock.Enums.DoorStateEnum)
 
         self.step("5")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DoorOpenEvents) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kDoorPositionSensor):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DoorOpenEvents):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DoorOpenEvents)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'DoorOpenEvents')
 
         self.step("6")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DoorClosedEvents) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kDoorPositionSensor):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DoorClosedEvents):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DoorClosedEvents)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'DoorClosedEvents')
 
         self.step("7")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OpenPeriod) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kDoorPositionSensor):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OpenPeriod):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OpenPeriod)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'OpenPeriod')
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUser):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfTotalUsersSupported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfTotalUsersSupported)
             matter_asserts.assert_valid_uint16(val, 'NumberOfTotalUsersSupported')
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPINCredential):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfPINUsersSupported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfPINUsersSupported)
             matter_asserts.assert_valid_uint16(val, 'NumberOfPINUsersSupported')
 
         self.step("10")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRFIDCredential):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfRFIDUsersSupported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfRFIDUsersSupported)
             matter_asserts.assert_valid_uint16(val, 'NumberOfRFIDUsersSupported')
 
         self.step("11")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWeekDayAccessSchedules):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfWeekDaySchedulesSupportedPerUser):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfWeekDaySchedulesSupportedPerUser)
             matter_asserts.assert_valid_uint8(val, 'NumberOfWeekDaySchedulesSupportedPerUser')
             asserts.assert_less_equal(val, 253)
 
         self.step("12")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kYearDayAccessSchedules):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfYearDaySchedulesSupportedPerUser):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfYearDaySchedulesSupportedPerUser)
             matter_asserts.assert_valid_uint8(val, 'NumberOfYearDaySchedulesSupportedPerUser')
             asserts.assert_less_equal(val, 253)
 
         self.step("13")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kHolidaySchedules):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfHolidaySchedulesSupported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfHolidaySchedulesSupported)
             matter_asserts.assert_valid_uint8(val, 'NumberOfHolidaySchedulesSupported')
             asserts.assert_less_equal(val, 253)
 
         self.step("14")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPINCredential):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxPINCodeLength):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxPINCodeLength)
             matter_asserts.assert_valid_uint8(val, 'MaxPINCodeLength')
 
         self.step("15")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPINCredential):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinPINCodeLength):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinPINCodeLength)
             matter_asserts.assert_valid_uint8(val, 'MinPINCodeLength')
 
         self.step("16")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRFIDCredential):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxRFIDCodeLength):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxRFIDCodeLength)
             matter_asserts.assert_valid_uint8(val, 'MaxRFIDCodeLength')
 
         self.step("17")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRFIDCredential):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinRFIDCodeLength):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinRFIDCodeLength)
             matter_asserts.assert_valid_uint8(val, 'MinRFIDCodeLength')
 
         self.step("18")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUser):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CredentialRulesSupport):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CredentialRulesSupport)
             matter_asserts.is_valid_int_value(val)
 
         self.step("19")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUser):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfCredentialsSupportedPerUser):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfCredentialsSupportedPerUser)
             matter_asserts.assert_valid_uint8(val, 'NumberOfCredentialsSupportedPerUser')
 
@@ -280,32 +280,32 @@ class DRLK_2_1(MatterBaseTest):
                 matter_asserts.is_valid_int_value(val)
 
         self.step("32")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPINCredential) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRFIDCredential)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.WrongCodeEntryLimit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.WrongCodeEntryLimit)
             matter_asserts.assert_valid_uint8(val, 'WrongCodeEntryLimit')
             asserts.assert_greater_equal(val, 1)
             asserts.assert_less_equal(val, 255)
 
         self.step("33")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPINCredential) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRFIDCredential)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UserCodeTemporaryDisableTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UserCodeTemporaryDisableTime)
             matter_asserts.assert_valid_uint8(val, 'UserCodeTemporaryDisableTime')
             asserts.assert_greater_equal(val, 1)
             asserts.assert_less_equal(val, 255)
 
         self.step("34")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SendPINOverTheAir) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUser) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPINCredential)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SendPINOverTheAir):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SendPINOverTheAir)
             if val is not None:
                 matter_asserts.assert_valid_bool(val, 'SendPINOverTheAir')
 
         self.step("35")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCredentialOverTheAirAccess) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPINCredential)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RequirePINforRemoteOperation):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RequirePINforRemoteOperation)
             matter_asserts.assert_valid_bool(val, 'RequirePINforRemoteOperation')
 
         self.step("36")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ExpiringUserTimeout) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUser):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ExpiringUserTimeout):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ExpiringUserTimeout)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'ExpiringUserTimeout')
@@ -313,54 +313,54 @@ class DRLK_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 2880)
 
         self.step("37")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAliroProvisioning):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AliroReaderVerificationKey):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AliroReaderVerificationKey)
             if val is not NullValue:
                 matter_asserts.assert_is_octstr(val, "AliroReaderVerificationKey must be an octstr")
 
         self.step("38")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAliroProvisioning):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AliroReaderGroupIdentifier):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AliroReaderGroupIdentifier)
             if val is not NullValue:
                 matter_asserts.assert_is_octstr(val, "AliroReaderGroupIdentifier must be an octstr")
 
         self.step("39")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAliroProvisioning):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AliroReaderGroupSubIdentifier):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AliroReaderGroupSubIdentifier)
             matter_asserts.assert_is_octstr(val, "AliroReaderGroupSubIdentifier must be an octstr")
 
         self.step("40")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAliroProvisioning):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AliroExpeditedTransactionSupportedProtocolVersions):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AliroExpeditedTransactionSupportedProtocolVersions)
             matter_asserts.assert_list(val, "AliroExpeditedTransactionSupportedProtocolVersions attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "AliroExpeditedTransactionSupportedProtocolVersions attribute must contain bytes elements", bytes)
             asserts.assert_less_equal(len(val), 16, "AliroExpeditedTransactionSupportedProtocolVersions must have at most 16 entries!")
 
         self.step("41")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAliroBLEUWB):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AliroGroupResolvingKey):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AliroGroupResolvingKey)
             if val is not NullValue:
                 matter_asserts.assert_is_octstr(val, "AliroGroupResolvingKey must be an octstr")
 
         self.step("42")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAliroBLEUWB):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AliroSupportedBLEUWBProtocolVersions):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AliroSupportedBLEUWBProtocolVersions)
             matter_asserts.assert_list(val, "AliroSupportedBLEUWBProtocolVersions attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "AliroSupportedBLEUWBProtocolVersions attribute must contain bytes elements", bytes)
             asserts.assert_less_equal(len(val), 16, "AliroSupportedBLEUWBProtocolVersions must have at most 16 entries!")
 
         self.step("43")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAliroBLEUWB):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AliroBLEAdvertisingVersion):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AliroBLEAdvertisingVersion)
             matter_asserts.assert_valid_uint8(val, 'AliroBLEAdvertisingVersion')
 
         self.step("44")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAliroProvisioning):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfAliroCredentialIssuerKeysSupported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfAliroCredentialIssuerKeysSupported)
             matter_asserts.assert_valid_uint16(val, 'NumberOfAliroCredentialIssuerKeysSupported')
 
         self.step("45")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAliroProvisioning):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfAliroEndpointKeysSupported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfAliroEndpointKeysSupported)
             matter_asserts.assert_valid_uint16(val, 'NumberOfAliroEndpointKeysSupported')
 

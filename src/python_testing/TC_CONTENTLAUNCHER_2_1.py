@@ -68,7 +68,7 @@ class CONTENTLAUNCHER_2_1(MatterBaseTest):
         attributes = cluster.Attributes
 
         self.step("1")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kURLPlayback):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AcceptHeader):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AcceptHeader)
             matter_asserts.assert_list(val, "AcceptHeader attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "AcceptHeader attribute must contain str elements", str)
@@ -77,7 +77,7 @@ class CONTENTLAUNCHER_2_1(MatterBaseTest):
                 asserts.assert_less_equal(len(val), 1024, "AcceptHeader must have at most 1024 entries!")
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kURLPlayback):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedStreamingProtocols):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedStreamingProtocols)
             matter_asserts.is_valid_int_value(val)
 

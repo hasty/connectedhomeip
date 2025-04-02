@@ -87,27 +87,27 @@ class DGETH_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_bool(val, 'FullDuplex')
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPacketCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PacketRxCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PacketRxCount)
             matter_asserts.assert_valid_uint64(val, 'PacketRxCount')
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPacketCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PacketTxCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PacketTxCount)
             matter_asserts.assert_valid_uint64(val, 'PacketTxCount')
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kErrorCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxErrCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxErrCount)
             matter_asserts.assert_valid_uint64(val, 'TxErrCount')
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kErrorCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CollisionCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CollisionCount)
             matter_asserts.assert_valid_uint64(val, 'CollisionCount')
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kErrorCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OverrunCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OverrunCount)
             matter_asserts.assert_valid_uint64(val, 'OverrunCount')
 

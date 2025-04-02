@@ -91,12 +91,12 @@ class CNET_2_1(MatterBaseTest):
         asserts.assert_less_equal(len(val), self.MaxNetworks, "Networks must have at most self.MaxNetworks entries!")
 
         self.step("3")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWiFiNetworkInterface) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kThreadNetworkInterface)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ScanMaxTimeSeconds):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ScanMaxTimeSeconds)
             matter_asserts.assert_valid_uint8(val, 'ScanMaxTimeSeconds')
 
         self.step("4")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWiFiNetworkInterface) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kThreadNetworkInterface)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ConnectMaxTimeSeconds):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ConnectMaxTimeSeconds)
             matter_asserts.assert_valid_uint8(val, 'ConnectMaxTimeSeconds')
 
@@ -122,19 +122,19 @@ class CNET_2_1(MatterBaseTest):
             matter_asserts.assert_valid_int32(val, 'LastConnectErrorValue')
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWiFiNetworkInterface):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedWiFiBands):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedWiFiBands)
             matter_asserts.assert_list(val, "SupportedWiFiBands attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "SupportedWiFiBands attribute must contain Clusters.NetworkCommissioning.Enums.WiFiBandEnum elements", Clusters.NetworkCommissioning.Enums.WiFiBandEnum)
             asserts.assert_greater_equal(len(val), 1, "SupportedWiFiBands must have at least 1 entries!")
 
         self.step("10")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kThreadNetworkInterface):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedThreadFeatures):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedThreadFeatures)
             matter_asserts.is_valid_int_value(val)
 
         self.step("11")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kThreadNetworkInterface):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ThreadVersion):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ThreadVersion)
             matter_asserts.assert_valid_uint16(val, 'ThreadVersion')
 

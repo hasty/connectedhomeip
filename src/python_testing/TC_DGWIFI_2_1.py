@@ -106,37 +106,37 @@ class DGWIFI_2_1(MatterBaseTest):
             asserts.assert_less_equal(val, 0)
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kErrorCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BeaconLostCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BeaconLostCount)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint32(val, 'BeaconLostCount')
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPacketCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BeaconRxCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BeaconRxCount)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint32(val, 'BeaconRxCount')
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPacketCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PacketMulticastRxCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PacketMulticastRxCount)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint32(val, 'PacketMulticastRxCount')
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPacketCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PacketMulticastTxCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PacketMulticastTxCount)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint32(val, 'PacketMulticastTxCount')
 
         self.step("10")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPacketCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PacketUnicastRxCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PacketUnicastRxCount)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint32(val, 'PacketUnicastRxCount')
 
         self.step("11")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPacketCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PacketUnicastTxCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PacketUnicastTxCount)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint32(val, 'PacketUnicastTxCount')
@@ -148,7 +148,7 @@ class DGWIFI_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_uint64(val, 'CurrentMaxRate')
 
         self.step("13")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kErrorCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OverrunCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OverrunCount)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint64(val, 'OverrunCount')

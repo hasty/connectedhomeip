@@ -81,7 +81,7 @@ class CONCON_2_1(MatterBaseTest):
         matter_asserts.assert_valid_bool(val, 'Enabled')
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kOnDemandContentRating):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OnDemandRatings):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OnDemandRatings)
             matter_asserts.assert_list(val, "OnDemandRatings attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "OnDemandRatings attribute must contain Clusters.ContentControl.Structs.RatingNameStruct elements", Clusters.ContentControl.Structs.RatingNameStruct)
@@ -89,13 +89,13 @@ class CONCON_2_1(MatterBaseTest):
                 await self.test_checkRatingNameStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kOnDemandContentRating):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OnDemandRatingThreshold):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OnDemandRatingThreshold)
             matter_asserts.assert_is_string(val, "OnDemandRatingThreshold must be a string")
             asserts.assert_less_equal(len(val), 8, "OnDemandRatingThreshold must have length at most 8!")
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kScheduledContentRating):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ScheduledContentRatings):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ScheduledContentRatings)
             matter_asserts.assert_list(val, "ScheduledContentRatings attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "ScheduledContentRatings attribute must contain Clusters.ContentControl.Structs.RatingNameStruct elements", Clusters.ContentControl.Structs.RatingNameStruct)
@@ -103,30 +103,30 @@ class CONCON_2_1(MatterBaseTest):
                 await self.test_checkRatingNameStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kScheduledContentRating):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ScheduledContentRatingThreshold):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ScheduledContentRatingThreshold)
             matter_asserts.assert_is_string(val, "ScheduledContentRatingThreshold must be a string")
             asserts.assert_less_equal(len(val), 8, "ScheduledContentRatingThreshold must have length at most 8!")
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kScreenTime):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ScreenDailyTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ScreenDailyTime)
             matter_asserts.assert_valid_uint32(val, 'ScreenDailyTime')
             asserts.assert_less_equal(val, 86400)
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kScreenTime):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RemainingScreenTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RemainingScreenTime)
             matter_asserts.assert_valid_uint32(val, 'RemainingScreenTime')
             asserts.assert_less_equal(val, 86400)
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kBlockUnrated):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BlockUnrated):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BlockUnrated)
             matter_asserts.assert_valid_bool(val, 'BlockUnrated')
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kBlockChannels):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BlockChannelList):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BlockChannelList)
             matter_asserts.assert_list(val, "BlockChannelList attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "BlockChannelList attribute must contain Clusters.ContentControl.Structs.BlockChannelStruct elements", Clusters.ContentControl.Structs.BlockChannelStruct)
@@ -134,7 +134,7 @@ class CONCON_2_1(MatterBaseTest):
                 await self.test_checkBlockChannelStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("10")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kBlockApplications):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BlockApplicationList):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BlockApplicationList)
             matter_asserts.assert_list(val, "BlockApplicationList attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "BlockApplicationList attribute must contain Clusters.ContentControl.Structs.AppInfoStruct elements", Clusters.ContentControl.Structs.AppInfoStruct)
@@ -142,7 +142,7 @@ class CONCON_2_1(MatterBaseTest):
                 await self.test_checkAppInfoStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("11")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kBlockContentTimeWindow):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BlockContentTimeWindow):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BlockContentTimeWindow)
             matter_asserts.assert_list(val, "BlockContentTimeWindow attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "BlockContentTimeWindow attribute must contain Clusters.ContentControl.Structs.TimeWindowStruct elements", Clusters.ContentControl.Structs.TimeWindowStruct)

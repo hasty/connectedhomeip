@@ -68,7 +68,7 @@ class APPLAUNCHER_2_1(MatterBaseTest):
         attributes = cluster.Attributes
 
         self.step("1")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kApplicationPlatform):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CatalogList):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CatalogList)
             matter_asserts.assert_list(val, "CatalogList attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "CatalogList attribute must contain int elements", int)

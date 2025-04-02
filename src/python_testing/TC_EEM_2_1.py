@@ -80,7 +80,7 @@ class EEM_2_1(MatterBaseTest):
         await self.test_checkMeasurementAccuracyStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("2")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kImportedEnergy) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCumulativeEnergy)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CumulativeEnergyImported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CumulativeEnergyImported)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, Clusters.ElectricalEnergyMeasurement.Structs.EnergyMeasurementStruct),
@@ -88,7 +88,7 @@ class EEM_2_1(MatterBaseTest):
                 await self.test_checkEnergyMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("3")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kExportedEnergy) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCumulativeEnergy)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CumulativeEnergyExported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CumulativeEnergyExported)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, Clusters.ElectricalEnergyMeasurement.Structs.EnergyMeasurementStruct),
@@ -96,7 +96,7 @@ class EEM_2_1(MatterBaseTest):
                 await self.test_checkEnergyMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("4")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kImportedEnergy) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPeriodicEnergy)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PeriodicEnergyImported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PeriodicEnergyImported)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, Clusters.ElectricalEnergyMeasurement.Structs.EnergyMeasurementStruct),
@@ -104,7 +104,7 @@ class EEM_2_1(MatterBaseTest):
                 await self.test_checkEnergyMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("5")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kExportedEnergy) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPeriodicEnergy)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PeriodicEnergyExported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PeriodicEnergyExported)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, Clusters.ElectricalEnergyMeasurement.Structs.EnergyMeasurementStruct),
@@ -112,7 +112,7 @@ class EEM_2_1(MatterBaseTest):
                 await self.test_checkEnergyMeasurementStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("6")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CumulativeEnergyReset) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCumulativeEnergy):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CumulativeEnergyReset):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CumulativeEnergyReset)
             if val is not NullValue and val is not None:
                 asserts.assert_true(isinstance(val, Clusters.ElectricalEnergyMeasurement.Structs.CumulativeEnergyResetStruct),
@@ -144,12 +144,12 @@ class EEM_2_1(MatterBaseTest):
             matter_asserts.assert_valid_uint32(struct.startTimestamp, 'StartTimestamp')
         if struct.endTimestamp is not None:
             matter_asserts.assert_valid_uint32(struct.endTimestamp, 'EndTimestamp')
-            asserts.assert_greater_equal(struct.endTimestamp, self.StartTimestamp + 1)
+            asserts.assert_greater_equal(struct.endTimestamp, struct.StartTimestamp + 1)
         if struct.startSystime is not None:
             matter_asserts.assert_valid_uint64(struct.startSystime, 'StartSystime')
         if struct.endSystime is not None:
             matter_asserts.assert_valid_uint64(struct.endSystime, 'EndSystime')
-            asserts.assert_greater_equal(struct.endSystime, self.StartSystime + 1)
+            asserts.assert_greater_equal(struct.endSystime, struct.StartSystime + 1)
         matter_asserts.assert_valid_int64(struct.apparentEnergy, 'ApparentEnergy')
         asserts.assert_greater_equal(struct.apparentEnergy, 0)
         asserts.assert_less_equal(struct.apparentEnergy, 2e62)
@@ -171,21 +171,21 @@ class EEM_2_1(MatterBaseTest):
             matter_asserts.assert_valid_uint16(struct.percentMax, 'PercentMax')
         if struct.percentMin is not None:
             matter_asserts.assert_valid_uint16(struct.percentMin, 'PercentMin')
-            asserts.assert_less_equal(struct.percentMin, self.PercentTypical)
+            asserts.assert_less_equal(struct.percentMin, struct.PercentTypical)
         if struct.percentTypical is not None:
             matter_asserts.assert_valid_uint16(struct.percentTypical, 'PercentTypical')
-            asserts.assert_greater_equal(struct.percentTypical, self.PercentMin)
-            asserts.assert_less_equal(struct.percentTypical, self.PercentMax)
+            asserts.assert_greater_equal(struct.percentTypical, struct.PercentMin)
+            asserts.assert_less_equal(struct.percentTypical, struct.PercentMax)
         if struct.fixedMax is not None:
             matter_asserts.assert_valid_uint64(struct.fixedMax, 'FixedMax')
             asserts.assert_less_equal(struct.fixedMax, 2e62 - 1)
         if struct.fixedMin is not None:
             matter_asserts.assert_valid_uint64(struct.fixedMin, 'FixedMin')
-            asserts.assert_less_equal(struct.fixedMin, self.FixedMax)
+            asserts.assert_less_equal(struct.fixedMin, struct.FixedMax)
         if struct.fixedTypical is not None:
             matter_asserts.assert_valid_uint64(struct.fixedTypical, 'FixedTypical')
-            asserts.assert_greater_equal(struct.fixedTypical, self.FixedMin)
-            asserts.assert_less_equal(struct.fixedTypical, self.FixedMax)
+            asserts.assert_greater_equal(struct.fixedTypical, struct.FixedMin)
+            asserts.assert_less_equal(struct.fixedTypical, struct.FixedMax)
 
     async def test_checkMeasurementAccuracyStruct(self, 
                                  endpoint: int = None, 

@@ -83,12 +83,12 @@ class SMOKECO_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(val, "ExpressedState attribute must return a Clusters.SmokeCOAlarm.Enums.ExpressedStateEnum", Clusters.SmokeCOAlarm.Enums.ExpressedStateEnum)
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSmokeAlarm):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SmokeState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SmokeState)
             matter_asserts.assert_valid_enum(val, "SmokeState attribute must return a Clusters.SmokeCOAlarm.Enums.AlarmStateEnum", Clusters.SmokeCOAlarm.Enums.AlarmStateEnum)
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCOAlarm):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.COState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.COState)
             matter_asserts.assert_valid_enum(val, "COState attribute must return a Clusters.SmokeCOAlarm.Enums.AlarmStateEnum", Clusters.SmokeCOAlarm.Enums.AlarmStateEnum)
 
@@ -127,13 +127,13 @@ class SMOKECO_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_enum(val, "InterconnectCOAlarm attribute must return a Clusters.SmokeCOAlarm.Enums.AlarmStateEnum", Clusters.SmokeCOAlarm.Enums.AlarmStateEnum)
 
         self.step("11")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ContaminationState) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSmokeAlarm):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ContaminationState):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ContaminationState)
             if val is not None:
                 matter_asserts.assert_valid_enum(val, "ContaminationState attribute must return a Clusters.SmokeCOAlarm.Enums.ContaminationStateEnum", Clusters.SmokeCOAlarm.Enums.ContaminationStateEnum)
 
         self.step("12")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SmokeSensitivityLevel) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSmokeAlarm):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SmokeSensitivityLevel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SmokeSensitivityLevel)
             if val is not None:
                 matter_asserts.assert_valid_enum(val, "SmokeSensitivityLevel attribute must return a Clusters.SmokeCOAlarm.Enums.SensitivityEnum", Clusters.SmokeCOAlarm.Enums.SensitivityEnum)

@@ -96,19 +96,19 @@ class WNCV_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(val, "Type attribute must return a Clusters.WindowCovering.Enums.TypeEnum", Clusters.WindowCovering.Enums.TypeEnum)
 
         self.step("2")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalClosedLimitLift) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLift) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareLift) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAbsolutePosition)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalClosedLimitLift):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PhysicalClosedLimitLift)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'PhysicalClosedLimitLift')
 
         self.step("3")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalClosedLimitTilt) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTilt) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareTilt) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAbsolutePosition)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PhysicalClosedLimitTilt):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PhysicalClosedLimitTilt)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'PhysicalClosedLimitTilt')
 
         self.step("4")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentPositionLift) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLift) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareLift) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAbsolutePosition)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentPositionLift):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentPositionLift)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint16(val, 'CurrentPositionLift')
@@ -116,7 +116,7 @@ class WNCV_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, self.InstalledClosedLimitLift)
 
         self.step("5")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentPositionTilt) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTilt) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareTilt) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAbsolutePosition)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentPositionTilt):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentPositionTilt)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint16(val, 'CurrentPositionTilt')
@@ -124,13 +124,13 @@ class WNCV_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, self.InstalledClosedLimitTilt)
 
         self.step("6")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfActuationsLift) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLift):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfActuationsLift):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfActuationsLift)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'NumberOfActuationsLift')
 
         self.step("7")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfActuationsTilt) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTilt):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfActuationsTilt):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfActuationsTilt)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'NumberOfActuationsTilt')
@@ -140,13 +140,13 @@ class WNCV_2_1(MatterBaseTest):
         matter_asserts.is_valid_int_value(val)
 
         self.step("9")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentPositionLiftPercentage) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLift) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareLift)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentPositionLiftPercentage):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentPositionLiftPercentage)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint8(val, 'CurrentPositionLiftPercentage')
 
         self.step("10")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentPositionTiltPercentage) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTilt) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareTilt)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentPositionTiltPercentage):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentPositionTiltPercentage)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint8(val, 'CurrentPositionTiltPercentage')
@@ -156,13 +156,13 @@ class WNCV_2_1(MatterBaseTest):
         matter_asserts.is_valid_int_value(val)
 
         self.step("12")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLift) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareLift)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TargetPositionLiftPercent100ths):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TargetPositionLiftPercent100ths)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint16(val, 'TargetPositionLiftPercent100ths')
 
         self.step("13")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTilt) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareTilt)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TargetPositionTiltPercent100ths):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TargetPositionTiltPercent100ths)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint16(val, 'TargetPositionTiltPercent100ths')
@@ -172,39 +172,39 @@ class WNCV_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(val, "EndProductType attribute must return a Clusters.WindowCovering.Enums.EndProductTypeEnum", Clusters.WindowCovering.Enums.EndProductTypeEnum)
 
         self.step("15")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLift) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareLift)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentPositionLiftPercent100ths):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentPositionLiftPercent100ths)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint16(val, 'CurrentPositionLiftPercent100ths')
                 asserts.assert_less_equal(val, 10000)
 
         self.step("16")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTilt) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareTilt)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentPositionTiltPercent100ths):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentPositionTiltPercent100ths)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint16(val, 'CurrentPositionTiltPercent100ths')
                 asserts.assert_less_equal(val, 10000)
 
         self.step("17")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLift) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareLift) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAbsolutePosition)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.InstalledOpenLimitLift):
             self.InstalledOpenLimitLift = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.InstalledOpenLimitLift)
             matter_asserts.assert_valid_uint16(self.InstalledOpenLimitLift, 'InstalledOpenLimitLift')
             asserts.assert_less_equal(self.InstalledOpenLimitLift, 65534)
 
         self.step("18")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLift) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareLift) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAbsolutePosition)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.InstalledClosedLimitLift):
             self.InstalledClosedLimitLift = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.InstalledClosedLimitLift)
             matter_asserts.assert_valid_uint16(self.InstalledClosedLimitLift, 'InstalledClosedLimitLift')
             asserts.assert_less_equal(self.InstalledClosedLimitLift, 65534)
 
         self.step("19")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTilt) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareTilt) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAbsolutePosition)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.InstalledOpenLimitTilt):
             self.InstalledOpenLimitTilt = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.InstalledOpenLimitTilt)
             matter_asserts.assert_valid_uint16(self.InstalledOpenLimitTilt, 'InstalledOpenLimitTilt')
             asserts.assert_less_equal(self.InstalledOpenLimitTilt, 65534)
 
         self.step("20")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTilt) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositionAwareTilt) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAbsolutePosition)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.InstalledClosedLimitTilt):
             self.InstalledClosedLimitTilt = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.InstalledClosedLimitTilt)
             matter_asserts.assert_valid_uint16(self.InstalledClosedLimitTilt, 'InstalledClosedLimitTilt')
             asserts.assert_less_equal(self.InstalledClosedLimitTilt, 65534)

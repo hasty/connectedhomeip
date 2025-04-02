@@ -82,7 +82,7 @@ class ACL_2_1(MatterBaseTest):
             await self.test_checkAccessControlEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kExtension):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Extension):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Extension)
             matter_asserts.assert_list(val, "Extension attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "Extension attribute must contain Clusters.AccessControl.Structs.AccessControlExtensionStruct elements", Clusters.AccessControl.Structs.AccessControlExtensionStruct)
@@ -105,7 +105,7 @@ class ACL_2_1(MatterBaseTest):
         asserts.assert_greater_equal(val, 4)
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kManagedDevice):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CommissioningARL):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CommissioningARL)
             matter_asserts.assert_list(val, "CommissioningARL attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "CommissioningARL attribute must contain Clusters.AccessControl.Structs.CommissioningAccessRestrictionEntryStruct elements", Clusters.AccessControl.Structs.CommissioningAccessRestrictionEntryStruct)
@@ -113,7 +113,7 @@ class ACL_2_1(MatterBaseTest):
                 await self.test_checkCommissioningAccessRestrictionEntryStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kManagedDevice):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ARL):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ARL)
             matter_asserts.assert_list(val, "ARL attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "ARL attribute must contain Clusters.AccessControl.Structs.AccessRestrictionEntryStruct elements", Clusters.AccessControl.Structs.AccessRestrictionEntryStruct)

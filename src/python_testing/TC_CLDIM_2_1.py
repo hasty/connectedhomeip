@@ -93,23 +93,23 @@ class CLDIM_2_1(MatterBaseTest):
             await self.test_checkTargetStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositioning):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Resolution):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Resolution)
             matter_asserts.assert_valid_uint16(val, 'Resolution')
             asserts.assert_greater_equal(val, 0.01)
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPositioning):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.StepValue):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StepValue)
             matter_asserts.assert_valid_uint16(val, 'StepValue')
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUnit):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Unit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Unit)
             matter_asserts.assert_valid_enum(val, "Unit attribute must return a Clusters.ClosureDimension.Enums.ClosureUnitEnum", Clusters.ClosureDimension.Enums.ClosureUnitEnum)
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUnit):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UnitRange):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UnitRange)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, Clusters.ClosureDimension.Structs.UnitRangeStruct),
@@ -117,30 +117,30 @@ class CLDIM_2_1(MatterBaseTest):
                 await self.test_checkUnitRangeStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLimitation):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LimitRange):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LimitRange)
             asserts.assert_true(isinstance(val, Clusters.ClosureDimension.Structs.RangePercent100thsStruct),
                                         f"val must be of type Clusters.ClosureDimension.Structs.RangePercent100thsStruct")
             await self.test_checkRangePercent100thsStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTranslation):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TranslationDirection):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TranslationDirection)
             matter_asserts.assert_valid_enum(val, "TranslationDirection attribute must return a Clusters.ClosureDimension.Enums.TranslationDirectionEnum", Clusters.ClosureDimension.Enums.TranslationDirectionEnum)
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRotation):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RotationAxis):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RotationAxis)
             matter_asserts.assert_valid_enum(val, "RotationAxis attribute must return a Clusters.ClosureDimension.Enums.RotationAxisEnum", Clusters.ClosureDimension.Enums.RotationAxisEnum)
 
         self.step("10")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRotation) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Overflow) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMotionLatching):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Overflow):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Overflow)
             if val is not None:
                 matter_asserts.assert_valid_enum(val, "Overflow attribute must return a Clusters.ClosureDimension.Enums.OverflowEnum", Clusters.ClosureDimension.Enums.OverflowEnum)
 
         self.step("11")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kModulation):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ModulationType):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ModulationType)
             matter_asserts.assert_valid_enum(val, "ModulationType attribute must return a Clusters.ClosureDimension.Enums.ModulationTypeEnum", Clusters.ClosureDimension.Enums.ModulationTypeEnum)
 
@@ -159,7 +159,7 @@ class CLDIM_2_1(MatterBaseTest):
                                  struct: Clusters.ClosureDimension.Structs.RangePercent100thsStruct = None):
         matter_asserts.assert_valid_uint16(struct.min, 'Min')
         matter_asserts.assert_valid_uint16(struct.max, 'Max')
-        asserts.assert_greater_equal(struct.max, self.Min)
+        asserts.assert_greater_equal(struct.max, struct.Min)
         asserts.assert_less_equal(struct.max, 100)
 
     async def test_checkTargetStruct(self, 
@@ -176,7 +176,7 @@ class CLDIM_2_1(MatterBaseTest):
                                  struct: Clusters.ClosureDimension.Structs.UnitRangeStruct = None):
         matter_asserts.assert_valid_int16(struct.min, 'Min')
         matter_asserts.assert_valid_int16(struct.max, 'Max')
-        asserts.assert_greater_equal(struct.max, self.Min)
+        asserts.assert_greater_equal(struct.max, struct.Min)
         asserts.assert_less_equal(struct.max, 32767)
 
 

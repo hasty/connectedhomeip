@@ -74,37 +74,37 @@ class TCTL_2_1(MatterBaseTest):
         attributes = cluster.Attributes
 
         self.step("1")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTemperatureNumber):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TemperatureSetpoint):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TemperatureSetpoint)
             matter_asserts.assert_valid_int16(val, 'TemperatureSetpoint')
             asserts.assert_greater_equal(val, self.MinTemperature)
             asserts.assert_less_equal(val, self.MaxTemperature)
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTemperatureNumber):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinTemperature):
             self.MinTemperature = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinTemperature)
             matter_asserts.assert_valid_int16(self.MinTemperature, 'MinTemperature')
             asserts.assert_less_equal(self.MinTemperature, self.MaxTemperature - 1)
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTemperatureNumber):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxTemperature):
             self.MaxTemperature = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxTemperature)
             matter_asserts.assert_valid_int16(self.MaxTemperature, 'MaxTemperature')
 
         self.step("4")
-        if True:
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Step):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Step)
             matter_asserts.assert_valid_int16(val, 'Step')
             asserts.assert_less_equal(val, self.MaxTemperature - self.MinTemperature)
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTemperatureLevel):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SelectedTemperatureLevel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SelectedTemperatureLevel)
             matter_asserts.assert_valid_uint8(val, 'SelectedTemperatureLevel')
             asserts.assert_less_equal(val, 31)
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTemperatureLevel):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedTemperatureLevels):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedTemperatureLevels)
             matter_asserts.assert_list(val, "SupportedTemperatureLevels attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "SupportedTemperatureLevels attribute must contain str elements", str)

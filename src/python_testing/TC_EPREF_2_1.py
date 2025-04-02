@@ -71,7 +71,7 @@ class EPREF_2_1(MatterBaseTest):
         attributes = cluster.Attributes
 
         self.step("1")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kEnergyBalance):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.EnergyBalances):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EnergyBalances)
             matter_asserts.assert_list(val, "EnergyBalances attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "EnergyBalances attribute must contain Clusters.EnergyPreference.Structs.BalanceStruct elements", Clusters.EnergyPreference.Structs.BalanceStruct)
@@ -81,18 +81,18 @@ class EPREF_2_1(MatterBaseTest):
             asserts.assert_less_equal(len(val), 10, "EnergyBalances must have at most 10 entries!")
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kEnergyBalance):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentEnergyBalance):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentEnergyBalance)
             matter_asserts.assert_valid_uint8(val, 'CurrentEnergyBalance')
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kEnergyBalance):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.EnergyPriorities):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EnergyPriorities)
             matter_asserts.assert_list(val, "EnergyPriorities attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "EnergyPriorities attribute must contain Clusters.EnergyPreference.Enums.EnergyPriorityEnum elements", Clusters.EnergyPreference.Enums.EnergyPriorityEnum)
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLowPowerModeSensitivity):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LowPowerModeSensitivities):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LowPowerModeSensitivities)
             matter_asserts.assert_list(val, "LowPowerModeSensitivities attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "LowPowerModeSensitivities attribute must contain Clusters.EnergyPreference.Structs.BalanceStruct elements", Clusters.EnergyPreference.Structs.BalanceStruct)
@@ -102,7 +102,7 @@ class EPREF_2_1(MatterBaseTest):
             asserts.assert_less_equal(len(val), 10, "LowPowerModeSensitivities must have at most 10 entries!")
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLowPowerModeSensitivity):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentLowPowerModeSensitivity):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentLowPowerModeSensitivity)
             matter_asserts.assert_valid_uint8(val, 'CurrentLowPowerModeSensitivity')
 

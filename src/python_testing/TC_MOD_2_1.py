@@ -100,7 +100,7 @@ class MOD_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_uint8(val, 'StartUpMode')
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kOnOff):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OnMode):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OnMode)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'OnMode')

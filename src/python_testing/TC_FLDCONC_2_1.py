@@ -79,7 +79,7 @@ class FLDCONC_2_1(MatterBaseTest):
         attributes = cluster.Attributes
 
         self.step("1")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kNumericMeasurement):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MeasuredValue):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MeasuredValue)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, float), f"val must be a float")
@@ -87,20 +87,20 @@ class FLDCONC_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, self.MaxMeasuredValue)
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kNumericMeasurement):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinMeasuredValue):
             self.MinMeasuredValue = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinMeasuredValue)
             if self.MinMeasuredValue is not NullValue:
                 asserts.assert_true(isinstance(self.MinMeasuredValue, float), f"self.MinMeasuredValue must be a float")
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kNumericMeasurement):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxMeasuredValue):
             self.MaxMeasuredValue = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxMeasuredValue)
             if self.MaxMeasuredValue is not NullValue:
                 asserts.assert_true(isinstance(self.MaxMeasuredValue, float), f"self.MaxMeasuredValue must be a float")
                 asserts.assert_greater_equal(self.MaxMeasuredValue, self.MinMeasuredValue)
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPeakMeasurement):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PeakMeasuredValue):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PeakMeasuredValue)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, float), f"val must be a float")
@@ -108,13 +108,13 @@ class FLDCONC_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, self.MaxMeasuredValue)
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPeakMeasurement):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PeakMeasuredValueWindow):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PeakMeasuredValueWindow)
             matter_asserts.assert_valid_uint32(val, 'PeakMeasuredValueWindow')
             asserts.assert_less_equal(val, 604800)
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAverageMeasurement):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AverageMeasuredValue):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AverageMeasuredValue)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, float), f"val must be a float")
@@ -122,19 +122,19 @@ class FLDCONC_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, self.MaxMeasuredValue)
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAverageMeasurement):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AverageMeasuredValueWindow):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AverageMeasuredValueWindow)
             matter_asserts.assert_valid_uint32(val, 'AverageMeasuredValueWindow')
             asserts.assert_less_equal(val, 604800)
 
         self.step("8")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Uncertainty) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kNumericMeasurement):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Uncertainty):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Uncertainty)
             if val is not None:
                 asserts.assert_true(isinstance(val, float), f"val must be a float")
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kNumericMeasurement):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MeasurementUnit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MeasurementUnit)
             matter_asserts.assert_valid_enum(val, "MeasurementUnit attribute must return a Clusters.CarbonMonoxideConcentrationMeasurement.Enums.MeasurementUnitEnum", Clusters.CarbonMonoxideConcentrationMeasurement.Enums.MeasurementUnitEnum)
 
@@ -143,7 +143,7 @@ class FLDCONC_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(val, "MeasurementMedium attribute must return a Clusters.CarbonMonoxideConcentrationMeasurement.Enums.MeasurementMediumEnum", Clusters.CarbonMonoxideConcentrationMeasurement.Enums.MeasurementMediumEnum)
 
         self.step("11")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLevelIndication):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LevelValue):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LevelValue)
             matter_asserts.assert_valid_enum(val, "LevelValue attribute must return a Clusters.CarbonMonoxideConcentrationMeasurement.Enums.LevelValueEnum", Clusters.CarbonMonoxideConcentrationMeasurement.Enums.LevelValueEnum)
 

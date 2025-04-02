@@ -92,12 +92,12 @@ class LVL_2_1(MatterBaseTest):
             asserts.assert_less_equal(val, self.MaxLevel)
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLighting):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RemainingTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RemainingTime)
             matter_asserts.assert_valid_uint16(val, 'RemainingTime')
 
         self.step("3")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinLevel) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLighting):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinLevel):
             self.MinLevel = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinLevel)
             if self.MinLevel is not None:
                 matter_asserts.assert_valid_uint8(self.MinLevel, 'MinLevel')
@@ -105,7 +105,7 @@ class LVL_2_1(MatterBaseTest):
                 asserts.assert_less_equal(self.MinLevel, 254)
 
         self.step("4")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinLevel) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLighting):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinLevel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinLevel)
             if val is not None:
                 matter_asserts.assert_valid_uint8(val, 'MinLevel')
@@ -120,19 +120,19 @@ class LVL_2_1(MatterBaseTest):
                 asserts.assert_less_equal(self.MaxLevel, 254)
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kFrequency):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentFrequency):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentFrequency)
             matter_asserts.assert_valid_uint16(val, 'CurrentFrequency')
             asserts.assert_greater_equal(val, self.MinFrequency)
             asserts.assert_less_equal(val, self.MaxFrequency)
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kFrequency):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinFrequency):
             self.MinFrequency = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinFrequency)
             matter_asserts.assert_valid_uint16(self.MinFrequency, 'MinFrequency')
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kFrequency):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxFrequency):
             self.MaxFrequency = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxFrequency)
             matter_asserts.assert_valid_uint16(self.MaxFrequency, 'MaxFrequency')
             asserts.assert_greater_equal(self.MaxFrequency, self.MinFrequency)
@@ -174,7 +174,7 @@ class LVL_2_1(MatterBaseTest):
         matter_asserts.is_valid_int_value(val)
 
         self.step("15")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLighting):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.StartUpCurrentLevel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StartUpCurrentLevel)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'StartUpCurrentLevel')

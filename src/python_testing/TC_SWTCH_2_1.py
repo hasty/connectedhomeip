@@ -80,7 +80,7 @@ class SWTCH_2_1(MatterBaseTest):
         asserts.assert_less_equal(val, self.NumberOfPositions - 1)
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMomentarySwitchMultiPress):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MultiPressMax):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MultiPressMax)
             matter_asserts.assert_valid_uint8(val, 'MultiPressMax')
             asserts.assert_greater_equal(val, 2)

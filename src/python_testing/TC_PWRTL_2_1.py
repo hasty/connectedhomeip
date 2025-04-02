@@ -68,14 +68,14 @@ class PWRTL_2_1(MatterBaseTest):
         attributes = cluster.Attributes
 
         self.step("1")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSetTopology):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AvailableEndpoints):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AvailableEndpoints)
             matter_asserts.assert_list(val, "AvailableEndpoints attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "AvailableEndpoints attribute must contain int elements", int)
             asserts.assert_less_equal(len(val), 20, "AvailableEndpoints must have at most 20 entries!")
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kDynamicPowerFlow):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveEndpoints):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveEndpoints)
             matter_asserts.assert_list(val, "ActiveEndpoints attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "ActiveEndpoints attribute must contain int elements", int)

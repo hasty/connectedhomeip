@@ -94,7 +94,7 @@ class TIMESYNC_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_enum(val, "TimeSource attribute must return a Clusters.TimeSynchronization.Enums.TimeSourceEnum", Clusters.TimeSynchronization.Enums.TimeSourceEnum)
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeSyncClient):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TrustedTimeSource):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TrustedTimeSource)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, Clusters.TimeSynchronization.Structs.TrustedTimeSourceStruct),
@@ -102,14 +102,14 @@ class TIMESYNC_2_1(MatterBaseTest):
                 await self.test_checkTrustedTimeSourceStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kNTPClient):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DefaultNTP):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DefaultNTP)
             if val is not NullValue:
                 matter_asserts.assert_is_string(val, "DefaultNTP must be a string")
                 asserts.assert_less_equal(len(val), 128, "DefaultNTP must have length at most 128!")
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeZone):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TimeZone):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TimeZone)
             matter_asserts.assert_list(val, "TimeZone attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "TimeZone attribute must contain Clusters.TimeSynchronization.Structs.TimeZoneStruct elements", Clusters.TimeSynchronization.Structs.TimeZoneStruct)
@@ -119,7 +119,7 @@ class TIMESYNC_2_1(MatterBaseTest):
             asserts.assert_less_equal(len(val), 2, "TimeZone must have at most 2 entries!")
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeZone):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DSTOffset):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DSTOffset)
             matter_asserts.assert_list(val, "DSTOffset attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "DSTOffset attribute must contain Clusters.TimeSynchronization.Structs.DSTOffsetStruct elements", Clusters.TimeSynchronization.Structs.DSTOffsetStruct)
@@ -127,36 +127,36 @@ class TIMESYNC_2_1(MatterBaseTest):
                 await self.test_checkDSTOffsetStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeZone):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LocalTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LocalTime)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint64(val, 'LocalTime')
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeZone):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TimeZoneDatabase):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TimeZoneDatabase)
             matter_asserts.assert_valid_enum(val, "TimeZoneDatabase attribute must return a Clusters.TimeSynchronization.Enums.TimeZoneDatabaseEnum", Clusters.TimeSynchronization.Enums.TimeZoneDatabaseEnum)
 
         self.step("10")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kNTPServer):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NTPServerAvailable):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NTPServerAvailable)
             matter_asserts.assert_valid_bool(val, 'NTPServerAvailable')
 
         self.step("11")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeZone):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TimeZoneListMaxSize):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TimeZoneListMaxSize)
             matter_asserts.assert_valid_uint8(val, 'TimeZoneListMaxSize')
             asserts.assert_greater_equal(val, 1)
             asserts.assert_less_equal(val, 2)
 
         self.step("12")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeZone):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DSTOffsetListMaxSize):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DSTOffsetListMaxSize)
             matter_asserts.assert_valid_uint8(val, 'DSTOffsetListMaxSize')
             asserts.assert_greater_equal(val, 1)
 
         self.step("13")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kNTPClient):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportsDNSResolve):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportsDNSResolve)
             matter_asserts.assert_valid_bool(val, 'SupportsDNSResolve')
 

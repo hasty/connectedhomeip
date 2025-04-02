@@ -72,12 +72,12 @@ class WTLREPMON_2_1(MatterBaseTest):
         attributes = cluster.Attributes
 
         self.step("1")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCondition):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Condition):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Condition)
             matter_asserts.assert_valid_uint8(val, 'Condition')
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCondition):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DegradationDirection):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DegradationDirection)
             matter_asserts.assert_valid_enum(val, "DegradationDirection attribute must return a Clusters.HEPAFilterMonitoring.Enums.DegradationDirectionEnum", Clusters.HEPAFilterMonitoring.Enums.DegradationDirectionEnum)
 
@@ -98,7 +98,7 @@ class WTLREPMON_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_uint32(val, 'LastChangedTime')
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kReplacementProductList):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ReplacementProductList):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ReplacementProductList)
             matter_asserts.assert_list(val, "ReplacementProductList attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "ReplacementProductList attribute must contain Clusters.HEPAFilterMonitoring.Structs.ReplacementProductStruct elements", Clusters.HEPAFilterMonitoring.Structs.ReplacementProductStruct)

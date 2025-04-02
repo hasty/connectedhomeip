@@ -75,43 +75,43 @@ class BOOLCFG_2_1(MatterBaseTest):
         attributes = cluster.Attributes
 
         self.step("1")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSensitivityLevel):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentSensitivityLevel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentSensitivityLevel)
             matter_asserts.assert_valid_uint8(val, 'CurrentSensitivityLevel')
             asserts.assert_less_equal(val, self.SupportedSensitivityLevels - 1)
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSensitivityLevel):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedSensitivityLevels):
             self.SupportedSensitivityLevels = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedSensitivityLevels)
             matter_asserts.assert_valid_uint8(self.SupportedSensitivityLevels, 'SupportedSensitivityLevels')
             asserts.assert_greater_equal(self.SupportedSensitivityLevels, 2)
             asserts.assert_less_equal(self.SupportedSensitivityLevels, 10)
 
         self.step("3")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DefaultSensitivityLevel) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSensitivityLevel):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DefaultSensitivityLevel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DefaultSensitivityLevel)
             if val is not None:
                 matter_asserts.assert_valid_uint8(val, 'DefaultSensitivityLevel')
                 asserts.assert_less_equal(val, self.SupportedSensitivityLevels - 1)
 
         self.step("4")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kVisual) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAudible)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AlarmsActive):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AlarmsActive)
             matter_asserts.is_valid_int_value(val)
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAlarmSuppress):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AlarmsSuppressed):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AlarmsSuppressed)
             matter_asserts.is_valid_int_value(val)
 
         self.step("6")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AlarmsEnabled) and (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kVisual) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAudible)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AlarmsEnabled):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AlarmsEnabled)
             if val is not None:
                 matter_asserts.is_valid_int_value(val)
 
         self.step("7")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kVisual) or await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAudible)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AlarmsSupported):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AlarmsSupported)
             matter_asserts.is_valid_int_value(val)
 

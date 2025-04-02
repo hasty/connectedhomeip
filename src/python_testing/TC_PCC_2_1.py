@@ -104,62 +104,62 @@ class PCC_2_1(MatterBaseTest):
             matter_asserts.assert_valid_uint16(val, 'MaxFlow')
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kConstantPressure) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinConstPressure) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAutomatic):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinConstPressure):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinConstPressure)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int16(val, 'MinConstPressure')
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kConstantPressure) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxConstPressure) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAutomatic):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxConstPressure):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxConstPressure)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int16(val, 'MaxConstPressure')
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCompensatedPressure) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinCompPressure) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAutomatic):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinCompPressure):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinCompPressure)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int16(val, 'MinCompPressure')
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCompensatedPressure) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxCompPressure) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAutomatic):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxCompPressure):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxCompPressure)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int16(val, 'MaxCompPressure')
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kConstantSpeed) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinConstSpeed) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAutomatic):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinConstSpeed):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinConstSpeed)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint16(val, 'MinConstSpeed')
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kConstantSpeed) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxConstSpeed) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAutomatic):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxConstSpeed):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxConstSpeed)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint16(val, 'MaxConstSpeed')
 
         self.step("10")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kConstantFlow) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinConstFlow) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAutomatic):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinConstFlow):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinConstFlow)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint16(val, 'MinConstFlow')
 
         self.step("11")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kConstantFlow) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxConstFlow) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAutomatic):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxConstFlow):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxConstFlow)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint16(val, 'MaxConstFlow')
 
         self.step("12")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kConstantTemperature) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinConstTemp) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAutomatic):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinConstTemp):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinConstTemp)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int16(val, 'MinConstTemp')
                 asserts.assert_greater_equal(val, -27315)
 
         self.step("13")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kConstantTemperature) and await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxConstTemp) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAutomatic):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxConstTemp):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxConstTemp)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_int16(val, 'MaxConstTemp')

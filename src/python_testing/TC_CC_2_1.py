@@ -120,13 +120,13 @@ class CC_2_1(MatterBaseTest):
         attributes = cluster.Attributes
 
         self.step("1")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kHueSaturation):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentHue):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentHue)
             matter_asserts.assert_valid_uint8(val, 'CurrentHue')
             asserts.assert_less_equal(val, 254)
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kHueSaturation):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentSaturation):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentSaturation)
             matter_asserts.assert_valid_uint8(val, 'CurrentSaturation')
             asserts.assert_less_equal(val, 254)
@@ -139,13 +139,13 @@ class CC_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 65534)
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kXY):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentX):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentX)
             matter_asserts.assert_valid_uint16(val, 'CurrentX')
             asserts.assert_less_equal(val, 65279)
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kXY):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentY):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentY)
             matter_asserts.assert_valid_uint16(val, 'CurrentY')
             asserts.assert_less_equal(val, 65279)
@@ -164,7 +164,7 @@ class CC_2_1(MatterBaseTest):
                 asserts.assert_less_equal(len(val), 254, "CompensationText must have length at most 254!")
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kColorTemperature):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorTemperatureMireds):
             self.ColorTemperatureMireds = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ColorTemperatureMireds)
             matter_asserts.assert_valid_uint16(self.ColorTemperatureMireds, 'ColorTemperatureMireds')
             asserts.assert_less_equal(self.ColorTemperatureMireds, 65279)
@@ -184,121 +184,121 @@ class CC_2_1(MatterBaseTest):
             asserts.assert_less_equal(val, 6)
 
         self.step("12")
-        if NumberOfPrimaries > 0 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary1X):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary1X):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary1X)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Primary1X')
                 asserts.assert_less_equal(val, 65279)
 
         self.step("13")
-        if NumberOfPrimaries > 0 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary1Y):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary1Y):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary1Y)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Primary1Y')
                 asserts.assert_less_equal(val, 65279)
 
         self.step("14")
-        if NumberOfPrimaries > 0 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary1Intensity):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary1Intensity):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary1Intensity)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint8(val, 'Primary1Intensity')
 
         self.step("15")
-        if NumberOfPrimaries > 1 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary2X):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary2X):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary2X)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Primary2X')
                 asserts.assert_less_equal(val, 65279)
 
         self.step("16")
-        if NumberOfPrimaries > 1 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary2Y):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary2Y):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary2Y)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Primary2Y')
                 asserts.assert_less_equal(val, 65279)
 
         self.step("17")
-        if NumberOfPrimaries > 1 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary2Intensity):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary2Intensity):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary2Intensity)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint8(val, 'Primary2Intensity')
 
         self.step("18")
-        if NumberOfPrimaries > 2 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary3X):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary3X):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary3X)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Primary3X')
                 asserts.assert_less_equal(val, 65279)
 
         self.step("19")
-        if NumberOfPrimaries > 2 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary3Y):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary3Y):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary3Y)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Primary3Y')
                 asserts.assert_less_equal(val, 65279)
 
         self.step("20")
-        if NumberOfPrimaries > 2 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary3Intensity):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary3Intensity):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary3Intensity)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint8(val, 'Primary3Intensity')
 
         self.step("21")
-        if NumberOfPrimaries > 3 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary4X):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary4X):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary4X)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Primary4X')
                 asserts.assert_less_equal(val, 65279)
 
         self.step("22")
-        if NumberOfPrimaries > 3 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary4Y):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary4Y):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary4Y)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Primary4Y')
                 asserts.assert_less_equal(val, 65279)
 
         self.step("23")
-        if NumberOfPrimaries > 3 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary4Intensity):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary4Intensity):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary4Intensity)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint8(val, 'Primary4Intensity')
 
         self.step("24")
-        if NumberOfPrimaries > 4 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary5X):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary5X):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary5X)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Primary5X')
                 asserts.assert_less_equal(val, 65279)
 
         self.step("25")
-        if NumberOfPrimaries > 4 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary5Y):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary5Y):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary5Y)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Primary5Y')
                 asserts.assert_less_equal(val, 65279)
 
         self.step("26")
-        if NumberOfPrimaries > 4 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary5Intensity):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary5Intensity):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary5Intensity)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint8(val, 'Primary5Intensity')
 
         self.step("27")
-        if NumberOfPrimaries > 5 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary6X):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary6X):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary6X)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Primary6X')
                 asserts.assert_less_equal(val, 65279)
 
         self.step("28")
-        if NumberOfPrimaries > 5 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary6Y):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary6Y):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary6Y)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'Primary6Y')
                 asserts.assert_less_equal(val, 65279)
 
         self.step("29")
-        if NumberOfPrimaries > 5 and await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary6Intensity):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Primary6Intensity):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Primary6Intensity)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint8(val, 'Primary6Intensity')
@@ -378,7 +378,7 @@ class CC_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_uint8(val, 'ColorPointBIntensity')
 
         self.step("41")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kEnhancedHue):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.EnhancedCurrentHue):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.EnhancedCurrentHue)
             matter_asserts.assert_valid_uint16(val, 'EnhancedCurrentHue')
 
@@ -387,28 +387,28 @@ class CC_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(val, "EnhancedColorMode attribute must return a Clusters.ColorControl.Enums.EnhancedColorModeEnum", Clusters.ColorControl.Enums.EnhancedColorModeEnum)
 
         self.step("43")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kColorLoop):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorLoopActive):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ColorLoopActive)
             matter_asserts.assert_valid_uint8(val, 'ColorLoopActive')
             asserts.assert_less_equal(val, 1)
 
         self.step("44")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kColorLoop):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorLoopDirection):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ColorLoopDirection)
             matter_asserts.assert_valid_enum(val, "ColorLoopDirection attribute must return a Clusters.ColorControl.Enums.ColorLoopDirectionEnum", Clusters.ColorControl.Enums.ColorLoopDirectionEnum)
 
         self.step("45")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kColorLoop):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorLoopTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ColorLoopTime)
             matter_asserts.assert_valid_uint16(val, 'ColorLoopTime')
 
         self.step("46")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kColorLoop):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorLoopStartEnhancedHue):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ColorLoopStartEnhancedHue)
             matter_asserts.assert_valid_uint16(val, 'ColorLoopStartEnhancedHue')
 
         self.step("47")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kColorLoop):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorLoopStoredEnhancedHue):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ColorLoopStoredEnhancedHue)
             matter_asserts.assert_valid_uint16(val, 'ColorLoopStoredEnhancedHue')
 
@@ -418,27 +418,27 @@ class CC_2_1(MatterBaseTest):
         asserts.assert_less_equal(val, 31)
 
         self.step("49")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kColorTemperature):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorTempPhysicalMinMireds):
             self.ColorTempPhysicalMinMireds = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ColorTempPhysicalMinMireds)
             matter_asserts.assert_valid_uint16(self.ColorTempPhysicalMinMireds, 'ColorTempPhysicalMinMireds')
             asserts.assert_greater_equal(self.ColorTempPhysicalMinMireds, 1)
             asserts.assert_less_equal(self.ColorTempPhysicalMinMireds, 65279)
 
         self.step("50")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kColorTemperature):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorTempPhysicalMaxMireds):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ColorTempPhysicalMaxMireds)
             matter_asserts.assert_valid_uint16(val, 'ColorTempPhysicalMaxMireds')
             asserts.assert_less_equal(val, 65279)
 
         self.step("51")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kColorTemperature) or await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorTemperatureMireds)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CoupleColorTempToLevelMinMireds):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CoupleColorTempToLevelMinMireds)
             matter_asserts.assert_valid_uint16(val, 'CoupleColorTempToLevelMinMireds')
             asserts.assert_greater_equal(val, self.ColorTempPhysicalMinMireds)
             asserts.assert_less_equal(val, self.ColorTemperatureMireds)
 
         self.step("52")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kColorTemperature) or await self.attribute_guard(endpoint=endpoint, attribute=attributes.ColorTemperatureMireds)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.StartUpColorTemperatureMireds):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StartUpColorTemperatureMireds)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint16(val, 'StartUpColorTemperatureMireds')

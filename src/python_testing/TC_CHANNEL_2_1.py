@@ -69,7 +69,7 @@ class CHANNEL_2_1(MatterBaseTest):
         attributes = cluster.Attributes
 
         self.step("1")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kChannelList):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ChannelList):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ChannelList)
             matter_asserts.assert_list(val, "ChannelList attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "ChannelList attribute must contain Clusters.Channel.Structs.ChannelInfoStruct elements", Clusters.Channel.Structs.ChannelInfoStruct)
@@ -77,7 +77,7 @@ class CHANNEL_2_1(MatterBaseTest):
                 await self.test_checkChannelInfoStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLineupInfo):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Lineup):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Lineup)
             if val is not NullValue:
                 asserts.assert_true(isinstance(val, Clusters.Channel.Structs.LineupInfoStruct),

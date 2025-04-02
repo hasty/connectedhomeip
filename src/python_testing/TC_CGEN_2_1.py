@@ -98,27 +98,27 @@ class CGEN_2_1(MatterBaseTest):
         matter_asserts.assert_valid_bool(val, 'SupportsConcurrentConnection')
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTermsAndConditions):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TCAcceptedVersion):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TCAcceptedVersion)
             matter_asserts.assert_valid_uint16(val, 'TCAcceptedVersion')
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTermsAndConditions):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TCMinRequiredVersion):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TCMinRequiredVersion)
             matter_asserts.assert_valid_uint16(val, 'TCMinRequiredVersion')
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTermsAndConditions):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TCAcknowledgements):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TCAcknowledgements)
             matter_asserts.assert_valid_uint16(val, 'TCAcknowledgements must be uint16')
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTermsAndConditions):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TCAcknowledgementsRequired):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TCAcknowledgementsRequired)
             matter_asserts.assert_valid_bool(val, 'TCAcknowledgementsRequired')
 
         self.step("10")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTermsAndConditions):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TCUpdateDeadline):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TCUpdateDeadline)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint32(val, 'TCUpdateDeadline')

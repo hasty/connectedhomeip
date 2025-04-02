@@ -163,7 +163,7 @@ class DGTHREAD_2_1(MatterBaseTest):
             matter_asserts.assert_int_in_range(len(val), 1, 17, "MeshLocalPrefix must have a length of between 1 and 17")
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kErrorCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OverrunCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OverrunCount)
             matter_asserts.assert_valid_uint64(val, 'OverrunCount')
 
@@ -211,253 +211,253 @@ class DGTHREAD_2_1(MatterBaseTest):
             asserts.assert_less_equal(val, 62)
 
         self.step("15")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DetachedRoleCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMLECounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DetachedRoleCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DetachedRoleCount)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'DetachedRoleCount')
 
         self.step("16")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ChildRoleCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMLECounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ChildRoleCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ChildRoleCount)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'ChildRoleCount')
 
         self.step("17")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RouterRoleCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMLECounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RouterRoleCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RouterRoleCount)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'RouterRoleCount')
 
         self.step("18")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LeaderRoleCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMLECounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LeaderRoleCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LeaderRoleCount)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'LeaderRoleCount')
 
         self.step("19")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AttachAttemptCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMLECounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AttachAttemptCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AttachAttemptCount)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'AttachAttemptCount')
 
         self.step("20")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PartitionIdChangeCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMLECounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PartitionIdChangeCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PartitionIdChangeCount)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'PartitionIdChangeCount')
 
         self.step("21")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BetterPartitionAttachAttemptCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMLECounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BetterPartitionAttachAttemptCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BetterPartitionAttachAttemptCount)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'BetterPartitionAttachAttemptCount')
 
         self.step("22")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ParentChangeCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMLECounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ParentChangeCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ParentChangeCount)
             if val is not None:
                 matter_asserts.assert_valid_uint16(val, 'ParentChangeCount')
 
         self.step("23")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxTotalCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxTotalCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxTotalCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxTotalCount')
 
         self.step("24")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxUnicastCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxUnicastCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxUnicastCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxUnicastCount')
 
         self.step("25")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxBroadcastCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxBroadcastCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxBroadcastCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxBroadcastCount')
 
         self.step("26")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxAckRequestedCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxAckRequestedCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxAckRequestedCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxAckRequestedCount')
 
         self.step("27")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxAckedCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxAckedCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxAckedCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxAckedCount')
 
         self.step("28")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxNoAckRequestedCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxNoAckRequestedCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxNoAckRequestedCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxNoAckRequestedCount')
 
         self.step("29")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxDataCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxDataCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxDataCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxDataCount')
 
         self.step("30")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxDataPollCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxDataPollCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxDataPollCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxDataPollCount')
 
         self.step("31")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxBeaconCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxBeaconCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxBeaconCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxBeaconCount')
 
         self.step("32")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxBeaconRequestCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxBeaconRequestCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxBeaconRequestCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxBeaconRequestCount')
 
         self.step("33")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxOtherCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxOtherCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxOtherCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxOtherCount')
 
         self.step("34")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxRetryCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxRetryCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxRetryCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxRetryCount')
 
         self.step("35")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxDirectMaxRetryExpiryCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxDirectMaxRetryExpiryCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxDirectMaxRetryExpiryCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxDirectMaxRetryExpiryCount')
 
         self.step("36")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxIndirectMaxRetryExpiryCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxIndirectMaxRetryExpiryCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxIndirectMaxRetryExpiryCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxIndirectMaxRetryExpiryCount')
 
         self.step("37")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxErrCcaCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxErrCcaCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxErrCcaCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxErrCcaCount')
 
         self.step("38")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxErrAbortCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxErrAbortCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxErrAbortCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxErrAbortCount')
 
         self.step("39")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxErrBusyChannelCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TxErrBusyChannelCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TxErrBusyChannelCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'TxErrBusyChannelCount')
 
         self.step("40")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxTotalCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxTotalCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxTotalCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxTotalCount')
 
         self.step("41")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxUnicastCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxUnicastCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxUnicastCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxUnicastCount')
 
         self.step("42")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxBroadcastCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxBroadcastCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxBroadcastCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxBroadcastCount')
 
         self.step("43")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxDataCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxDataCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxDataCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxDataCount')
 
         self.step("44")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxDataPollCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxDataPollCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxDataPollCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxDataPollCount')
 
         self.step("45")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxBeaconCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxBeaconCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxBeaconCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxBeaconCount')
 
         self.step("46")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxBeaconRequestCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxBeaconRequestCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxBeaconRequestCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxBeaconRequestCount')
 
         self.step("47")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxOtherCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxOtherCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxOtherCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxOtherCount')
 
         self.step("48")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxAddressFilteredCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxAddressFilteredCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxAddressFilteredCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxAddressFilteredCount')
 
         self.step("49")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxDestAddrFilteredCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxDestAddrFilteredCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxDestAddrFilteredCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxDestAddrFilteredCount')
 
         self.step("50")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxDuplicatedCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxDuplicatedCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxDuplicatedCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxDuplicatedCount')
 
         self.step("51")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxErrNoFrameCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxErrNoFrameCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxErrNoFrameCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxErrNoFrameCount')
 
         self.step("52")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxErrUnknownNeighborCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxErrUnknownNeighborCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxErrUnknownNeighborCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxErrUnknownNeighborCount')
 
         self.step("53")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxErrInvalidSrcAddrCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxErrInvalidSrcAddrCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxErrInvalidSrcAddrCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxErrInvalidSrcAddrCount')
 
         self.step("54")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxErrSecCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxErrSecCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxErrSecCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxErrSecCount')
 
         self.step("55")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxErrFcsCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxErrFcsCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxErrFcsCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxErrFcsCount')
 
         self.step("56")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxErrOtherCount) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMACCounts):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RxErrOtherCount):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RxErrOtherCount)
             if val is not None:
                 matter_asserts.assert_valid_uint32(val, 'RxErrOtherCount')

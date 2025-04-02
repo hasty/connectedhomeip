@@ -94,7 +94,7 @@ class DESC_2_1(MatterBaseTest):
         matter_asserts.assert_list_element_type(val,  "PartsList attribute must contain int elements", int)
 
         self.step("5")
-        if True:
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TagList):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TagList)
             matter_asserts.assert_list(val, "TagList attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "TagList attribute must contain Clusters.Descriptor.Structs.SemanticTagStruct elements", Clusters.Descriptor.Structs.SemanticTagStruct)

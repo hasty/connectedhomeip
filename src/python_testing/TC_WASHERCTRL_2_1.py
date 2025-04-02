@@ -70,7 +70,7 @@ class WASHERCTRL_2_1(MatterBaseTest):
         attributes = cluster.Attributes
 
         self.step("1")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSpin):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SpinSpeeds):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SpinSpeeds)
             matter_asserts.assert_list(val, "SpinSpeeds attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "SpinSpeeds attribute must contain str elements", str)
@@ -79,19 +79,19 @@ class WASHERCTRL_2_1(MatterBaseTest):
                 asserts.assert_less_equal(len(val), 64, "SpinSpeeds must have at most 64 entries!")
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSpin):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SpinSpeedCurrent):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SpinSpeedCurrent)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'SpinSpeedCurrent')
                 asserts.assert_less_equal(val, 15)
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRinse):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfRinses):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfRinses)
             matter_asserts.assert_valid_enum(val, "NumberOfRinses attribute must return a Clusters.LaundryWasherControls.Enums.NumberOfRinsesEnum", Clusters.LaundryWasherControls.Enums.NumberOfRinsesEnum)
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRinse):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedRinses):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedRinses)
             matter_asserts.assert_list(val, "SupportedRinses attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "SupportedRinses attribute must contain Clusters.LaundryWasherControls.Enums.NumberOfRinsesEnum elements", Clusters.LaundryWasherControls.Enums.NumberOfRinsesEnum)

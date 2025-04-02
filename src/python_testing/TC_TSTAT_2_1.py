@@ -143,36 +143,36 @@ class TSTAT_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_int16(val, 'OutdoorTemperature')
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kOccupancy):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Occupancy):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Occupancy)
             matter_asserts.is_valid_int_value(val)
 
         self.step("4")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AbsMinHeatSetpointLimit) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kHeating):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AbsMinHeatSetpointLimit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AbsMinHeatSetpointLimit)
             if val is not None:
                 matter_asserts.assert_valid_int16(val, 'AbsMinHeatSetpointLimit')
 
         self.step("5")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AbsMaxHeatSetpointLimit) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kHeating):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AbsMaxHeatSetpointLimit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AbsMaxHeatSetpointLimit)
             if val is not None:
                 matter_asserts.assert_valid_int16(val, 'AbsMaxHeatSetpointLimit')
 
         self.step("6")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AbsMinCoolSetpointLimit) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCooling):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AbsMinCoolSetpointLimit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AbsMinCoolSetpointLimit)
             if val is not None:
                 matter_asserts.assert_valid_int16(val, 'AbsMinCoolSetpointLimit')
 
         self.step("7")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AbsMaxCoolSetpointLimit) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCooling):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AbsMaxCoolSetpointLimit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AbsMaxCoolSetpointLimit)
             if val is not None:
                 matter_asserts.assert_valid_int16(val, 'AbsMaxCoolSetpointLimit')
 
         self.step("8")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PICoolingDemand) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCooling):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PICoolingDemand):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PICoolingDemand)
             if val is not None:
                 matter_asserts.assert_valid_uint8(val, 'PICoolingDemand')
@@ -180,7 +180,7 @@ class TSTAT_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 100)
 
         self.step("9")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PIHeatingDemand) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kHeating):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PIHeatingDemand):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PIHeatingDemand)
             if val is not None:
                 matter_asserts.assert_valid_uint8(val, 'PIHeatingDemand')
@@ -188,57 +188,57 @@ class TSTAT_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 100)
 
         self.step("10")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LocalTemperatureCalibration) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLocalTemperatureNotExposed):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LocalTemperatureCalibration):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LocalTemperatureCalibration)
             if val is not None:
                 matter_asserts.assert_valid_int8(val, 'LocalTemperatureCalibration')
 
         self.step("11")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCooling):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OccupiedCoolingSetpoint):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OccupiedCoolingSetpoint)
             matter_asserts.assert_valid_int16(val, 'OccupiedCoolingSetpoint')
 
         self.step("12")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kHeating):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OccupiedHeatingSetpoint):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OccupiedHeatingSetpoint)
             matter_asserts.assert_valid_int16(val, 'OccupiedHeatingSetpoint')
 
         self.step("13")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCooling) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kOccupancy)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UnoccupiedCoolingSetpoint):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UnoccupiedCoolingSetpoint)
             matter_asserts.assert_valid_int16(val, 'UnoccupiedCoolingSetpoint')
 
         self.step("14")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kHeating) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kOccupancy)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UnoccupiedHeatingSetpoint):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UnoccupiedHeatingSetpoint)
             matter_asserts.assert_valid_int16(val, 'UnoccupiedHeatingSetpoint')
 
         self.step("15")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinHeatSetpointLimit) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kHeating):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinHeatSetpointLimit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinHeatSetpointLimit)
             if val is not None:
                 matter_asserts.assert_valid_int16(val, 'MinHeatSetpointLimit')
 
         self.step("16")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxHeatSetpointLimit) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kHeating):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxHeatSetpointLimit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxHeatSetpointLimit)
             if val is not None:
                 matter_asserts.assert_valid_int16(val, 'MaxHeatSetpointLimit')
 
         self.step("17")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinCoolSetpointLimit) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCooling):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinCoolSetpointLimit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinCoolSetpointLimit)
             if val is not None:
                 matter_asserts.assert_valid_int16(val, 'MinCoolSetpointLimit')
 
         self.step("18")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxCoolSetpointLimit) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCooling):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaxCoolSetpointLimit):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaxCoolSetpointLimit)
             if val is not None:
                 matter_asserts.assert_valid_int16(val, 'MaxCoolSetpointLimit')
 
         self.step("19")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAutoMode):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MinSetpointDeadBand):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MinSetpointDeadBand)
             matter_asserts.assert_valid_int8(val, 'MinSetpointDeadBand')
             asserts.assert_greater_equal(val, 0)
@@ -259,23 +259,23 @@ class TSTAT_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(val, "SystemMode attribute must return a Clusters.Thermostat.Enums.SystemModeEnum", Clusters.Thermostat.Enums.SystemModeEnum)
 
         self.step("23")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ThermostatRunningMode) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kAutoMode):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ThermostatRunningMode):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ThermostatRunningMode)
             if val is not None:
                 matter_asserts.assert_valid_enum(val, "ThermostatRunningMode attribute must return a Clusters.Thermostat.Enums.ThermostatRunningModeEnum", Clusters.Thermostat.Enums.ThermostatRunningModeEnum)
 
         self.step("24")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kScheduleConfiguration):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.StartOfWeek):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StartOfWeek)
             matter_asserts.assert_valid_enum(val, "StartOfWeek attribute must return a Clusters.Thermostat.Enums.StartOfWeekEnum", Clusters.Thermostat.Enums.StartOfWeekEnum)
 
         self.step("25")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kScheduleConfiguration):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfWeeklyTransitions):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfWeeklyTransitions)
             matter_asserts.assert_valid_uint8(val, 'NumberOfWeeklyTransitions')
 
         self.step("26")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kScheduleConfiguration):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfDailyTransitions):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfDailyTransitions)
             matter_asserts.assert_valid_uint8(val, 'NumberOfDailyTransitions')
 
@@ -323,7 +323,7 @@ class TSTAT_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_uint32(val, 'SetpointChangeSourceTimestamp')
 
         self.step("34")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSetback):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OccupiedSetback):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OccupiedSetback)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'OccupiedSetback')
@@ -331,14 +331,14 @@ class TSTAT_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, self.OccupiedSetbackMax)
 
         self.step("35")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSetback):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OccupiedSetbackMin):
             self.OccupiedSetbackMin = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OccupiedSetbackMin)
             if self.OccupiedSetbackMin is not NullValue:
                 matter_asserts.assert_valid_uint8(self.OccupiedSetbackMin, 'OccupiedSetbackMin')
                 asserts.assert_less_equal(self.OccupiedSetbackMin, self.OccupiedSetbackMax)
 
         self.step("36")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSetback):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OccupiedSetbackMax):
             self.OccupiedSetbackMax = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OccupiedSetbackMax)
             if self.OccupiedSetbackMax is not NullValue:
                 matter_asserts.assert_valid_uint8(self.OccupiedSetbackMax, 'OccupiedSetbackMax')
@@ -346,7 +346,7 @@ class TSTAT_2_1(MatterBaseTest):
                 asserts.assert_less_equal(self.OccupiedSetbackMax, 254)
 
         self.step("37")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSetback) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kOccupancy)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UnoccupiedSetback):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UnoccupiedSetback)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'UnoccupiedSetback')
@@ -354,14 +354,14 @@ class TSTAT_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, self.UnoccupiedSetbackMax)
 
         self.step("38")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSetback) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kOccupancy)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UnoccupiedSetbackMin):
             self.UnoccupiedSetbackMin = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UnoccupiedSetbackMin)
             if self.UnoccupiedSetbackMin is not NullValue:
                 matter_asserts.assert_valid_uint8(self.UnoccupiedSetbackMin, 'UnoccupiedSetbackMin')
                 asserts.assert_less_equal(self.UnoccupiedSetbackMin, self.UnoccupiedSetbackMax)
 
         self.step("39")
-        if (await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSetback) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kOccupancy)):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UnoccupiedSetbackMax):
             self.UnoccupiedSetbackMax = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UnoccupiedSetbackMax)
             if self.UnoccupiedSetbackMax is not NullValue:
                 matter_asserts.assert_valid_uint8(self.UnoccupiedSetbackMax, 'UnoccupiedSetbackMax')
@@ -423,7 +423,7 @@ class TSTAT_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_enum(val, "ACCapacityFormat attribute must return a Clusters.Thermostat.Enums.ACCapacityFormatEnum", Clusters.Thermostat.Enums.ACCapacityFormatEnum)
 
         self.step("49")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPresets):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PresetTypes):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PresetTypes)
             matter_asserts.assert_list(val, "PresetTypes attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "PresetTypes attribute must contain Clusters.Thermostat.Structs.PresetTypeStruct elements", Clusters.Thermostat.Structs.PresetTypeStruct)
@@ -431,7 +431,7 @@ class TSTAT_2_1(MatterBaseTest):
                 await self.test_checkPresetTypeStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("50")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMatterScheduleConfiguration):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ScheduleTypes):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ScheduleTypes)
             matter_asserts.assert_list(val, "ScheduleTypes attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "ScheduleTypes attribute must contain Clusters.Thermostat.Structs.ScheduleTypeStruct elements", Clusters.Thermostat.Structs.ScheduleTypeStruct)
@@ -439,42 +439,42 @@ class TSTAT_2_1(MatterBaseTest):
                 await self.test_checkScheduleTypeStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("51")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPresets):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfPresets):
             self.NumberOfPresets = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfPresets)
             matter_asserts.assert_valid_uint8(self.NumberOfPresets, 'NumberOfPresets')
 
         self.step("52")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMatterScheduleConfiguration):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfSchedules):
             self.NumberOfSchedules = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfSchedules)
             matter_asserts.assert_valid_uint8(self.NumberOfSchedules, 'NumberOfSchedules')
 
         self.step("53")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMatterScheduleConfiguration):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfScheduleTransitions):
             self.NumberOfScheduleTransitions = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfScheduleTransitions)
             matter_asserts.assert_valid_uint8(self.NumberOfScheduleTransitions, 'NumberOfScheduleTransitions')
 
         self.step("54")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMatterScheduleConfiguration):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NumberOfScheduleTransitionPerDay):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NumberOfScheduleTransitionPerDay)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'NumberOfScheduleTransitionPerDay')
 
         self.step("55")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPresets):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActivePresetHandle):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActivePresetHandle)
             if val is not NullValue:
                 matter_asserts.assert_is_octstr(val, "ActivePresetHandle must be an octstr")
                 asserts.assert_less_equal(len(val), 16, "ActivePresetHandle must have length at most 16!")
 
         self.step("56")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMatterScheduleConfiguration):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveScheduleHandle):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveScheduleHandle)
             if val is not NullValue:
                 matter_asserts.assert_is_octstr(val, "ActiveScheduleHandle must be an octstr")
                 asserts.assert_less_equal(len(val), 16, "ActiveScheduleHandle must have length at most 16!")
 
         self.step("57")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPresets):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Presets):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Presets)
             matter_asserts.assert_list(val, "Presets attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "Presets attribute must contain Clusters.Thermostat.Structs.PresetStruct elements", Clusters.Thermostat.Structs.PresetStruct)
@@ -483,7 +483,7 @@ class TSTAT_2_1(MatterBaseTest):
             asserts.assert_less_equal(len(val), self.NumberOfPresets, "Presets must have at most self.NumberOfPresets entries!")
 
         self.step("58")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kMatterScheduleConfiguration):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Schedules):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Schedules)
             matter_asserts.assert_list(val, "Schedules attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "Schedules attribute must contain Clusters.Thermostat.Structs.ScheduleStruct elements", Clusters.Thermostat.Structs.ScheduleStruct)

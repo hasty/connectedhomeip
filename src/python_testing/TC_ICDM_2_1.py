@@ -91,7 +91,7 @@ class ICDM_2_1(MatterBaseTest):
         matter_asserts.assert_valid_uint16(val, 'ActiveModeThreshold')
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCheckInProtocolSupport):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.RegisteredClients):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.RegisteredClients)
             matter_asserts.assert_list(val, "RegisteredClients attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "RegisteredClients attribute must contain Clusters.ICDManagement.Structs.MonitoringRegistrationStruct elements", Clusters.ICDManagement.Structs.MonitoringRegistrationStruct)
@@ -99,18 +99,18 @@ class ICDM_2_1(MatterBaseTest):
                 await self.test_checkMonitoringRegistrationStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCheckInProtocolSupport):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ICDCounter):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ICDCounter)
             matter_asserts.assert_valid_uint32(val, 'ICDCounter')
 
         self.step("6")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCheckInProtocolSupport):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ClientsSupportedPerFabric):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ClientsSupportedPerFabric)
             matter_asserts.assert_valid_uint16(val, 'ClientsSupportedPerFabric')
             asserts.assert_greater_equal(val, 1)
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kUserActiveModeTrigger):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.UserActiveModeTriggerHint):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.UserActiveModeTriggerHint)
             matter_asserts.is_valid_int_value(val)
 
@@ -121,12 +121,12 @@ class ICDM_2_1(MatterBaseTest):
             asserts.assert_less_equal(len(val), 128, "UserActiveModeTriggerInstruction must have length at most 128!")
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLongIdleTimeSupport):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OperatingMode):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OperatingMode)
             matter_asserts.assert_valid_enum(val, "OperatingMode attribute must return a Clusters.ICDManagement.Enums.OperatingModeEnum", Clusters.ICDManagement.Enums.OperatingModeEnum)
 
         self.step("10")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCheckInProtocolSupport):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaximumCheckInBackoff):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaximumCheckInBackoff)
             matter_asserts.assert_valid_uint32(val, 'MaximumCheckInBackoff')
             asserts.assert_greater_equal(val, self.IdleModeDuration)

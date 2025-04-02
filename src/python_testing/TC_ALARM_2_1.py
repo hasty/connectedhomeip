@@ -74,7 +74,7 @@ class ALARM_2_1(MatterBaseTest):
         matter_asserts.is_valid_int_value(val)
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kReset):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.Latch):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.Latch)
             matter_asserts.is_valid_int_value(val)
 

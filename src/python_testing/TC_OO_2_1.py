@@ -75,22 +75,22 @@ class OO_2_1(MatterBaseTest):
         matter_asserts.assert_valid_bool(val, 'OnOff')
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLighting):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.GlobalSceneControl):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.GlobalSceneControl)
             matter_asserts.assert_valid_bool(val, 'GlobalSceneControl')
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLighting):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OnTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OnTime)
             matter_asserts.assert_valid_uint16(val, 'OnTime')
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLighting):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.OffWaitTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.OffWaitTime)
             matter_asserts.assert_valid_uint16(val, 'OffWaitTime')
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLighting):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.StartUpOnOff):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StartUpOnOff)
             if val is not NullValue:
                 matter_asserts.assert_valid_enum(val, "StartUpOnOff attribute must return a Clusters.On/Off.Enums.StartUpOnOffEnum", Clusters.On/Off.Enums.StartUpOnOffEnum)

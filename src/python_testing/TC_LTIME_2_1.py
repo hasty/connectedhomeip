@@ -73,12 +73,12 @@ class LTIME_2_1(MatterBaseTest):
         matter_asserts.assert_valid_enum(val, "HourFormat attribute must return a Clusters.TimeFormatLocalization.Enums.HourFormatEnum", Clusters.TimeFormatLocalization.Enums.HourFormatEnum)
 
         self.step("2")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCalendarFormat):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ActiveCalendarType):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ActiveCalendarType)
             matter_asserts.assert_valid_enum(val, "ActiveCalendarType attribute must return a Clusters.TimeFormatLocalization.Enums.CalendarTypeEnum", Clusters.TimeFormatLocalization.Enums.CalendarTypeEnum)
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kCalendarFormat):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SupportedCalendarTypes):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SupportedCalendarTypes)
             matter_asserts.assert_list(val, "SupportedCalendarTypes attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "SupportedCalendarTypes attribute must contain Clusters.TimeFormatLocalization.Enums.CalendarTypeEnum elements", Clusters.TimeFormatLocalization.Enums.CalendarTypeEnum)

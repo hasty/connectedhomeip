@@ -92,7 +92,7 @@ class DGSW_2_1(MatterBaseTest):
                 matter_asserts.assert_valid_uint64(val, 'CurrentHeapUsed')
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kWatermarks):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentHeapHighWatermark):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentHeapHighWatermark)
             matter_asserts.assert_valid_uint64(val, 'CurrentHeapHighWatermark')
 

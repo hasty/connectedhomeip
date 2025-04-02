@@ -107,7 +107,7 @@ class EEVSE_2_1(MatterBaseTest):
             matter_asserts.assert_valid_uint32(val, 'ChargingEnabledUntil')
 
         self.step("5")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kV2X):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DischargingEnabledUntil):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DischargingEnabledUntil)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint32(val, 'DischargingEnabledUntil')
@@ -128,7 +128,7 @@ class EEVSE_2_1(MatterBaseTest):
         asserts.assert_greater_equal(val, 0)
 
         self.step("9")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kV2X):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.MaximumDischargeCurrent):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.MaximumDischargeCurrent)
             matter_asserts.assert_valid_int64(val, 'MaximumDischargeCurrent')
             asserts.assert_greater_equal(val, 0)
@@ -147,51 +147,51 @@ class EEVSE_2_1(MatterBaseTest):
                 asserts.assert_less_equal(val, 86400)
 
         self.step("12")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kChargingPreferences):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NextChargeStartTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NextChargeStartTime)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint32(val, 'NextChargeStartTime')
 
         self.step("13")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kChargingPreferences):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NextChargeTargetTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NextChargeTargetTime)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint32(val, 'NextChargeTargetTime')
 
         self.step("14")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kChargingPreferences):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NextChargeRequiredEnergy):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NextChargeRequiredEnergy)
             if val is not NullValue:
                 matter_asserts.assert_valid_int64(val, 'NextChargeRequiredEnergy')
                 asserts.assert_greater_equal(val, 0)
 
         self.step("15")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kChargingPreferences):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.NextChargeTargetSoC):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.NextChargeTargetSoC)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'NextChargeTargetSoC')
 
         self.step("16")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ApproximateEVEfficiency) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kChargingPreferences):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.ApproximateEVEfficiency):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.ApproximateEVEfficiency)
             if val is not NullValue and val is not None:
                 matter_asserts.assert_valid_uint16(val, 'ApproximateEVEfficiency')
 
         self.step("17")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSoCReporting):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.StateOfCharge):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.StateOfCharge)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'StateOfCharge')
 
         self.step("18")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kSoCReporting):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.BatteryCapacity):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.BatteryCapacity)
             if val is not NullValue:
                 matter_asserts.assert_valid_int64(val, 'BatteryCapacity')
                 asserts.assert_greater_equal(val, 0)
 
         self.step("19")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kPlugAndCharge):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.VehicleID):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.VehicleID)
             if val is not NullValue:
                 matter_asserts.assert_is_string(val, "VehicleID must be a string")
@@ -214,7 +214,7 @@ class EEVSE_2_1(MatterBaseTest):
             asserts.assert_greater_equal(val, 0)
 
         self.step("23")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kV2X):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.SessionEnergyDischarged):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.SessionEnergyDischarged)
             if val is not NullValue:
                 matter_asserts.assert_valid_int64(val, 'SessionEnergyDischarged')

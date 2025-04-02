@@ -89,7 +89,7 @@ class VALCC_2_1(MatterBaseTest):
             asserts.assert_greater_equal(val, 1)
 
         self.step("3")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kTimeSync):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.AutoCloseTime):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.AutoCloseTime)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint64(val, 'AutoCloseTime')
@@ -110,19 +110,19 @@ class VALCC_2_1(MatterBaseTest):
             matter_asserts.assert_valid_enum(val, "TargetState attribute must return a Clusters.ValveConfigurationAndControl.Enums.ValveStateEnum", Clusters.ValveConfigurationAndControl.Enums.ValveStateEnum)
 
         self.step("7")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLevel):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.CurrentLevel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.CurrentLevel)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'CurrentLevel')
 
         self.step("8")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLevel):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.TargetLevel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.TargetLevel)
             if val is not NullValue:
                 matter_asserts.assert_valid_uint8(val, 'TargetLevel')
 
         self.step("9")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DefaultOpenLevel) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLevel):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DefaultOpenLevel):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DefaultOpenLevel)
             if val is not None:
                 matter_asserts.assert_valid_uint8(val, 'DefaultOpenLevel')
@@ -136,7 +136,7 @@ class VALCC_2_1(MatterBaseTest):
                 matter_asserts.is_valid_int_value(val)
 
         self.step("11")
-        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LevelStep) and await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kLevel):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.LevelStep):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.LevelStep)
             if val is not None:
                 matter_asserts.assert_valid_uint8(val, 'LevelStep')
