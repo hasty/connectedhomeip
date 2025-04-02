@@ -211,13 +211,13 @@ class SETRF_2_1(MatterBaseTest):
                 await self.test_checkTariffComponentStruct(endpoint=endpoint, cluster=cluster, struct=item)
 
         self.step("18")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRandomization):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DefaultRandomizationOffset):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DefaultRandomizationOffset)
             if val is not NullValue:
                 matter_asserts.assert_valid_int16(val, 'DefaultRandomizationOffset')
 
         self.step("19")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kRandomization):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.DefaultRandomizationType):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.DefaultRandomizationType)
             if val is not NullValue:
                 matter_asserts.assert_valid_enum(val, "DefaultRandomizationType attribute must return a Clusters.CommodityTariff.Enums.DayEntryRandomizationTypeEnum", Clusters.CommodityTariff.Enums.DayEntryRandomizationTypeEnum)

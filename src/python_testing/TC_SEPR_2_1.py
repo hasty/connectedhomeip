@@ -88,7 +88,7 @@ class SEPR_2_1(MatterBaseTest):
             await self.test_checkCommodityPriceStruct(endpoint=endpoint, cluster=cluster, struct=val)
 
         self.step("4")
-        if await self.feature_guard(endpoint=endpoint, cluster=cluster, feature_int=cluster.Bitmaps.Feature.kForecasting):
+        if await self.attribute_guard(endpoint=endpoint, attribute=attributes.PriceForecast):
             val = await self.read_single_attribute_check_success(endpoint=endpoint, cluster=cluster, attribute=cluster.Attributes.PriceForecast)
             matter_asserts.assert_list(val, "PriceForecast attribute must return a list")
             matter_asserts.assert_list_element_type(val,  "PriceForecast attribute must contain Clusters.CommodityPrice.Structs.CommodityPriceStruct elements", Clusters.CommodityPrice.Structs.CommodityPriceStruct)
