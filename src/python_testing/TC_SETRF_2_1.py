@@ -259,7 +259,7 @@ class SETRF_2_1(MatterBaseTest):
         asserts.assert_less_equal(struct.startTime, 1499)
         if struct.duration is not None:
             matter_asserts.assert_valid_uint16(struct.duration, 'Duration')
-            asserts.assert_less_equal(struct.duration, 1500 - self.StartTime)
+            asserts.assert_less_equal(struct.duration, 1500 - struct.StartTime)
         if struct.randomizationOffset is not None:
             matter_asserts.assert_valid_int16(struct.randomizationOffset, 'RandomizationOffset')
         if struct.randomizationType is not None:
