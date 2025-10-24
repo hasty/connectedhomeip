@@ -1093,6 +1093,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface MTRWaterTankLevelMonitoringClusterResetConditionParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
 @interface MTRBooleanStateConfigurationClusterSuppressAlarmParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
@@ -1321,6 +1327,56 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface MTRDoorLockClusterSetPINCodeParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRDoorLockClusterGetPINCodeParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRDoorLockClusterGetPINCodeResponseParams (InternalMethods)
+
+- (nullable instancetype)initWithDecodableStruct:(const chip::app::Clusters::DoorLock::Commands::GetPINCodeResponse::DecodableType &)decodableStruct;
+- (CHIP_ERROR)_setFieldsFromDecodableStruct:(const chip::app::Clusters::DoorLock::Commands::GetPINCodeResponse::DecodableType &)decodableStruct;
+
+@end
+
+@interface MTRDoorLockClusterClearPINCodeParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRDoorLockClusterClearAllPINCodesParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRDoorLockClusterSetUserStatusParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRDoorLockClusterGetUserStatusParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRDoorLockClusterGetUserStatusResponseParams (InternalMethods)
+
+- (nullable instancetype)initWithDecodableStruct:(const chip::app::Clusters::DoorLock::Commands::GetUserStatusResponse::DecodableType &)decodableStruct;
+- (CHIP_ERROR)_setFieldsFromDecodableStruct:(const chip::app::Clusters::DoorLock::Commands::GetUserStatusResponse::DecodableType &)decodableStruct;
+
+@end
+
 @interface MTRDoorLockClusterSetWeekDayScheduleParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
@@ -1391,6 +1447,56 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface MTRDoorLockClusterClearHolidayScheduleParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRDoorLockClusterSetUserTypeParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRDoorLockClusterGetUserTypeParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRDoorLockClusterGetUserTypeResponseParams (InternalMethods)
+
+- (nullable instancetype)initWithDecodableStruct:(const chip::app::Clusters::DoorLock::Commands::GetUserTypeResponse::DecodableType &)decodableStruct;
+- (CHIP_ERROR)_setFieldsFromDecodableStruct:(const chip::app::Clusters::DoorLock::Commands::GetUserTypeResponse::DecodableType &)decodableStruct;
+
+@end
+
+@interface MTRDoorLockClusterSetRFIDCodeParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRDoorLockClusterGetRFIDCodeParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRDoorLockClusterGetRFIDCodeResponseParams (InternalMethods)
+
+- (nullable instancetype)initWithDecodableStruct:(const chip::app::Clusters::DoorLock::Commands::GetRFIDCodeResponse::DecodableType &)decodableStruct;
+- (CHIP_ERROR)_setFieldsFromDecodableStruct:(const chip::app::Clusters::DoorLock::Commands::GetRFIDCodeResponse::DecodableType &)decodableStruct;
+
+@end
+
+@interface MTRDoorLockClusterClearRFIDCodeParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRDoorLockClusterClearAllRFIDCodesParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
 
@@ -1489,19 +1595,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MTRWindowCoveringClusterGoToLiftValueParams (InternalMethods)
-
-- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
-
-@end
-
 @interface MTRWindowCoveringClusterGoToLiftPercentageParams (InternalMethods)
-
-- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
-
-@end
-
-@interface MTRWindowCoveringClusterGoToTiltValueParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
 
@@ -1531,6 +1625,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface MTRClosureControlClusterGroupedMoveToParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
 @interface MTRClosureDimensionClusterSetTargetParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
@@ -1538,6 +1638,18 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface MTRClosureDimensionClusterStepParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRClosureDimensionClusterGroupedSetTargetParams (InternalMethods)
+
+- (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
+
+@end
+
+@interface MTRClosureDimensionClusterGroupedStepParams (InternalMethods)
 
 - (NSDictionary<NSString *, id> * _Nullable)_encodeAsDataValue:(NSError * __autoreleasing *)error;
 

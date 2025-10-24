@@ -85,6 +85,7 @@ CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
     encoder.Encode(to_underlying(Fields::kContentURL), contentURL);
     encoder.Encode(to_underlying(Fields::kDisplayString), displayString);
     encoder.Encode(to_underlying(Fields::kBrandingInformation), brandingInformation);
+    encoder.Encode(to_underlying(Fields::kPlaybackPreferences), playbackPreferences);
     return encoder.Finalize();
 }
 
@@ -109,6 +110,10 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
         else if (__context_tag == to_underlying(Fields::kBrandingInformation))
         {
             err = DataModel::Decode(reader, brandingInformation);
+        }
+        else if (__context_tag == to_underlying(Fields::kPlaybackPreferences))
+        {
+            err = DataModel::Decode(reader, playbackPreferences);
         }
 
         ReturnErrorOnFailure(err);

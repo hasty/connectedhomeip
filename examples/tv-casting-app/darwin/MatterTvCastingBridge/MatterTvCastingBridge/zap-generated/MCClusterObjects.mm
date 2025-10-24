@@ -311,57 +311,6 @@
 }
 @end
 
-// WakeOnLan cluster:
-
-@implementation MCWakeOnLanCluster
-
-// WakeOnLan cluster commands:
-
-// WakeOnLan cluster attributes:
-
-- (id)macAddressAttribute
-{
-    void * cppAttribute = self.cppCluster->GetAttribute(chip::app::Clusters::WakeOnLan::Attributes::MACAddress::Id);
-    return cppAttribute != nil ? [[MCWakeOnLanClusterMACAddressAttribute alloc] initWithCppAttribute:cppAttribute] : nil;
-}
-
-- (id)linkLocalAddressAttribute
-{
-    void * cppAttribute = self.cppCluster->GetAttribute(chip::app::Clusters::WakeOnLan::Attributes::LinkLocalAddress::Id);
-    return cppAttribute != nil ? [[MCWakeOnLanClusterLinkLocalAddressAttribute alloc] initWithCppAttribute:cppAttribute] : nil;
-}
-
-- (id)generatedCommandListAttribute
-{
-    void * cppAttribute = self.cppCluster->GetAttribute(chip::app::Clusters::WakeOnLan::Attributes::GeneratedCommandList::Id);
-    return cppAttribute != nil ? [[MCWakeOnLanClusterGeneratedCommandListAttribute alloc] initWithCppAttribute:cppAttribute] : nil;
-}
-
-- (id)acceptedCommandListAttribute
-{
-    void * cppAttribute = self.cppCluster->GetAttribute(chip::app::Clusters::WakeOnLan::Attributes::AcceptedCommandList::Id);
-    return cppAttribute != nil ? [[MCWakeOnLanClusterAcceptedCommandListAttribute alloc] initWithCppAttribute:cppAttribute] : nil;
-}
-
-- (id)attributeListAttribute
-{
-    void * cppAttribute = self.cppCluster->GetAttribute(chip::app::Clusters::WakeOnLan::Attributes::AttributeList::Id);
-    return cppAttribute != nil ? [[MCWakeOnLanClusterAttributeListAttribute alloc] initWithCppAttribute:cppAttribute] : nil;
-}
-
-- (id)featureMapAttribute
-{
-    void * cppAttribute = self.cppCluster->GetAttribute(chip::app::Clusters::WakeOnLan::Attributes::FeatureMap::Id);
-    return cppAttribute != nil ? [[MCWakeOnLanClusterFeatureMapAttribute alloc] initWithCppAttribute:cppAttribute] : nil;
-}
-
-- (id)clusterRevisionAttribute
-{
-    void * cppAttribute = self.cppCluster->GetAttribute(chip::app::Clusters::WakeOnLan::Attributes::ClusterRevision::Id);
-    return cppAttribute != nil ? [[MCWakeOnLanClusterClusterRevisionAttribute alloc] initWithCppAttribute:cppAttribute] : nil;
-}
-@end
-
 // TargetNavigator cluster:
 
 @implementation MCTargetNavigatorCluster

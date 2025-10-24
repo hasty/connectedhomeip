@@ -76,7 +76,7 @@ enum class Feature : uint32_t
 };
 
 // Bitmap for RecordingFlagBitmap
-enum class RecordingFlagBitmap : uint32_t
+enum class RecordingFlagBitmap : uint8_t
 {
     kScheduled    = 0x1,
     kRecordSeries = 0x2,

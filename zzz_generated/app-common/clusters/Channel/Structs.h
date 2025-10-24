@@ -37,6 +37,7 @@ namespace app {
 namespace Clusters {
 namespace Channel {
 namespace Structs {
+namespace AdditionalInfoStruct = Clusters::detail::Structs::AdditionalInfoStruct;
 namespace ProgramCastStruct {
 enum class Fields : uint8_t
 {
@@ -184,7 +185,7 @@ public:
     Optional<DataModel::Nullable<Structs::SeriesInfoStruct::Type>> seriesInfo;
     Optional<DataModel::List<const Structs::ProgramCategoryStruct::Type>> categoryList;
     Optional<DataModel::List<const Structs::ProgramCastStruct::Type>> castList;
-    Optional<DataModel::List<const Structs::ProgramCastStruct::Type>> externalIDList;
+    Optional<DataModel::List<const Structs::AdditionalInfoStruct::Type>> externalIDList;
 
     static constexpr bool kIsFabricScoped = false;
 
@@ -212,7 +213,7 @@ public:
     Optional<DataModel::Nullable<Structs::SeriesInfoStruct::DecodableType>> seriesInfo;
     Optional<DataModel::DecodableList<Structs::ProgramCategoryStruct::DecodableType>> categoryList;
     Optional<DataModel::DecodableList<Structs::ProgramCastStruct::DecodableType>> castList;
-    Optional<DataModel::DecodableList<Structs::ProgramCastStruct::DecodableType>> externalIDList;
+    Optional<DataModel::DecodableList<Structs::AdditionalInfoStruct::DecodableType>> externalIDList;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 
@@ -268,29 +269,6 @@ public:
 using DecodableType = Type;
 
 } // namespace ChannelPagingStruct
-namespace AdditionalInfoStruct {
-enum class Fields : uint8_t
-{
-    kName  = 0,
-    kValue = 1,
-};
-
-struct Type
-{
-public:
-    chip::CharSpan name;
-    chip::CharSpan value;
-
-    CHIP_ERROR Decode(TLV::TLVReader & reader);
-
-    static constexpr bool kIsFabricScoped = false;
-
-    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
-};
-
-using DecodableType = Type;
-
-} // namespace AdditionalInfoStruct
 namespace LineupInfoStruct {
 enum class Fields : uint8_t
 {

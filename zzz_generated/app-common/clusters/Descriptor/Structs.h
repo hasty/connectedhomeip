@@ -60,6 +60,7 @@ public:
 using DecodableType = Type;
 
 } // namespace DeviceTypeStruct
+namespace SemanticTagStruct = Clusters::detail::Structs::SemanticTagStruct;
 } // namespace Structs
 } // namespace Descriptor
 } // namespace Clusters

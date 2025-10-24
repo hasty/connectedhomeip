@@ -13,10 +13,10 @@ namespace DoorLock {
 namespace Commands {
 
 // Total number of client to server commands supported by the cluster
-inline constexpr uint32_t kAcceptedCommandsCount = 21;
+inline constexpr uint32_t kAcceptedCommandsCount = 33;
 
 // Total number of server to client commands supported by the cluster (response commands)
-inline constexpr uint32_t kGeneratedCommandsCount = 6;
+inline constexpr uint32_t kGeneratedCommandsCount = 10;
 
 namespace LockDoor {
 inline constexpr CommandId Id = 0x00000000;
@@ -29,6 +29,30 @@ inline constexpr CommandId Id = 0x00000001;
 namespace UnlockWithTimeout {
 inline constexpr CommandId Id = 0x00000003;
 } // namespace UnlockWithTimeout
+
+namespace SetPINCode {
+inline constexpr CommandId Id = 0x00000005;
+} // namespace SetPINCode
+
+namespace GetPINCode {
+inline constexpr CommandId Id = 0x00000006;
+} // namespace GetPINCode
+
+namespace ClearPINCode {
+inline constexpr CommandId Id = 0x00000007;
+} // namespace ClearPINCode
+
+namespace ClearAllPINCodes {
+inline constexpr CommandId Id = 0x00000008;
+} // namespace ClearAllPINCodes
+
+namespace SetUserStatus {
+inline constexpr CommandId Id = 0x00000009;
+} // namespace SetUserStatus
+
+namespace GetUserStatus {
+inline constexpr CommandId Id = 0x0000000A;
+} // namespace GetUserStatus
 
 namespace SetWeekDaySchedule {
 inline constexpr CommandId Id = 0x0000000B;
@@ -66,6 +90,30 @@ namespace ClearHolidaySchedule {
 inline constexpr CommandId Id = 0x00000013;
 } // namespace ClearHolidaySchedule
 
+namespace SetUserType {
+inline constexpr CommandId Id = 0x00000014;
+} // namespace SetUserType
+
+namespace GetUserType {
+inline constexpr CommandId Id = 0x00000015;
+} // namespace GetUserType
+
+namespace SetRFIDCode {
+inline constexpr CommandId Id = 0x00000016;
+} // namespace SetRFIDCode
+
+namespace GetRFIDCode {
+inline constexpr CommandId Id = 0x00000017;
+} // namespace GetRFIDCode
+
+namespace ClearRFIDCode {
+inline constexpr CommandId Id = 0x00000018;
+} // namespace ClearRFIDCode
+
+namespace ClearAllRFIDCodes {
+inline constexpr CommandId Id = 0x00000019;
+} // namespace ClearAllRFIDCodes
+
 namespace SetUser {
 inline constexpr CommandId Id = 0x0000001A;
 } // namespace SetUser
@@ -102,6 +150,14 @@ namespace ClearAliroReaderConfig {
 inline constexpr CommandId Id = 0x00000029;
 } // namespace ClearAliroReaderConfig
 
+namespace GetPINCodeResponse {
+inline constexpr CommandId Id = 0x00000006;
+} // namespace GetPINCodeResponse
+
+namespace GetUserStatusResponse {
+inline constexpr CommandId Id = 0x0000000A;
+} // namespace GetUserStatusResponse
+
 namespace GetWeekDayScheduleResponse {
 inline constexpr CommandId Id = 0x0000000C;
 } // namespace GetWeekDayScheduleResponse
@@ -113,6 +169,14 @@ inline constexpr CommandId Id = 0x0000000F;
 namespace GetHolidayScheduleResponse {
 inline constexpr CommandId Id = 0x00000012;
 } // namespace GetHolidayScheduleResponse
+
+namespace GetUserTypeResponse {
+inline constexpr CommandId Id = 0x00000015;
+} // namespace GetUserTypeResponse
+
+namespace GetRFIDCodeResponse {
+inline constexpr CommandId Id = 0x00000017;
+} // namespace GetRFIDCodeResponse
 
 namespace GetUserResponse {
 inline constexpr CommandId Id = 0x0000001C;

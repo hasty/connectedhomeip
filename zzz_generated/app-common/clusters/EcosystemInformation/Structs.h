@@ -78,8 +78,8 @@ struct Type
 public:
     Optional<chip::CharSpan> deviceName;
     Optional<uint64_t> deviceNameLastEdit;
-    chip::EndpointId bridgedEndpoint  = static_cast<chip::EndpointId>(0);
-    chip::EndpointId originalEndpoint = static_cast<chip::EndpointId>(0);
+    Optional<chip::EndpointId> bridgedEndpoint;
+    Optional<chip::EndpointId> originalEndpoint;
     DataModel::List<const Structs::DeviceTypeStruct::Type> deviceTypes;
     DataModel::List<const chip::CharSpan> uniqueLocationIDs;
     uint64_t uniqueLocationIDsLastEdit = static_cast<uint64_t>(0);
@@ -103,8 +103,8 @@ struct DecodableType
 public:
     Optional<chip::CharSpan> deviceName;
     Optional<uint64_t> deviceNameLastEdit;
-    chip::EndpointId bridgedEndpoint  = static_cast<chip::EndpointId>(0);
-    chip::EndpointId originalEndpoint = static_cast<chip::EndpointId>(0);
+    Optional<chip::EndpointId> bridgedEndpoint;
+    Optional<chip::EndpointId> originalEndpoint;
     DataModel::DecodableList<Structs::DeviceTypeStruct::DecodableType> deviceTypes;
     DataModel::DecodableList<chip::CharSpan> uniqueLocationIDs;
     uint64_t uniqueLocationIDsLastEdit = static_cast<uint64_t>(0);

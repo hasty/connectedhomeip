@@ -263,50 +263,6 @@
 - (MCLevelControlClusterClusterRevisionAttribute * _Nullable)clusterRevisionAttribute;
 @end
 
-// WakeOnLan cluster:
-
-@interface MCWakeOnLanCluster : MCCluster
-
-// WakeOnLan cluster commands:
-
-// WakeOnLan cluster attributes:
-
-/**
- * @brief Returns non-nil pointer to MCWakeOnLanClusterMACAddressAttribute if supported, nil otherwise.
- */
-- (MCWakeOnLanClusterMACAddressAttribute * _Nullable)macAddressAttribute;
-
-/**
- * @brief Returns non-nil pointer to MCWakeOnLanClusterLinkLocalAddressAttribute if supported, nil otherwise.
- */
-- (MCWakeOnLanClusterLinkLocalAddressAttribute * _Nullable)linkLocalAddressAttribute;
-
-/**
- * @brief Returns non-nil pointer to MCWakeOnLanClusterGeneratedCommandListAttribute if supported, nil otherwise.
- */
-- (MCWakeOnLanClusterGeneratedCommandListAttribute * _Nullable)generatedCommandListAttribute;
-
-/**
- * @brief Returns non-nil pointer to MCWakeOnLanClusterAcceptedCommandListAttribute if supported, nil otherwise.
- */
-- (MCWakeOnLanClusterAcceptedCommandListAttribute * _Nullable)acceptedCommandListAttribute;
-
-/**
- * @brief Returns non-nil pointer to MCWakeOnLanClusterAttributeListAttribute if supported, nil otherwise.
- */
-- (MCWakeOnLanClusterAttributeListAttribute * _Nullable)attributeListAttribute;
-
-/**
- * @brief Returns non-nil pointer to MCWakeOnLanClusterFeatureMapAttribute if supported, nil otherwise.
- */
-- (MCWakeOnLanClusterFeatureMapAttribute * _Nullable)featureMapAttribute;
-
-/**
- * @brief Returns non-nil pointer to MCWakeOnLanClusterClusterRevisionAttribute if supported, nil otherwise.
- */
-- (MCWakeOnLanClusterClusterRevisionAttribute * _Nullable)clusterRevisionAttribute;
-@end
-
 // TargetNavigator cluster:
 
 @interface MCTargetNavigatorCluster : MCCluster

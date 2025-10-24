@@ -78,6 +78,7 @@ enum class ProductFinishEnum : uint8_t
 // Bitmap for Feature
 enum class Feature : uint32_t
 {
+    kExtendedMinima    = 0x1,
     kBridgedICDSupport = 0x100000,
 };
 } // namespace BridgedDeviceBasicInformation

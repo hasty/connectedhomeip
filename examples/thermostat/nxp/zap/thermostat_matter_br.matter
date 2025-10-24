@@ -1,6 +1,34 @@
 // This IDL was generated automatically by ZAP.
 // It is for view/code review purposes only.
 
+enum AlarmSeverityTag : enum8 {
+  kCritical = 0;
+  kMajor = 1;
+  kMinor = 2;
+}
+
+enum AmbientAudioContextTag : enum8 {
+  kUnknown = 0;
+  kObjectFall = 1;
+  kSnoring = 2;
+  kCoughing = 3;
+  kBarking = 4;
+  kShattering = 5;
+  kBabyCrying = 6;
+  kUtilityAlarm = 7;
+  kUrgentShouting = 8;
+  kDoorbell = 9;
+  kKnocking = 10;
+  kUrgentSiren = 11;
+  kFaucetRunning = 12;
+  kKettleBoiling = 13;
+  kFanDryer = 14;
+  kClapping = 15;
+  kFingerSnapping = 16;
+  kMeowing = 17;
+  kLaughing = 18;
+}
+
 enum AreaTypeTag : enum8 {
   kAisle = 0;
   kAttic = 1;
@@ -54,7 +82,7 @@ enum AreaTypeTag : enum8 {
   kLibrary = 51;
   kLivingRoom = 52;
   kLounge = 53;
-  kMediaTVRoom = 54 [spec_name = "Media/TV Room"];
+  kMediaTvRoom = 54;
   kMudRoom = 55;
   kMusicRoom = 56;
   kNursery = 57;
@@ -101,6 +129,116 @@ enum AtomicRequestTypeEnum : enum8 {
   kBeginWrite = 0;
   kCommitWrite = 1;
   kRollbackWrite = 2;
+}
+
+enum ClosureCabinetTag : enum8 {
+  kCabinetDoor = 0;
+  kDrawer = 1;
+  kFlap = 2;
+}
+
+enum ClosureCoveringTag : enum8 {
+  kBlind = 0;
+  kAwning = 1;
+  kShutter = 2;
+  kVenetian = 3;
+  kCurtain = 4;
+}
+
+enum ClosurePanelTag : enum8 {
+  kLift = 0;
+  kTilt = 1;
+  kSliding = 2;
+  kRotate = 3;
+}
+
+enum ClosureTag : enum8 {
+  kOpening = 0;
+  kClosing = 1;
+  kStop = 2;
+}
+
+enum ClosureWindowTag : enum8 {
+  kRoof = 0;
+  kFacade = 1;
+}
+
+enum CommodityTariffChronologyTag : enum8 {
+  kCurrent = 0;
+  kPrevious = 1;
+  kUpcoming = 2;
+}
+
+enum CommodityTariffCommodityTag : enum8 {
+  kElectricalEnergy = 0;
+}
+
+enum CommodityTariffFlowTag : enum8 {
+  kImport = 0;
+  kExport = 1;
+}
+
+enum CompassDirectionTag : enum8 {
+  kNorthward = 0;
+  kNorthEastward = 1;
+  kEastward = 2;
+  kSouthEastward = 3;
+  kSouthward = 4;
+  kSouthWestward = 5;
+  kWestward = 6;
+  kNorthWestward = 7;
+}
+
+enum CompassLocationTag : enum8 {
+  kNorth = 0;
+  kNorthEast = 1;
+  kEast = 2;
+  kSouthEast = 3;
+  kSouth = 4;
+  kSouthWest = 5;
+  kWest = 6;
+  kNorthWest = 7;
+}
+
+enum DirectionTag : enum8 {
+  kUpward = 0;
+  kDownward = 1;
+  kLeftward = 2;
+  kRightward = 3;
+  kForward = 4;
+  kBackward = 5;
+}
+
+enum ElectricalDistributionFormFactorTag : enum8 {
+  kMiniature = 0;
+  kMoldedCase = 1;
+}
+
+enum ElectricalDistributionOverVoltageTag : enum8 {
+  kLineToNeutral = 0;
+  kLineToGround = 1;
+  kNeutralToGround = 2;
+  kLineToLine = 3;
+}
+
+enum ElectricalMeasurementTag : enum8 {
+  kDC = 0 [spec_name = "DC"];
+  kAC = 1 [spec_name = "AC"];
+  kACPhase1 = 2;
+  kACPhase2 = 3;
+  kACPhase3 = 4;
+}
+
+enum HumanActivityTag : enum8 {
+  kUnknown = 0;
+  kPresence = 1;
+  kFall = 2;
+  kSleep = 3;
+  kWalk = 4;
+  kWorkout = 5;
+  kSit = 6;
+  kStand = 7;
+  kDance = 8;
 }
 
 enum LandmarkTag : enum8 {
@@ -157,11 +295,25 @@ enum LandmarkTag : enum8 {
   kWineCooler = 50;
 }
 
+enum LaundryTag : enum8 {
+  kNormal = 0;
+  kLightDry = 1;
+  kExtraDry = 2;
+  kNoDry = 3;
+}
+
+enum LevelTag : enum8 {
+  kLow = 0;
+  kMedium = 1;
+  kHigh = 2;
+}
+
 enum LocationTag : enum8 {
   kIndoor = 0;
   kOutdoor = 1;
   kInside = 2;
   kOutside = 3;
+  kZone = 4;
 }
 
 enum MeasurementTypeEnum : enum16 {
@@ -185,6 +337,50 @@ enum MeasurementTypeEnum : enum16 {
   kSoilMoisture = 17;
 }
 
+enum NumberTag : enum8 {
+  kZero = 0;
+  kOne = 1;
+  kTwo = 2;
+  kThree = 3;
+  kFour = 4;
+  kFive = 5;
+  kSix = 6;
+  kSeven = 7;
+  kEight = 8;
+  kNine = 9;
+  kTen = 10;
+  kEleven = 11;
+  kTwelve = 12;
+  kThirteen = 13;
+  kFourteen = 14;
+  kFifteen = 15;
+  kSixteen = 16;
+  kSeventeen = 17;
+  kEighteen = 18;
+  kNineteen = 19;
+  kTwenty = 20;
+  kTwentyOne = 21;
+  kTwentyTwo = 22;
+  kTwentyThree = 23;
+  kTwentyFour = 24;
+  kTwentyFive = 25;
+  kTwentySix = 26;
+  kTwentySeven = 27;
+  kTwentyEight = 28;
+  kTwentyNine = 29;
+  kThirty = 30;
+}
+
+enum ObjectIdentificationTag : enum8 {
+  kUnknown = 0;
+  kAdult = 1;
+  kChild = 2;
+  kRVC = 3 [spec_name = "RVC"];
+  kPet = 4;
+  kDog = 5;
+  kCat = 6;
+}
+
 enum PositionTag : enum8 {
   kLeft = 0;
   kRight = 1;
@@ -195,10 +391,23 @@ enum PositionTag : enum8 {
   kColumn = 6;
 }
 
+enum PowerSourceTag : enum8 {
+  kUnknown = 0;
+  kGrid = 1;
+  kSolar = 2;
+  kBattery = 3;
+  kEV = 4 [spec_name = "EV"];
+}
+
 enum PowerThresholdSourceEnum : enum8 {
   kContract = 0;
   kRegulator = 1;
   kEquipment = 2;
+}
+
+enum RefrigeratorTag : enum8 {
+  kRefrigerator = 0;
+  kFreezer = 1;
 }
 
 enum RelativePositionTag : enum8 {
@@ -211,11 +420,56 @@ enum RelativePositionTag : enum8 {
   kBehind = 6;
 }
 
+enum RoomAirConditionerTag : enum8 {
+  kEvaporator = 0;
+  kCondenser = 1;
+}
+
+enum ServerAttributionContextInformation : enum8 {
+  kServerAutomationRule = 11;
+  kServerSchedule = 12;
+  kServerTimer = 13;
+  kSecurity = 14;
+  kDemandResponseEventOrSimilarServiceProviderSignalling = 15;
+  kPhysicalInteractionOnDevice = 16;
+  kInteractionViaAProtocolNotDefinedInThisSpecification = 17;
+}
+
+enum SoftwareVersionCertificationStatusEnum : enum8 {
+  kDevTest = 0;
+  kProvisional = 1;
+  kCertified = 2;
+  kRevoked = 3;
+}
+
 enum StreamUsageEnum : enum8 {
   kInternal = 0;
   kRecording = 1;
   kAnalysis = 2;
   kLiveView = 3;
+}
+
+enum SuppliedAttributionContextInformation : enum8 {
+  kDefaultClientAction = 0;
+  kUserInteraction = 1;
+  kClientAutomationRule = 2;
+  kClientSchedule = 3;
+  kClientTimer = 4;
+}
+
+enum SwitchesTag : enum8 {
+  kOn = 0;
+  kOff = 1;
+  kToggle = 2;
+  kUp = 3;
+  kDown = 4;
+  kNext = 5;
+  kPrevious = 6;
+  kEnterOkSelect = 7;
+  kCustom = 8;
+  kOpen = 9;
+  kClose = 10;
+  kStop = 11;
 }
 
 enum TariffPriceTypeEnum : enum8 {
@@ -299,6 +553,16 @@ struct AtomicAttributeStatusStruct {
   status statusCode = 1;
 }
 
+struct AttributionData {
+  enum8 contextInformation = 0;
+  optional int32u sourceContext = 1;
+  optional node_id nodeID = 2;
+  optional group_id groupID = 3;
+  optional systime_ms systemTimeStamp = 4;
+  optional posix_ms epochTimeStamp = 5;
+  nullable fabric_idx fabricIndex = 6;
+}
+
 struct ICECandidateStruct {
   char_string candidate = 0;
   nullable char_string SDPMid = 1;
@@ -324,11 +588,10 @@ struct PowerThresholdStruct {
   nullable PowerThresholdSourceEnum powerThresholdSource = 2;
 }
 
-struct SemanticTagStruct {
-  nullable vendor_id mfgCode = 0;
-  enum8 namespaceID = 1;
-  enum8 tag = 2;
-  optional nullable char_string<64> label = 3;
+fabric_scoped struct SuppliedAttributionData {
+  enum8 contextInformation = 0;
+  optional int32u sourceContext = 1;
+  fabric_idx fabricIndex = 254;
 }
 
 struct TestGlobalStruct {
@@ -493,6 +756,13 @@ cluster Descriptor = 29 {
     int16u revision = 1;
   }
 
+  shared struct SemanticTagStruct {
+    nullable vendor_id mfgCode = 0;
+    enum8 namespaceID = 1;
+    enum8 tag = 2;
+    optional nullable char_string<64> label = 3;
+  }
+
   readonly attribute DeviceTypeStruct deviceTypeList[] = 0;
   readonly attribute cluster_id serverList[] = 1;
   readonly attribute cluster_id clientList[] = 2;
@@ -612,7 +882,7 @@ cluster AccessControl = 31 {
     fabric_idx fabricIndex = 254;
   }
 
-  fabric_sensitive info event access(read: administer) AuxiliaryAccessUpdated = 3 {
+  provisional fabric_sensitive info event access(read: administer) AuxiliaryAccessUpdated = 3 {
     nullable node_id adminNodeID = 0;
     fabric_idx fabricIndex = 254;
   }
@@ -624,7 +894,7 @@ cluster AccessControl = 31 {
   readonly attribute int16u accessControlEntriesPerFabric = 4;
   readonly attribute optional CommissioningAccessRestrictionEntryStruct commissioningARL[] = 5;
   readonly attribute optional AccessRestrictionEntryStruct arl[] = 6;
-  readonly attribute access(read: administer) optional AccessControlEntryStruct auxiliaryACL[] = 7;
+  provisional readonly attribute access(read: administer) optional AccessControlEntryStruct auxiliaryACL[] = 7;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -647,7 +917,7 @@ cluster AccessControl = 31 {
       Commissioning and operational determination of Node characteristics, such as Vendor ID, Product ID and serial number,
       which apply to the whole Node. Also allows setting user device information such as location. */
 cluster BasicInformation = 40 {
-  revision 5;
+  revision 6;
 
   enum ColorEnum : enum8 {
     kBlack = 0;
@@ -682,9 +952,17 @@ cluster BasicInformation = 40 {
     kFabric = 5;
   }
 
+  bitmap Feature : bitmap32 {
+    kExtendedMinima = 0x1;
+  }
+
   struct CapabilityMinimaStruct {
     int16u caseSessionsPerFabric = 0;
     int16u subscriptionsPerFabric = 1;
+    optional int16u simultaneousInvocationsSupported = 2;
+    optional int16u simultaneousWritesSupported = 3;
+    optional int16u readPathsSupported = 4;
+    optional int16u subscribePathsSupported = 5;
   }
 
   struct ProductAppearanceStruct {
@@ -730,7 +1008,8 @@ cluster BasicInformation = 40 {
   readonly attribute optional ProductAppearanceStruct productAppearance = 20;
   readonly attribute int32u specificationVersion = 21;
   readonly attribute int16u maxPathsPerInvoke = 22;
-  readonly attribute int32u configurationVersion = 24;
+  provisional attribute access(write: administer) optional nullable LocationDescriptorStruct deviceLocation = 23;
+  provisional readonly attribute int32u configurationVersion = 24;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -934,11 +1213,11 @@ cluster GeneralCommissioning = 48 {
   readonly attribute RegulatoryLocationTypeEnum regulatoryConfig = 2;
   readonly attribute RegulatoryLocationTypeEnum locationCapability = 3;
   readonly attribute boolean supportsConcurrentConnection = 4;
-  provisional readonly attribute access(read: administer) optional int16u TCAcceptedVersion = 5;
-  provisional readonly attribute access(read: administer) optional int16u TCMinRequiredVersion = 6;
-  provisional readonly attribute access(read: administer) optional bitmap16 TCAcknowledgements = 7;
-  provisional readonly attribute access(read: administer) optional boolean TCAcknowledgementsRequired = 8;
-  provisional readonly attribute access(read: administer) optional nullable int32u TCUpdateDeadline = 9;
+  readonly attribute access(read: administer) optional int16u TCAcceptedVersion = 5;
+  readonly attribute access(read: administer) optional int16u TCMinRequiredVersion = 6;
+  readonly attribute access(read: administer) optional bitmap16 TCAcknowledgements = 7;
+  readonly attribute access(read: administer) optional boolean TCAcknowledgementsRequired = 8;
+  readonly attribute access(read: administer) optional nullable int32u TCUpdateDeadline = 9;
   provisional readonly attribute access(read: manage) optional octet_string<8> recoveryIdentifier = 10;
   provisional readonly attribute access(read: manage) optional nullable NetworkRecoveryReasonEnum networkRecoveryReason = 11;
   provisional readonly attribute optional boolean isCommissioningWithoutPower = 12;
@@ -995,7 +1274,7 @@ cluster GeneralCommissioning = 48 {
 
 /** Functionality to configure, enable, disable network credentials and access on a Matter device. */
 cluster NetworkCommissioning = 49 {
-  revision 2;
+  revision 3;
 
   enum NetworkCommissioningStatusEnum : enum8 {
     kSuccess = 0;
@@ -1054,23 +1333,23 @@ cluster NetworkCommissioning = 49 {
   }
 
   struct ThreadInterfaceScanResultStruct {
-    int16u panId = 0;
-    int64u extendedPanId = 1;
-    char_string<16> networkName = 2;
-    int16u channel = 3;
-    int8u version = 4;
-    octet_string<8> extendedAddress = 5;
-    int8s rssi = 6;
-    int8u lqi = 7;
+    optional int16u panId = 0;
+    optional int64u extendedPanId = 1;
+    optional char_string<16> networkName = 2;
+    optional int16u channel = 3;
+    optional int8u version = 4;
+    optional octet_string extendedAddress = 5;
+    optional int8s rssi = 6;
+    optional int8u lqi = 7;
   }
 
   struct WiFiInterfaceScanResultStruct {
-    WiFiSecurityBitmap security = 0;
-    octet_string<32> ssid = 1;
-    octet_string<6> bssid = 2;
-    int16u channel = 3;
-    WiFiBandEnum wiFiBand = 4;
-    int8s rssi = 5;
+    optional WiFiSecurityBitmap security = 0;
+    optional octet_string<32> ssid = 1;
+    optional octet_string<6> bssid = 2;
+    optional int16u channel = 3;
+    optional WiFiBandEnum wiFiBand = 4;
+    optional int8s rssi = 5;
   }
 
   readonly attribute access(read: administer) int8u maxNetworks = 0;
@@ -1081,9 +1360,9 @@ cluster NetworkCommissioning = 49 {
   readonly attribute access(read: administer) nullable NetworkCommissioningStatusEnum lastNetworkingStatus = 5;
   readonly attribute access(read: administer) nullable octet_string<32> lastNetworkID = 6;
   readonly attribute access(read: administer) nullable int32s lastConnectErrorValue = 7;
-  provisional readonly attribute optional WiFiBandEnum supportedWiFiBands[] = 8;
-  provisional readonly attribute optional ThreadCapabilitiesBitmap supportedThreadFeatures = 9;
-  provisional readonly attribute optional int16u threadVersion = 10;
+  readonly attribute optional WiFiBandEnum supportedWiFiBands[] = 8;
+  readonly attribute optional ThreadCapabilitiesBitmap supportedThreadFeatures = 9;
+  readonly attribute optional int16u threadVersion = 10;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -1097,7 +1376,7 @@ cluster NetworkCommissioning = 49 {
 
   response struct ScanNetworksResponse = 1 {
     NetworkCommissioningStatusEnum networkingStatus = 0;
-    optional char_string debugText = 1;
+    optional long_char_string<512> debugText = 1;
     optional WiFiInterfaceScanResultStruct wiFiScanResults[] = 2;
     optional ThreadInterfaceScanResultStruct threadScanResults[] = 3;
   }
@@ -1123,7 +1402,7 @@ cluster NetworkCommissioning = 49 {
 
   response struct NetworkConfigResponse = 5 {
     NetworkCommissioningStatusEnum networkingStatus = 0;
-    optional char_string<512> debugText = 1;
+    optional long_char_string<512> debugText = 1;
     optional int8u networkIndex = 2;
     optional octet_string<140> clientIdentity = 3;
     optional octet_string<64> possessionSignature = 4;
@@ -1156,19 +1435,19 @@ cluster NetworkCommissioning = 49 {
     optional octet_string<64> possessionSignature = 1;
   }
 
-  /** Detemine the set of networks the device sees as available. */
+  /** This command is used to scan for available networks on the network interface associated with the cluster instance. */
   command access(invoke: administer) ScanNetworks(ScanNetworksRequest): ScanNetworksResponse = 0;
-  /** Add or update the credentials for a given Wi-Fi network. */
+  /** This command is used to add or update a Wi-Fi network configuration. */
   command access(invoke: administer) AddOrUpdateWiFiNetwork(AddOrUpdateWiFiNetworkRequest): NetworkConfigResponse = 2;
-  /** Add or update the credentials for a given Thread network. */
+  /** This command is used to add or update a Thread network configuration. */
   command access(invoke: administer) AddOrUpdateThreadNetwork(AddOrUpdateThreadNetworkRequest): NetworkConfigResponse = 3;
-  /** Remove the definition of a given network (including its credentials). */
+  /** This command is used to remove a network configuration on the network interface associated with the cluster instance. */
   command access(invoke: administer) RemoveNetwork(RemoveNetworkRequest): NetworkConfigResponse = 4;
-  /** Connect to the specified network, using previously-defined credentials. */
+  /** This command is used to connect to a network on the network interface associated with the cluster instance. */
   command access(invoke: administer) ConnectNetwork(ConnectNetworkRequest): ConnectNetworkResponse = 6;
-  /** Modify the order in which networks will be presented in the Networks attribute. */
+  /** This command is used to re-order the network configuration list. */
   command access(invoke: administer) ReorderNetwork(ReorderNetworkRequest): NetworkConfigResponse = 8;
-  /** Retrieve details about and optionally proof of possession of a network client identity. */
+  /** This command is used to query the identity of a network configuration. */
   command access(invoke: administer) QueryIdentity(QueryIdentityRequest): QueryIdentityResponse = 9;
 }
 
@@ -1220,7 +1499,7 @@ cluster DiagnosticLogs = 50 {
 
 /** The General Diagnostics Cluster, along with other diagnostics clusters, provide a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
 cluster GeneralDiagnostics = 51 {
-  revision 2;
+  revision 3;
 
   enum BootReasonEnum : enum8 {
     kUnspecified = 0;
@@ -1273,6 +1552,15 @@ cluster GeneralDiagnostics = 51 {
 
   bitmap Feature : bitmap32 {
     kDataModelTest = 0x1;
+    kDeviceLoad = 0x2;
+  }
+
+  struct DeviceLoadStruct {
+    int16u currentSubscriptions = 0;
+    int16u currentSubscriptionsForFabric = 1;
+    int32u totalSubscriptionsEstablished = 2;
+    int32u totalInteractionModelMessagesSent = 3;
+    int32u totalInteractionModelMessagesReceived = 4;
   }
 
   struct NetworkInterface {
@@ -1280,7 +1568,7 @@ cluster GeneralDiagnostics = 51 {
     boolean isOperational = 1;
     nullable boolean offPremiseServicesReachableIPv4 = 2;
     nullable boolean offPremiseServicesReachableIPv6 = 3;
-    octet_string<8> hardwareAddress = 4;
+    octet_string hardwareAddress = 4;
     octet_string IPv4Addresses[] = 5;
     octet_string IPv6Addresses[] = 6;
     InterfaceTypeEnum type = 7;
@@ -1307,13 +1595,14 @@ cluster GeneralDiagnostics = 51 {
 
   readonly attribute NetworkInterface networkInterfaces[] = 0;
   readonly attribute int16u rebootCount = 1;
-  readonly attribute optional int64u upTime = 2;
+  readonly attribute int64u upTime = 2;
   readonly attribute optional int32u totalOperationalHours = 3;
   readonly attribute optional BootReasonEnum bootReason = 4;
   readonly attribute optional HardwareFaultEnum activeHardwareFaults[] = 5;
   readonly attribute optional RadioFaultEnum activeRadioFaults[] = 6;
   readonly attribute optional NetworkFaultEnum activeNetworkFaults[] = 7;
   readonly attribute boolean testEventTriggersEnabled = 8;
+  readonly attribute optional DeviceLoadStruct deviceLoadStatus = 10;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -1337,14 +1626,14 @@ cluster GeneralDiagnostics = 51 {
   }
 
   response struct PayloadTestResponse = 4 {
-    octet_string payload = 0;
+    long_octet_string<2048> payload = 0;
   }
 
-  /** Provide a means for certification tests to trigger some test-plan-specific events */
+  /** This command SHALL be supported to provide a means for certification tests to trigger some test-plan-specific events, necessary to assist in automation of device interactions for some certification test cases. */
   command access(invoke: manage) TestEventTrigger(TestEventTriggerRequest): DefaultSuccess = 0;
-  /** Take a snapshot of system time and epoch time. */
+  /** This command MAY be used by a client to obtain a correlated view of both System Time, and, if currently synchronized and supported, "wall clock time" of the server. */
   command TimeSnapshot(): TimeSnapshotResponse = 1;
-  /** Request a variable length payload response. */
+  /** This command provides a means for certification tests or manufacturer's internal tests to validate particular command handling and encoding constraints by generating a response of a given size. */
   command access(invoke: manage) PayloadTestRequest(PayloadTestRequestRequest): PayloadTestResponse = 3;
 }
 
@@ -1481,7 +1770,7 @@ cluster ThreadNetworkDiagnostics = 53 {
   readonly attribute nullable char_string<16> networkName = 2;
   readonly attribute nullable int16u panId = 3;
   readonly attribute nullable int64u extendedPanId = 4;
-  readonly attribute nullable octet_string<17> meshLocalPrefix = 5;
+  readonly attribute nullable octet_string<254> meshLocalPrefix = 5;
   readonly attribute optional int64u overrunCount = 6;
   readonly attribute NeighborTableStruct neighborTable[] = 7;
   readonly attribute RouteTableStruct routeTable[] = 8;
@@ -1547,7 +1836,7 @@ cluster ThreadNetworkDiagnostics = 53 {
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
 
-  /** Reception of this command SHALL reset the following attributes to 0: */
+  /** This command is used to reset the count attributes. */
   command access(invoke: manage) ResetCounts(): DefaultSuccess = 0;
 }
 
@@ -1693,6 +1982,8 @@ cluster OperationalCredentials = 62 {
     kMissingCsr = 4;
     kTableFull = 5;
     kInvalidAdminSubject = 6;
+    kReservedForFutureUse = 7;
+    kReservedForFutureUse = 8;
     kFabricConflict = 9;
     kLabelConflict = 10;
     kInvalidFabricIndex = 11;
@@ -1709,9 +2000,9 @@ cluster OperationalCredentials = 62 {
   }
 
   fabric_scoped struct NOCStruct {
-    octet_string<400> noc = 1;
-    nullable octet_string<400> icac = 2;
-    optional octet_string<400> vvsc = 3;
+    long_octet_string<400> noc = 1;
+    nullable long_octet_string<400> icac = 2;
+    optional long_octet_string<400> vvsc = 3;
     fabric_idx fabricIndex = 254;
   }
 
@@ -1732,7 +2023,7 @@ cluster OperationalCredentials = 62 {
   }
 
   response struct AttestationResponse = 1 {
-    octet_string attestationElements = 0;
+    long_octet_string<0x384> attestationElements = 0;
     octet_string<64> attestationSignature = 1;
   }
 
@@ -1741,7 +2032,7 @@ cluster OperationalCredentials = 62 {
   }
 
   response struct CertificateChainResponse = 3 {
-    octet_string<600> certificate = 0;
+    long_octet_string<600> certificate = 0;
   }
 
   request struct CSRRequestRequest {
@@ -1750,21 +2041,21 @@ cluster OperationalCredentials = 62 {
   }
 
   response struct CSRResponse = 5 {
-    octet_string NOCSRElements = 0;
+    long_octet_string<0x384> NOCSRElements = 0;
     octet_string<64> attestationSignature = 1;
   }
 
   request struct AddNOCRequest {
-    octet_string<400> NOCValue = 0;
-    optional octet_string<400> ICACValue = 1;
+    long_octet_string<400> NOCValue = 0;
+    optional long_octet_string<400> ICACValue = 1;
     octet_string<16> IPKValue = 2;
     int64u caseAdminSubject = 3;
     vendor_id adminVendorId = 4;
   }
 
   request struct UpdateNOCRequest {
-    octet_string<400> NOCValue = 0;
-    optional octet_string<400> ICACValue = 1;
+    long_octet_string<400> NOCValue = 0;
+    optional long_octet_string<400> ICACValue = 1;
   }
 
   response struct NOCResponse = 8 {
@@ -1782,13 +2073,13 @@ cluster OperationalCredentials = 62 {
   }
 
   request struct AddTrustedRootCertificateRequest {
-    octet_string<400> rootCACertificate = 0;
+    long_octet_string<400> rootCACertificate = 0;
   }
 
   request struct SetVIDVerificationStatementRequest {
     optional vendor_id vendorID = 0;
     optional octet_string<85> VIDVerificationStatement = 1;
-    optional octet_string<400> vvsc = 2;
+    optional long_octet_string<400> vvsc = 2;
   }
 
   request struct SignVIDVerificationRequestRequest {
@@ -1802,31 +2093,36 @@ cluster OperationalCredentials = 62 {
     octet_string signature = 2;
   }
 
-  /** Sender is requesting attestation information from the receiver. */
+  /** This command is used to perform an attestation request. */
   command access(invoke: administer) AttestationRequest(AttestationRequestRequest): AttestationResponse = 0;
-  /** Sender is requesting a device attestation certificate from the receiver. */
+  /** This command is used to request a certificate from the device attestation certificate chain. */
   command access(invoke: administer) CertificateChainRequest(CertificateChainRequestRequest): CertificateChainResponse = 2;
-  /** Sender is requesting a certificate signing request (CSR) from the receiver. */
+  /** This command is used to perform a CSR request. */
   command access(invoke: administer) CSRRequest(CSRRequestRequest): CSRResponse = 4;
-  /** Sender is requesting to add the new node operational certificates. */
+  /** This command is used to add a new NOC to the device. */
   command access(invoke: administer) AddNOC(AddNOCRequest): NOCResponse = 6;
-  /** This command SHALL replace the NOC and optional associated ICAC (if present) scoped under the accessing fabric upon successful validation of all arguments and preconditions. */
+  /** This command is used to update an existing NOC on the device. */
   fabric command access(invoke: administer) UpdateNOC(UpdateNOCRequest): NOCResponse = 7;
-  /** This command SHALL be used by an Administrative Node to set the user-visible Label field for a given Fabric, as reflected by entries in the Fabrics attribute. */
+  /** This command is used to set the user-visible fabric label for a given Fabric. */
   fabric command access(invoke: administer) UpdateFabricLabel(UpdateFabricLabelRequest): NOCResponse = 9;
-  /** This command is used by Administrative Nodes to remove a given fabric index and delete all associated fabric-scoped data. */
+  /** This command is used to remove a Fabric from the device. */
   command access(invoke: administer) RemoveFabric(RemoveFabricRequest): NOCResponse = 10;
-  /** This command SHALL add a Trusted Root CA Certificate, provided as its CHIP Certificate representation. */
+  /** This command is used to add a trusted root certificate to the device. */
   command access(invoke: administer) AddTrustedRootCertificate(AddTrustedRootCertificateRequest): DefaultSuccess = 11;
-  /** This command SHALL be used to update any of the accessing fabric's associated VendorID, VidVerificatioNStatement or VVSC (Vendor Verification Signing Certificate). */
+  /** This command is used to manage the VendorID and VIDVerificationStatement fields of the Fabrics attribute, and the VVSC field of an entry in the NOCs attribute. */
   fabric command access(invoke: administer) SetVIDVerificationStatement(SetVIDVerificationStatementRequest): DefaultSuccess = 12;
-  /** This command SHALL be used to request that the server authenticate the fabric associated with the FabricIndex given. */
+  /** This command is used to authenticate the fabric associated with the FabricIndex. */
   command access(invoke: administer) SignVIDVerificationRequest(SignVIDVerificationRequestRequest): SignVIDVerificationResponse = 13;
 }
 
 /** The Group Key Management Cluster is the mechanism by which group keys are managed. */
 cluster GroupKeyManagement = 63 {
   revision 2;
+
+  enum GroupKeyMulticastPolicyEnum : enum8 {
+    kPerGroupID = 0;
+    kAllNodes = 1;
+  }
 
   enum GroupKeySecurityPolicyEnum : enum8 {
     kTrustFirst = 0;
@@ -1850,7 +2146,7 @@ cluster GroupKeyManagement = 63 {
     fabric_idx fabricIndex = 254;
   }
 
-  struct GroupKeySetStruct {
+  fabric_scoped struct GroupKeySetStruct {
     int16u groupKeySetID = 0;
     GroupKeySecurityPolicyEnum groupKeySecurityPolicy = 1;
     nullable octet_string<16> epochKey0 = 2;
@@ -1859,6 +2155,8 @@ cluster GroupKeyManagement = 63 {
     nullable epoch_us epochStartTime1 = 5;
     nullable octet_string<16> epochKey2 = 6;
     nullable epoch_us epochStartTime2 = 7;
+    GroupKeyMulticastPolicyEnum groupKeyMulticastPolicy = 8;
+    fabric_idx fabricIndex = 254;
   }
 
   attribute access(write: manage) GroupKeyMapStruct groupKeyMap[] = 0;
@@ -1891,13 +2189,13 @@ cluster GroupKeyManagement = 63 {
     int16u groupKeySetIDs[] = 0;
   }
 
-  /** Write a new set of keys for the given key set id. */
+  /** This command is used by Administrators to set the state of a given Group Key Set, including atomically updating the state of all epoch keys. */
   fabric command access(invoke: administer) KeySetWrite(KeySetWriteRequest): DefaultSuccess = 0;
-  /** Read the keys for a given key set id. */
+  /** This command is used by Administrators to read the state of a given Group Key Set. */
   fabric command access(invoke: administer) KeySetRead(KeySetReadRequest): KeySetReadResponse = 1;
-  /** Revoke a Root Key from a Group */
+  /** This command is used by Administrators to remove all state of a given Group Key Set. */
   fabric command access(invoke: administer) KeySetRemove(KeySetRemoveRequest): DefaultSuccess = 3;
-  /** Return the list of Group Key Sets associated with the accessing fabric */
+  /** This command is used by Administrators to query a list of all Group Key Sets associated with the accessing fabric. */
   fabric command access(invoke: administer) KeySetReadAllIndices(): KeySetReadAllIndicesResponse = 4;
 }
 
@@ -2271,6 +2569,8 @@ cluster Thermostat = 513 {
   provisional readonly attribute optional ThermostatSuggestionStruct thermostatSuggestions[] = 84;
   provisional readonly attribute optional nullable ThermostatSuggestionStruct currentThermostatSuggestion = 85;
   provisional readonly attribute optional nullable ThermostatSuggestionNotFollowingReasonBitmap thermostatSuggestionNotFollowingReason = 86;
+  provisional readonly attribute optional boolean criticalFreezeProtection = 87;
+  provisional readonly attribute optional boolean criticalOverheatProtection = 88;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -2335,19 +2635,21 @@ cluster Thermostat = 513 {
     optional int16u timeout = 2;
   }
 
-  /** Upon receipt, the attributes for the indicated setpoint(s) SHALL have the amount specified in the Amount field added to them. */
+  /** This command will raise or lower the setpoint based on the provided values. */
   command SetpointRaiseLower(SetpointRaiseLowerRequest): DefaultSuccess = 0;
   /** This command is used to update the thermostat weekly setpoint schedule from a management system. */
   command access(invoke: manage) SetWeeklySchedule(SetWeeklyScheduleRequest): DefaultSuccess = 1;
-  /** The Current Weekly Schedule Command is sent from the server in response to the Get Weekly Schedule Command. */
+  /** This command will return the weekly schedule for the values provided. */
   command GetWeeklySchedule(GetWeeklyScheduleRequest): GetWeeklyScheduleResponse = 2;
   /** This command is used to clear the weekly schedule. */
   command access(invoke: manage) ClearWeeklySchedule(): DefaultSuccess = 3;
-  /** Upon receipt, if the Schedules attribute contains a ScheduleStruct whose ScheduleHandle field matches the value of the ScheduleHandle field, the server SHALL set the thermostat's ActiveScheduleHandle attribute to the value of the ScheduleHandle field. */
+  /** This command will set the active schedule to the provided schedule handle. */
   command SetActiveScheduleRequest(SetActiveScheduleRequestRequest): DefaultSuccess = 5;
-  /** ID */
+  /** This command will set the active preset to the provided preset handle. */
   command SetActivePresetRequest(SetActivePresetRequestRequest): DefaultSuccess = 6;
+  /** This command will add a new suggestion based on the specified values. */
   command access(invoke: manage) AddThermostatSuggestion(AddThermostatSuggestionRequest): AddThermostatSuggestionResponse = 7;
+  /** This command will remove the specified suggestion. */
   command access(invoke: manage) RemoveThermostatSuggestion(RemoveThermostatSuggestionRequest): DefaultSuccess = 8;
   /** Begins, Commits or Cancels an atomic write */
   command access(invoke: manage) AtomicRequest(AtomicRequestRequest): AtomicResponse = 254;

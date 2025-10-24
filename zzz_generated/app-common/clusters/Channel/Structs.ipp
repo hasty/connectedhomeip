@@ -382,40 +382,6 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
 
 } // namespace ChannelPagingStruct
 
-namespace AdditionalInfoStruct {
-CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
-{
-    DataModel::WrappedStructEncoder encoder{ aWriter, aTag };
-    encoder.Encode(to_underlying(Fields::kName), name);
-    encoder.Encode(to_underlying(Fields::kValue), value);
-    return encoder.Finalize();
-}
-
-CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
-{
-    detail::StructDecodeIterator __iterator(reader);
-    while (true)
-    {
-        uint8_t __context_tag = 0;
-        CHIP_ERROR err        = __iterator.Next(__context_tag);
-        VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
-        ReturnErrorOnFailure(err);
-
-        if (__context_tag == to_underlying(Fields::kName))
-        {
-            err = DataModel::Decode(reader, name);
-        }
-        else if (__context_tag == to_underlying(Fields::kValue))
-        {
-            err = DataModel::Decode(reader, value);
-        }
-
-        ReturnErrorOnFailure(err);
-    }
-}
-
-} // namespace AdditionalInfoStruct
-
 namespace LineupInfoStruct {
 CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
 {

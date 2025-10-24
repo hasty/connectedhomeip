@@ -70,7 +70,7 @@ public:
     static constexpr CommandId GetCommandId() { return Commands::Step::Id; }
     static constexpr ClusterId GetClusterId() { return Clusters::FanControl::Id; }
 
-    StepDirectionEnum direction = static_cast<StepDirectionEnum>(0);
+    StepDirection2Enum direction = static_cast<StepDirection2Enum>(0);
     Optional<bool> wrap;
     Optional<bool> lowestOff;
 
@@ -88,7 +88,7 @@ public:
     static constexpr ClusterId GetClusterId() { return Clusters::FanControl::Id; }
     static constexpr bool kIsFabricScoped = false;
 
-    StepDirectionEnum direction = static_cast<StepDirectionEnum>(0);
+    StepDirection2Enum direction = static_cast<StepDirection2Enum>(0);
     Optional<bool> wrap;
     Optional<bool> lowestOff;
 

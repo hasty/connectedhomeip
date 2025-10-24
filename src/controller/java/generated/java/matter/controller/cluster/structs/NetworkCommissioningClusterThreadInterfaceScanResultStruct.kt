@@ -16,6 +16,7 @@
  */
 package matter.controller.cluster.structs
 
+import java.util.Optional
 import matter.controller.cluster.*
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
@@ -23,14 +24,14 @@ import matter.tlv.TlvReader
 import matter.tlv.TlvWriter
 
 class NetworkCommissioningClusterThreadInterfaceScanResultStruct(
-  val panId: UShort,
-  val extendedPanId: ULong,
-  val networkName: String,
-  val channel: UShort,
-  val version: UByte,
-  val extendedAddress: ByteArray,
-  val rssi: Byte,
-  val lqi: UByte,
+  val panId: Optional<UShort>,
+  val extendedPanId: Optional<ULong>,
+  val networkName: Optional<String>,
+  val channel: Optional<UShort>,
+  val version: Optional<UByte>,
+  val extendedAddress: Optional<ByteArray>,
+  val rssi: Optional<Byte>,
+  val lqi: Optional<UByte>,
 ) {
   override fun toString(): String = buildString {
     append("NetworkCommissioningClusterThreadInterfaceScanResultStruct {\n")
@@ -48,14 +49,38 @@ class NetworkCommissioningClusterThreadInterfaceScanResultStruct(
   fun toTlv(tlvTag: Tag, tlvWriter: TlvWriter) {
     tlvWriter.apply {
       startStructure(tlvTag)
-      put(ContextSpecificTag(TAG_PAN_ID), panId)
-      put(ContextSpecificTag(TAG_EXTENDED_PAN_ID), extendedPanId)
-      put(ContextSpecificTag(TAG_NETWORK_NAME), networkName)
-      put(ContextSpecificTag(TAG_CHANNEL), channel)
-      put(ContextSpecificTag(TAG_VERSION), version)
-      put(ContextSpecificTag(TAG_EXTENDED_ADDRESS), extendedAddress)
-      put(ContextSpecificTag(TAG_RSSI), rssi)
-      put(ContextSpecificTag(TAG_LQI), lqi)
+      if (panId.isPresent) {
+        val optpanId = panId.get()
+        put(ContextSpecificTag(TAG_PAN_ID), optpanId)
+      }
+      if (extendedPanId.isPresent) {
+        val optextendedPanId = extendedPanId.get()
+        put(ContextSpecificTag(TAG_EXTENDED_PAN_ID), optextendedPanId)
+      }
+      if (networkName.isPresent) {
+        val optnetworkName = networkName.get()
+        put(ContextSpecificTag(TAG_NETWORK_NAME), optnetworkName)
+      }
+      if (channel.isPresent) {
+        val optchannel = channel.get()
+        put(ContextSpecificTag(TAG_CHANNEL), optchannel)
+      }
+      if (version.isPresent) {
+        val optversion = version.get()
+        put(ContextSpecificTag(TAG_VERSION), optversion)
+      }
+      if (extendedAddress.isPresent) {
+        val optextendedAddress = extendedAddress.get()
+        put(ContextSpecificTag(TAG_EXTENDED_ADDRESS), optextendedAddress)
+      }
+      if (rssi.isPresent) {
+        val optrssi = rssi.get()
+        put(ContextSpecificTag(TAG_RSSI), optrssi)
+      }
+      if (lqi.isPresent) {
+        val optlqi = lqi.get()
+        put(ContextSpecificTag(TAG_LQI), optlqi)
+      }
       endStructure()
     }
   }
@@ -75,14 +100,54 @@ class NetworkCommissioningClusterThreadInterfaceScanResultStruct(
       tlvReader: TlvReader,
     ): NetworkCommissioningClusterThreadInterfaceScanResultStruct {
       tlvReader.enterStructure(tlvTag)
-      val panId = tlvReader.getUShort(ContextSpecificTag(TAG_PAN_ID))
-      val extendedPanId = tlvReader.getULong(ContextSpecificTag(TAG_EXTENDED_PAN_ID))
-      val networkName = tlvReader.getString(ContextSpecificTag(TAG_NETWORK_NAME))
-      val channel = tlvReader.getUShort(ContextSpecificTag(TAG_CHANNEL))
-      val version = tlvReader.getUByte(ContextSpecificTag(TAG_VERSION))
-      val extendedAddress = tlvReader.getByteArray(ContextSpecificTag(TAG_EXTENDED_ADDRESS))
-      val rssi = tlvReader.getByte(ContextSpecificTag(TAG_RSSI))
-      val lqi = tlvReader.getUByte(ContextSpecificTag(TAG_LQI))
+      val panId =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_PAN_ID))) {
+          Optional.of(tlvReader.getUShort(ContextSpecificTag(TAG_PAN_ID)))
+        } else {
+          Optional.empty()
+        }
+      val extendedPanId =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_EXTENDED_PAN_ID))) {
+          Optional.of(tlvReader.getULong(ContextSpecificTag(TAG_EXTENDED_PAN_ID)))
+        } else {
+          Optional.empty()
+        }
+      val networkName =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_NETWORK_NAME))) {
+          Optional.of(tlvReader.getString(ContextSpecificTag(TAG_NETWORK_NAME)))
+        } else {
+          Optional.empty()
+        }
+      val channel =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_CHANNEL))) {
+          Optional.of(tlvReader.getUShort(ContextSpecificTag(TAG_CHANNEL)))
+        } else {
+          Optional.empty()
+        }
+      val version =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_VERSION))) {
+          Optional.of(tlvReader.getUByte(ContextSpecificTag(TAG_VERSION)))
+        } else {
+          Optional.empty()
+        }
+      val extendedAddress =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_EXTENDED_ADDRESS))) {
+          Optional.of(tlvReader.getByteArray(ContextSpecificTag(TAG_EXTENDED_ADDRESS)))
+        } else {
+          Optional.empty()
+        }
+      val rssi =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_RSSI))) {
+          Optional.of(tlvReader.getByte(ContextSpecificTag(TAG_RSSI)))
+        } else {
+          Optional.empty()
+        }
+      val lqi =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_LQI))) {
+          Optional.of(tlvReader.getUByte(ContextSpecificTag(TAG_LQI)))
+        } else {
+          Optional.empty()
+        }
 
       tlvReader.exitContainer()
 

@@ -80,14 +80,14 @@ enum class Fields : uint8_t
 struct Type
 {
 public:
-    uint16_t panId         = static_cast<uint16_t>(0);
-    uint64_t extendedPanId = static_cast<uint64_t>(0);
-    chip::CharSpan networkName;
-    uint16_t channel = static_cast<uint16_t>(0);
-    uint8_t version  = static_cast<uint8_t>(0);
-    chip::ByteSpan extendedAddress;
-    int8_t rssi = static_cast<int8_t>(0);
-    uint8_t lqi = static_cast<uint8_t>(0);
+    Optional<uint16_t> panId;
+    Optional<uint64_t> extendedPanId;
+    Optional<chip::CharSpan> networkName;
+    Optional<uint16_t> channel;
+    Optional<uint8_t> version;
+    Optional<chip::ByteSpan> extendedAddress;
+    Optional<int8_t> rssi;
+    Optional<uint8_t> lqi;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 
@@ -113,12 +113,12 @@ enum class Fields : uint8_t
 struct Type
 {
 public:
-    chip::BitMask<WiFiSecurityBitmap> security = static_cast<chip::BitMask<WiFiSecurityBitmap>>(0);
-    chip::ByteSpan ssid;
-    chip::ByteSpan bssid;
-    uint16_t channel      = static_cast<uint16_t>(0);
-    WiFiBandEnum wiFiBand = static_cast<WiFiBandEnum>(0);
-    int8_t rssi           = static_cast<int8_t>(0);
+    Optional<chip::BitMask<WiFiSecurityBitmap>> security;
+    Optional<chip::ByteSpan> ssid;
+    Optional<chip::ByteSpan> bssid;
+    Optional<uint16_t> channel;
+    Optional<WiFiBandEnum> wiFiBand;
+    Optional<int8_t> rssi;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 

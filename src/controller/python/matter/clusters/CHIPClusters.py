@@ -1071,6 +1071,13 @@ class ChipClusters:
                 "type": "int",
                 "reportable": True,
             },
+            0x00000017: {
+                "attributeName": "DeviceLocation",
+                "attributeId": 0x00000017,
+                "type": "",
+                "reportable": True,
+                "writable": True,
+            },
             0x00000018: {
                 "attributeName": "ConfigurationVersion",
                 "attributeId": 0x00000018,
@@ -2129,6 +2136,12 @@ class ChipClusters:
                 "type": "bool",
                 "reportable": True,
             },
+            0x0000000A: {
+                "attributeName": "DeviceLoadStatus",
+                "attributeId": 0x0000000A,
+                "type": "",
+                "reportable": True,
+            },
             0x0000FFF8: {
                 "attributeName": "GeneratedCommandList",
                 "attributeId": 0x0000FFF8,
@@ -3152,6 +3165,13 @@ class ChipClusters:
                 "attributeId": 0x00000014,
                 "type": "",
                 "reportable": True,
+            },
+            0x00000017: {
+                "attributeName": "DeviceLocation",
+                "attributeId": 0x00000017,
+                "type": "",
+                "reportable": True,
+                "writable": True,
             },
             0x00000018: {
                 "attributeName": "ConfigurationVersion",
@@ -5757,6 +5777,87 @@ class ChipClusters:
             },
         },
     }
+    _WATER_TANK_LEVEL_MONITORING_CLUSTER_INFO = {
+        "clusterName": "WaterTankLevelMonitoring",
+        "clusterId": 0x00000079,
+        "commands": {
+            0x00000000: {
+                "commandId": 0x00000000,
+                "commandName": "ResetCondition",
+                "args": {
+                },
+            },
+        },
+        "attributes": {
+            0x00000000: {
+                "attributeName": "Condition",
+                "attributeId": 0x00000000,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000001: {
+                "attributeName": "DegradationDirection",
+                "attributeId": 0x00000001,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000002: {
+                "attributeName": "ChangeIndication",
+                "attributeId": 0x00000002,
+                "type": "int",
+                "reportable": True,
+            },
+            0x00000003: {
+                "attributeName": "InPlaceIndicator",
+                "attributeId": 0x00000003,
+                "type": "bool",
+                "reportable": True,
+            },
+            0x00000004: {
+                "attributeName": "LastChangedTime",
+                "attributeId": 0x00000004,
+                "type": "int",
+                "reportable": True,
+                "writable": True,
+            },
+            0x00000005: {
+                "attributeName": "ReplacementProductList",
+                "attributeId": 0x00000005,
+                "type": "",
+                "reportable": True,
+            },
+            0x0000FFF8: {
+                "attributeName": "GeneratedCommandList",
+                "attributeId": 0x0000FFF8,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFF9: {
+                "attributeName": "AcceptedCommandList",
+                "attributeId": 0x0000FFF9,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFB: {
+                "attributeName": "AttributeList",
+                "attributeId": 0x0000FFFB,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFC: {
+                "attributeName": "FeatureMap",
+                "attributeId": 0x0000FFFC,
+                "type": "int",
+                "reportable": True,
+            },
+            0x0000FFFD: {
+                "attributeName": "ClusterRevision",
+                "attributeId": 0x0000FFFD,
+                "type": "int",
+                "reportable": True,
+            },
+        },
+    }
     _BOOLEAN_STATE_CONFIGURATION_CLUSTER_INFO = {
         "clusterName": "BooleanStateConfiguration",
         "clusterId": 0x00000080,
@@ -7191,6 +7292,51 @@ class ChipClusters:
                     "PINCode": "bytes",
                 },
             },
+            0x00000005: {
+                "commandId": 0x00000005,
+                "commandName": "SetPINCode",
+                "args": {
+                    "userID": "int",
+                    "userStatus": "int",
+                    "userType": "int",
+                    "pin": "bytes",
+                },
+            },
+            0x00000006: {
+                "commandId": 0x00000006,
+                "commandName": "GetPINCode",
+                "args": {
+                    "userID": "int",
+                },
+            },
+            0x00000007: {
+                "commandId": 0x00000007,
+                "commandName": "ClearPINCode",
+                "args": {
+                    "PINSlotIndex": "int",
+                },
+            },
+            0x00000008: {
+                "commandId": 0x00000008,
+                "commandName": "ClearAllPINCodes",
+                "args": {
+                },
+            },
+            0x00000009: {
+                "commandId": 0x00000009,
+                "commandName": "SetUserStatus",
+                "args": {
+                    "userID": "int",
+                    "userStatus": "int",
+                },
+            },
+            0x0000000A: {
+                "commandId": 0x0000000A,
+                "commandName": "GetUserStatus",
+                "args": {
+                    "userID": "int",
+                },
+            },
             0x0000000B: {
                 "commandId": 0x0000000B,
                 "commandName": "SetWeekDaySchedule",
@@ -7268,6 +7414,51 @@ class ChipClusters:
                 "commandName": "ClearHolidaySchedule",
                 "args": {
                     "holidayIndex": "int",
+                },
+            },
+            0x00000014: {
+                "commandId": 0x00000014,
+                "commandName": "SetUserType",
+                "args": {
+                    "userID": "int",
+                    "userType": "int",
+                },
+            },
+            0x00000015: {
+                "commandId": 0x00000015,
+                "commandName": "GetUserType",
+                "args": {
+                    "userID": "int",
+                },
+            },
+            0x00000016: {
+                "commandId": 0x00000016,
+                "commandName": "SetRFIDCode",
+                "args": {
+                    "userID": "int",
+                    "userStatus": "int",
+                    "userType": "int",
+                    "RFIDCode": "bytes",
+                },
+            },
+            0x00000017: {
+                "commandId": 0x00000017,
+                "commandName": "GetRFIDCode",
+                "args": {
+                    "userID": "int",
+                },
+            },
+            0x00000018: {
+                "commandId": 0x00000018,
+                "commandName": "ClearRFIDCode",
+                "args": {
+                    "RFIDSlotIndex": "int",
+                },
+            },
+            0x00000019: {
+                "commandId": 0x00000019,
+                "commandName": "ClearAllRFIDCodes",
+                "args": {
                 },
             },
             0x0000001A: {
@@ -7690,25 +7881,11 @@ class ChipClusters:
                 "args": {
                 },
             },
-            0x00000004: {
-                "commandId": 0x00000004,
-                "commandName": "GoToLiftValue",
-                "args": {
-                    "liftValue": "int",
-                },
-            },
             0x00000005: {
                 "commandId": 0x00000005,
                 "commandName": "GoToLiftPercentage",
                 "args": {
                     "liftPercent100thsValue": "int",
-                },
-            },
-            0x00000007: {
-                "commandId": 0x00000007,
-                "commandName": "GoToTiltValue",
-                "args": {
-                    "tiltValue": "int",
                 },
             },
             0x00000008: {
@@ -7723,30 +7900,6 @@ class ChipClusters:
             0x00000000: {
                 "attributeName": "Type",
                 "attributeId": 0x00000000,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000001: {
-                "attributeName": "PhysicalClosedLimitLift",
-                "attributeId": 0x00000001,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000002: {
-                "attributeName": "PhysicalClosedLimitTilt",
-                "attributeId": 0x00000002,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000003: {
-                "attributeName": "CurrentPositionLift",
-                "attributeId": 0x00000003,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000004: {
-                "attributeName": "CurrentPositionTilt",
-                "attributeId": 0x00000004,
                 "type": "int",
                 "reportable": True,
             },
@@ -7813,30 +7966,6 @@ class ChipClusters:
             0x0000000F: {
                 "attributeName": "CurrentPositionTiltPercent100ths",
                 "attributeId": 0x0000000F,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000010: {
-                "attributeName": "InstalledOpenLimitLift",
-                "attributeId": 0x00000010,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000011: {
-                "attributeName": "InstalledClosedLimitLift",
-                "attributeId": 0x00000011,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000012: {
-                "attributeName": "InstalledOpenLimitTilt",
-                "attributeId": 0x00000012,
-                "type": "int",
-                "reportable": True,
-            },
-            0x00000013: {
-                "attributeName": "InstalledClosedLimitTilt",
-                "attributeId": 0x00000013,
                 "type": "int",
                 "reportable": True,
             },
@@ -7908,6 +8037,15 @@ class ChipClusters:
                 "commandId": 0x00000002,
                 "commandName": "Calibrate",
                 "args": {
+                },
+            },
+            0x00000003: {
+                "commandId": 0x00000003,
+                "commandName": "GroupedMoveTo",
+                "args": {
+                    "position": "int",
+                    "latch": "bool",
+                    "speed": "int",
                 },
             },
         },
@@ -7996,6 +8134,24 @@ class ChipClusters:
             0x00000001: {
                 "commandId": 0x00000001,
                 "commandName": "Step",
+                "args": {
+                    "direction": "int",
+                    "numberOfSteps": "int",
+                    "speed": "int",
+                },
+            },
+            0x00000002: {
+                "commandId": 0x00000002,
+                "commandName": "GroupedSetTarget",
+                "args": {
+                    "position": "int",
+                    "latch": "bool",
+                    "speed": "int",
+                },
+            },
+            0x00000003: {
+                "commandId": 0x00000003,
+                "commandName": "GroupedStep",
                 "args": {
                     "direction": "int",
                     "numberOfSteps": "int",
@@ -8864,6 +9020,18 @@ class ChipClusters:
                 "attributeName": "ThermostatSuggestionNotFollowingReason",
                 "attributeId": 0x00000056,
                 "type": "int",
+                "reportable": True,
+            },
+            0x00000057: {
+                "attributeName": "CriticalFreezeProtection",
+                "attributeId": 0x00000057,
+                "type": "bool",
+                "reportable": True,
+            },
+            0x00000058: {
+                "attributeName": "CriticalOverheatProtection",
+                "attributeId": 0x00000058,
+                "type": "bool",
                 "reportable": True,
             },
             0x0000FFF8: {
@@ -10151,6 +10319,12 @@ class ChipClusters:
             0x00000004: {
                 "attributeName": "HoldTimeLimits",
                 "attributeId": 0x00000004,
+                "type": "",
+                "reportable": True,
+            },
+            0x00000005: {
+                "attributeName": "PredictedOccupancy",
+                "attributeId": 0x00000005,
                 "type": "",
                 "reportable": True,
             },
@@ -12177,6 +12351,7 @@ class ChipClusters:
                     "contentURL": "str",
                     "displayString": "str",
                     "brandingInformation": "BrandingInformationStruct",
+                    "playbackPreferences": "PlaybackPreferencesStruct",
                 },
             },
         },
@@ -15830,6 +16005,7 @@ class ChipClusters:
         0x00000065: _GROUPCAST_CLUSTER_INFO,
         0x00000071: _HEPA_FILTER_MONITORING_CLUSTER_INFO,
         0x00000072: _ACTIVATED_CARBON_FILTER_MONITORING_CLUSTER_INFO,
+        0x00000079: _WATER_TANK_LEVEL_MONITORING_CLUSTER_INFO,
         0x00000080: _BOOLEAN_STATE_CONFIGURATION_CLUSTER_INFO,
         0x00000081: _VALVE_CONFIGURATION_AND_CONTROL_CLUSTER_INFO,
         0x00000090: _ELECTRICAL_POWER_MEASUREMENT_CLUSTER_INFO,
@@ -15974,6 +16150,7 @@ class ChipClusters:
         "Groupcast": _GROUPCAST_CLUSTER_INFO,
         "HepaFilterMonitoring": _HEPA_FILTER_MONITORING_CLUSTER_INFO,
         "ActivatedCarbonFilterMonitoring": _ACTIVATED_CARBON_FILTER_MONITORING_CLUSTER_INFO,
+        "WaterTankLevelMonitoring": _WATER_TANK_LEVEL_MONITORING_CLUSTER_INFO,
         "BooleanStateConfiguration": _BOOLEAN_STATE_CONFIGURATION_CLUSTER_INFO,
         "ValveConfigurationAndControl": _VALVE_CONFIGURATION_AND_CONTROL_CLUSTER_INFO,
         "ElectricalPowerMeasurement": _ELECTRICAL_POWER_MEASUREMENT_CLUSTER_INFO,

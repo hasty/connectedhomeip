@@ -28,6 +28,7 @@ class MessagesClusterMessageCompleteEvent(
   val responseID: Optional<ULong>?,
   val reply: Optional<String>?,
   val futureMessagesPreference: UInt?,
+  val fabricIndex: UInt,
 ) {
   override fun toString(): String = buildString {
     append("MessagesClusterMessageCompleteEvent {\n")
@@ -35,6 +36,7 @@ class MessagesClusterMessageCompleteEvent(
     append("\tresponseID : $responseID\n")
     append("\treply : $reply\n")
     append("\tfutureMessagesPreference : $futureMessagesPreference\n")
+    append("\tfabricIndex : $fabricIndex\n")
     append("}\n")
   }
 
@@ -63,6 +65,7 @@ class MessagesClusterMessageCompleteEvent(
       } else {
         putNull(ContextSpecificTag(TAG_FUTURE_MESSAGES_PREFERENCE))
       }
+      put(ContextSpecificTag(TAG_FABRIC_INDEX), fabricIndex)
       endStructure()
     }
   }
@@ -72,6 +75,7 @@ class MessagesClusterMessageCompleteEvent(
     private const val TAG_RESPONSE_ID = 1
     private const val TAG_REPLY = 2
     private const val TAG_FUTURE_MESSAGES_PREFERENCE = 3
+    private const val TAG_FABRIC_INDEX = 254
 
     fun fromTlv(tlvTag: Tag, tlvReader: TlvReader): MessagesClusterMessageCompleteEvent {
       tlvReader.enterStructure(tlvTag)
@@ -105,6 +109,7 @@ class MessagesClusterMessageCompleteEvent(
           tlvReader.getNull(ContextSpecificTag(TAG_FUTURE_MESSAGES_PREFERENCE))
           null
         }
+      val fabricIndex = tlvReader.getUInt(ContextSpecificTag(TAG_FABRIC_INDEX))
 
       tlvReader.exitContainer()
 
@@ -113,6 +118,7 @@ class MessagesClusterMessageCompleteEvent(
         responseID,
         reply,
         futureMessagesPreference,
+        fabricIndex,
       )
     }
   }

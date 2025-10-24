@@ -149,6 +149,8 @@ char const * ClusterIdToText(chip::ClusterId id)
         return "HepaFilterMonitoring";
     case chip::app::Clusters::ActivatedCarbonFilterMonitoring::Id:
         return "ActivatedCarbonFilterMonitoring";
+    case chip::app::Clusters::WaterTankLevelMonitoring::Id:
+        return "WaterTankLevelMonitoring";
     case chip::app::Clusters::BooleanStateConfiguration::Id:
         return "BooleanStateConfiguration";
     case chip::app::Clusters::ValveConfigurationAndControl::Id:
@@ -598,6 +600,8 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "SpecificationVersion";
         case chip::app::Clusters::BasicInformation::Attributes::MaxPathsPerInvoke::Id:
             return "MaxPathsPerInvoke";
+        case chip::app::Clusters::BasicInformation::Attributes::DeviceLocation::Id:
+            return "DeviceLocation";
         case chip::app::Clusters::BasicInformation::Attributes::ConfigurationVersion::Id:
             return "ConfigurationVersion";
         case chip::app::Clusters::BasicInformation::Attributes::GeneratedCommandList::Id:
@@ -941,6 +945,8 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "ActiveNetworkFaults";
         case chip::app::Clusters::GeneralDiagnostics::Attributes::TestEventTriggersEnabled::Id:
             return "TestEventTriggersEnabled";
+        case chip::app::Clusters::GeneralDiagnostics::Attributes::DeviceLoadStatus::Id:
+            return "DeviceLoadStatus";
         case chip::app::Clusters::GeneralDiagnostics::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::GeneralDiagnostics::Attributes::AcceptedCommandList::Id:
@@ -1285,6 +1291,8 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "UniqueID";
         case chip::app::Clusters::BridgedDeviceBasicInformation::Attributes::ProductAppearance::Id:
             return "ProductAppearance";
+        case chip::app::Clusters::BridgedDeviceBasicInformation::Attributes::DeviceLocation::Id:
+            return "DeviceLocation";
         case chip::app::Clusters::BridgedDeviceBasicInformation::Attributes::ConfigurationVersion::Id:
             return "ConfigurationVersion";
         case chip::app::Clusters::BridgedDeviceBasicInformation::Attributes::GeneratedCommandList::Id:
@@ -2152,6 +2160,35 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "Unknown";
         }
     }
+    case chip::app::Clusters::WaterTankLevelMonitoring::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::WaterTankLevelMonitoring::Attributes::Condition::Id:
+            return "Condition";
+        case chip::app::Clusters::WaterTankLevelMonitoring::Attributes::DegradationDirection::Id:
+            return "DegradationDirection";
+        case chip::app::Clusters::WaterTankLevelMonitoring::Attributes::ChangeIndication::Id:
+            return "ChangeIndication";
+        case chip::app::Clusters::WaterTankLevelMonitoring::Attributes::InPlaceIndicator::Id:
+            return "InPlaceIndicator";
+        case chip::app::Clusters::WaterTankLevelMonitoring::Attributes::LastChangedTime::Id:
+            return "LastChangedTime";
+        case chip::app::Clusters::WaterTankLevelMonitoring::Attributes::ReplacementProductList::Id:
+            return "ReplacementProductList";
+        case chip::app::Clusters::WaterTankLevelMonitoring::Attributes::GeneratedCommandList::Id:
+            return "GeneratedCommandList";
+        case chip::app::Clusters::WaterTankLevelMonitoring::Attributes::AcceptedCommandList::Id:
+            return "AcceptedCommandList";
+        case chip::app::Clusters::WaterTankLevelMonitoring::Attributes::AttributeList::Id:
+            return "AttributeList";
+        case chip::app::Clusters::WaterTankLevelMonitoring::Attributes::FeatureMap::Id:
+            return "FeatureMap";
+        case chip::app::Clusters::WaterTankLevelMonitoring::Attributes::ClusterRevision::Id:
+            return "ClusterRevision";
+        default:
+            return "Unknown";
+        }
+    }
     case chip::app::Clusters::BooleanStateConfiguration::Id: {
         switch (id)
         {
@@ -2727,14 +2764,6 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
         {
         case chip::app::Clusters::WindowCovering::Attributes::Type::Id:
             return "Type";
-        case chip::app::Clusters::WindowCovering::Attributes::PhysicalClosedLimitLift::Id:
-            return "PhysicalClosedLimitLift";
-        case chip::app::Clusters::WindowCovering::Attributes::PhysicalClosedLimitTilt::Id:
-            return "PhysicalClosedLimitTilt";
-        case chip::app::Clusters::WindowCovering::Attributes::CurrentPositionLift::Id:
-            return "CurrentPositionLift";
-        case chip::app::Clusters::WindowCovering::Attributes::CurrentPositionTilt::Id:
-            return "CurrentPositionTilt";
         case chip::app::Clusters::WindowCovering::Attributes::NumberOfActuationsLift::Id:
             return "NumberOfActuationsLift";
         case chip::app::Clusters::WindowCovering::Attributes::NumberOfActuationsTilt::Id:
@@ -2757,14 +2786,6 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "CurrentPositionLiftPercent100ths";
         case chip::app::Clusters::WindowCovering::Attributes::CurrentPositionTiltPercent100ths::Id:
             return "CurrentPositionTiltPercent100ths";
-        case chip::app::Clusters::WindowCovering::Attributes::InstalledOpenLimitLift::Id:
-            return "InstalledOpenLimitLift";
-        case chip::app::Clusters::WindowCovering::Attributes::InstalledClosedLimitLift::Id:
-            return "InstalledClosedLimitLift";
-        case chip::app::Clusters::WindowCovering::Attributes::InstalledOpenLimitTilt::Id:
-            return "InstalledOpenLimitTilt";
-        case chip::app::Clusters::WindowCovering::Attributes::InstalledClosedLimitTilt::Id:
-            return "InstalledClosedLimitTilt";
         case chip::app::Clusters::WindowCovering::Attributes::Mode::Id:
             return "Mode";
         case chip::app::Clusters::WindowCovering::Attributes::SafetyStatus::Id:
@@ -3076,6 +3097,10 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "CurrentThermostatSuggestion";
         case chip::app::Clusters::Thermostat::Attributes::ThermostatSuggestionNotFollowingReason::Id:
             return "ThermostatSuggestionNotFollowingReason";
+        case chip::app::Clusters::Thermostat::Attributes::CriticalFreezeProtection::Id:
+            return "CriticalFreezeProtection";
+        case chip::app::Clusters::Thermostat::Attributes::CriticalOverheatProtection::Id:
+            return "CriticalOverheatProtection";
         case chip::app::Clusters::Thermostat::Attributes::GeneratedCommandList::Id:
             return "GeneratedCommandList";
         case chip::app::Clusters::Thermostat::Attributes::AcceptedCommandList::Id:
@@ -3470,6 +3495,8 @@ char const * AttributeIdToText(chip::ClusterId cluster, chip::AttributeId id)
             return "HoldTime";
         case chip::app::Clusters::OccupancySensing::Attributes::HoldTimeLimits::Id:
             return "HoldTimeLimits";
+        case chip::app::Clusters::OccupancySensing::Attributes::PredictedOccupancy::Id:
+            return "PredictedOccupancy";
         case chip::app::Clusters::OccupancySensing::Attributes::PIROccupiedToUnoccupiedDelay::Id:
             return "PIROccupiedToUnoccupiedDelay";
         case chip::app::Clusters::OccupancySensing::Attributes::PIRUnoccupiedToOccupiedDelay::Id:
@@ -5610,6 +5637,15 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "Unknown";
         }
     }
+    case chip::app::Clusters::WaterTankLevelMonitoring::Id: {
+        switch (id)
+        {
+        case chip::app::Clusters::WaterTankLevelMonitoring::Commands::ResetCondition::Id:
+            return "ResetCondition";
+        default:
+            return "Unknown";
+        }
+    }
     case chip::app::Clusters::BooleanStateConfiguration::Id: {
         switch (id)
         {
@@ -5745,6 +5781,18 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "UnlockDoor";
         case chip::app::Clusters::DoorLock::Commands::UnlockWithTimeout::Id:
             return "UnlockWithTimeout";
+        case chip::app::Clusters::DoorLock::Commands::SetPINCode::Id:
+            return "SetPINCode";
+        case chip::app::Clusters::DoorLock::Commands::GetPINCode::Id:
+            return "GetPINCode";
+        case chip::app::Clusters::DoorLock::Commands::ClearPINCode::Id:
+            return "ClearPINCode";
+        case chip::app::Clusters::DoorLock::Commands::ClearAllPINCodes::Id:
+            return "ClearAllPINCodes";
+        case chip::app::Clusters::DoorLock::Commands::SetUserStatus::Id:
+            return "SetUserStatus";
+        case chip::app::Clusters::DoorLock::Commands::GetUserStatus::Id:
+            return "GetUserStatus";
         case chip::app::Clusters::DoorLock::Commands::SetWeekDaySchedule::Id:
             return "SetWeekDaySchedule";
         case chip::app::Clusters::DoorLock::Commands::GetWeekDaySchedule::Id:
@@ -5763,6 +5811,18 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "GetHolidaySchedule";
         case chip::app::Clusters::DoorLock::Commands::ClearHolidaySchedule::Id:
             return "ClearHolidaySchedule";
+        case chip::app::Clusters::DoorLock::Commands::SetUserType::Id:
+            return "SetUserType";
+        case chip::app::Clusters::DoorLock::Commands::GetUserType::Id:
+            return "GetUserType";
+        case chip::app::Clusters::DoorLock::Commands::SetRFIDCode::Id:
+            return "SetRFIDCode";
+        case chip::app::Clusters::DoorLock::Commands::GetRFIDCode::Id:
+            return "GetRFIDCode";
+        case chip::app::Clusters::DoorLock::Commands::ClearRFIDCode::Id:
+            return "ClearRFIDCode";
+        case chip::app::Clusters::DoorLock::Commands::ClearAllRFIDCodes::Id:
+            return "ClearAllRFIDCodes";
         case chip::app::Clusters::DoorLock::Commands::SetUser::Id:
             return "SetUser";
         case chip::app::Clusters::DoorLock::Commands::GetUser::Id:
@@ -5794,12 +5854,8 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "DownOrClose";
         case chip::app::Clusters::WindowCovering::Commands::StopMotion::Id:
             return "StopMotion";
-        case chip::app::Clusters::WindowCovering::Commands::GoToLiftValue::Id:
-            return "GoToLiftValue";
         case chip::app::Clusters::WindowCovering::Commands::GoToLiftPercentage::Id:
             return "GoToLiftPercentage";
-        case chip::app::Clusters::WindowCovering::Commands::GoToTiltValue::Id:
-            return "GoToTiltValue";
         case chip::app::Clusters::WindowCovering::Commands::GoToTiltPercentage::Id:
             return "GoToTiltPercentage";
         default:
@@ -5815,6 +5871,8 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "MoveTo";
         case chip::app::Clusters::ClosureControl::Commands::Calibrate::Id:
             return "Calibrate";
+        case chip::app::Clusters::ClosureControl::Commands::GroupedMoveTo::Id:
+            return "GroupedMoveTo";
         default:
             return "Unknown";
         }
@@ -5826,6 +5884,10 @@ char const * AcceptedCommandIdToText(chip::ClusterId cluster, chip::CommandId id
             return "SetTarget";
         case chip::app::Clusters::ClosureDimension::Commands::Step::Id:
             return "Step";
+        case chip::app::Clusters::ClosureDimension::Commands::GroupedSetTarget::Id:
+            return "GroupedSetTarget";
+        case chip::app::Clusters::ClosureDimension::Commands::GroupedStep::Id:
+            return "GroupedStep";
         default:
             return "Unknown";
         }
@@ -6788,12 +6850,20 @@ char const * GeneratedCommandIdToText(chip::ClusterId cluster, chip::CommandId i
     case chip::app::Clusters::DoorLock::Id: {
         switch (id)
         {
+        case chip::app::Clusters::DoorLock::Commands::GetPINCodeResponse::Id:
+            return "GetPINCodeResponse";
+        case chip::app::Clusters::DoorLock::Commands::GetUserStatusResponse::Id:
+            return "GetUserStatusResponse";
         case chip::app::Clusters::DoorLock::Commands::GetWeekDayScheduleResponse::Id:
             return "GetWeekDayScheduleResponse";
         case chip::app::Clusters::DoorLock::Commands::GetYearDayScheduleResponse::Id:
             return "GetYearDayScheduleResponse";
         case chip::app::Clusters::DoorLock::Commands::GetHolidayScheduleResponse::Id:
             return "GetHolidayScheduleResponse";
+        case chip::app::Clusters::DoorLock::Commands::GetUserTypeResponse::Id:
+            return "GetUserTypeResponse";
+        case chip::app::Clusters::DoorLock::Commands::GetRFIDCodeResponse::Id:
+            return "GetRFIDCodeResponse";
         case chip::app::Clusters::DoorLock::Commands::GetUserResponse::Id:
             return "GetUserResponse";
         case chip::app::Clusters::DoorLock::Commands::SetCredentialResponse::Id:
@@ -7150,6 +7220,8 @@ char const * DeviceTypeIdToText(chip::DeviceTypeId id)
         return "Air Quality Sensor";
     case 0x0000002D:
         return "Air Purifier";
+    case 0x00000040:
+        return "Irrigation System";
     case 0x00000041:
         return "Water Freeze Detector";
     case 0x00000042:
@@ -7186,6 +7258,8 @@ char const * DeviceTypeIdToText(chip::DeviceTypeId id)
         return "Oven";
     case 0x0000007C:
         return "Laundry Dryer";
+    case 0x0000007D:
+        return "Humidifier/Dehumidifier";
     case 0x00000090:
         return "Network Infrastructure Manager";
     case 0x00000091:
@@ -7280,6 +7354,16 @@ char const * DeviceTypeIdToText(chip::DeviceTypeId id)
         return "Electrical Energy Tariff";
     case 0x00000514:
         return "Electrical Meter";
+    case 0x00000515:
+        return "Arc Fault Circuit Interrupter";
+    case 0x00000516:
+        return "Electrical Circuit Breaker";
+    case 0x00000517:
+        return "Electrical Distribution Enclosure";
+    case 0x00000518:
+        return "Electrical Surge Protector";
+    case 0x00000519:
+        return "Residual Current Circuit Breaker";
     case 0x00000840:
         return "Control Bridge";
     case 0x00000850:

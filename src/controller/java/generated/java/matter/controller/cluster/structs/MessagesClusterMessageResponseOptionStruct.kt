@@ -16,17 +16,13 @@
  */
 package matter.controller.cluster.structs
 
-import java.util.Optional
 import matter.controller.cluster.*
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
 import matter.tlv.TlvReader
 import matter.tlv.TlvWriter
 
-class MessagesClusterMessageResponseOptionStruct(
-  val messageResponseID: Optional<UInt>,
-  val label: Optional<String>,
-) {
+class MessagesClusterMessageResponseOptionStruct(val messageResponseID: UInt, val label: String) {
   override fun toString(): String = buildString {
     append("MessagesClusterMessageResponseOptionStruct {\n")
     append("\tmessageResponseID : $messageResponseID\n")
@@ -37,14 +33,8 @@ class MessagesClusterMessageResponseOptionStruct(
   fun toTlv(tlvTag: Tag, tlvWriter: TlvWriter) {
     tlvWriter.apply {
       startStructure(tlvTag)
-      if (messageResponseID.isPresent) {
-        val optmessageResponseID = messageResponseID.get()
-        put(ContextSpecificTag(TAG_MESSAGE_RESPONSE_ID), optmessageResponseID)
-      }
-      if (label.isPresent) {
-        val optlabel = label.get()
-        put(ContextSpecificTag(TAG_LABEL), optlabel)
-      }
+      put(ContextSpecificTag(TAG_MESSAGE_RESPONSE_ID), messageResponseID)
+      put(ContextSpecificTag(TAG_LABEL), label)
       endStructure()
     }
   }
@@ -55,18 +45,8 @@ class MessagesClusterMessageResponseOptionStruct(
 
     fun fromTlv(tlvTag: Tag, tlvReader: TlvReader): MessagesClusterMessageResponseOptionStruct {
       tlvReader.enterStructure(tlvTag)
-      val messageResponseID =
-        if (tlvReader.isNextTag(ContextSpecificTag(TAG_MESSAGE_RESPONSE_ID))) {
-          Optional.of(tlvReader.getUInt(ContextSpecificTag(TAG_MESSAGE_RESPONSE_ID)))
-        } else {
-          Optional.empty()
-        }
-      val label =
-        if (tlvReader.isNextTag(ContextSpecificTag(TAG_LABEL))) {
-          Optional.of(tlvReader.getString(ContextSpecificTag(TAG_LABEL)))
-        } else {
-          Optional.empty()
-        }
+      val messageResponseID = tlvReader.getUInt(ContextSpecificTag(TAG_MESSAGE_RESPONSE_ID))
+      val label = tlvReader.getString(ContextSpecificTag(TAG_LABEL))
 
       tlvReader.exitContainer()
 

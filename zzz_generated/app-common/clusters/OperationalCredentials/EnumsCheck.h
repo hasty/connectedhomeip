@@ -49,6 +49,8 @@ static auto __attribute__((unused)) EnsureKnownEnumValue(OperationalCredentials:
     case EnumType::kMissingCsr:
     case EnumType::kTableFull:
     case EnumType::kInvalidAdminSubject:
+    case EnumType::kReservedForFutureUse:
+    case EnumType::kReservedForFutureUse:
     case EnumType::kFabricConflict:
     case EnumType::kLabelConflict:
     case EnumType::kInvalidFabricIndex:

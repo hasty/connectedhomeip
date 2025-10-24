@@ -22,10 +22,11 @@ import matter.tlv.Tag
 import matter.tlv.TlvReader
 import matter.tlv.TlvWriter
 
-class MessagesClusterMessagePresentedEvent(val messageID: ByteArray) {
+class MessagesClusterMessagePresentedEvent(val messageID: ByteArray, val fabricIndex: UByte) {
   override fun toString(): String = buildString {
     append("MessagesClusterMessagePresentedEvent {\n")
     append("\tmessageID : $messageID\n")
+    append("\tfabricIndex : $fabricIndex\n")
     append("}\n")
   }
 
@@ -33,20 +34,23 @@ class MessagesClusterMessagePresentedEvent(val messageID: ByteArray) {
     tlvWriter.apply {
       startStructure(tlvTag)
       put(ContextSpecificTag(TAG_MESSAGE_ID), messageID)
+      put(ContextSpecificTag(TAG_FABRIC_INDEX), fabricIndex)
       endStructure()
     }
   }
 
   companion object {
     private const val TAG_MESSAGE_ID = 0
+    private const val TAG_FABRIC_INDEX = 254
 
     fun fromTlv(tlvTag: Tag, tlvReader: TlvReader): MessagesClusterMessagePresentedEvent {
       tlvReader.enterStructure(tlvTag)
       val messageID = tlvReader.getByteArray(ContextSpecificTag(TAG_MESSAGE_ID))
+      val fabricIndex = tlvReader.getUByte(ContextSpecificTag(TAG_FABRIC_INDEX))
 
       tlvReader.exitContainer()
 
-      return MessagesClusterMessagePresentedEvent(messageID)
+      return MessagesClusterMessagePresentedEvent(messageID, fabricIndex)
     }
   }
 }

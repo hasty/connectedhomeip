@@ -61,9 +61,9 @@ public:
     static constexpr ClusterId GetClusterId() { return Clusters::TargetNavigator::Id; }
     static constexpr bool kIsFabricScoped = false;
 
-    DataModel::List<const Structs::TargetInfoStruct::Type> targetList;
-    uint8_t currentTarget = static_cast<uint8_t>(0);
-    chip::ByteSpan data;
+    Optional<DataModel::List<const Structs::TargetInfoStruct::Type>> targetList;
+    Optional<uint8_t> currentTarget;
+    Optional<chip::ByteSpan> data;
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 };
@@ -75,9 +75,9 @@ public:
     static constexpr EventId GetEventId() { return Events::TargetUpdated::Id; }
     static constexpr ClusterId GetClusterId() { return Clusters::TargetNavigator::Id; }
 
-    DataModel::DecodableList<Structs::TargetInfoStruct::DecodableType> targetList;
-    uint8_t currentTarget = static_cast<uint8_t>(0);
-    chip::ByteSpan data;
+    Optional<DataModel::DecodableList<Structs::TargetInfoStruct::DecodableType>> targetList;
+    Optional<uint8_t> currentTarget;
+    Optional<chip::ByteSpan> data;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };

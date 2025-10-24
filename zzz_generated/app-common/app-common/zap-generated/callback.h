@@ -657,6 +657,16 @@ void emberAfActivatedCarbonFilterMonitoringClusterShutdownCallback(chip::Endpoin
 /**
  * @param endpoint    Endpoint that is being initialized
  */
+void emberAfWaterTankLevelMonitoringClusterInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void emberAfWaterTankLevelMonitoringClusterShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
 void emberAfBooleanStateConfigurationClusterInitCallback(chip::EndpointId endpoint);
 
 /**
@@ -3841,6 +3851,44 @@ chip::Protocols::InteractionModel::Status MatterActivatedCarbonFilterMonitoringC
 void emberAfActivatedCarbonFilterMonitoringClusterServerTickCallback(chip::EndpointId endpoint);
 
 //
+// Water Tank Level Monitoring Cluster
+//
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfWaterTankLevelMonitoringClusterServerInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being shutdown
+ */
+void MatterWaterTankLevelMonitoringClusterServerShutdownCallback(chip::EndpointId endpoint);
+
+/**
+ * @param endpoint    Endpoint that is being initialized
+ */
+void emberAfWaterTankLevelMonitoringClusterClientInitCallback(chip::EndpointId endpoint);
+
+/**
+ * @param attributePath Concrete attribute path that changed
+ */
+void MatterWaterTankLevelMonitoringClusterServerAttributeChangedCallback(const chip::app::ConcreteAttributePath & attributePath);
+
+/**
+ * @param attributePath Concrete attribute path to be changed
+ * @param attributeType Attribute type
+ * @param size          Attribute size
+ * @param value         Attribute value
+ */
+chip::Protocols::InteractionModel::Status MatterWaterTankLevelMonitoringClusterServerPreAttributeChangedCallback(
+    const chip::app::ConcreteAttributePath & attributePath, EmberAfAttributeType attributeType, uint16_t size, uint8_t * value);
+
+/**
+ * @param endpoint  Endpoint that is being served
+ */
+void emberAfWaterTankLevelMonitoringClusterServerTickCallback(chip::EndpointId endpoint);
+
+//
 // Boolean State Configuration Cluster
 //
 
@@ -5620,7 +5668,7 @@ chip::Protocols::InteractionModel::Status MatterThreadNetworkDirectoryClusterSer
 void emberAfThreadNetworkDirectoryClusterServerTickCallback(chip::EndpointId endpoint);
 
 //
-// Wake on LAN Cluster
+// Wake On LAN Cluster
 //
 
 /**
@@ -7137,6 +7185,12 @@ bool emberAfDishwasherAlarmClusterModifyEnabledAlarmsCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::DishwasherAlarm::Commands::ModifyEnabledAlarms::DecodableType & commandData);
 /**
+ * @brief Water Tank Level Monitoring Cluster ResetCondition Command callback (from client)
+ */
+bool emberAfWaterTankLevelMonitoringClusterResetConditionCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::WaterTankLevelMonitoring::Commands::ResetCondition::DecodableType & commandData);
+/**
  * @brief Boolean State Configuration Cluster SuppressAlarm Command callback (from client)
  */
 bool emberAfBooleanStateConfigurationClusterSuppressAlarmCallback(
@@ -7191,6 +7245,42 @@ bool emberAfDoorLockClusterUnlockWithTimeoutCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::DoorLock::Commands::UnlockWithTimeout::DecodableType & commandData);
 /**
+ * @brief Door Lock Cluster SetPINCode Command callback (from client)
+ */
+bool emberAfDoorLockClusterSetPINCodeCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::DoorLock::Commands::SetPINCode::DecodableType & commandData);
+/**
+ * @brief Door Lock Cluster GetPINCode Command callback (from client)
+ */
+bool emberAfDoorLockClusterGetPINCodeCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::DoorLock::Commands::GetPINCode::DecodableType & commandData);
+/**
+ * @brief Door Lock Cluster ClearPINCode Command callback (from client)
+ */
+bool emberAfDoorLockClusterClearPINCodeCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::DoorLock::Commands::ClearPINCode::DecodableType & commandData);
+/**
+ * @brief Door Lock Cluster ClearAllPINCodes Command callback (from client)
+ */
+bool emberAfDoorLockClusterClearAllPINCodesCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::DoorLock::Commands::ClearAllPINCodes::DecodableType & commandData);
+/**
+ * @brief Door Lock Cluster SetUserStatus Command callback (from client)
+ */
+bool emberAfDoorLockClusterSetUserStatusCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::DoorLock::Commands::SetUserStatus::DecodableType & commandData);
+/**
+ * @brief Door Lock Cluster GetUserStatus Command callback (from client)
+ */
+bool emberAfDoorLockClusterGetUserStatusCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::DoorLock::Commands::GetUserStatus::DecodableType & commandData);
+/**
  * @brief Door Lock Cluster SetWeekDaySchedule Command callback (from client)
  */
 bool emberAfDoorLockClusterSetWeekDayScheduleCallback(
@@ -7244,6 +7334,42 @@ bool emberAfDoorLockClusterGetHolidayScheduleCallback(
 bool emberAfDoorLockClusterClearHolidayScheduleCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::DoorLock::Commands::ClearHolidaySchedule::DecodableType & commandData);
+/**
+ * @brief Door Lock Cluster SetUserType Command callback (from client)
+ */
+bool emberAfDoorLockClusterSetUserTypeCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::DoorLock::Commands::SetUserType::DecodableType & commandData);
+/**
+ * @brief Door Lock Cluster GetUserType Command callback (from client)
+ */
+bool emberAfDoorLockClusterGetUserTypeCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::DoorLock::Commands::GetUserType::DecodableType & commandData);
+/**
+ * @brief Door Lock Cluster SetRFIDCode Command callback (from client)
+ */
+bool emberAfDoorLockClusterSetRFIDCodeCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::DoorLock::Commands::SetRFIDCode::DecodableType & commandData);
+/**
+ * @brief Door Lock Cluster GetRFIDCode Command callback (from client)
+ */
+bool emberAfDoorLockClusterGetRFIDCodeCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::DoorLock::Commands::GetRFIDCode::DecodableType & commandData);
+/**
+ * @brief Door Lock Cluster ClearRFIDCode Command callback (from client)
+ */
+bool emberAfDoorLockClusterClearRFIDCodeCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::DoorLock::Commands::ClearRFIDCode::DecodableType & commandData);
+/**
+ * @brief Door Lock Cluster ClearAllRFIDCodes Command callback (from client)
+ */
+bool emberAfDoorLockClusterClearAllRFIDCodesCallback(
+    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
+    const chip::app::Clusters::DoorLock::Commands::ClearAllRFIDCodes::DecodableType & commandData);
 /**
  * @brief Door Lock Cluster SetUser Command callback (from client)
  */
@@ -7317,23 +7443,11 @@ bool emberAfWindowCoveringClusterStopMotionCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::WindowCovering::Commands::StopMotion::DecodableType & commandData);
 /**
- * @brief Window Covering Cluster GoToLiftValue Command callback (from client)
- */
-bool emberAfWindowCoveringClusterGoToLiftValueCallback(
-    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
-    const chip::app::Clusters::WindowCovering::Commands::GoToLiftValue::DecodableType & commandData);
-/**
  * @brief Window Covering Cluster GoToLiftPercentage Command callback (from client)
  */
 bool emberAfWindowCoveringClusterGoToLiftPercentageCallback(
     chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
     const chip::app::Clusters::WindowCovering::Commands::GoToLiftPercentage::DecodableType & commandData);
-/**
- * @brief Window Covering Cluster GoToTiltValue Command callback (from client)
- */
-bool emberAfWindowCoveringClusterGoToTiltValueCallback(
-    chip::app::CommandHandler * commandObj, const chip::app::ConcreteCommandPath & commandPath,
-    const chip::app::Clusters::WindowCovering::Commands::GoToTiltValue::DecodableType & commandData);
 /**
  * @brief Window Covering Cluster GoToTiltPercentage Command callback (from client)
  */

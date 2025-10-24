@@ -204,6 +204,9 @@ NSString * MTRClusterNameForID(MTRClusterIDType clusterID)
     case MTRClusterIDTypeActivatedCarbonFilterMonitoringID:
         result = @"ActivatedCarbonFilterMonitoring";
         break;
+    case MTRClusterIDTypeWaterTankLevelMonitoringID:
+        result = @"WaterTankLevelMonitoring";
+        break;
     case MTRClusterIDTypeBooleanStateConfigurationID:
         result = @"BooleanStateConfiguration";
         break;
@@ -1000,6 +1003,10 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"MaxPathsPerInvoke";
             break;
 
+        case MTRAttributeIDTypeClusterBasicInformationAttributeDeviceLocationID:
+            result = @"DeviceLocation";
+            break;
+
         case MTRAttributeIDTypeClusterBasicInformationAttributeConfigurationVersionID:
             result = @"ConfigurationVersion";
             break;
@@ -1662,6 +1669,10 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
 
         case MTRAttributeIDTypeClusterGeneralDiagnosticsAttributeTestEventTriggersEnabledID:
             result = @"TestEventTriggersEnabled";
+            break;
+
+        case MTRAttributeIDTypeClusterGeneralDiagnosticsAttributeDeviceLoadStatusID:
+            result = @"DeviceLoadStatus";
             break;
 
         case MTRAttributeIDTypeClusterGeneralDiagnosticsAttributeGeneratedCommandListID:
@@ -2338,6 +2349,10 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
 
         case MTRAttributeIDTypeClusterBridgedDeviceBasicInformationAttributeProductAppearanceID:
             result = @"ProductAppearance";
+            break;
+
+        case MTRAttributeIDTypeClusterBridgedDeviceBasicInformationAttributeDeviceLocationID:
+            result = @"DeviceLocation";
             break;
 
         case MTRAttributeIDTypeClusterBridgedDeviceBasicInformationAttributeConfigurationVersionID:
@@ -3907,6 +3922,62 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
         }
         break;
 
+    case MTRClusterIDTypeWaterTankLevelMonitoringID:
+
+        switch (attributeID) {
+
+            // Cluster WaterTankLevelMonitoring attributes
+        case MTRAttributeIDTypeClusterWaterTankLevelMonitoringAttributeConditionID:
+            result = @"Condition";
+            break;
+
+        case MTRAttributeIDTypeClusterWaterTankLevelMonitoringAttributeDegradationDirectionID:
+            result = @"DegradationDirection";
+            break;
+
+        case MTRAttributeIDTypeClusterWaterTankLevelMonitoringAttributeChangeIndicationID:
+            result = @"ChangeIndication";
+            break;
+
+        case MTRAttributeIDTypeClusterWaterTankLevelMonitoringAttributeInPlaceIndicatorID:
+            result = @"InPlaceIndicator";
+            break;
+
+        case MTRAttributeIDTypeClusterWaterTankLevelMonitoringAttributeLastChangedTimeID:
+            result = @"LastChangedTime";
+            break;
+
+        case MTRAttributeIDTypeClusterWaterTankLevelMonitoringAttributeReplacementProductListID:
+            result = @"ReplacementProductList";
+            break;
+
+        case MTRAttributeIDTypeClusterWaterTankLevelMonitoringAttributeGeneratedCommandListID:
+            result = @"GeneratedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterWaterTankLevelMonitoringAttributeAcceptedCommandListID:
+            result = @"AcceptedCommandList";
+            break;
+
+        case MTRAttributeIDTypeClusterWaterTankLevelMonitoringAttributeAttributeListID:
+            result = @"AttributeList";
+            break;
+
+        case MTRAttributeIDTypeClusterWaterTankLevelMonitoringAttributeFeatureMapID:
+            result = @"FeatureMap";
+            break;
+
+        case MTRAttributeIDTypeClusterWaterTankLevelMonitoringAttributeClusterRevisionID:
+            result = @"ClusterRevision";
+            break;
+
+        default:
+            // Not a known WaterTankLevelMonitoring attribute.
+            result = [NSString stringWithFormat:@"<Unknown attributeID %u>", attributeID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeBooleanStateConfigurationID:
 
         switch (attributeID) {
@@ -5024,22 +5095,6 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
             result = @"Type";
             break;
 
-        case MTRAttributeIDTypeClusterWindowCoveringAttributePhysicalClosedLimitLiftID:
-            result = @"PhysicalClosedLimitLift";
-            break;
-
-        case MTRAttributeIDTypeClusterWindowCoveringAttributePhysicalClosedLimitTiltID:
-            result = @"PhysicalClosedLimitTilt";
-            break;
-
-        case MTRAttributeIDTypeClusterWindowCoveringAttributeCurrentPositionLiftID:
-            result = @"CurrentPositionLift";
-            break;
-
-        case MTRAttributeIDTypeClusterWindowCoveringAttributeCurrentPositionTiltID:
-            result = @"CurrentPositionTilt";
-            break;
-
         case MTRAttributeIDTypeClusterWindowCoveringAttributeNumberOfActuationsLiftID:
             result = @"NumberOfActuationsLift";
             break;
@@ -5082,22 +5137,6 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
 
         case MTRAttributeIDTypeClusterWindowCoveringAttributeCurrentPositionTiltPercent100thsID:
             result = @"CurrentPositionTiltPercent100ths";
-            break;
-
-        case MTRAttributeIDTypeClusterWindowCoveringAttributeInstalledOpenLimitLiftID:
-            result = @"InstalledOpenLimitLift";
-            break;
-
-        case MTRAttributeIDTypeClusterWindowCoveringAttributeInstalledClosedLimitLiftID:
-            result = @"InstalledClosedLimitLift";
-            break;
-
-        case MTRAttributeIDTypeClusterWindowCoveringAttributeInstalledOpenLimitTiltID:
-            result = @"InstalledOpenLimitTilt";
-            break;
-
-        case MTRAttributeIDTypeClusterWindowCoveringAttributeInstalledClosedLimitTiltID:
-            result = @"InstalledClosedLimitTilt";
             break;
 
         case MTRAttributeIDTypeClusterWindowCoveringAttributeModeID:
@@ -5710,6 +5749,14 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
 
         case MTRAttributeIDTypeClusterThermostatAttributeThermostatSuggestionNotFollowingReasonID:
             result = @"ThermostatSuggestionNotFollowingReason";
+            break;
+
+        case MTRAttributeIDTypeClusterThermostatAttributeCriticalFreezeProtectionID:
+            result = @"CriticalFreezeProtection";
+            break;
+
+        case MTRAttributeIDTypeClusterThermostatAttributeCriticalOverheatProtectionID:
+            result = @"CriticalOverheatProtection";
             break;
 
         case MTRAttributeIDTypeClusterThermostatAttributeGeneratedCommandListID:
@@ -6478,6 +6525,10 @@ NSString * MTRAttributeNameForID(MTRClusterIDType clusterID, MTRAttributeIDType 
 
         case MTRAttributeIDTypeClusterOccupancySensingAttributeHoldTimeLimitsID:
             result = @"HoldTimeLimits";
+            break;
+
+        case MTRAttributeIDTypeClusterOccupancySensingAttributePredictedOccupancyID:
+            result = @"PredictedOccupancy";
             break;
 
         case MTRAttributeIDTypeClusterOccupancySensingAttributePIROccupiedToUnoccupiedDelayID:
@@ -10629,6 +10680,20 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
         }
         break;
 
+    case MTRClusterIDTypeWaterTankLevelMonitoringID:
+
+        switch (commandID) {
+
+        case MTRCommandIDTypeClusterWaterTankLevelMonitoringCommandResetConditionID:
+            result = @"ResetCondition";
+            break;
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeBooleanStateConfigurationID:
 
         switch (commandID) {
@@ -10907,6 +10972,30 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
             result = @"UnlockWithTimeout";
             break;
 
+        case MTRCommandIDTypeClusterDoorLockCommandSetPINCodeID:
+            result = @"SetPINCode";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandGetPINCodeID:
+            result = @"GetPINCode";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandClearPINCodeID:
+            result = @"ClearPINCode";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandClearAllPINCodesID:
+            result = @"ClearAllPINCodes";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandSetUserStatusID:
+            result = @"SetUserStatus";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandGetUserStatusID:
+            result = @"GetUserStatus";
+            break;
+
         case MTRCommandIDTypeClusterDoorLockCommandSetWeekDayScheduleID:
             result = @"SetWeekDaySchedule";
             break;
@@ -10941,6 +11030,30 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
 
         case MTRCommandIDTypeClusterDoorLockCommandClearHolidayScheduleID:
             result = @"ClearHolidaySchedule";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandSetUserTypeID:
+            result = @"SetUserType";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandGetUserTypeID:
+            result = @"GetUserType";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandSetRFIDCodeID:
+            result = @"SetRFIDCode";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandGetRFIDCodeID:
+            result = @"GetRFIDCode";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandClearRFIDCodeID:
+            result = @"ClearRFIDCode";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandClearAllRFIDCodesID:
+            result = @"ClearAllRFIDCodes";
             break;
 
         case MTRCommandIDTypeClusterDoorLockCommandSetUserID:
@@ -11001,16 +11114,8 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
             result = @"StopMotion";
             break;
 
-        case MTRCommandIDTypeClusterWindowCoveringCommandGoToLiftValueID:
-            result = @"GoToLiftValue";
-            break;
-
         case MTRCommandIDTypeClusterWindowCoveringCommandGoToLiftPercentageID:
             result = @"GoToLiftPercentage";
-            break;
-
-        case MTRCommandIDTypeClusterWindowCoveringCommandGoToTiltValueID:
-            result = @"GoToTiltValue";
             break;
 
         case MTRCommandIDTypeClusterWindowCoveringCommandGoToTiltPercentageID:
@@ -11039,6 +11144,10 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
             result = @"Calibrate";
             break;
 
+        case MTRCommandIDTypeClusterClosureControlCommandGroupedMoveToID:
+            result = @"GroupedMoveTo";
+            break;
+
         default:
             result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
             break;
@@ -11055,6 +11164,14 @@ NSString * MTRRequestCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDTy
 
         case MTRCommandIDTypeClusterClosureDimensionCommandStepID:
             result = @"Step";
+            break;
+
+        case MTRCommandIDTypeClusterClosureDimensionCommandGroupedSetTargetID:
+            result = @"GroupedSetTarget";
+            break;
+
+        case MTRCommandIDTypeClusterClosureDimensionCommandGroupedStepID:
+            result = @"GroupedStep";
             break;
 
         default:
@@ -13249,6 +13366,16 @@ NSString * MTRResponseCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDT
         }
         break;
 
+    case MTRClusterIDTypeWaterTankLevelMonitoringID:
+
+        switch (commandID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown commandID %u>", commandID];
+            break;
+        }
+        break;
+
     case MTRClusterIDTypeBooleanStateConfigurationID:
 
         switch (commandID) {
@@ -13427,6 +13554,14 @@ NSString * MTRResponseCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDT
 
         switch (commandID) {
 
+        case MTRCommandIDTypeClusterDoorLockCommandGetPINCodeResponseID:
+            result = @"GetPINCodeResponse";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandGetUserStatusResponseID:
+            result = @"GetUserStatusResponse";
+            break;
+
         case MTRCommandIDTypeClusterDoorLockCommandGetWeekDayScheduleResponseID:
             result = @"GetWeekDayScheduleResponse";
             break;
@@ -13437,6 +13572,14 @@ NSString * MTRResponseCommandNameForID(MTRClusterIDType clusterID, MTRCommandIDT
 
         case MTRCommandIDTypeClusterDoorLockCommandGetHolidayScheduleResponseID:
             result = @"GetHolidayScheduleResponse";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandGetUserTypeResponseID:
+            result = @"GetUserTypeResponse";
+            break;
+
+        case MTRCommandIDTypeClusterDoorLockCommandGetRFIDCodeResponseID:
+            result = @"GetRFIDCodeResponse";
             break;
 
         case MTRCommandIDTypeClusterDoorLockCommandGetUserResponseID:
@@ -15177,6 +15320,16 @@ NSString * MTREventNameForID(MTRClusterIDType clusterID, MTREventIDType eventID)
         break;
 
     case MTRClusterIDTypeActivatedCarbonFilterMonitoringID:
+
+        switch (eventID) {
+
+        default:
+            result = [NSString stringWithFormat:@"<Unknown eventID %u>", eventID];
+            break;
+        }
+        break;
+
+    case MTRClusterIDTypeWaterTankLevelMonitoringID:
 
         switch (eventID) {
 

@@ -31,6 +31,40 @@ namespace Clusters {
 namespace detail {
 namespace Structs {
 
+namespace AdditionalInfoStruct {
+CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
+{
+    DataModel::WrappedStructEncoder encoder{ aWriter, aTag };
+    encoder.Encode(to_underlying(Fields::kName), name);
+    encoder.Encode(to_underlying(Fields::kValue), value);
+    return encoder.Finalize();
+}
+
+CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
+{
+    detail::StructDecodeIterator __iterator(reader);
+    while (true)
+    {
+        uint8_t __context_tag = 0;
+        CHIP_ERROR err        = __iterator.Next(__context_tag);
+        VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
+        ReturnErrorOnFailure(err);
+
+        if (__context_tag == to_underlying(Fields::kName))
+        {
+            err = DataModel::Decode(reader, name);
+        }
+        else if (__context_tag == to_underlying(Fields::kValue))
+        {
+            err = DataModel::Decode(reader, value);
+        }
+
+        ReturnErrorOnFailure(err);
+    }
+}
+
+} // namespace AdditionalInfoStruct
+
 namespace ModeTagStruct {
 CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
 {
@@ -104,192 +138,6 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
 
 } // namespace ModeOptionStruct
 
-namespace MeasurementAccuracyRangeStruct {
-CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
-{
-    DataModel::WrappedStructEncoder encoder{ aWriter, aTag };
-    encoder.Encode(to_underlying(Fields::kRangeMin), rangeMin);
-    encoder.Encode(to_underlying(Fields::kRangeMax), rangeMax);
-    encoder.Encode(to_underlying(Fields::kPercentMax), percentMax);
-    encoder.Encode(to_underlying(Fields::kPercentMin), percentMin);
-    encoder.Encode(to_underlying(Fields::kPercentTypical), percentTypical);
-    encoder.Encode(to_underlying(Fields::kFixedMax), fixedMax);
-    encoder.Encode(to_underlying(Fields::kFixedMin), fixedMin);
-    encoder.Encode(to_underlying(Fields::kFixedTypical), fixedTypical);
-    return encoder.Finalize();
-}
-
-CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
-{
-    detail::StructDecodeIterator __iterator(reader);
-    while (true)
-    {
-        uint8_t __context_tag = 0;
-        CHIP_ERROR err        = __iterator.Next(__context_tag);
-        VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
-        ReturnErrorOnFailure(err);
-
-        if (__context_tag == to_underlying(Fields::kRangeMin))
-        {
-            err = DataModel::Decode(reader, rangeMin);
-        }
-        else if (__context_tag == to_underlying(Fields::kRangeMax))
-        {
-            err = DataModel::Decode(reader, rangeMax);
-        }
-        else if (__context_tag == to_underlying(Fields::kPercentMax))
-        {
-            err = DataModel::Decode(reader, percentMax);
-        }
-        else if (__context_tag == to_underlying(Fields::kPercentMin))
-        {
-            err = DataModel::Decode(reader, percentMin);
-        }
-        else if (__context_tag == to_underlying(Fields::kPercentTypical))
-        {
-            err = DataModel::Decode(reader, percentTypical);
-        }
-        else if (__context_tag == to_underlying(Fields::kFixedMax))
-        {
-            err = DataModel::Decode(reader, fixedMax);
-        }
-        else if (__context_tag == to_underlying(Fields::kFixedMin))
-        {
-            err = DataModel::Decode(reader, fixedMin);
-        }
-        else if (__context_tag == to_underlying(Fields::kFixedTypical))
-        {
-            err = DataModel::Decode(reader, fixedTypical);
-        }
-
-        ReturnErrorOnFailure(err);
-    }
-}
-
-} // namespace MeasurementAccuracyRangeStruct
-
-namespace MeasurementAccuracyStruct {
-CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
-{
-    DataModel::WrappedStructEncoder encoder{ aWriter, aTag };
-    encoder.Encode(to_underlying(Fields::kMeasurementType), measurementType);
-    encoder.Encode(to_underlying(Fields::kMeasured), measured);
-    encoder.Encode(to_underlying(Fields::kMinMeasuredValue), minMeasuredValue);
-    encoder.Encode(to_underlying(Fields::kMaxMeasuredValue), maxMeasuredValue);
-    encoder.Encode(to_underlying(Fields::kAccuracyRanges), accuracyRanges);
-    return encoder.Finalize();
-}
-
-CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
-{
-    detail::StructDecodeIterator __iterator(reader);
-    while (true)
-    {
-        uint8_t __context_tag = 0;
-        CHIP_ERROR err        = __iterator.Next(__context_tag);
-        VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
-        ReturnErrorOnFailure(err);
-
-        if (__context_tag == to_underlying(Fields::kMeasurementType))
-        {
-            err = DataModel::Decode(reader, measurementType);
-        }
-        else if (__context_tag == to_underlying(Fields::kMeasured))
-        {
-            err = DataModel::Decode(reader, measured);
-        }
-        else if (__context_tag == to_underlying(Fields::kMinMeasuredValue))
-        {
-            err = DataModel::Decode(reader, minMeasuredValue);
-        }
-        else if (__context_tag == to_underlying(Fields::kMaxMeasuredValue))
-        {
-            err = DataModel::Decode(reader, maxMeasuredValue);
-        }
-        else if (__context_tag == to_underlying(Fields::kAccuracyRanges))
-        {
-            err = DataModel::Decode(reader, accuracyRanges);
-        }
-
-        ReturnErrorOnFailure(err);
-    }
-}
-
-} // namespace MeasurementAccuracyStruct
-
-namespace ApplicationStruct {
-CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
-{
-    DataModel::WrappedStructEncoder encoder{ aWriter, aTag };
-    encoder.Encode(to_underlying(Fields::kCatalogVendorID), catalogVendorID);
-    encoder.Encode(to_underlying(Fields::kApplicationID), applicationID);
-    return encoder.Finalize();
-}
-
-CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
-{
-    detail::StructDecodeIterator __iterator(reader);
-    while (true)
-    {
-        uint8_t __context_tag = 0;
-        CHIP_ERROR err        = __iterator.Next(__context_tag);
-        VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
-        ReturnErrorOnFailure(err);
-
-        if (__context_tag == to_underlying(Fields::kCatalogVendorID))
-        {
-            err = DataModel::Decode(reader, catalogVendorID);
-        }
-        else if (__context_tag == to_underlying(Fields::kApplicationID))
-        {
-            err = DataModel::Decode(reader, applicationID);
-        }
-
-        ReturnErrorOnFailure(err);
-    }
-}
-
-} // namespace ApplicationStruct
-
-namespace ErrorStateStruct {
-CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
-{
-    DataModel::WrappedStructEncoder encoder{ aWriter, aTag };
-    encoder.Encode(to_underlying(Fields::kErrorStateID), errorStateID);
-    encoder.Encode(to_underlying(Fields::kErrorStateLabel), errorStateLabel);
-    encoder.Encode(to_underlying(Fields::kErrorStateDetails), errorStateDetails);
-    return encoder.Finalize();
-}
-
-CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
-{
-    detail::StructDecodeIterator __iterator(reader);
-    while (true)
-    {
-        uint8_t __context_tag = 0;
-        CHIP_ERROR err        = __iterator.Next(__context_tag);
-        VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
-        ReturnErrorOnFailure(err);
-
-        if (__context_tag == to_underlying(Fields::kErrorStateID))
-        {
-            err = DataModel::Decode(reader, errorStateID);
-        }
-        else if (__context_tag == to_underlying(Fields::kErrorStateLabel))
-        {
-            err = DataModel::Decode(reader, errorStateLabel);
-        }
-        else if (__context_tag == to_underlying(Fields::kErrorStateDetails))
-        {
-            err = DataModel::Decode(reader, errorStateDetails);
-        }
-
-        ReturnErrorOnFailure(err);
-    }
-}
-
-} // namespace ErrorStateStruct
-
 namespace LabelStruct {
 CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
 {
@@ -323,40 +171,6 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
 }
 
 } // namespace LabelStruct
-
-namespace OperationalStateStruct {
-CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
-{
-    DataModel::WrappedStructEncoder encoder{ aWriter, aTag };
-    encoder.Encode(to_underlying(Fields::kOperationalStateID), operationalStateID);
-    encoder.Encode(to_underlying(Fields::kOperationalStateLabel), operationalStateLabel);
-    return encoder.Finalize();
-}
-
-CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
-{
-    detail::StructDecodeIterator __iterator(reader);
-    while (true)
-    {
-        uint8_t __context_tag = 0;
-        CHIP_ERROR err        = __iterator.Next(__context_tag);
-        VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
-        ReturnErrorOnFailure(err);
-
-        if (__context_tag == to_underlying(Fields::kOperationalStateID))
-        {
-            err = DataModel::Decode(reader, operationalStateID);
-        }
-        else if (__context_tag == to_underlying(Fields::kOperationalStateLabel))
-        {
-            err = DataModel::Decode(reader, operationalStateLabel);
-        }
-
-        ReturnErrorOnFailure(err);
-    }
-}
-
-} // namespace OperationalStateStruct
 } // namespace Structs
 } // namespace detail
 
@@ -579,6 +393,65 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
 
 } // namespace AtomicAttributeStatusStruct
 
+namespace AttributionData {
+CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
+{
+    DataModel::WrappedStructEncoder encoder{ aWriter, aTag };
+    encoder.Encode(to_underlying(Fields::kContextInformation), contextInformation);
+    encoder.Encode(to_underlying(Fields::kSourceContext), sourceContext);
+    encoder.Encode(to_underlying(Fields::kNodeID), nodeID);
+    encoder.Encode(to_underlying(Fields::kGroupID), groupID);
+    encoder.Encode(to_underlying(Fields::kSystemTimeStamp), systemTimeStamp);
+    encoder.Encode(to_underlying(Fields::kEpochTimeStamp), epochTimeStamp);
+    encoder.Encode(to_underlying(Fields::kFabricIndex), fabricIndex);
+    return encoder.Finalize();
+}
+
+CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
+{
+    detail::StructDecodeIterator __iterator(reader);
+    while (true)
+    {
+        uint8_t __context_tag = 0;
+        CHIP_ERROR err        = __iterator.Next(__context_tag);
+        VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
+        ReturnErrorOnFailure(err);
+
+        if (__context_tag == to_underlying(Fields::kContextInformation))
+        {
+            err = DataModel::Decode(reader, contextInformation);
+        }
+        else if (__context_tag == to_underlying(Fields::kSourceContext))
+        {
+            err = DataModel::Decode(reader, sourceContext);
+        }
+        else if (__context_tag == to_underlying(Fields::kNodeID))
+        {
+            err = DataModel::Decode(reader, nodeID);
+        }
+        else if (__context_tag == to_underlying(Fields::kGroupID))
+        {
+            err = DataModel::Decode(reader, groupID);
+        }
+        else if (__context_tag == to_underlying(Fields::kSystemTimeStamp))
+        {
+            err = DataModel::Decode(reader, systemTimeStamp);
+        }
+        else if (__context_tag == to_underlying(Fields::kEpochTimeStamp))
+        {
+            err = DataModel::Decode(reader, epochTimeStamp);
+        }
+        else if (__context_tag == to_underlying(Fields::kFabricIndex))
+        {
+            err = DataModel::Decode(reader, fabricIndex);
+        }
+
+        ReturnErrorOnFailure(err);
+    }
+}
+
+} // namespace AttributionData
+
 namespace ICECandidateStruct {
 CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
 {
@@ -740,14 +613,29 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
 
 } // namespace PowerThresholdStruct
 
-namespace SemanticTagStruct {
-CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
+namespace SuppliedAttributionData {
+CHIP_ERROR Type::EncodeForWrite(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
 {
+    return DoEncode(aWriter, aTag, NullOptional);
+}
+
+CHIP_ERROR Type::EncodeForRead(TLV::TLVWriter & aWriter, TLV::Tag aTag, FabricIndex aAccessingFabricIndex) const
+{
+    return DoEncode(aWriter, aTag, MakeOptional(aAccessingFabricIndex));
+}
+
+CHIP_ERROR Type::DoEncode(TLV::TLVWriter & aWriter, TLV::Tag aTag, const Optional<FabricIndex> & aAccessingFabricIndex) const
+{
+
     DataModel::WrappedStructEncoder encoder{ aWriter, aTag };
-    encoder.Encode(to_underlying(Fields::kMfgCode), mfgCode);
-    encoder.Encode(to_underlying(Fields::kNamespaceID), namespaceID);
-    encoder.Encode(to_underlying(Fields::kTag), tag);
-    encoder.Encode(to_underlying(Fields::kLabel), label);
+
+    encoder.Encode(to_underlying(Fields::kContextInformation), contextInformation);
+    encoder.Encode(to_underlying(Fields::kSourceContext), sourceContext);
+    if (aAccessingFabricIndex.HasValue())
+    {
+        encoder.Encode(to_underlying(Fields::kFabricIndex), fabricIndex);
+    }
+
     return encoder.Finalize();
 }
 
@@ -761,28 +649,24 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
         VerifyOrReturnError(err != CHIP_ERROR_END_OF_TLV, CHIP_NO_ERROR);
         ReturnErrorOnFailure(err);
 
-        if (__context_tag == to_underlying(Fields::kMfgCode))
+        if (__context_tag == to_underlying(Fields::kContextInformation))
         {
-            err = DataModel::Decode(reader, mfgCode);
+            err = DataModel::Decode(reader, contextInformation);
         }
-        else if (__context_tag == to_underlying(Fields::kNamespaceID))
+        else if (__context_tag == to_underlying(Fields::kSourceContext))
         {
-            err = DataModel::Decode(reader, namespaceID);
+            err = DataModel::Decode(reader, sourceContext);
         }
-        else if (__context_tag == to_underlying(Fields::kTag))
+        else if (__context_tag == to_underlying(Fields::kFabricIndex))
         {
-            err = DataModel::Decode(reader, tag);
-        }
-        else if (__context_tag == to_underlying(Fields::kLabel))
-        {
-            err = DataModel::Decode(reader, label);
+            err = DataModel::Decode(reader, fabricIndex);
         }
 
         ReturnErrorOnFailure(err);
     }
 }
 
-} // namespace SemanticTagStruct
+} // namespace SuppliedAttributionData
 
 namespace TestGlobalStruct {
 CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const

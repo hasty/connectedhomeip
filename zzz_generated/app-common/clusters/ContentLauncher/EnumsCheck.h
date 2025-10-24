@@ -25,34 +25,6 @@
 namespace chip {
 namespace app {
 namespace Clusters {
-static auto __attribute__((unused)) EnsureKnownEnumValue(ContentLauncher::CharacteristicEnum val)
-{
-    using EnumType = ContentLauncher::CharacteristicEnum;
-    switch (val)
-    {
-    case EnumType::kForcedSubtitles:
-    case EnumType::kDescribesVideo:
-    case EnumType::kEasyToRead:
-    case EnumType::kFrameBased:
-    case EnumType::kMainProgram:
-    case EnumType::kOriginalContent:
-    case EnumType::kVoiceOverTranslation:
-    case EnumType::kCaption:
-    case EnumType::kSubtitle:
-    case EnumType::kAlternate:
-    case EnumType::kSupplementary:
-    case EnumType::kCommentary:
-    case EnumType::kDubbedTranslation:
-    case EnumType::kDescription:
-    case EnumType::kMetadata:
-    case EnumType::kEnhancedAudioIntelligibility:
-    case EnumType::kEmergency:
-    case EnumType::kKaraoke:
-        return val;
-    default:
-        return EnumType::kUnknownEnumValue;
-    }
-}
 static auto __attribute__((unused)) EnsureKnownEnumValue(ContentLauncher::MetricTypeEnum val)
 {
     using EnumType = ContentLauncher::MetricTypeEnum;

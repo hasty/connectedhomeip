@@ -520,7 +520,7 @@ public:
     static constexpr ClusterId GetClusterId() { return Clusters::MediaPlayback::Id; }
 
     chip::CharSpan trackID;
-    uint8_t audioOutputIndex = static_cast<uint8_t>(0);
+    Optional<DataModel::Nullable<uint8_t>> audioOutputIndex;
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 
@@ -537,7 +537,7 @@ public:
     static constexpr bool kIsFabricScoped = false;
 
     chip::CharSpan trackID;
-    uint8_t audioOutputIndex = static_cast<uint8_t>(0);
+    Optional<DataModel::Nullable<uint8_t>> audioOutputIndex;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };

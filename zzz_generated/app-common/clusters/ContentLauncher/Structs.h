@@ -74,8 +74,8 @@ struct Type
 {
 public:
     chip::CharSpan languageCode;
-    Optional<DataModel::List<const CharacteristicEnum>> characteristics;
-    uint8_t audioOutputIndex = static_cast<uint8_t>(0);
+    Optional<DataModel::Nullable<DataModel::List<const CharacteristicEnum>>> characteristics;
+    Optional<DataModel::Nullable<uint8_t>> audioOutputIndex;
 
     static constexpr bool kIsFabricScoped = false;
 
@@ -86,8 +86,8 @@ struct DecodableType
 {
 public:
     chip::CharSpan languageCode;
-    Optional<DataModel::DecodableList<CharacteristicEnum>> characteristics;
-    uint8_t audioOutputIndex = static_cast<uint8_t>(0);
+    Optional<DataModel::Nullable<DataModel::DecodableList<CharacteristicEnum>>> characteristics;
+    Optional<DataModel::Nullable<uint8_t>> audioOutputIndex;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 
@@ -106,9 +106,9 @@ enum class Fields : uint8_t
 struct Type
 {
 public:
-    uint64_t playbackPosition = static_cast<uint64_t>(0);
-    Structs::TrackPreferenceStruct::Type textTrack;
-    Optional<DataModel::List<const Structs::TrackPreferenceStruct::Type>> audioTracks;
+    Optional<DataModel::Nullable<uint64_t>> playbackPosition;
+    Optional<DataModel::Nullable<Structs::TrackPreferenceStruct::Type>> textTrack;
+    Optional<DataModel::Nullable<DataModel::List<const Structs::TrackPreferenceStruct::Type>>> audioTracks;
 
     static constexpr bool kIsFabricScoped = false;
 
@@ -118,9 +118,9 @@ public:
 struct DecodableType
 {
 public:
-    uint64_t playbackPosition = static_cast<uint64_t>(0);
-    Structs::TrackPreferenceStruct::DecodableType textTrack;
-    Optional<DataModel::DecodableList<Structs::TrackPreferenceStruct::DecodableType>> audioTracks;
+    Optional<DataModel::Nullable<uint64_t>> playbackPosition;
+    Optional<DataModel::Nullable<Structs::TrackPreferenceStruct::DecodableType>> textTrack;
+    Optional<DataModel::Nullable<DataModel::DecodableList<Structs::TrackPreferenceStruct::DecodableType>>> audioTracks;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 
@@ -128,29 +128,7 @@ public:
 };
 
 } // namespace PlaybackPreferencesStruct
-namespace AdditionalInfoStruct {
-enum class Fields : uint8_t
-{
-    kName  = 0,
-    kValue = 1,
-};
-
-struct Type
-{
-public:
-    chip::CharSpan name;
-    chip::CharSpan value;
-
-    CHIP_ERROR Decode(TLV::TLVReader & reader);
-
-    static constexpr bool kIsFabricScoped = false;
-
-    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
-};
-
-using DecodableType = Type;
-
-} // namespace AdditionalInfoStruct
+namespace AdditionalInfoStruct = Clusters::detail::Structs::AdditionalInfoStruct;
 namespace ParameterStruct {
 enum class Fields : uint8_t
 {

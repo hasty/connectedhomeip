@@ -324,7 +324,7 @@ public:
     DataModel::Nullable<uint16_t> groupKeySetID;
     DataModel::Nullable<uint16_t> groupCAT;
     DataModel::Nullable<uint16_t> groupCATVersion;
-    DatastoreAccessControlEntryPrivilegeEnum groupPermission = static_cast<DatastoreAccessControlEntryPrivilegeEnum>(0);
+    DataModel::Nullable<DatastoreAccessControlEntryPrivilegeEnum> groupPermission;
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 
@@ -345,7 +345,7 @@ public:
     DataModel::Nullable<uint16_t> groupKeySetID;
     DataModel::Nullable<uint16_t> groupCAT;
     DataModel::Nullable<uint16_t> groupCATVersion;
-    DatastoreAccessControlEntryPrivilegeEnum groupPermission = static_cast<DatastoreAccessControlEntryPrivilegeEnum>(0);
+    DataModel::Nullable<DatastoreAccessControlEntryPrivilegeEnum> groupPermission;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };

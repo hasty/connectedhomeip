@@ -250,11 +250,11 @@ public:
     static constexpr CommandId GetCommandId() { return Commands::GetProgramGuide::Id; }
     static constexpr ClusterId GetClusterId() { return Clusters::Channel::Id; }
 
-    Optional<uint32_t> startTime;
-    Optional<uint32_t> endTime;
+    uint32_t startTime = static_cast<uint32_t>(0);
+    uint32_t endTime   = static_cast<uint32_t>(0);
     Optional<DataModel::List<const Structs::ChannelInfoStruct::Type>> channelList;
-    Optional<Structs::PageTokenStruct::Type> pageToken;
-    Optional<chip::BitMask<RecordingFlagBitmap>> recordingFlag;
+    Optional<DataModel::Nullable<Structs::PageTokenStruct::Type>> pageToken;
+    Optional<DataModel::Nullable<chip::BitMask<RecordingFlagBitmap>>> recordingFlag;
     Optional<DataModel::List<const Structs::AdditionalInfoStruct::Type>> externalIDList;
     Optional<chip::ByteSpan> data;
 
@@ -272,11 +272,11 @@ public:
     static constexpr ClusterId GetClusterId() { return Clusters::Channel::Id; }
     static constexpr bool kIsFabricScoped = false;
 
-    Optional<uint32_t> startTime;
-    Optional<uint32_t> endTime;
+    uint32_t startTime = static_cast<uint32_t>(0);
+    uint32_t endTime   = static_cast<uint32_t>(0);
     Optional<DataModel::DecodableList<Structs::ChannelInfoStruct::DecodableType>> channelList;
-    Optional<Structs::PageTokenStruct::DecodableType> pageToken;
-    Optional<chip::BitMask<RecordingFlagBitmap>> recordingFlag;
+    Optional<DataModel::Nullable<Structs::PageTokenStruct::DecodableType>> pageToken;
+    Optional<DataModel::Nullable<chip::BitMask<RecordingFlagBitmap>>> recordingFlag;
     Optional<DataModel::DecodableList<Structs::AdditionalInfoStruct::DecodableType>> externalIDList;
     Optional<chip::ByteSpan> data;
 
@@ -337,8 +337,8 @@ public:
 
     chip::CharSpan programIdentifier;
     bool shouldRecordSeries = static_cast<bool>(0);
-    DataModel::List<const Structs::AdditionalInfoStruct::Type> externalIDList;
-    chip::ByteSpan data;
+    Optional<DataModel::List<const Structs::AdditionalInfoStruct::Type>> externalIDList;
+    Optional<chip::ByteSpan> data;
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 
@@ -356,8 +356,8 @@ public:
 
     chip::CharSpan programIdentifier;
     bool shouldRecordSeries = static_cast<bool>(0);
-    DataModel::DecodableList<Structs::AdditionalInfoStruct::DecodableType> externalIDList;
-    chip::ByteSpan data;
+    Optional<DataModel::DecodableList<Structs::AdditionalInfoStruct::DecodableType>> externalIDList;
+    Optional<chip::ByteSpan> data;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };
@@ -380,8 +380,8 @@ public:
 
     chip::CharSpan programIdentifier;
     bool shouldRecordSeries = static_cast<bool>(0);
-    DataModel::List<const Structs::AdditionalInfoStruct::Type> externalIDList;
-    chip::ByteSpan data;
+    Optional<DataModel::List<const Structs::AdditionalInfoStruct::Type>> externalIDList;
+    Optional<chip::ByteSpan> data;
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 
@@ -399,8 +399,8 @@ public:
 
     chip::CharSpan programIdentifier;
     bool shouldRecordSeries = static_cast<bool>(0);
-    DataModel::DecodableList<Structs::AdditionalInfoStruct::DecodableType> externalIDList;
-    chip::ByteSpan data;
+    Optional<DataModel::DecodableList<Structs::AdditionalInfoStruct::DecodableType>> externalIDList;
+    Optional<chip::ByteSpan> data;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };

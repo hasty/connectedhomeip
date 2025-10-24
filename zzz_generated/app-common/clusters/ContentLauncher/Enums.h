@@ -28,33 +28,7 @@ namespace app {
 namespace Clusters {
 namespace ContentLauncher {
 
-// Enum for CharacteristicEnum
-enum class CharacteristicEnum : uint8_t
-{
-    kForcedSubtitles              = 0x00,
-    kDescribesVideo               = 0x01,
-    kEasyToRead                   = 0x02,
-    kFrameBased                   = 0x03,
-    kMainProgram                  = 0x04,
-    kOriginalContent              = 0x05,
-    kVoiceOverTranslation         = 0x06,
-    kCaption                      = 0x07,
-    kSubtitle                     = 0x08,
-    kAlternate                    = 0x09,
-    kSupplementary                = 0x0A,
-    kCommentary                   = 0x0B,
-    kDubbedTranslation            = 0x0C,
-    kDescription                  = 0x0D,
-    kMetadata                     = 0x0E,
-    kEnhancedAudioIntelligibility = 0x0F,
-    kEmergency                    = 0x10,
-    kKaraoke                      = 0x11,
-    // All received enum values that are not listed above will be mapped
-    // to kUnknownEnumValue. This is a helper enum value that should only
-    // be used by code to process how it handles receiving and unknown
-    // enum value. This specific should never be transmitted.
-    kUnknownEnumValue = 18,
-};
+using CharacteristicEnum = Clusters::detail::CharacteristicEnum;
 
 // Enum for MetricTypeEnum
 enum class MetricTypeEnum : uint8_t

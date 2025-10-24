@@ -42,6 +42,12 @@ namespace HoldTimeLimits {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(HoldTimeLimits::Id, BitFlags<DataModel::AttributeQualityFlags>(),
                                                           Access::Privilege::kView, std::nullopt);
 } // namespace HoldTimeLimits
+namespace PredictedOccupancy {
+inline constexpr DataModel::AttributeEntry
+    kMetadataEntry(PredictedOccupancy::Id,
+                   BitFlags<DataModel::AttributeQualityFlags>(DataModel::AttributeQualityFlags::kListAttribute),
+                   Access::Privilege::kView, std::nullopt);
+} // namespace PredictedOccupancy
 namespace PIROccupiedToUnoccupiedDelay {
 inline constexpr DataModel::AttributeEntry kMetadataEntry(PIROccupiedToUnoccupiedDelay::Id,
                                                           BitFlags<DataModel::AttributeQualityFlags>(), Access::Privilege::kView,

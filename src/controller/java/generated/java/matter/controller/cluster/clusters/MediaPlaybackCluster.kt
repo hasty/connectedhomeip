@@ -849,7 +849,7 @@ class MediaPlaybackCluster(
 
   suspend fun activateAudioTrack(
     trackID: String,
-    audioOutputIndex: UByte,
+    audioOutputIndex: UByte?,
     timedInvokeTimeout: Duration? = null,
   ) {
     val commandId: UInt = 12u
@@ -861,7 +861,9 @@ class MediaPlaybackCluster(
     tlvWriter.put(ContextSpecificTag(TAG_TRACK_ID_REQ), trackID)
 
     val TAG_AUDIO_OUTPUT_INDEX_REQ: Int = 1
-    tlvWriter.put(ContextSpecificTag(TAG_AUDIO_OUTPUT_INDEX_REQ), audioOutputIndex)
+    audioOutputIndex?.let {
+      tlvWriter.put(ContextSpecificTag(TAG_AUDIO_OUTPUT_INDEX_REQ), audioOutputIndex)
+    }
     tlvWriter.endStructure()
 
     val request: InvokeRequest =

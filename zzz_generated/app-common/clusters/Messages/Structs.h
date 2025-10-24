@@ -47,8 +47,8 @@ enum class Fields : uint8_t
 struct Type
 {
 public:
-    Optional<uint32_t> messageResponseID;
-    Optional<chip::CharSpan> label;
+    uint32_t messageResponseID = static_cast<uint32_t>(0);
+    chip::CharSpan label;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 
@@ -70,6 +70,7 @@ enum class Fields : uint8_t
     kDuration       = 4,
     kMessageText    = 5,
     kResponses      = 6,
+    kFabricIndex    = 254,
 };
 
 struct Type
@@ -82,10 +83,19 @@ public:
     DataModel::Nullable<uint64_t> duration;
     chip::CharSpan messageText;
     Optional<DataModel::List<const Structs::MessageResponseOptionStruct::Type>> responses;
+    chip::FabricIndex fabricIndex = static_cast<chip::FabricIndex>(0);
 
-    static constexpr bool kIsFabricScoped = false;
+    static constexpr bool kIsFabricScoped = true;
 
-    CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+    auto GetFabricIndex() const { return fabricIndex; }
+
+    void SetFabricIndex(chip::FabricIndex fabricIndex_) { fabricIndex = fabricIndex_; }
+
+    CHIP_ERROR EncodeForWrite(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
+    CHIP_ERROR EncodeForRead(TLV::TLVWriter & aWriter, TLV::Tag aTag, FabricIndex aAccessingFabricIndex) const;
+
+private:
+    CHIP_ERROR DoEncode(TLV::TLVWriter & aWriter, TLV::Tag aTag, const Optional<FabricIndex> & aAccessingFabricIndex) const;
 };
 
 struct DecodableType
@@ -98,10 +108,15 @@ public:
     DataModel::Nullable<uint64_t> duration;
     chip::CharSpan messageText;
     Optional<DataModel::DecodableList<Structs::MessageResponseOptionStruct::DecodableType>> responses;
+    chip::FabricIndex fabricIndex = static_cast<chip::FabricIndex>(0);
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 
-    static constexpr bool kIsFabricScoped = false;
+    static constexpr bool kIsFabricScoped = true;
+
+    auto GetFabricIndex() const { return fabricIndex; }
+
+    void SetFabricIndex(chip::FabricIndex fabricIndex_) { fabricIndex = fabricIndex_; }
 };
 
 } // namespace MessageStruct

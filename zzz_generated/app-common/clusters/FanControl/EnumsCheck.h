@@ -70,9 +70,9 @@ static auto __attribute__((unused)) EnsureKnownEnumValue(FanControl::FanModeSequ
         return EnumType::kUnknownEnumValue;
     }
 }
-static auto __attribute__((unused)) EnsureKnownEnumValue(FanControl::StepDirectionEnum val)
+static auto __attribute__((unused)) EnsureKnownEnumValue(FanControl::StepDirection2Enum val)
 {
-    using EnumType = FanControl::StepDirectionEnum;
+    using EnumType = FanControl::StepDirection2Enum;
     switch (val)
     {
     case EnumType::kIncrease:

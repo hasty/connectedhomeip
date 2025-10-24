@@ -117,6 +117,7 @@ enum class Fields : uint8_t
     kContentURL          = 0,
     kDisplayString       = 1,
     kBrandingInformation = 2,
+    kPlaybackPreferences = 3,
 };
 
 struct Type
@@ -129,6 +130,7 @@ public:
     chip::CharSpan contentURL;
     Optional<chip::CharSpan> displayString;
     Optional<Structs::BrandingInformationStruct::Type> brandingInformation;
+    Optional<Structs::PlaybackPreferencesStruct::Type> playbackPreferences;
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 
@@ -147,6 +149,7 @@ public:
     chip::CharSpan contentURL;
     Optional<chip::CharSpan> displayString;
     Optional<Structs::BrandingInformationStruct::DecodableType> brandingInformation;
+    Optional<Structs::PlaybackPreferencesStruct::DecodableType> playbackPreferences;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };

@@ -73,6 +73,10 @@ inline constexpr DataModel::AcceptedCommandEntry
     kMetadataEntry(Calibrate::Id, BitFlags<DataModel::CommandQualityFlags>(DataModel::CommandQualityFlags::kTimed),
                    Access::Privilege::kManage);
 } // namespace Calibrate
+namespace GroupedMoveTo {
+inline constexpr DataModel::AcceptedCommandEntry kMetadataEntry(GroupedMoveTo::Id, BitFlags<DataModel::CommandQualityFlags>(),
+                                                                Access::Privilege::kOperate);
+} // namespace GroupedMoveTo
 
 } // namespace Commands
 

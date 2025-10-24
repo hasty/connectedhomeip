@@ -563,6 +563,15 @@ static BOOL CommandNeedsTimedInvokeInActivatedCarbonFilterMonitoringCluster(Attr
     }
     }
 }
+static BOOL CommandNeedsTimedInvokeInWaterTankLevelMonitoringCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::WaterTankLevelMonitoring;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL CommandNeedsTimedInvokeInBooleanStateConfigurationCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::BooleanStateConfiguration;
@@ -730,6 +739,24 @@ static BOOL CommandNeedsTimedInvokeInDoorLockCluster(AttributeId aAttributeId)
         return YES;
     }
     case Commands::UnlockWithTimeout::Id: {
+        return YES;
+    }
+    case Commands::SetPINCode::Id: {
+        return YES;
+    }
+    case Commands::ClearPINCode::Id: {
+        return YES;
+    }
+    case Commands::ClearAllPINCodes::Id: {
+        return YES;
+    }
+    case Commands::SetRFIDCode::Id: {
+        return YES;
+    }
+    case Commands::ClearRFIDCode::Id: {
+        return YES;
+    }
+    case Commands::ClearAllRFIDCodes::Id: {
         return YES;
     }
     case Commands::SetUser::Id: {
@@ -1550,6 +1577,9 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     }
     case Clusters::ActivatedCarbonFilterMonitoring::Id: {
         return CommandNeedsTimedInvokeInActivatedCarbonFilterMonitoringCluster(commandID);
+    }
+    case Clusters::WaterTankLevelMonitoring::Id: {
+        return CommandNeedsTimedInvokeInWaterTankLevelMonitoringCluster(commandID);
     }
     case Clusters::BooleanStateConfiguration::Id: {
         return CommandNeedsTimedInvokeInBooleanStateConfigurationCluster(commandID);

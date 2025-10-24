@@ -133,6 +133,18 @@ struct ClusterMetadataProvider<DataModel::AcceptedCommandEntry, Clusters::DoorLo
             return UnlockDoor::kMetadataEntry;
         case UnlockWithTimeout::Id:
             return UnlockWithTimeout::kMetadataEntry;
+        case SetPINCode::Id:
+            return SetPINCode::kMetadataEntry;
+        case GetPINCode::Id:
+            return GetPINCode::kMetadataEntry;
+        case ClearPINCode::Id:
+            return ClearPINCode::kMetadataEntry;
+        case ClearAllPINCodes::Id:
+            return ClearAllPINCodes::kMetadataEntry;
+        case SetUserStatus::Id:
+            return SetUserStatus::kMetadataEntry;
+        case GetUserStatus::Id:
+            return GetUserStatus::kMetadataEntry;
         case SetWeekDaySchedule::Id:
             return SetWeekDaySchedule::kMetadataEntry;
         case GetWeekDaySchedule::Id:
@@ -151,6 +163,18 @@ struct ClusterMetadataProvider<DataModel::AcceptedCommandEntry, Clusters::DoorLo
             return GetHolidaySchedule::kMetadataEntry;
         case ClearHolidaySchedule::Id:
             return ClearHolidaySchedule::kMetadataEntry;
+        case SetUserType::Id:
+            return SetUserType::kMetadataEntry;
+        case GetUserType::Id:
+            return GetUserType::kMetadataEntry;
+        case SetRFIDCode::Id:
+            return SetRFIDCode::kMetadataEntry;
+        case GetRFIDCode::Id:
+            return GetRFIDCode::kMetadataEntry;
+        case ClearRFIDCode::Id:
+            return ClearRFIDCode::kMetadataEntry;
+        case ClearAllRFIDCodes::Id:
+            return ClearAllRFIDCodes::kMetadataEntry;
         case SetUser::Id:
             return SetUser::kMetadataEntry;
         case GetUser::Id:

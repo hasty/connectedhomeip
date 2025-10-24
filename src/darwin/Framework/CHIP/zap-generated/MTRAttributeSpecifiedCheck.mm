@@ -441,6 +441,9 @@ static BOOL AttributeIsSpecifiedInBasicInformationCluster(AttributeId aAttribute
     case Attributes::MaxPathsPerInvoke::Id: {
         return YES;
     }
+    case Attributes::DeviceLocation::Id: {
+        return YES;
+    }
     case Attributes::ConfigurationVersion::Id: {
         return YES;
     }
@@ -948,6 +951,9 @@ static BOOL AttributeIsSpecifiedInGeneralDiagnosticsCluster(AttributeId aAttribu
         return YES;
     }
     case Attributes::TestEventTriggersEnabled::Id: {
+        return YES;
+    }
+    case Attributes::DeviceLoadStatus::Id: {
         return YES;
     }
     case Attributes::GeneratedCommandList::Id: {
@@ -1461,6 +1467,9 @@ static BOOL AttributeIsSpecifiedInBridgedDeviceBasicInformationCluster(Attribute
         return YES;
     }
     case Attributes::ProductAppearance::Id: {
+        return YES;
+    }
+    case Attributes::DeviceLocation::Id: {
         return YES;
     }
     case Attributes::ConfigurationVersion::Id: {
@@ -2671,6 +2680,49 @@ static BOOL AttributeIsSpecifiedInActivatedCarbonFilterMonitoringCluster(Attribu
     }
     }
 }
+static BOOL AttributeIsSpecifiedInWaterTankLevelMonitoringCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::WaterTankLevelMonitoring;
+    switch (aAttributeId) {
+    case Attributes::Condition::Id: {
+        return YES;
+    }
+    case Attributes::DegradationDirection::Id: {
+        return YES;
+    }
+    case Attributes::ChangeIndication::Id: {
+        return YES;
+    }
+    case Attributes::InPlaceIndicator::Id: {
+        return YES;
+    }
+    case Attributes::LastChangedTime::Id: {
+        return YES;
+    }
+    case Attributes::ReplacementProductList::Id: {
+        return YES;
+    }
+    case Attributes::GeneratedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AcceptedCommandList::Id: {
+        return YES;
+    }
+    case Attributes::AttributeList::Id: {
+        return YES;
+    }
+    case Attributes::FeatureMap::Id: {
+        return YES;
+    }
+    case Attributes::ClusterRevision::Id: {
+        return YES;
+    }
+    default: {
+        // Not a known WaterTankLevelMonitoring attribute.
+        return NO;
+    }
+    }
+}
 static BOOL AttributeIsSpecifiedInBooleanStateConfigurationCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::BooleanStateConfiguration;
@@ -3525,18 +3577,6 @@ static BOOL AttributeIsSpecifiedInWindowCoveringCluster(AttributeId aAttributeId
     case Attributes::Type::Id: {
         return YES;
     }
-    case Attributes::PhysicalClosedLimitLift::Id: {
-        return YES;
-    }
-    case Attributes::PhysicalClosedLimitTilt::Id: {
-        return YES;
-    }
-    case Attributes::CurrentPositionLift::Id: {
-        return YES;
-    }
-    case Attributes::CurrentPositionTilt::Id: {
-        return YES;
-    }
     case Attributes::NumberOfActuationsLift::Id: {
         return YES;
     }
@@ -3568,18 +3608,6 @@ static BOOL AttributeIsSpecifiedInWindowCoveringCluster(AttributeId aAttributeId
         return YES;
     }
     case Attributes::CurrentPositionTiltPercent100ths::Id: {
-        return YES;
-    }
-    case Attributes::InstalledOpenLimitLift::Id: {
-        return YES;
-    }
-    case Attributes::InstalledClosedLimitLift::Id: {
-        return YES;
-    }
-    case Attributes::InstalledOpenLimitTilt::Id: {
-        return YES;
-    }
-    case Attributes::InstalledClosedLimitTilt::Id: {
         return YES;
     }
     case Attributes::Mode::Id: {
@@ -4044,6 +4072,12 @@ static BOOL AttributeIsSpecifiedInThermostatCluster(AttributeId aAttributeId)
         return YES;
     }
     case Attributes::ThermostatSuggestionNotFollowingReason::Id: {
+        return YES;
+    }
+    case Attributes::CriticalFreezeProtection::Id: {
+        return YES;
+    }
+    case Attributes::CriticalOverheatProtection::Id: {
         return YES;
     }
     case Attributes::GeneratedCommandList::Id: {
@@ -4630,6 +4664,9 @@ static BOOL AttributeIsSpecifiedInOccupancySensingCluster(AttributeId aAttribute
         return YES;
     }
     case Attributes::HoldTimeLimits::Id: {
+        return YES;
+    }
+    case Attributes::PredictedOccupancy::Id: {
         return YES;
     }
     case Attributes::PIROccupiedToUnoccupiedDelay::Id: {
@@ -7138,6 +7175,9 @@ BOOL MTRAttributeIsSpecified(ClusterId aClusterId, AttributeId aAttributeId)
     }
     case Clusters::ActivatedCarbonFilterMonitoring::Id: {
         return AttributeIsSpecifiedInActivatedCarbonFilterMonitoringCluster(aAttributeId);
+    }
+    case Clusters::WaterTankLevelMonitoring::Id: {
+        return AttributeIsSpecifiedInWaterTankLevelMonitoringCluster(aAttributeId);
     }
     case Clusters::BooleanStateConfiguration::Id: {
         return AttributeIsSpecifiedInBooleanStateConfigurationCluster(aAttributeId);

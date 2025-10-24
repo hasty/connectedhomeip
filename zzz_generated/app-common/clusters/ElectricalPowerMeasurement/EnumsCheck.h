@@ -25,6 +25,33 @@
 namespace chip {
 namespace app {
 namespace Clusters {
+static auto __attribute__((unused)) EnsureKnownEnumValue(ElectricalPowerMeasurement::MeasurementTypeEnum val)
+{
+    using EnumType = ElectricalPowerMeasurement::MeasurementTypeEnum;
+    switch (val)
+    {
+    case EnumType::kUnspecified:
+    case EnumType::kVoltage:
+    case EnumType::kActiveCurrent:
+    case EnumType::kReactiveCurrent:
+    case EnumType::kApparentCurrent:
+    case EnumType::kActivePower:
+    case EnumType::kReactivePower:
+    case EnumType::kApparentPower:
+    case EnumType::kRMSVoltage:
+    case EnumType::kRMSCurrent:
+    case EnumType::kRMSPower:
+    case EnumType::kFrequency:
+    case EnumType::kPowerFactor:
+    case EnumType::kNeutralCurrent:
+    case EnumType::kElectricalEnergy:
+    case EnumType::kReactiveEnergy:
+    case EnumType::kApparentEnergy:
+        return val;
+    default:
+        return EnumType::kUnknownEnumValue;
+    }
+}
 static auto __attribute__((unused)) EnsureKnownEnumValue(ElectricalPowerMeasurement::PowerModeEnum val)
 {
     using EnumType = ElectricalPowerMeasurement::PowerModeEnum;

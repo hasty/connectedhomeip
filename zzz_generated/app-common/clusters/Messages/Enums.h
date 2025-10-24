@@ -67,7 +67,7 @@ enum class Feature : uint32_t
 };
 
 // Bitmap for MessageControlBitmap
-enum class MessageControlBitmap : uint8_t
+enum class MessageControlBitmap : uint16_t
 {
     kConfirmationRequired = 0x1,
     kResponseRequired     = 0x2,

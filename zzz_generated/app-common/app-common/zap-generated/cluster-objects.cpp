@@ -563,6 +563,10 @@
 #include <clusters/WaterHeaterMode/Commands.ipp>
 #include <clusters/WaterHeaterMode/Events.ipp>
 #include <clusters/WaterHeaterMode/Structs.ipp>
+#include <clusters/WaterTankLevelMonitoring/Attributes.ipp>
+#include <clusters/WaterTankLevelMonitoring/Commands.ipp>
+#include <clusters/WaterTankLevelMonitoring/Events.ipp>
+#include <clusters/WaterTankLevelMonitoring/Structs.ipp>
 #include <clusters/WebRTCTransportProvider/Attributes.ipp>
 #include <clusters/WebRTCTransportProvider/Commands.ipp>
 #include <clusters/WebRTCTransportProvider/Events.ipp>
@@ -630,6 +634,12 @@ bool CommandNeedsTimedInvoke(ClusterId aCluster, CommandId aCommand)
         case Clusters::DoorLock::Commands::LockDoor::Id:
         case Clusters::DoorLock::Commands::UnlockDoor::Id:
         case Clusters::DoorLock::Commands::UnlockWithTimeout::Id:
+        case Clusters::DoorLock::Commands::SetPINCode::Id:
+        case Clusters::DoorLock::Commands::ClearPINCode::Id:
+        case Clusters::DoorLock::Commands::ClearAllPINCodes::Id:
+        case Clusters::DoorLock::Commands::SetRFIDCode::Id:
+        case Clusters::DoorLock::Commands::ClearRFIDCode::Id:
+        case Clusters::DoorLock::Commands::ClearAllRFIDCodes::Id:
         case Clusters::DoorLock::Commands::SetUser::Id:
         case Clusters::DoorLock::Commands::ClearUser::Id:
         case Clusters::DoorLock::Commands::SetCredential::Id:
@@ -1080,6 +1090,13 @@ bool CommandIsFabricScoped(ClusterId aCluster, CommandId aCommand)
         }
     }
     case Clusters::ActivatedCarbonFilterMonitoring::Id: {
+        switch (aCommand)
+        {
+        default:
+            return false;
+        }
+    }
+    case Clusters::WaterTankLevelMonitoring::Id: {
         switch (aCommand)
         {
         default:

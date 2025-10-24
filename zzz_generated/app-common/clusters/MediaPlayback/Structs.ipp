@@ -34,6 +34,7 @@ CHIP_ERROR Type::Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const
 {
     DataModel::WrappedStructEncoder encoder{ aWriter, aTag };
     encoder.Encode(to_underlying(Fields::kLanguageCode), languageCode);
+    encoder.Encode(to_underlying(Fields::kCharacteristics), characteristics);
     encoder.Encode(to_underlying(Fields::kDisplayName), displayName);
     return encoder.Finalize();
 }
@@ -51,6 +52,10 @@ CHIP_ERROR DecodableType::Decode(TLV::TLVReader & reader)
         if (__context_tag == to_underlying(Fields::kLanguageCode))
         {
             err = DataModel::Decode(reader, languageCode);
+        }
+        else if (__context_tag == to_underlying(Fields::kCharacteristics))
+        {
+            err = DataModel::Decode(reader, characteristics);
         }
         else if (__context_tag == to_underlying(Fields::kDisplayName))
         {

@@ -27,11 +27,12 @@ import matter.tlv.TlvWriter
 class MessagesClusterMessageStruct(
   val messageID: ByteArray,
   val priority: UByte,
-  val messageControl: UByte,
+  val messageControl: UShort,
   val startTime: UInt?,
   val duration: ULong?,
   val messageText: String,
   val responses: Optional<List<MessagesClusterMessageResponseOptionStruct>>,
+  val fabricIndex: UByte,
 ) {
   override fun toString(): String = buildString {
     append("MessagesClusterMessageStruct {\n")
@@ -42,6 +43,7 @@ class MessagesClusterMessageStruct(
     append("\tduration : $duration\n")
     append("\tmessageText : $messageText\n")
     append("\tresponses : $responses\n")
+    append("\tfabricIndex : $fabricIndex\n")
     append("}\n")
   }
 
@@ -70,6 +72,7 @@ class MessagesClusterMessageStruct(
         }
         endArray()
       }
+      put(ContextSpecificTag(TAG_FABRIC_INDEX), fabricIndex)
       endStructure()
     }
   }
@@ -82,12 +85,13 @@ class MessagesClusterMessageStruct(
     private const val TAG_DURATION = 4
     private const val TAG_MESSAGE_TEXT = 5
     private const val TAG_RESPONSES = 6
+    private const val TAG_FABRIC_INDEX = 254
 
     fun fromTlv(tlvTag: Tag, tlvReader: TlvReader): MessagesClusterMessageStruct {
       tlvReader.enterStructure(tlvTag)
       val messageID = tlvReader.getByteArray(ContextSpecificTag(TAG_MESSAGE_ID))
       val priority = tlvReader.getUByte(ContextSpecificTag(TAG_PRIORITY))
-      val messageControl = tlvReader.getUByte(ContextSpecificTag(TAG_MESSAGE_CONTROL))
+      val messageControl = tlvReader.getUShort(ContextSpecificTag(TAG_MESSAGE_CONTROL))
       val startTime =
         if (!tlvReader.isNull()) {
           tlvReader.getUInt(ContextSpecificTag(TAG_START_TIME))
@@ -117,6 +121,7 @@ class MessagesClusterMessageStruct(
         } else {
           Optional.empty()
         }
+      val fabricIndex = tlvReader.getUByte(ContextSpecificTag(TAG_FABRIC_INDEX))
 
       tlvReader.exitContainer()
 
@@ -128,6 +133,7 @@ class MessagesClusterMessageStruct(
         duration,
         messageText,
         responses,
+        fabricIndex,
       )
     }
   }

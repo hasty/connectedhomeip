@@ -48,7 +48,8 @@ static constexpr PriorityLevel kPriorityLevel = PriorityLevel::Info;
 
 enum class Fields : uint8_t
 {
-    kMessageID = 0,
+    kMessageID   = 0,
+    kFabricIndex = 254,
 };
 
 struct Type
@@ -57,9 +58,12 @@ public:
     static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
     static constexpr EventId GetEventId() { return Events::MessageQueued::Id; }
     static constexpr ClusterId GetClusterId() { return Clusters::Messages::Id; }
-    static constexpr bool kIsFabricScoped = false;
+    static constexpr bool kIsFabricScoped = true;
 
     chip::ByteSpan messageID;
+    chip::FabricIndex fabricIndex = static_cast<chip::FabricIndex>(0);
+
+    auto GetFabricIndex() const { return fabricIndex; }
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 };
@@ -72,6 +76,7 @@ public:
     static constexpr ClusterId GetClusterId() { return Clusters::Messages::Id; }
 
     chip::ByteSpan messageID;
+    chip::FabricIndex fabricIndex = static_cast<chip::FabricIndex>(0);
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };
@@ -81,7 +86,8 @@ static constexpr PriorityLevel kPriorityLevel = PriorityLevel::Info;
 
 enum class Fields : uint8_t
 {
-    kMessageID = 0,
+    kMessageID   = 0,
+    kFabricIndex = 254,
 };
 
 struct Type
@@ -90,9 +96,12 @@ public:
     static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
     static constexpr EventId GetEventId() { return Events::MessagePresented::Id; }
     static constexpr ClusterId GetClusterId() { return Clusters::Messages::Id; }
-    static constexpr bool kIsFabricScoped = false;
+    static constexpr bool kIsFabricScoped = true;
 
     chip::ByteSpan messageID;
+    chip::FabricIndex fabricIndex = static_cast<chip::FabricIndex>(0);
+
+    auto GetFabricIndex() const { return fabricIndex; }
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 };
@@ -105,6 +114,7 @@ public:
     static constexpr ClusterId GetClusterId() { return Clusters::Messages::Id; }
 
     chip::ByteSpan messageID;
+    chip::FabricIndex fabricIndex = static_cast<chip::FabricIndex>(0);
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };
@@ -118,6 +128,7 @@ enum class Fields : uint8_t
     kResponseID               = 1,
     kReply                    = 2,
     kFutureMessagesPreference = 3,
+    kFabricIndex              = 254,
 };
 
 struct Type
@@ -126,12 +137,15 @@ public:
     static constexpr PriorityLevel GetPriorityLevel() { return kPriorityLevel; }
     static constexpr EventId GetEventId() { return Events::MessageComplete::Id; }
     static constexpr ClusterId GetClusterId() { return Clusters::Messages::Id; }
-    static constexpr bool kIsFabricScoped = false;
+    static constexpr bool kIsFabricScoped = true;
 
     chip::ByteSpan messageID;
     Optional<DataModel::Nullable<uint32_t>> responseID;
     Optional<DataModel::Nullable<chip::CharSpan>> reply;
     DataModel::Nullable<FutureMessagePreferenceEnum> futureMessagesPreference;
+    chip::FabricIndex fabricIndex = static_cast<chip::FabricIndex>(0);
+
+    auto GetFabricIndex() const { return fabricIndex; }
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 };
@@ -147,6 +161,7 @@ public:
     Optional<DataModel::Nullable<uint32_t>> responseID;
     Optional<DataModel::Nullable<chip::CharSpan>> reply;
     DataModel::Nullable<FutureMessagePreferenceEnum> futureMessagesPreference;
+    chip::FabricIndex fabricIndex = static_cast<chip::FabricIndex>(0);
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };

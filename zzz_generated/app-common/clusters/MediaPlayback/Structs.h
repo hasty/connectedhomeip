@@ -40,24 +40,34 @@ namespace Structs {
 namespace TrackAttributesStruct {
 enum class Fields : uint8_t
 {
-    kLanguageCode = 0,
-    kDisplayName  = 1,
+    kLanguageCode    = 0,
+    kCharacteristics = 1,
+    kDisplayName     = 2,
 };
 
 struct Type
 {
 public:
     chip::CharSpan languageCode;
+    Optional<DataModel::Nullable<DataModel::List<const CharacteristicEnum>>> characteristics;
     Optional<DataModel::Nullable<chip::CharSpan>> displayName;
-
-    CHIP_ERROR Decode(TLV::TLVReader & reader);
 
     static constexpr bool kIsFabricScoped = false;
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 };
 
-using DecodableType = Type;
+struct DecodableType
+{
+public:
+    chip::CharSpan languageCode;
+    Optional<DataModel::Nullable<DataModel::DecodableList<CharacteristicEnum>>> characteristics;
+    Optional<DataModel::Nullable<chip::CharSpan>> displayName;
+
+    CHIP_ERROR Decode(TLV::TLVReader & reader);
+
+    static constexpr bool kIsFabricScoped = false;
+};
 
 } // namespace TrackAttributesStruct
 namespace TrackStruct {
@@ -71,16 +81,23 @@ struct Type
 {
 public:
     chip::CharSpan id;
-    DataModel::Nullable<Structs::TrackAttributesStruct::Type> trackAttributes;
-
-    CHIP_ERROR Decode(TLV::TLVReader & reader);
+    Structs::TrackAttributesStruct::Type trackAttributes;
 
     static constexpr bool kIsFabricScoped = false;
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 };
 
-using DecodableType = Type;
+struct DecodableType
+{
+public:
+    chip::CharSpan id;
+    Structs::TrackAttributesStruct::DecodableType trackAttributes;
+
+    CHIP_ERROR Decode(TLV::TLVReader & reader);
+
+    static constexpr bool kIsFabricScoped = false;
+};
 
 } // namespace TrackStruct
 namespace PlaybackPositionStruct {

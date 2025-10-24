@@ -330,7 +330,7 @@ class JointFabricDatastoreCluster(
     groupKeySetID: UShort?,
     groupCAT: UShort?,
     groupCATVersion: UShort?,
-    groupPermission: UByte,
+    groupPermission: UByte?,
     timedInvokeTimeout: Duration? = null,
   ) {
     val commandId: UInt = 4u
@@ -358,7 +358,9 @@ class JointFabricDatastoreCluster(
     }
 
     val TAG_GROUP_PERMISSION_REQ: Int = 5
-    tlvWriter.put(ContextSpecificTag(TAG_GROUP_PERMISSION_REQ), groupPermission)
+    groupPermission?.let {
+      tlvWriter.put(ContextSpecificTag(TAG_GROUP_PERMISSION_REQ), groupPermission)
+    }
     tlvWriter.endStructure()
 
     val request: InvokeRequest =

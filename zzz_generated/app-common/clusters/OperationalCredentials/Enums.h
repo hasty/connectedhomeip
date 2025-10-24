@@ -43,21 +43,23 @@ enum class CertificateChainTypeEnum : uint8_t
 // Enum for NodeOperationalCertStatusEnum
 enum class NodeOperationalCertStatusEnum : uint8_t
 {
-    kOk                  = 0x00,
-    kInvalidPublicKey    = 0x01,
-    kInvalidNodeOpId     = 0x02,
-    kInvalidNOC          = 0x03,
-    kMissingCsr          = 0x04,
-    kTableFull           = 0x05,
-    kInvalidAdminSubject = 0x06,
-    kFabricConflict      = 0x09,
-    kLabelConflict       = 0x0A,
-    kInvalidFabricIndex  = 0x0B,
+    kOk                   = 0x00,
+    kInvalidPublicKey     = 0x01,
+    kInvalidNodeOpId      = 0x02,
+    kInvalidNOC           = 0x03,
+    kMissingCsr           = 0x04,
+    kTableFull            = 0x05,
+    kInvalidAdminSubject  = 0x06,
+    kReservedForFutureUse = 0x07,
+    kReservedForFutureUse = 0x08,
+    kFabricConflict       = 0x09,
+    kLabelConflict        = 0x0A,
+    kInvalidFabricIndex   = 0x0B,
     // All received enum values that are not listed above will be mapped
     // to kUnknownEnumValue. This is a helper enum value that should only
     // be used by code to process how it handles receiving and unknown
     // enum value. This specific should never be transmitted.
-    kUnknownEnumValue = 7,
+    kUnknownEnumValue = 12,
 };
 } // namespace OperationalCredentials
 } // namespace Clusters

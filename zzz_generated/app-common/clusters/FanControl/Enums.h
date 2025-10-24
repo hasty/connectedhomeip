@@ -73,8 +73,8 @@ enum class FanModeSequenceEnum : uint8_t
     kUnknownEnumValue = 6,
 };
 
-// Enum for StepDirectionEnum
-enum class StepDirectionEnum : uint8_t
+// Enum for StepDirection2Enum
+enum class StepDirection2Enum : uint8_t
 {
     kIncrease = 0x00,
     kDecrease = 0x01,

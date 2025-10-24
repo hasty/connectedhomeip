@@ -287,9 +287,9 @@ struct TypeInfo
 namespace LEDSettings {
 struct TypeInfo
 {
-    using Type             = uint8_t;
-    using DecodableType    = uint8_t;
-    using DecodableArgType = uint8_t;
+    using Type             = chip::app::Clusters::DoorLock::LEDSettingEnum;
+    using DecodableType    = chip::app::Clusters::DoorLock::LEDSettingEnum;
+    using DecodableArgType = chip::app::Clusters::DoorLock::LEDSettingEnum;
 
     static constexpr ClusterId GetClusterId() { return Clusters::DoorLock::Id; }
     static constexpr AttributeId GetAttributeId() { return Attributes::LEDSettings::Id; }
@@ -311,9 +311,9 @@ struct TypeInfo
 namespace SoundVolume {
 struct TypeInfo
 {
-    using Type             = uint8_t;
-    using DecodableType    = uint8_t;
-    using DecodableArgType = uint8_t;
+    using Type             = chip::app::Clusters::DoorLock::SoundVolumeEnum;
+    using DecodableType    = chip::app::Clusters::DoorLock::SoundVolumeEnum;
+    using DecodableArgType = chip::app::Clusters::DoorLock::SoundVolumeEnum;
 
     static constexpr ClusterId GetClusterId() { return Clusters::DoorLock::Id; }
     static constexpr AttributeId GetAttributeId() { return Attributes::SoundVolume::Id; }
@@ -652,9 +652,11 @@ struct TypeInfo
         Attributes::NumberOfCredentialsSupportedPerUser::TypeInfo::DecodableType numberOfCredentialsSupportedPerUser =
             static_cast<uint8_t>(0);
         Attributes::Language::TypeInfo::DecodableType language;
-        Attributes::LEDSettings::TypeInfo::DecodableType LEDSettings       = static_cast<uint8_t>(0);
+        Attributes::LEDSettings::TypeInfo::DecodableType LEDSettings =
+            static_cast<chip::app::Clusters::DoorLock::LEDSettingEnum>(0);
         Attributes::AutoRelockTime::TypeInfo::DecodableType autoRelockTime = static_cast<uint32_t>(0);
-        Attributes::SoundVolume::TypeInfo::DecodableType soundVolume       = static_cast<uint8_t>(0);
+        Attributes::SoundVolume::TypeInfo::DecodableType soundVolume =
+            static_cast<chip::app::Clusters::DoorLock::SoundVolumeEnum>(0);
         Attributes::OperatingMode::TypeInfo::DecodableType operatingMode =
             static_cast<chip::app::Clusters::DoorLock::OperatingModeEnum>(0);
         Attributes::SupportedOperatingModes::TypeInfo::DecodableType supportedOperatingModes =

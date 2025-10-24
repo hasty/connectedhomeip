@@ -94,7 +94,7 @@ class MessagesCluster(private val controller: MatterController, private val endp
   suspend fun presentMessagesRequest(
     messageID: ByteArray,
     priority: UByte,
-    messageControl: UByte,
+    messageControl: UShort,
     startTime: UInt?,
     duration: ULong?,
     messageText: String,

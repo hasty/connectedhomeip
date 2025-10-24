@@ -68,14 +68,14 @@ public:
     static constexpr bool kIsFabricScoped = false;
 
     PlaybackStateEnum currentState = static_cast<PlaybackStateEnum>(0);
-    uint64_t startTime             = static_cast<uint64_t>(0);
-    uint64_t duration              = static_cast<uint64_t>(0);
-    Structs::PlaybackPositionStruct::Type sampledPosition;
-    float playbackSpeed     = static_cast<float>(0);
-    uint64_t seekRangeEnd   = static_cast<uint64_t>(0);
-    uint64_t seekRangeStart = static_cast<uint64_t>(0);
+    Optional<uint64_t> startTime;
+    Optional<uint64_t> duration;
+    Optional<Structs::PlaybackPositionStruct::Type> sampledPosition;
+    Optional<float> playbackSpeed;
+    Optional<uint64_t> seekRangeEnd;
+    Optional<uint64_t> seekRangeStart;
     Optional<chip::ByteSpan> data;
-    bool audioAdvanceUnmuted = static_cast<bool>(0);
+    Optional<bool> audioAdvanceUnmuted;
 
     CHIP_ERROR Encode(TLV::TLVWriter & aWriter, TLV::Tag aTag) const;
 };
@@ -88,14 +88,14 @@ public:
     static constexpr ClusterId GetClusterId() { return Clusters::MediaPlayback::Id; }
 
     PlaybackStateEnum currentState = static_cast<PlaybackStateEnum>(0);
-    uint64_t startTime             = static_cast<uint64_t>(0);
-    uint64_t duration              = static_cast<uint64_t>(0);
-    Structs::PlaybackPositionStruct::DecodableType sampledPosition;
-    float playbackSpeed     = static_cast<float>(0);
-    uint64_t seekRangeEnd   = static_cast<uint64_t>(0);
-    uint64_t seekRangeStart = static_cast<uint64_t>(0);
+    Optional<uint64_t> startTime;
+    Optional<uint64_t> duration;
+    Optional<Structs::PlaybackPositionStruct::DecodableType> sampledPosition;
+    Optional<float> playbackSpeed;
+    Optional<uint64_t> seekRangeEnd;
+    Optional<uint64_t> seekRangeStart;
     Optional<chip::ByteSpan> data;
-    bool audioAdvanceUnmuted = static_cast<bool>(0);
+    Optional<bool> audioAdvanceUnmuted;
 
     CHIP_ERROR Decode(TLV::TLVReader & reader);
 };

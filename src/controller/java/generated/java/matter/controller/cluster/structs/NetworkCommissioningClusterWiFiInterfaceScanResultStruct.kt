@@ -16,6 +16,7 @@
  */
 package matter.controller.cluster.structs
 
+import java.util.Optional
 import matter.controller.cluster.*
 import matter.tlv.ContextSpecificTag
 import matter.tlv.Tag
@@ -23,12 +24,12 @@ import matter.tlv.TlvReader
 import matter.tlv.TlvWriter
 
 class NetworkCommissioningClusterWiFiInterfaceScanResultStruct(
-  val security: UByte,
-  val ssid: ByteArray,
-  val bssid: ByteArray,
-  val channel: UShort,
-  val wiFiBand: UByte,
-  val rssi: Byte,
+  val security: Optional<UByte>,
+  val ssid: Optional<ByteArray>,
+  val bssid: Optional<ByteArray>,
+  val channel: Optional<UShort>,
+  val wiFiBand: Optional<UByte>,
+  val rssi: Optional<Byte>,
 ) {
   override fun toString(): String = buildString {
     append("NetworkCommissioningClusterWiFiInterfaceScanResultStruct {\n")
@@ -44,12 +45,30 @@ class NetworkCommissioningClusterWiFiInterfaceScanResultStruct(
   fun toTlv(tlvTag: Tag, tlvWriter: TlvWriter) {
     tlvWriter.apply {
       startStructure(tlvTag)
-      put(ContextSpecificTag(TAG_SECURITY), security)
-      put(ContextSpecificTag(TAG_SSID), ssid)
-      put(ContextSpecificTag(TAG_BSSID), bssid)
-      put(ContextSpecificTag(TAG_CHANNEL), channel)
-      put(ContextSpecificTag(TAG_WI_FI_BAND), wiFiBand)
-      put(ContextSpecificTag(TAG_RSSI), rssi)
+      if (security.isPresent) {
+        val optsecurity = security.get()
+        put(ContextSpecificTag(TAG_SECURITY), optsecurity)
+      }
+      if (ssid.isPresent) {
+        val optssid = ssid.get()
+        put(ContextSpecificTag(TAG_SSID), optssid)
+      }
+      if (bssid.isPresent) {
+        val optbssid = bssid.get()
+        put(ContextSpecificTag(TAG_BSSID), optbssid)
+      }
+      if (channel.isPresent) {
+        val optchannel = channel.get()
+        put(ContextSpecificTag(TAG_CHANNEL), optchannel)
+      }
+      if (wiFiBand.isPresent) {
+        val optwiFiBand = wiFiBand.get()
+        put(ContextSpecificTag(TAG_WI_FI_BAND), optwiFiBand)
+      }
+      if (rssi.isPresent) {
+        val optrssi = rssi.get()
+        put(ContextSpecificTag(TAG_RSSI), optrssi)
+      }
       endStructure()
     }
   }
@@ -67,12 +86,42 @@ class NetworkCommissioningClusterWiFiInterfaceScanResultStruct(
       tlvReader: TlvReader,
     ): NetworkCommissioningClusterWiFiInterfaceScanResultStruct {
       tlvReader.enterStructure(tlvTag)
-      val security = tlvReader.getUByte(ContextSpecificTag(TAG_SECURITY))
-      val ssid = tlvReader.getByteArray(ContextSpecificTag(TAG_SSID))
-      val bssid = tlvReader.getByteArray(ContextSpecificTag(TAG_BSSID))
-      val channel = tlvReader.getUShort(ContextSpecificTag(TAG_CHANNEL))
-      val wiFiBand = tlvReader.getUByte(ContextSpecificTag(TAG_WI_FI_BAND))
-      val rssi = tlvReader.getByte(ContextSpecificTag(TAG_RSSI))
+      val security =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_SECURITY))) {
+          Optional.of(tlvReader.getUByte(ContextSpecificTag(TAG_SECURITY)))
+        } else {
+          Optional.empty()
+        }
+      val ssid =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_SSID))) {
+          Optional.of(tlvReader.getByteArray(ContextSpecificTag(TAG_SSID)))
+        } else {
+          Optional.empty()
+        }
+      val bssid =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_BSSID))) {
+          Optional.of(tlvReader.getByteArray(ContextSpecificTag(TAG_BSSID)))
+        } else {
+          Optional.empty()
+        }
+      val channel =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_CHANNEL))) {
+          Optional.of(tlvReader.getUShort(ContextSpecificTag(TAG_CHANNEL)))
+        } else {
+          Optional.empty()
+        }
+      val wiFiBand =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_WI_FI_BAND))) {
+          Optional.of(tlvReader.getUByte(ContextSpecificTag(TAG_WI_FI_BAND)))
+        } else {
+          Optional.empty()
+        }
+      val rssi =
+        if (tlvReader.isNextTag(ContextSpecificTag(TAG_RSSI))) {
+          Optional.of(tlvReader.getByte(ContextSpecificTag(TAG_RSSI)))
+        } else {
+          Optional.empty()
+        }
 
       tlvReader.exitContainer()
 
