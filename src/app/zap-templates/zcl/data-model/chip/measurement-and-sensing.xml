@@ -17,8 +17,6 @@ limitations under the License.
 <configurator>
   <domain name="Measurement &amp; Sensing"/>
   <enum name="MeasurementTypeEnum" type="enum16">
-    <cluster code="0x0090"/>
-    <cluster code="0x0091"/>
     <cluster code="0x0B07"/>
     <item name="Unspecified" value="0x0000"/>
     <item name="Voltage" value="0x0001"/>
@@ -38,25 +36,4 @@ limitations under the License.
     <item name="ReactiveEnergy" value="0x000F"/>
     <item name="ApparentEnergy" value="0x0010"/>
   </enum>
-  <struct name="MeasurementAccuracyRangeStruct" apiMaturity="provisional">
-    <cluster code="0x0090"/>
-    <cluster code="0x0091"/>
-    <item fieldId="0" name="RangeMin" type="int64s" min="-4611686018427387904" max="4611686018427387904"/>
-    <item fieldId="1" name="RangeMax" type="int64s" min="-4611686018427387904" max="4611686018427387904"/>
-    <item fieldId="2" name="PercentMax" type="percent100ths" optional="true"/>
-    <item fieldId="3" name="PercentMin" type="percent100ths" optional="true"/>
-    <item fieldId="4" name="PercentTypical" type="percent100ths" optional="true"/>
-    <item fieldId="5" name="FixedMax" type="int64u" optional="true" max="4611686018427387903"/>
-    <item fieldId="6" name="FixedMin" type="int64u" optional="true" max="4611686018427387903"/>
-    <item fieldId="7" name="FixedTypical" type="int64u" optional="true" max="4611686018427387903"/>
-  </struct>
-  <struct name="MeasurementAccuracyStruct" apiMaturity="provisional">
-    <cluster code="0x0090"/>
-    <cluster code="0x0091"/>
-    <item fieldId="0" name="MeasurementType" type="MeasurementTypeEnum" min="0x0000" max="0x000E"/>
-    <item fieldId="1" name="Measured" type="boolean" default="0"/>
-    <item fieldId="2" name="MinMeasuredValue" type="int64s" min="-4611686018427387904" max="4611686018427387904"/>
-    <item fieldId="3" name="MaxMeasuredValue" type="int64s" min="-4611686018427387904" max="4611686018427387904"/>
-    <item fieldId="4" name="AccuracyRanges" array="true" type="MeasurementAccuracyRangeStruct" minLength="1"/>
-  </struct>
 </configurator>

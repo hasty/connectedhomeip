@@ -76,8 +76,6 @@
 @interface MCLevelControlClusterMoveToClosestFrequencyCommand : MCCommand <MCLevelControlClusterMoveToClosestFrequencyParams *, MCNullObjectType *>
 @end
 
-// WakeOnLan cluster:
-
 // TargetNavigator cluster:
 
 @interface MCTargetNavigatorClusterNavigateTargetCommand : MCCommand <MCTargetNavigatorClusterNavigateTargetParams *, MCTargetNavigatorClusterNavigateTargetResponseParams *>
