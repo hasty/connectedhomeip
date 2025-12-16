@@ -821,8 +821,6 @@
 }
 @end
 
-// WakeOnLan cluster:
-
 // TargetNavigator cluster:
 
 @implementation MCTargetNavigatorClusterNavigateTargetCommand

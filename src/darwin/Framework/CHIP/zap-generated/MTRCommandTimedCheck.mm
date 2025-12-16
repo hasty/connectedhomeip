@@ -23,6 +23,15 @@
 using namespace chip;
 using namespace chip::app;
 
+static BOOL CommandNeedsTimedInvokeInLabelCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::Label;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL CommandNeedsTimedInvokeInIdentifyCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::Identify;
@@ -536,6 +545,24 @@ static BOOL CommandNeedsTimedInvokeInScenesManagementCluster(AttributeId aAttrib
     }
     }
 }
+static BOOL CommandNeedsTimedInvokeInThermostatModeCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::ThermostatMode;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInTemperatureAlarmCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::TemperatureAlarm;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL CommandNeedsTimedInvokeInGroupcastCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::Groupcast;
@@ -620,6 +647,15 @@ static BOOL CommandNeedsTimedInvokeInWaterHeaterManagementCluster(AttributeId aA
 static BOOL CommandNeedsTimedInvokeInCommodityPriceCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::CommodityPrice;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInDemandResponseLoadControlCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::DemandResponseLoadControl;
     switch (aAttributeId) {
     default: {
         return NO;
@@ -722,6 +758,33 @@ static BOOL CommandNeedsTimedInvokeInDeviceEnergyManagementModeCluster(Attribute
 static BOOL CommandNeedsTimedInvokeInElectricalGridConditionsCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::ElectricalGridConditions;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInElectricalAlarmCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::ElectricalAlarm;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInElectricalDistributionCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::ElectricalDistribution;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInElectricalProtectionAlarmCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::ElectricalProtectionAlarm;
     switch (aAttributeId) {
     default: {
         return NO;
@@ -851,6 +914,15 @@ static BOOL CommandNeedsTimedInvokeInThermostatUserInterfaceConfigurationCluster
     }
     }
 }
+static BOOL CommandNeedsTimedInvokeInHumidistatCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::Humidistat;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL CommandNeedsTimedInvokeInColorControlCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::ColorControl;
@@ -863,6 +935,15 @@ static BOOL CommandNeedsTimedInvokeInColorControlCluster(AttributeId aAttributeI
 static BOOL CommandNeedsTimedInvokeInBallastConfigurationCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::BallastConfiguration;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInDynamicLightingCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::DynamicLighting;
     switch (aAttributeId) {
     default: {
         return NO;
@@ -1031,6 +1112,33 @@ static BOOL CommandNeedsTimedInvokeInAmbientContextSensingCluster(AttributeId aA
     }
     }
 }
+static BOOL CommandNeedsTimedInvokeInAmbientSensingUnionCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::AmbientSensingUnion;
+    switch (aAttributeId) {
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInNetworkIdentityManagementCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::NetworkIdentityManagement;
+    switch (aAttributeId) {
+    case Commands::AddClient::Id: {
+        return YES;
+    }
+    case Commands::RemoveClient::Id: {
+        return YES;
+    }
+    case Commands::EndorseNetworkIdentityUpdate::Id: {
+        return YES;
+    }
+    default: {
+        return NO;
+    }
+    }
+}
 static BOOL CommandNeedsTimedInvokeInWiFiNetworkManagementCluster(AttributeId aAttributeId)
 {
     using namespace Clusters::WiFiNetworkManagement;
@@ -1065,6 +1173,15 @@ static BOOL CommandNeedsTimedInvokeInThreadNetworkDirectoryCluster(AttributeId a
     case Commands::RemoveNetwork::Id: {
         return YES;
     }
+    default: {
+        return NO;
+    }
+    }
+}
+static BOOL CommandNeedsTimedInvokeInThreadBorderRouterDiagnosticsCluster(AttributeId aAttributeId)
+{
+    using namespace Clusters::ThreadBorderRouterDiagnostics;
+    switch (aAttributeId) {
     default: {
         return NO;
     }
@@ -1392,6 +1509,9 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     CommandId commandID = static_cast<CommandId>(aCommandID.unsignedLongLongValue);
 
     switch (clusterID) {
+    case Clusters::Label::Id: {
+        return CommandNeedsTimedInvokeInLabelCluster(commandID);
+    }
     case Clusters::Identify::Id: {
         return CommandNeedsTimedInvokeInIdentifyCluster(commandID);
     }
@@ -1560,6 +1680,12 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     case Clusters::ScenesManagement::Id: {
         return CommandNeedsTimedInvokeInScenesManagementCluster(commandID);
     }
+    case Clusters::ThermostatMode::Id: {
+        return CommandNeedsTimedInvokeInThermostatModeCluster(commandID);
+    }
+    case Clusters::TemperatureAlarm::Id: {
+        return CommandNeedsTimedInvokeInTemperatureAlarmCluster(commandID);
+    }
     case Clusters::Groupcast::Id: {
         return CommandNeedsTimedInvokeInGroupcastCluster(commandID);
     }
@@ -1590,6 +1716,9 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     case Clusters::CommodityPrice::Id: {
         return CommandNeedsTimedInvokeInCommodityPriceCluster(commandID);
     }
+    case Clusters::DemandResponseLoadControl::Id: {
+        return CommandNeedsTimedInvokeInDemandResponseLoadControlCluster(commandID);
+    }
     case Clusters::Messages::Id: {
         return CommandNeedsTimedInvokeInMessagesCluster(commandID);
     }
@@ -1616,6 +1745,15 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     }
     case Clusters::ElectricalGridConditions::Id: {
         return CommandNeedsTimedInvokeInElectricalGridConditionsCluster(commandID);
+    }
+    case Clusters::ElectricalAlarm::Id: {
+        return CommandNeedsTimedInvokeInElectricalAlarmCluster(commandID);
+    }
+    case Clusters::ElectricalDistribution::Id: {
+        return CommandNeedsTimedInvokeInElectricalDistributionCluster(commandID);
+    }
+    case Clusters::ElectricalProtectionAlarm::Id: {
+        return CommandNeedsTimedInvokeInElectricalProtectionAlarmCluster(commandID);
     }
     case Clusters::DoorLock::Id: {
         return CommandNeedsTimedInvokeInDoorLockCluster(commandID);
@@ -1644,11 +1782,17 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     case Clusters::ThermostatUserInterfaceConfiguration::Id: {
         return CommandNeedsTimedInvokeInThermostatUserInterfaceConfigurationCluster(commandID);
     }
+    case Clusters::Humidistat::Id: {
+        return CommandNeedsTimedInvokeInHumidistatCluster(commandID);
+    }
     case Clusters::ColorControl::Id: {
         return CommandNeedsTimedInvokeInColorControlCluster(commandID);
     }
     case Clusters::BallastConfiguration::Id: {
         return CommandNeedsTimedInvokeInBallastConfigurationCluster(commandID);
+    }
+    case Clusters::DynamicLighting::Id: {
+        return CommandNeedsTimedInvokeInDynamicLightingCluster(commandID);
     }
     case Clusters::IlluminanceMeasurement::Id: {
         return CommandNeedsTimedInvokeInIlluminanceMeasurementCluster(commandID);
@@ -1704,6 +1848,12 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     case Clusters::AmbientContextSensing::Id: {
         return CommandNeedsTimedInvokeInAmbientContextSensingCluster(commandID);
     }
+    case Clusters::AmbientSensingUnion::Id: {
+        return CommandNeedsTimedInvokeInAmbientSensingUnionCluster(commandID);
+    }
+    case Clusters::NetworkIdentityManagement::Id: {
+        return CommandNeedsTimedInvokeInNetworkIdentityManagementCluster(commandID);
+    }
     case Clusters::WiFiNetworkManagement::Id: {
         return CommandNeedsTimedInvokeInWiFiNetworkManagementCluster(commandID);
     }
@@ -1712,6 +1862,9 @@ BOOL MTRCommandNeedsTimedInvoke(NSNumber * _Nonnull aClusterID, NSNumber * _Nonn
     }
     case Clusters::ThreadNetworkDirectory::Id: {
         return CommandNeedsTimedInvokeInThreadNetworkDirectoryCluster(commandID);
+    }
+    case Clusters::ThreadBorderRouterDiagnostics::Id: {
+        return CommandNeedsTimedInvokeInThreadBorderRouterDiagnosticsCluster(commandID);
     }
     case Clusters::WakeOnLan::Id: {
         return CommandNeedsTimedInvokeInWakeOnLANCluster(commandID);

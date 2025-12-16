@@ -116,29 +116,6 @@
 @interface MCLevelControlClusterClusterRevisionAttribute : MCAttribute <NSNumber *>
 @end
 
-// WakeOnLan cluster attributes:
-
-@interface MCWakeOnLanClusterMACAddressAttribute : MCAttribute <NSString *>
-@end
-
-@interface MCWakeOnLanClusterLinkLocalAddressAttribute : MCAttribute <NSData *>
-@end
-
-@interface MCWakeOnLanClusterGeneratedCommandListAttribute : MCAttribute <NSArray *>
-@end
-
-@interface MCWakeOnLanClusterAcceptedCommandListAttribute : MCAttribute <NSArray *>
-@end
-
-@interface MCWakeOnLanClusterAttributeListAttribute : MCAttribute <NSArray *>
-@end
-
-@interface MCWakeOnLanClusterFeatureMapAttribute : MCAttribute <NSNumber *>
-@end
-
-@interface MCWakeOnLanClusterClusterRevisionAttribute : MCAttribute <NSNumber *>
-@end
-
 // TargetNavigator cluster attributes:
 
 @interface MCTargetNavigatorClusterTargetListAttribute : MCAttribute <NSArray *>

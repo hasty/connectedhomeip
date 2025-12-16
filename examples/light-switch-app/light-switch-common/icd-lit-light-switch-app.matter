@@ -1,6 +1,12 @@
 // This IDL was generated automatically by ZAP.
 // It is for view/code review purposes only.
 
+enum AlarmSeverityTag : enum8 {
+  kCritical = 0;
+  kMajor = 1;
+  kMinor = 2;
+}
+
 enum AreaTypeTag : enum8 {
   kAisle = 0;
   kAttic = 1;
@@ -54,7 +60,7 @@ enum AreaTypeTag : enum8 {
   kLibrary = 51;
   kLivingRoom = 52;
   kLounge = 53;
-  kMediaTVRoom = 54 [spec_name = "Media/TV Room"];
+  kMediaTvRoom = 54;
   kMudRoom = 55;
   kMusicRoom = 56;
   kNursery = 57;
@@ -101,6 +107,158 @@ enum AtomicRequestTypeEnum : enum8 {
   kBeginWrite = 0;
   kCommitWrite = 1;
   kRollbackWrite = 2;
+}
+
+enum ClosureCabinetTag : enum8 {
+  kCabinetDoor = 0;
+  kDrawer = 1;
+  kFlap = 2;
+}
+
+enum ClosureCoveringTag : enum8 {
+  kBlind = 0;
+  kAwning = 1;
+  kShutter = 2;
+  kVenetian = 3;
+  kCurtain = 4;
+}
+
+enum ClosurePanelTag : enum8 {
+  kLift = 0;
+  kTilt = 1;
+  kSliding = 2;
+  kRotate = 3;
+}
+
+enum ClosureTag : enum8 {
+  kOpening = 0;
+  kClosing = 1;
+  kStop = 2;
+}
+
+enum ClosureWindowTag : enum8 {
+  kRoof = 0;
+  kFacade = 1;
+}
+
+enum CommodityTariffChronologyTag : enum8 {
+  kCurrent = 0;
+  kPrevious = 1;
+  kUpcoming = 2;
+}
+
+enum CommodityTariffCommodityTag : enum8 {
+  kElectricalEnergy = 0;
+}
+
+enum CommodityTariffFlowTag : enum8 {
+  kImport = 0;
+  kExport = 1;
+}
+
+enum CompassDirectionTag : enum8 {
+  kNorthward = 0;
+  kNorthEastward = 1;
+  kEastward = 2;
+  kSouthEastward = 3;
+  kSouthward = 4;
+  kSouthWestward = 5;
+  kWestward = 6;
+  kNorthWestward = 7;
+}
+
+enum CompassLocationTag : enum8 {
+  kNorth = 0;
+  kNorthEast = 1;
+  kEast = 2;
+  kSouthEast = 3;
+  kSouth = 4;
+  kSouthWest = 5;
+  kWest = 6;
+  kNorthWest = 7;
+}
+
+enum DirectionTag : enum8 {
+  kUpward = 0;
+  kDownward = 1;
+  kLeftward = 2;
+  kRightward = 3;
+  kForward = 4;
+  kBackward = 5;
+}
+
+enum ElectricalDistributionFormFactorTag : enum8 {
+  kMiniature = 0;
+  kMoldedCase = 1;
+}
+
+enum ElectricalDistributionOverVoltageTag : enum8 {
+  kLineToNeutral = 0;
+  kLineToGround = 1;
+  kNeutralToGround = 2;
+  kLineToLine = 3;
+}
+
+enum ElectricalMeasurementTag : enum8 {
+  kDC = 0 [spec_name = "DC"];
+  kAC = 1 [spec_name = "AC"];
+  kACPhase1 = 2;
+  kACPhase2 = 3;
+  kACPhase3 = 4;
+}
+
+enum IdentifiedHumanActivityTag : enum8 {
+  kUnknown = 0;
+  kPresence = 1;
+  kFall = 2;
+  kSleeping = 3;
+  kWalking = 4;
+  kWorkout = 5;
+  kSitting = 6;
+  kStanding = 7;
+  kDancing = 8;
+  kPackageDelivery = 9;
+  kPackageRetrieval = 10;
+}
+
+enum IdentifiedObjectTag : enum8 {
+  kUnknown = 0;
+  kAdult = 1;
+  kChild = 2;
+  kPerson = 3;
+  kRVC = 4 [spec_name = "RVC"];
+  kPet = 5;
+  kDog = 6;
+  kCat = 7;
+  kAnimal = 8;
+  kCar = 9;
+  kVehicle = 10;
+  kPackage = 11;
+}
+
+enum IdentifiedSoundTag : enum8 {
+  kUnknown = 0;
+  kObjectFall = 1;
+  kSnoring = 2;
+  kCoughing = 3;
+  kBarking = 4;
+  kShattering = 5;
+  kBabyCrying = 6;
+  kUtilityAlarm = 7;
+  kUrgentShouting = 8;
+  kDoorbell = 9;
+  kKnocking = 10;
+  kUrgentSiren = 11;
+  kFaucetRunning = 12;
+  kKettleBoiling = 13;
+  kFanDryer = 14;
+  kClapping = 15;
+  kFingerSnapping = 16;
+  kMeowing = 17;
+  kLaughing = 18;
+  kGlassBreaking = 19;
+  kDoorKnocking = 20;
+  kPersonTalking = 21;
 }
 
 enum LandmarkTag : enum8 {
@@ -157,11 +315,25 @@ enum LandmarkTag : enum8 {
   kWineCooler = 50;
 }
 
+enum LaundryTag : enum8 {
+  kNormal = 0;
+  kLightDry = 1;
+  kExtraDry = 2;
+  kNoDry = 3;
+}
+
+enum LevelTag : enum8 {
+  kLow = 0;
+  kMedium = 1;
+  kHigh = 2;
+}
+
 enum LocationTag : enum8 {
   kIndoor = 0;
   kOutdoor = 1;
   kInside = 2;
   kOutside = 3;
+  kZone = 4;
 }
 
 enum MeasurementTypeEnum : enum16 {
@@ -185,6 +357,40 @@ enum MeasurementTypeEnum : enum16 {
   kSoilMoisture = 17;
 }
 
+enum NumberTag : enum8 {
+  kZero = 0;
+  kOne = 1;
+  kTwo = 2;
+  kThree = 3;
+  kFour = 4;
+  kFive = 5;
+  kSix = 6;
+  kSeven = 7;
+  kEight = 8;
+  kNine = 9;
+  kTen = 10;
+  kEleven = 11;
+  kTwelve = 12;
+  kThirteen = 13;
+  kFourteen = 14;
+  kFifteen = 15;
+  kSixteen = 16;
+  kSeventeen = 17;
+  kEighteen = 18;
+  kNineteen = 19;
+  kTwenty = 20;
+  kTwentyOne = 21;
+  kTwentyTwo = 22;
+  kTwentyThree = 23;
+  kTwentyFour = 24;
+  kTwentyFive = 25;
+  kTwentySix = 26;
+  kTwentySeven = 27;
+  kTwentyEight = 28;
+  kTwentyNine = 29;
+  kThirty = 30;
+}
+
 enum PositionTag : enum8 {
   kLeft = 0;
   kRight = 1;
@@ -195,10 +401,23 @@ enum PositionTag : enum8 {
   kColumn = 6;
 }
 
+enum PowerSourceTag : enum8 {
+  kUnknown = 0;
+  kGrid = 1;
+  kSolar = 2;
+  kBattery = 3;
+  kEV = 4 [spec_name = "EV"];
+}
+
 enum PowerThresholdSourceEnum : enum8 {
   kContract = 0;
   kRegulator = 1;
   kEquipment = 2;
+}
+
+enum RefrigeratorTag : enum8 {
+  kRefrigerator = 0;
+  kFreezer = 1;
 }
 
 enum RelativePositionTag : enum8 {
@@ -209,6 +428,21 @@ enum RelativePositionTag : enum8 {
   kAbove = 4;
   kFrontOf = 5;
   kBehind = 6;
+}
+
+enum RoomAirConditionerTag : enum8 {
+  kEvaporator = 0;
+  kCondenser = 1;
+}
+
+enum ServerAttributionContextInformation : enum8 {
+  kServerAutomationRule = 11;
+  kServerSchedule = 12;
+  kServerTimer = 13;
+  kSecurity = 14;
+  kDemandResponseEventOrSimilarServiceProviderSignalling = 15;
+  kPhysicalInteractionOnDevice = 16;
+  kInteractionViaAProtocolNotDefinedInThisSpecification = 17;
 }
 
 enum SoftwareVersionCertificationStatusEnum : enum8 {
@@ -223,6 +457,29 @@ enum StreamUsageEnum : enum8 {
   kRecording = 1;
   kAnalysis = 2;
   kLiveView = 3;
+}
+
+enum SuppliedAttributionContextInformation : enum8 {
+  kDefaultClientAction = 0;
+  kUserInteraction = 1;
+  kClientAutomationRule = 2;
+  kClientSchedule = 3;
+  kClientTimer = 4;
+}
+
+enum SwitchesTag : enum8 {
+  kOn = 0;
+  kOff = 1;
+  kToggle = 2;
+  kUp = 3;
+  kDown = 4;
+  kNext = 5;
+  kPrevious = 6;
+  kEnterOkSelect = 7;
+  kCustom = 8;
+  kOpen = 9;
+  kClose = 10;
+  kStop = 11;
 }
 
 enum TariffPriceTypeEnum : enum8 {
@@ -282,6 +539,17 @@ struct PriceStruct {
   CurrencyStruct currency = 1;
 }
 
+struct ModeTagStruct {
+  optional vendor_id mfgCode = 0;
+  enum16 value = 1;
+}
+
+struct ModeOptionStruct {
+  char_string<64> label = 0;
+  int8u mode = 1;
+  ModeTagStruct modeTags[] = 2;
+}
+
 struct MeasurementAccuracyRangeStruct {
   int64s rangeMin = 0;
   int64s rangeMax = 1;
@@ -304,6 +572,16 @@ struct MeasurementAccuracyStruct {
 struct AtomicAttributeStatusStruct {
   attrib_id attributeID = 0;
   status statusCode = 1;
+}
+
+struct AttributionData {
+  enum8 contextInformation = 0;
+  optional int32u sourceContext = 1;
+  optional node_id nodeID = 2;
+  optional group_id groupID = 3;
+  optional systime_ms systemTimeStamp = 4;
+  optional posix_ms epochTimeStamp = 5;
+  nullable fabric_idx fabricIndex = 6;
 }
 
 struct ICECandidateStruct {
@@ -336,6 +614,12 @@ struct SemanticTagStruct {
   enum8 namespaceID = 1;
   enum8 tag = 2;
   optional nullable char_string<64> label = 3;
+}
+
+fabric_scoped struct SuppliedAttributionData {
+  enum8 contextInformation = 0;
+  optional int32u sourceContext = 1;
+  fabric_idx fabricIndex = 254;
 }
 
 struct TestGlobalStruct {
@@ -593,11 +877,11 @@ cluster OnOff = 6 {
     int16u offWaitTime = 2;
   }
 
-  /** On receipt of this command, a device SHALL enter its ‘Off’ state. This state is device dependent, but it is recommended that it is used for power off or similar functions. On receipt of the Off command, the OnTime attribute SHALL be set to 0. */
+  /** This command allows devices to be turned off. */
   command Off(): DefaultSuccess = 0;
-  /** On receipt of this command, a device SHALL enter its ‘On’ state. This state is device dependent, but it is recommended that it is used for power on or similar functions. On receipt of the On command, if the value of the OnTime attribute is equal to 0, the device SHALL set the OffWaitTime attribute to 0. */
+  /** This command allows devices to be turned on. */
   command On(): DefaultSuccess = 1;
-  /** On receipt of this command, if a device is in its ‘Off’ state it SHALL enter its ‘On’ state. Otherwise, if it is in its ‘On’ state it SHALL enter its ‘Off’ state. On receipt of the Toggle command, if the value of the OnOff attribute is equal to FALSE and if the value of the OnTime attribute is equal to 0, the device SHALL set the OffWaitTime attribute to 0. If the value of the OnOff attribute is equal to TRUE, the OnTime attribute SHALL be set to 0. */
+  /** This command allows devices to be toggled. */
   command Toggle(): DefaultSuccess = 2;
   /** The OffWithEffect command allows devices to be turned off using enhanced ways of fading. */
   command OffWithEffect(OffWithEffectRequest): DefaultSuccess = 64;
@@ -759,7 +1043,7 @@ cluster AccessControl = 31 {
     fabric_idx fabricIndex = 254;
   }
 
-  fabric_sensitive info event access(read: administer) AuxiliaryAccessUpdated = 3 {
+  provisional fabric_sensitive info event access(read: administer) AuxiliaryAccessUpdated = 3 {
     nullable node_id adminNodeID = 0;
     fabric_idx fabricIndex = 254;
   }
@@ -771,7 +1055,7 @@ cluster AccessControl = 31 {
   readonly attribute int16u accessControlEntriesPerFabric = 4;
   readonly attribute optional CommissioningAccessRestrictionEntryStruct commissioningARL[] = 5;
   readonly attribute optional AccessRestrictionEntryStruct arl[] = 6;
-  readonly attribute access(read: administer) optional AccessControlEntryStruct auxiliaryACL[] = 7;
+  provisional readonly attribute access(read: administer) optional AccessControlEntryStruct auxiliaryACL[] = 7;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -881,7 +1165,8 @@ cluster BasicInformation = 40 {
   readonly attribute optional ProductAppearanceStruct productAppearance = 20;
   readonly attribute optional int32u specificationVersion = 21;
   readonly attribute optional int16u maxPathsPerInvoke = 22;
-  readonly attribute optional int32u configurationVersion = 24;
+  provisional attribute access(write: administer) optional nullable LocationDescriptorStruct deviceLocation = 23;
+  provisional readonly attribute optional int32u configurationVersion = 24;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -1085,11 +1370,11 @@ cluster GeneralCommissioning = 48 {
   readonly attribute RegulatoryLocationTypeEnum regulatoryConfig = 2;
   readonly attribute RegulatoryLocationTypeEnum locationCapability = 3;
   readonly attribute boolean supportsConcurrentConnection = 4;
-  provisional readonly attribute access(read: administer) optional int16u TCAcceptedVersion = 5;
-  provisional readonly attribute access(read: administer) optional int16u TCMinRequiredVersion = 6;
-  provisional readonly attribute access(read: administer) optional bitmap16 TCAcknowledgements = 7;
-  provisional readonly attribute access(read: administer) optional boolean TCAcknowledgementsRequired = 8;
-  provisional readonly attribute access(read: administer) optional nullable int32u TCUpdateDeadline = 9;
+  readonly attribute access(read: administer) optional int16u TCAcceptedVersion = 5;
+  readonly attribute access(read: administer) optional int16u TCMinRequiredVersion = 6;
+  readonly attribute access(read: administer) optional bitmap16 TCAcknowledgements = 7;
+  readonly attribute access(read: administer) optional boolean TCAcknowledgementsRequired = 8;
+  readonly attribute access(read: administer) optional nullable int32u TCUpdateDeadline = 9;
   provisional readonly attribute access(read: manage) optional octet_string<8> recoveryIdentifier = 10;
   provisional readonly attribute access(read: manage) optional nullable NetworkRecoveryReasonEnum networkRecoveryReason = 11;
   provisional readonly attribute optional boolean isCommissioningWithoutPower = 12;
@@ -1424,7 +1709,6 @@ cluster GeneralDiagnostics = 51 {
 
   bitmap Feature : bitmap32 {
     kDataModelTest = 0x1;
-    kDeviceLoad = 0x2;
   }
 
   struct DeviceLoadStruct {
@@ -1642,7 +1926,7 @@ cluster ThreadNetworkDiagnostics = 53 {
   readonly attribute nullable char_string<16> networkName = 2;
   readonly attribute nullable int16u panId = 3;
   readonly attribute nullable int64u extendedPanId = 4;
-  readonly attribute nullable octet_string<17> meshLocalPrefix = 5;
+  readonly attribute nullable octet_string<254> meshLocalPrefix = 5;
   readonly attribute optional int64u overrunCount = 6;
   readonly attribute NeighborTableStruct neighborTable[] = 7;
   readonly attribute RouteTableStruct routeTable[] = 8;
@@ -1708,7 +1992,7 @@ cluster ThreadNetworkDiagnostics = 53 {
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
 
-  /** Reception of this command SHALL reset the following attributes to 0: */
+  /** This command is used to reset the count attributes. */
   command access(invoke: manage) ResetCounts(): DefaultSuccess = 0;
 }
 
@@ -2097,6 +2381,8 @@ cluster OperationalCredentials = 62 {
     kMissingCsr = 4;
     kTableFull = 5;
     kInvalidAdminSubject = 6;
+    kReservedForFutureUse = 7;
+    kReservedForFutureUse = 8;
     kFabricConflict = 9;
     kLabelConflict = 10;
     kInvalidFabricIndex = 11;
@@ -2113,9 +2399,9 @@ cluster OperationalCredentials = 62 {
   }
 
   fabric_scoped struct NOCStruct {
-    octet_string<400> noc = 1;
-    nullable octet_string<400> icac = 2;
-    optional octet_string<400> vvsc = 3;
+    long_octet_string<400> noc = 1;
+    nullable long_octet_string<400> icac = 2;
+    optional long_octet_string<400> vvsc = 3;
     fabric_idx fabricIndex = 254;
   }
 
@@ -2136,7 +2422,7 @@ cluster OperationalCredentials = 62 {
   }
 
   response struct AttestationResponse = 1 {
-    octet_string attestationElements = 0;
+    long_octet_string<0x384> attestationElements = 0;
     octet_string<64> attestationSignature = 1;
   }
 
@@ -2145,7 +2431,7 @@ cluster OperationalCredentials = 62 {
   }
 
   response struct CertificateChainResponse = 3 {
-    octet_string<600> certificate = 0;
+    long_octet_string<600> certificate = 0;
   }
 
   request struct CSRRequestRequest {
@@ -2154,21 +2440,21 @@ cluster OperationalCredentials = 62 {
   }
 
   response struct CSRResponse = 5 {
-    octet_string NOCSRElements = 0;
+    long_octet_string<0x384> NOCSRElements = 0;
     octet_string<64> attestationSignature = 1;
   }
 
   request struct AddNOCRequest {
-    octet_string<400> NOCValue = 0;
-    optional octet_string<400> ICACValue = 1;
+    long_octet_string<400> NOCValue = 0;
+    optional long_octet_string<400> ICACValue = 1;
     octet_string<16> IPKValue = 2;
     int64u caseAdminSubject = 3;
     vendor_id adminVendorId = 4;
   }
 
   request struct UpdateNOCRequest {
-    octet_string<400> NOCValue = 0;
-    optional octet_string<400> ICACValue = 1;
+    long_octet_string<400> NOCValue = 0;
+    optional long_octet_string<400> ICACValue = 1;
   }
 
   response struct NOCResponse = 8 {
@@ -2186,13 +2472,13 @@ cluster OperationalCredentials = 62 {
   }
 
   request struct AddTrustedRootCertificateRequest {
-    octet_string<400> rootCACertificate = 0;
+    long_octet_string<400> rootCACertificate = 0;
   }
 
   request struct SetVIDVerificationStatementRequest {
     optional vendor_id vendorID = 0;
     optional octet_string<85> VIDVerificationStatement = 1;
-    optional octet_string<400> vvsc = 2;
+    optional long_octet_string<400> vvsc = 2;
   }
 
   request struct SignVIDVerificationRequestRequest {
@@ -2206,31 +2492,36 @@ cluster OperationalCredentials = 62 {
     octet_string signature = 2;
   }
 
-  /** Sender is requesting attestation information from the receiver. */
+  /** This command is used to perform an attestation request. */
   command access(invoke: administer) AttestationRequest(AttestationRequestRequest): AttestationResponse = 0;
-  /** Sender is requesting a device attestation certificate from the receiver. */
+  /** This command is used to request a certificate from the device attestation certificate chain. */
   command access(invoke: administer) CertificateChainRequest(CertificateChainRequestRequest): CertificateChainResponse = 2;
-  /** Sender is requesting a certificate signing request (CSR) from the receiver. */
+  /** This command is used to perform a CSR request. */
   command access(invoke: administer) CSRRequest(CSRRequestRequest): CSRResponse = 4;
-  /** Sender is requesting to add the new node operational certificates. */
+  /** This command is used to add a new NOC to the device. */
   command access(invoke: administer) AddNOC(AddNOCRequest): NOCResponse = 6;
-  /** This command SHALL replace the NOC and optional associated ICAC (if present) scoped under the accessing fabric upon successful validation of all arguments and preconditions. */
+  /** This command is used to update an existing NOC on the device. */
   fabric command access(invoke: administer) UpdateNOC(UpdateNOCRequest): NOCResponse = 7;
-  /** This command SHALL be used by an Administrative Node to set the user-visible Label field for a given Fabric, as reflected by entries in the Fabrics attribute. */
+  /** This command is used to set the user-visible fabric label for a given Fabric. */
   fabric command access(invoke: administer) UpdateFabricLabel(UpdateFabricLabelRequest): NOCResponse = 9;
-  /** This command is used by Administrative Nodes to remove a given fabric index and delete all associated fabric-scoped data. */
+  /** This command is used to remove a Fabric from the device. */
   command access(invoke: administer) RemoveFabric(RemoveFabricRequest): NOCResponse = 10;
-  /** This command SHALL add a Trusted Root CA Certificate, provided as its CHIP Certificate representation. */
+  /** This command is used to add a trusted root certificate to the device. */
   command access(invoke: administer) AddTrustedRootCertificate(AddTrustedRootCertificateRequest): DefaultSuccess = 11;
-  /** This command SHALL be used to update any of the accessing fabric's associated VendorID, VidVerificatioNStatement or VVSC (Vendor Verification Signing Certificate). */
+  /** This command is used to manage the VendorID and VIDVerificationStatement fields of the Fabrics attribute, and the VVSC field of an entry in the NOCs attribute. */
   fabric command access(invoke: administer) SetVIDVerificationStatement(SetVIDVerificationStatementRequest): DefaultSuccess = 12;
-  /** This command SHALL be used to request that the server authenticate the fabric associated with the FabricIndex given. */
+  /** This command is used to authenticate the fabric associated with the FabricIndex. */
   command access(invoke: administer) SignVIDVerificationRequest(SignVIDVerificationRequestRequest): SignVIDVerificationResponse = 13;
 }
 
 /** The Group Key Management Cluster is the mechanism by which group keys are managed. */
 cluster GroupKeyManagement = 63 {
   revision 2;
+
+  enum GroupKeyMulticastPolicyEnum : enum8 {
+    kPerGroupID = 0;
+    kAllNodes = 1;
+  }
 
   enum GroupKeySecurityPolicyEnum : enum8 {
     kTrustFirst = 0;
@@ -2254,7 +2545,7 @@ cluster GroupKeyManagement = 63 {
     fabric_idx fabricIndex = 254;
   }
 
-  struct GroupKeySetStruct {
+  fabric_scoped struct GroupKeySetStruct {
     int16u groupKeySetID = 0;
     GroupKeySecurityPolicyEnum groupKeySecurityPolicy = 1;
     nullable octet_string<16> epochKey0 = 2;
@@ -2263,6 +2554,8 @@ cluster GroupKeyManagement = 63 {
     nullable epoch_us epochStartTime1 = 5;
     nullable octet_string<16> epochKey2 = 6;
     nullable epoch_us epochStartTime2 = 7;
+    GroupKeyMulticastPolicyEnum groupKeyMulticastPolicy = 8;
+    fabric_idx fabricIndex = 254;
   }
 
   attribute access(write: manage) GroupKeyMapStruct groupKeyMap[] = 0;
@@ -2295,21 +2588,21 @@ cluster GroupKeyManagement = 63 {
     int16u groupKeySetIDs[] = 0;
   }
 
-  /** Write a new set of keys for the given key set id. */
+  /** This command is used by Administrators to set the state of a given Group Key Set, including atomically updating the state of all epoch keys. */
   fabric command access(invoke: administer) KeySetWrite(KeySetWriteRequest): DefaultSuccess = 0;
-  /** Read the keys for a given key set id. */
+  /** This command is used by Administrators to read the state of a given Group Key Set. */
   fabric command access(invoke: administer) KeySetRead(KeySetReadRequest): KeySetReadResponse = 1;
-  /** Revoke a Root Key from a Group */
+  /** This command is used by Administrators to remove all state of a given Group Key Set. */
   fabric command access(invoke: administer) KeySetRemove(KeySetRemoveRequest): DefaultSuccess = 3;
-  /** Return the list of Group Key Sets associated with the accessing fabric */
+  /** This command is used by Administrators to query a list of all Group Key Sets associated with the accessing fabric. */
   fabric command access(invoke: administer) KeySetReadAllIndices(): KeySetReadAllIndicesResponse = 4;
 }
 
 /** The User Label Cluster provides a feature to tag an endpoint with zero or more labels. */
 cluster UserLabel = 65 {
-  revision 1; // NOTE: Default/not specifically set
+  revision 1;
 
-  shared struct LabelStruct {
+  struct LabelStruct {
     char_string<16> label = 0;
     char_string<16> value = 1;
   }
@@ -2420,7 +2713,7 @@ cluster IcdManagement = 70 {
 }
 
 /** Attributes and commands for scene configuration and manipulation. */
-provisional cluster ScenesManagement = 98 {
+cluster ScenesManagement = 98 {
   revision 1;
 
   bitmap CopyModeBitmap : bitmap8 {
@@ -2555,17 +2848,17 @@ provisional cluster ScenesManagement = 98 {
     int8u sceneIdentifierFrom = 2;
   }
 
-  /** Add a scene to the scene table. Extension field sets are input as '{"ClusterID": VALUE, "AttributeValueList":[{"AttributeID": VALUE, "Value*": VALUE}]}'. */
+  /** This command is used to add a new scene. */
   fabric command access(invoke: manage) AddScene(AddSceneRequest): AddSceneResponse = 0;
-  /** Retrieves the requested scene entry from its Scene table. */
+  /** This command returns the details for the requested scene. */
   fabric command ViewScene(ViewSceneRequest): ViewSceneResponse = 1;
-  /** Removes the requested scene entry, corresponding to the value of the GroupID field, from its Scene Table */
+  /** This command removes the specified scene. */
   fabric command access(invoke: manage) RemoveScene(RemoveSceneRequest): RemoveSceneResponse = 2;
-  /** Remove all scenes, corresponding to the value of the GroupID field, from its Scene Table */
+  /** This command removes all scenes for the specified GroupID. */
   fabric command access(invoke: manage) RemoveAllScenes(RemoveAllScenesRequest): RemoveAllScenesResponse = 3;
-  /** Adds the scene entry into its Scene Table along with all extension field sets corresponding to the current state of other clusters on the same endpoint */
+  /** This command will create a new entry for the requested scene. */
   fabric command access(invoke: manage) StoreScene(StoreSceneRequest): StoreSceneResponse = 4;
-  /** Set the attributes and corresponding state for each other cluster implemented on the endpoint accordingly to the resquested scene entry in the Scene Table */
+  /** This command will cause the specified scene to be recalled. */
   fabric command RecallScene(RecallSceneRequest): DefaultSuccess = 5;
   /** This command can be used to get the used scene identifiers within a certain group, for the endpoint that implements this cluster. */
   fabric command GetSceneMembership(GetSceneMembershipRequest): GetSceneMembershipResponse = 6;
@@ -2575,7 +2868,7 @@ provisional cluster ScenesManagement = 98 {
 
 /** Attributes and commands for controlling the color properties of a color-capable light. */
 cluster ColorControl = 768 {
-  revision 7;
+  revision 9;
 
   enum ColorLoopActionEnum : enum8 {
     kDeactivate = 0;
@@ -2636,7 +2929,7 @@ cluster ColorControl = 768 {
   }
 
   bitmap Feature : bitmap32 {
-    kHueAndSaturation = 0x1;
+    kHueSaturation = 0x1;
     kEnhancedHue = 0x2;
     kColorLoop = 0x4;
     kXY = 0x8 [spec_name = "XY"];
@@ -2697,7 +2990,7 @@ cluster ColorControl = 768 {
   readonly attribute optional int16u enhancedCurrentHue = 16384;
   readonly attribute EnhancedColorModeEnum enhancedColorMode = 16385;
   readonly attribute optional int8u colorLoopActive = 16386;
-  readonly attribute optional int8u colorLoopDirection = 16387;
+  readonly attribute optional ColorLoopDirectionEnum colorLoopDirection = 16387;
   readonly attribute optional int16u colorLoopTime = 16388;
   readonly attribute optional int16u colorLoopStartEnhancedHue = 16389;
   readonly attribute optional int16u colorLoopStoredEnhancedHue = 16390;
@@ -2860,43 +3153,43 @@ cluster ColorControl = 768 {
     OptionsBitmap optionsOverride = 6;
   }
 
-  /** Move to specified hue. */
+  /** This command will move the device to the requested hue value using a transition. */
   command MoveToHue(MoveToHueRequest): DefaultSuccess = 0;
-  /** Move hue up or down at specified rate. */
+  /** This command will move the device to the requested hue value using a step rate. */
   command MoveHue(MoveHueRequest): DefaultSuccess = 1;
-  /** Step hue up or down by specified size at specified rate. */
+  /** This command will change the device to the requested hue value using a step and transition. */
   command StepHue(StepHueRequest): DefaultSuccess = 2;
-  /** Move to specified saturation. */
+  /** This command will move the device to the requested saturation value using a transition. */
   command MoveToSaturation(MoveToSaturationRequest): DefaultSuccess = 3;
-  /** Move saturation up or down at specified rate. */
+  /** This command will move the device to the requested saturation value using a rate. */
   command MoveSaturation(MoveSaturationRequest): DefaultSuccess = 4;
-  /** Step saturation up or down by specified size at specified rate. */
+  /** This command will change the device to the requested saturation value using a step transition. */
   command StepSaturation(StepSaturationRequest): DefaultSuccess = 5;
-  /** Move to hue and saturation. */
+  /** This command will move the device to the requested hue and saturation value using a transition. */
   command MoveToHueAndSaturation(MoveToHueAndSaturationRequest): DefaultSuccess = 6;
-  /** Move to specified color. */
+  /** This command will move the device to the requested color value using a transition. */
   command MoveToColor(MoveToColorRequest): DefaultSuccess = 7;
-  /** Moves the color. */
+  /** This command will move the device to the requested color using a step rate. */
   command MoveColor(MoveColorRequest): DefaultSuccess = 8;
-  /** Steps the lighting to a specific color. */
+  /** This command will move the device to the requested color using a step transition. */
   command StepColor(StepColorRequest): DefaultSuccess = 9;
-  /** Move to a specific color temperature. */
+  /** This command will move the device to the requested color temperate using a transition. */
   command MoveToColorTemperature(MoveToColorTemperatureRequest): DefaultSuccess = 10;
-  /** Command description for EnhancedMoveToHue */
+  /** This command allows the light to be moved in a smooth continuous transition from their current hue to a target hue. */
   command EnhancedMoveToHue(EnhancedMoveToHueRequest): DefaultSuccess = 64;
-  /** Command description for EnhancedMoveHue */
+  /** This command allows the light to start a continuous transition starting from their current hue. */
   command EnhancedMoveHue(EnhancedMoveHueRequest): DefaultSuccess = 65;
-  /** Command description for EnhancedStepHue */
+  /** This command allows the light to be moved in a stepped transition from their current hue, resulting in a linear transition through XY space. */
   command EnhancedStepHue(EnhancedStepHueRequest): DefaultSuccess = 66;
-  /** Command description for EnhancedMoveToHueAndSaturation */
+  /** This command allows the light to be moved in a smooth continuous transition from their current hue to a target hue and from their current saturation to a target saturation. */
   command EnhancedMoveToHueAndSaturation(EnhancedMoveToHueAndSaturationRequest): DefaultSuccess = 67;
-  /** Command description for ColorLoopSet */
+  /** This command allows a color loop to be activated such that the color light cycles through its range of hues. */
   command ColorLoopSet(ColorLoopSetRequest): DefaultSuccess = 68;
-  /** Command description for StopMoveStep */
+  /** This command is provided to allow MoveTo and Step commands to be stopped. */
   command StopMoveStep(StopMoveStepRequest): DefaultSuccess = 71;
-  /** Command description for MoveColorTemperature */
+  /** This command allows the color temperature of the light to be moved at a specified rate. */
   command MoveColorTemperature(MoveColorTemperatureRequest): DefaultSuccess = 75;
-  /** Command description for StepColorTemperature */
+  /** This command allows the color temperature of the light to be stepped with a specified step size. */
   command StepColorTemperature(StepColorTemperatureRequest): DefaultSuccess = 76;
 }
 
