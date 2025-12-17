@@ -1,5 +1,5 @@
-// This IDL was generated automatically by ZAP.
-// It is for view/code review purposes only.
+
+
 
 enum AlarmSeverityTag : enum8 {
   kCritical = 0;
@@ -646,7 +646,7 @@ fabric_scoped struct WebRTCSessionStruct {
   fabric_idx fabricIndex = 254;
 }
 
-/** Attributes and commands for putting a device into Identification mode (e.g. flashing a light). */
+
 cluster Identify = 3 {
   revision 6;
 
@@ -689,13 +689,13 @@ cluster Identify = 3 {
     EffectVariantEnum effectVariant = 1;
   }
 
-  /** This command starts or stops the receiving device identifying itself. */
+  
   command access(invoke: manage) Identify(IdentifyRequest): DefaultSuccess = 0;
-  /** This command allows the support of feedback to the user, such as a certain light effect. */
+  
   command access(invoke: manage) TriggerEffect(TriggerEffectRequest): DefaultSuccess = 64;
 }
 
-/** Attributes and commands for group configuration and manipulation. */
+
 cluster Groups = 4 {
   revision 4;
 
@@ -757,21 +757,21 @@ cluster Groups = 4 {
     char_string<16> groupName = 1;
   }
 
-  /** The AddGroup command allows a client to add group membership in a particular group for the server endpoint. */
+  
   fabric command access(invoke: manage) AddGroup(AddGroupRequest): AddGroupResponse = 0;
-  /** The ViewGroup command allows a client to request that the server responds with a ViewGroupResponse command containing the name string for a particular group. */
+  
   fabric command ViewGroup(ViewGroupRequest): ViewGroupResponse = 1;
-  /** The GetGroupMembership command allows a client to inquire about the group membership of the server endpoint, in a number of ways. */
+  
   fabric command GetGroupMembership(GetGroupMembershipRequest): GetGroupMembershipResponse = 2;
-  /** The RemoveGroup command allows a client to request that the server removes the membership for the server endpoint, if any, in a particular group. */
+  
   fabric command access(invoke: manage) RemoveGroup(RemoveGroupRequest): RemoveGroupResponse = 3;
-  /** The RemoveAllGroups command allows a client to direct the server to remove all group associations for the server endpoint. */
+  
   fabric command access(invoke: manage) RemoveAllGroups(): DefaultSuccess = 4;
-  /** The AddGroupIfIdentifying command allows a client to add group membership in a particular group for the server endpoint, on condition that the endpoint is identifying itself. */
+  
   fabric command access(invoke: manage) AddGroupIfIdentifying(AddGroupIfIdentifyingRequest): DefaultSuccess = 5;
 }
 
-/** Attributes and commands for switching devices between 'On' and 'Off' states. */
+
 cluster OnOff = 6 {
   revision 6;
 
@@ -828,21 +828,21 @@ cluster OnOff = 6 {
     int16u offWaitTime = 2;
   }
 
-  /** This command allows devices to be turned off. */
+  
   command Off(): DefaultSuccess = 0;
-  /** This command allows devices to be turned on. */
+  
   command On(): DefaultSuccess = 1;
-  /** This command allows devices to be toggled. */
+  
   command Toggle(): DefaultSuccess = 2;
-  /** The OffWithEffect command allows devices to be turned off using enhanced ways of fading. */
+  
   command OffWithEffect(OffWithEffectRequest): DefaultSuccess = 64;
-  /** This command allows the recall of the settings when the device was turned off. */
+  
   command OnWithRecallGlobalScene(): DefaultSuccess = 65;
-  /** This command allows devices to be turned on for a specific duration with a guarded off duration so that SHOULD the device be subsequently turned off, further OnWithTimedOff commands, received during this time, are prevented from turning the devices back on. */
+  
   command OnWithTimedOff(OnWithTimedOffRequest): DefaultSuccess = 66;
 }
 
-/** Attributes and commands for controlling devices that can be set to a level between fully 'On' and fully 'Off.' */
+
 cluster LevelControl = 8 {
   revision 7;
 
@@ -945,27 +945,27 @@ cluster LevelControl = 8 {
     int16u frequency = 0;
   }
 
-  /** This command will move the device to the specified level. */
+  
   command MoveToLevel(MoveToLevelRequest): DefaultSuccess = 0;
-  /** This command will move the device using the specified values. */
+  
   command Move(MoveRequest): DefaultSuccess = 1;
-  /** This command will do a relative step change of the device using the specified values. */
+  
   command Step(StepRequest): DefaultSuccess = 2;
-  /** This command will stop the actions of various other commands that are still in progress. */
+  
   command Stop(StopRequest): DefaultSuccess = 3;
-  /** Command description for MoveToLevelWithOnOff */
+  
   command MoveToLevelWithOnOff(MoveToLevelWithOnOffRequest): DefaultSuccess = 4;
-  /** Command description for MoveWithOnOff */
+  
   command MoveWithOnOff(MoveWithOnOffRequest): DefaultSuccess = 5;
-  /** Command description for StepWithOnOff */
+  
   command StepWithOnOff(StepWithOnOffRequest): DefaultSuccess = 6;
-  /** Command description for StopWithOnOff */
+  
   command StopWithOnOff(StopWithOnOffRequest): DefaultSuccess = 7;
-  /** This command will cause the device to change the current frequency to the requested value. */
+  
   command MoveToClosestFrequency(MoveToClosestFrequencyRequest): DefaultSuccess = 8;
 }
 
-/** The Descriptor Cluster is meant to replace the support from the Zigbee Device Object (ZDO) for describing a node, its endpoints and clusters. */
+
 cluster Descriptor = 29 {
   revision 3;
 
@@ -991,7 +991,7 @@ cluster Descriptor = 29 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** The Binding Cluster is meant to replace the support from the Zigbee Device Object (ZDO) for supporting the binding table. */
+
 cluster Binding = 30 {
   revision 1;
 
@@ -1011,10 +1011,7 @@ cluster Binding = 30 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** The Access Control Cluster exposes a data model view of a
-      Node's Access Control List (ACL), which codifies the rules used to manage
-      and enforce Access Control for the Node's endpoints and their associated
-      cluster instances. */
+
 cluster AccessControl = 31 {
   revision 3;
 
@@ -1144,11 +1141,11 @@ cluster AccessControl = 31 {
     int64u token = 0;
   }
 
-  /** This command signals to the service associated with the device vendor that the fabric administrator would like a review of the current restrictions on the accessing fabric. */
+  
   fabric command access(invoke: administer) ReviewFabricRestrictions(ReviewFabricRestrictionsRequest): ReviewFabricRestrictionsResponse = 0;
 }
 
-/** This cluster provides a standardized way for a Node (typically a Bridge, but could be any Node) to expose action information. */
+
 cluster Actions = 37 {
   revision 1;
 
@@ -1298,35 +1295,33 @@ cluster Actions = 37 {
     int32u duration = 2;
   }
 
-  /** This command is used to trigger an instantaneous action. */
+  
   command InstantAction(InstantActionRequest): DefaultSuccess = 0;
-  /** This command is used to trigger an instantaneous action with a transition over a given time. */
+  
   command InstantActionWithTransition(InstantActionWithTransitionRequest): DefaultSuccess = 1;
-  /** This command is used to trigger the commencement of an action. */
+  
   command StartAction(StartActionRequest): DefaultSuccess = 2;
-  /** This command is used to trigger the commencement of an action with a duration. */
+  
   command StartActionWithDuration(StartActionWithDurationRequest): DefaultSuccess = 3;
-  /** This command is used to stop an action. */
+  
   command StopAction(StopActionRequest): DefaultSuccess = 4;
-  /** This command is used to pause an action. */
+  
   command PauseAction(PauseActionRequest): DefaultSuccess = 5;
-  /** This command is used to pause an action with a duration. */
+  
   command PauseActionWithDuration(PauseActionWithDurationRequest): DefaultSuccess = 6;
-  /** This command is used to resume an action. */
+  
   command ResumeAction(ResumeActionRequest): DefaultSuccess = 7;
-  /** This command is used to enable an action. */
+  
   command EnableAction(EnableActionRequest): DefaultSuccess = 8;
-  /** This command is used to enable an action with a duration. */
+  
   command EnableActionWithDuration(EnableActionWithDurationRequest): DefaultSuccess = 9;
-  /** This command is used to disable an action. */
+  
   command DisableAction(DisableActionRequest): DefaultSuccess = 10;
-  /** This command is used to disable an action with a duration. */
+  
   command DisableActionWithDuration(DisableActionWithDurationRequest): DefaultSuccess = 11;
 }
 
-/** This cluster provides attributes and events for determining basic information about Nodes, which supports both
-      Commissioning and operational determination of Node characteristics, such as Vendor ID, Product ID and serial number,
-      which apply to the whole Node. Also allows setting user device information such as location. */
+
 cluster BasicInformation = 40 {
   revision 6;
 
@@ -1426,10 +1421,9 @@ cluster BasicInformation = 40 {
   command MfgSpecificPing(): DefaultSuccess = 0;
 }
 
-/** Provides an interface for providing OTA software updates */
-cluster OtaSoftwareUpdateProvider = 41 {
-  revision 1; // NOTE: Default/not specifically set
 
+cluster OtaSoftwareUpdateProvider = 41 {
+  revision 1; 
   enum ApplyUpdateActionEnum : enum8 {
     kProceed = 0;
     kAwaitNextAction = 1;
@@ -1493,18 +1487,17 @@ cluster OtaSoftwareUpdateProvider = 41 {
     int32u softwareVersion = 1;
   }
 
-  /** Determine availability of a new Software Image */
+  
   command QueryImage(QueryImageRequest): QueryImageResponse = 0;
-  /** Determine next action to take for a downloaded Software Image */
+  
   command ApplyUpdateRequest(ApplyUpdateRequestRequest): ApplyUpdateResponse = 2;
-  /** Notify OTA Provider that an update was applied */
+  
   command NotifyUpdateApplied(NotifyUpdateAppliedRequest): DefaultSuccess = 4;
 }
 
-/** Provides an interface for downloading and applying OTA software updates */
-cluster OtaSoftwareUpdateRequestor = 42 {
-  revision 1; // NOTE: Default/not specifically set
 
+cluster OtaSoftwareUpdateRequestor = 42 {
+  revision 1; 
   enum AnnouncementReasonEnum : enum8 {
     kSimpleAnnouncement = 0;
     kUpdateAvailable = 1;
@@ -1574,14 +1567,11 @@ cluster OtaSoftwareUpdateRequestor = 42 {
     endpoint_no endpoint = 4;
   }
 
-  /** Announce the presence of an OTA Provider */
+  
   command access(invoke: administer) AnnounceOTAProvider(AnnounceOTAProviderRequest): DefaultSuccess = 0;
 }
 
-/** Nodes should be expected to be deployed to any and all regions of the world. These global regions
-      may have differing common languages, units of measurements, and numerical formatting
-      standards. As such, Nodes that visually or audibly convey information need a mechanism by which
-      they can be configured to use a user’s preferred language, units, etc */
+
 cluster LocalizationConfiguration = 43 {
   revision 1;
 
@@ -1594,10 +1584,7 @@ cluster LocalizationConfiguration = 43 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Nodes should be expected to be deployed to any and all regions of the world. These global regions
-      may have differing preferences for how dates and times are conveyed. As such, Nodes that visually
-      or audibly convey time information need a mechanism by which they can be configured to use a
-      user’s preferred format. */
+
 cluster TimeFormatLocalization = 44 {
   revision 1;
 
@@ -1637,10 +1624,7 @@ cluster TimeFormatLocalization = 44 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Nodes should be expected to be deployed to any and all regions of the world. These global regions
-      may have differing preferences for the units in which values are conveyed in communication to a
-      user. As such, Nodes that visually or audibly convey measurable values to the user need a
-      mechanism by which they can be configured to use a user’s preferred unit. */
+
 cluster UnitLocalization = 45 {
   revision 2;
 
@@ -1663,7 +1647,7 @@ cluster UnitLocalization = 45 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster is used to describe the configuration and capabilities of a Device's power system. */
+
 cluster PowerSourceConfiguration = 46 {
   revision 1;
 
@@ -1675,7 +1659,7 @@ cluster PowerSourceConfiguration = 46 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster is used to describe the configuration and capabilities of a physical power source that provides power to the Node. */
+
 cluster PowerSource = 47 {
   revision 3;
 
@@ -1933,7 +1917,7 @@ cluster PowerSource = 47 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster is used to manage global aspects of the Commissioning flow. */
+
 cluster GeneralCommissioning = 48 {
   revision 2;
 
@@ -2024,17 +2008,17 @@ cluster GeneralCommissioning = 48 {
     CommissioningErrorEnum errorCode = 0;
   }
 
-  /** This command is used to arm or disarm the fail-safe timer. */
+  
   command access(invoke: administer) ArmFailSafe(ArmFailSafeRequest): ArmFailSafeResponse = 0;
-  /** This command is used to set the regulatory configuration for the device. */
+  
   command access(invoke: administer) SetRegulatoryConfig(SetRegulatoryConfigRequest): SetRegulatoryConfigResponse = 2;
-  /** This command is used to indicate that the commissioning process is complete. */
+  
   fabric command access(invoke: administer) CommissioningComplete(): CommissioningCompleteResponse = 4;
-  /** This command is used to set the user acknowledgements received in the Enhanced Setup Flow Terms & Conditions into the node. */
+  
   command access(invoke: administer) SetTCAcknowledgements(SetTCAcknowledgementsRequest): SetTCAcknowledgementsResponse = 6;
 }
 
-/** Functionality to configure, enable, disable network credentials and access on a Matter device. */
+
 cluster NetworkCommissioning = 49 {
   revision 3;
 
@@ -2197,23 +2181,23 @@ cluster NetworkCommissioning = 49 {
     optional octet_string<64> possessionSignature = 1;
   }
 
-  /** This command is used to scan for available networks on the network interface associated with the cluster instance. */
+  
   command access(invoke: administer) ScanNetworks(ScanNetworksRequest): ScanNetworksResponse = 0;
-  /** This command is used to add or update a Wi-Fi network configuration. */
+  
   command access(invoke: administer) AddOrUpdateWiFiNetwork(AddOrUpdateWiFiNetworkRequest): NetworkConfigResponse = 2;
-  /** This command is used to add or update a Thread network configuration. */
+  
   command access(invoke: administer) AddOrUpdateThreadNetwork(AddOrUpdateThreadNetworkRequest): NetworkConfigResponse = 3;
-  /** This command is used to remove a network configuration on the network interface associated with the cluster instance. */
+  
   command access(invoke: administer) RemoveNetwork(RemoveNetworkRequest): NetworkConfigResponse = 4;
-  /** This command is used to connect to a network on the network interface associated with the cluster instance. */
+  
   command access(invoke: administer) ConnectNetwork(ConnectNetworkRequest): ConnectNetworkResponse = 6;
-  /** This command is used to re-order the network configuration list. */
+  
   command access(invoke: administer) ReorderNetwork(ReorderNetworkRequest): NetworkConfigResponse = 8;
-  /** This command is used to query the identity of a network configuration. */
+  
   command access(invoke: administer) QueryIdentity(QueryIdentityRequest): QueryIdentityResponse = 9;
 }
 
-/** The cluster provides commands for retrieving unstructured diagnostic logs from a Node that may be used to aid in diagnostics. */
+
 cluster DiagnosticLogs = 50 {
   revision 1;
 
@@ -2255,11 +2239,11 @@ cluster DiagnosticLogs = 50 {
     optional systime_us timeSinceBoot = 3;
   }
 
-  /** Reception of this command starts the process of retrieving diagnostic logs from a Node. */
+  
   command RetrieveLogsRequest(RetrieveLogsRequestRequest): RetrieveLogsResponse = 0;
 }
 
-/** The General Diagnostics Cluster, along with other diagnostics clusters, provide a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
+
 cluster GeneralDiagnostics = 51 {
   revision 3;
 
@@ -2390,15 +2374,15 @@ cluster GeneralDiagnostics = 51 {
     long_octet_string<2048> payload = 0;
   }
 
-  /** This command SHALL be supported to provide a means for certification tests to trigger some test-plan-specific events, necessary to assist in automation of device interactions for some certification test cases. */
+  
   command access(invoke: manage) TestEventTrigger(TestEventTriggerRequest): DefaultSuccess = 0;
-  /** This command MAY be used by a client to obtain a correlated view of both System Time, and, if currently synchronized and supported, "wall clock time" of the server. */
+  
   command TimeSnapshot(): TimeSnapshotResponse = 1;
-  /** This command provides a means for certification tests or manufacturer's internal tests to validate particular command handling and encoding constraints by generating a response of a given size. */
+  
   command access(invoke: manage) PayloadTestRequest(PayloadTestRequestRequest): PayloadTestResponse = 3;
 }
 
-/** The Software Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
+
 cluster SoftwareDiagnostics = 52 {
   revision 1;
 
@@ -2430,11 +2414,11 @@ cluster SoftwareDiagnostics = 52 {
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
 
-  /** This command is used to reset the high watermarks for heap and stack memory. */
+  
   command access(invoke: manage) ResetWatermarks(): DefaultSuccess = 0;
 }
 
-/** The Thread Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems */
+
 cluster ThreadNetworkDiagnostics = 53 {
   revision 3;
 
@@ -2597,11 +2581,11 @@ cluster ThreadNetworkDiagnostics = 53 {
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
 
-  /** This command is used to reset the count attributes. */
+  
   command access(invoke: manage) ResetCounts(): DefaultSuccess = 0;
 }
 
-/** The Wi-Fi Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
+
 cluster WiFiNetworkDiagnostics = 54 {
   revision 1;
 
@@ -2673,11 +2657,11 @@ cluster WiFiNetworkDiagnostics = 54 {
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
 
-  /** This command is used to reset the count attributes. */
+  
   command ResetCounts(): DefaultSuccess = 0;
 }
 
-/** The Ethernet Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
+
 cluster EthernetNetworkDiagnostics = 55 {
   revision 1;
 
@@ -2714,11 +2698,11 @@ cluster EthernetNetworkDiagnostics = 55 {
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
 
-  /** This command is used to reset the count attributes. */
+  
   command access(invoke: manage) ResetCounts(): DefaultSuccess = 0;
 }
 
-/** Accurate time is required for a number of reasons, including scheduling, display and validating security materials. */
+
 cluster TimeSynchronization = 56 {
   revision 2;
 
@@ -2853,22 +2837,19 @@ cluster TimeSynchronization = 56 {
     nullable char_string<128> defaultNTP = 0;
   }
 
-  /** This command is used to set the UTC time of the node. */
+  
   command access(invoke: administer) SetUTCTime(SetUTCTimeRequest): DefaultSuccess = 0;
-  /** This command is used to set the TrustedTimeSource attribute. */
+  
   fabric command access(invoke: administer) SetTrustedTimeSource(SetTrustedTimeSourceRequest): DefaultSuccess = 1;
-  /** This command is used to set the time zone of the node. */
+  
   command access(invoke: manage) SetTimeZone(SetTimeZoneRequest): SetTimeZoneResponse = 2;
-  /** This command is used to set the DST offsets for a node. */
+  
   command access(invoke: manage) SetDSTOffset(SetDSTOffsetRequest): DefaultSuccess = 4;
-  /** This command is used to set the DefaultNTP attribute. */
+  
   command access(invoke: administer) SetDefaultNTP(SetDefaultNTPRequest): DefaultSuccess = 5;
 }
 
-/** This Cluster serves two purposes towards a Node communicating with a Bridge: indicate that the functionality on
-          the Endpoint where it is placed (and its Parts) is bridged from a non-CHIP technology; and provide a centralized
-          collection of attributes that the Node MAY collect to aid in conveying information regarding the Bridged Device to a user,
-          such as the vendor name, the model name, or user-assigned name. */
+
 cluster BridgedDeviceBasicInformation = 57 {
   revision 6;
 
@@ -2962,13 +2943,11 @@ cluster BridgedDeviceBasicInformation = 57 {
     int32u timeoutMs = 1;
   }
 
-  /** Upon receipt, the server SHALL attempt to keep the bridged device active for the duration specified by the command, when the device is next active. */
+  
   command KeepActive(KeepActiveRequest): DefaultSuccess = 128;
 }
 
-/** This cluster exposes interactions with a switch device, for the purpose of using those interactions by other devices.
-Two types of switch devices are supported: latching switch (e.g. rocker switch) and momentary switch (e.g. push button), distinguished with their feature flags.
-Interactions with the switch device are exposed as attributes (for the latching switch) and as events (for both types of switches). An interested party MAY subscribe to these attributes/events and thus be informed of the interactions, and can perform actions based on this, for example by sending commands to perform an action such as controlling a light or a window shade. */
+
 cluster Switch = 59 {
   revision 2;
 
@@ -3021,7 +3000,7 @@ cluster Switch = 59 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Commands to trigger a Node to allow a new Administrator to commission it. */
+
 cluster AdministratorCommissioning = 60 {
   revision 1;
 
@@ -3062,15 +3041,15 @@ cluster AdministratorCommissioning = 60 {
     int16u commissioningTimeout = 0;
   }
 
-  /** This command is used by a current Administrator to instruct a Node to go into commissioning mode. */
+  
   timed command access(invoke: administer) OpenCommissioningWindow(OpenCommissioningWindowRequest): DefaultSuccess = 0;
-  /** This command MAY be used by a current Administrator to instruct a Node to go into commissioning mode, if the node supports the Basic Commissioning Method. */
+  
   timed command access(invoke: administer) OpenBasicCommissioningWindow(OpenBasicCommissioningWindowRequest): DefaultSuccess = 1;
-  /** This command is used by a current Administrator to instruct a Node to revoke any active OpenCommissioningWindow or OpenBasicCommissioningWindow command. */
+  
   timed command access(invoke: administer) RevokeCommissioning(): DefaultSuccess = 2;
 }
 
-/** This cluster is used to add or remove Operational Credentials on a Commissionee or Node, as well as manage the associated Fabrics. */
+
 cluster OperationalCredentials = 62 {
   revision 2;
 
@@ -3198,29 +3177,29 @@ cluster OperationalCredentials = 62 {
     octet_string signature = 2;
   }
 
-  /** This command is used to perform an attestation request. */
+  
   command access(invoke: administer) AttestationRequest(AttestationRequestRequest): AttestationResponse = 0;
-  /** This command is used to request a certificate from the device attestation certificate chain. */
+  
   command access(invoke: administer) CertificateChainRequest(CertificateChainRequestRequest): CertificateChainResponse = 2;
-  /** This command is used to perform a CSR request. */
+  
   command access(invoke: administer) CSRRequest(CSRRequestRequest): CSRResponse = 4;
-  /** This command is used to add a new NOC to the device. */
+  
   command access(invoke: administer) AddNOC(AddNOCRequest): NOCResponse = 6;
-  /** This command is used to update an existing NOC on the device. */
+  
   fabric command access(invoke: administer) UpdateNOC(UpdateNOCRequest): NOCResponse = 7;
-  /** This command is used to set the user-visible fabric label for a given Fabric. */
+  
   fabric command access(invoke: administer) UpdateFabricLabel(UpdateFabricLabelRequest): NOCResponse = 9;
-  /** This command is used to remove a Fabric from the device. */
+  
   command access(invoke: administer) RemoveFabric(RemoveFabricRequest): NOCResponse = 10;
-  /** This command is used to add a trusted root certificate to the device. */
+  
   command access(invoke: administer) AddTrustedRootCertificate(AddTrustedRootCertificateRequest): DefaultSuccess = 11;
-  /** This command is used to manage the VendorID and VIDVerificationStatement fields of the Fabrics attribute, and the VVSC field of an entry in the NOCs attribute. */
+  
   fabric command access(invoke: administer) SetVIDVerificationStatement(SetVIDVerificationStatementRequest): DefaultSuccess = 12;
-  /** This command is used to authenticate the fabric associated with the FabricIndex. */
+  
   command access(invoke: administer) SignVIDVerificationRequest(SignVIDVerificationRequestRequest): SignVIDVerificationResponse = 13;
 }
 
-/** The Group Key Management Cluster is the mechanism by which group keys are managed. */
+
 cluster GroupKeyManagement = 63 {
   revision 2;
 
@@ -3294,18 +3273,17 @@ cluster GroupKeyManagement = 63 {
     int16u groupKeySetIDs[] = 0;
   }
 
-  /** This command is used by Administrators to set the state of a given Group Key Set, including atomically updating the state of all epoch keys. */
+  
   fabric command access(invoke: administer) KeySetWrite(KeySetWriteRequest): DefaultSuccess = 0;
-  /** This command is used by Administrators to read the state of a given Group Key Set. */
+  
   fabric command access(invoke: administer) KeySetRead(KeySetReadRequest): KeySetReadResponse = 1;
-  /** This command is used by Administrators to remove all state of a given Group Key Set. */
+  
   fabric command access(invoke: administer) KeySetRemove(KeySetRemoveRequest): DefaultSuccess = 3;
-  /** This command is used by Administrators to query a list of all Group Key Sets associated with the accessing fabric. */
+  
   fabric command access(invoke: administer) KeySetReadAllIndices(): KeySetReadAllIndicesResponse = 4;
 }
 
-/** The Fixed Label Cluster provides a feature for the device to tag an endpoint with zero or more read only
-labels. */
+
 cluster FixedLabel = 64 {
   revision 1;
 
@@ -3322,7 +3300,7 @@ cluster FixedLabel = 64 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** The User Label Cluster provides a feature to tag an endpoint with zero or more labels. */
+
 cluster UserLabel = 65 {
   revision 1;
 
@@ -3339,7 +3317,7 @@ cluster UserLabel = 65 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster provides an interface to a boolean state called StateValue. */
+
 cluster BooleanState = 69 {
   revision 2;
 
@@ -3355,7 +3333,7 @@ cluster BooleanState = 69 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Allows servers to ensure that listed clients are notified when a server is available for communication. */
+
 cluster IcdManagement = 70 {
   revision 3;
 
@@ -3444,15 +3422,15 @@ cluster IcdManagement = 70 {
     int32u promisedActiveDuration = 0;
   }
 
-  /** This command allows a client to register itself with the ICD to be notified when the device is available for communication. */
+  
   fabric command access(invoke: manage) RegisterClient(RegisterClientRequest): RegisterClientResponse = 0;
-  /** This command allows a client to unregister itself with the ICD. */
+  
   fabric command access(invoke: manage) UnregisterClient(UnregisterClientRequest): DefaultSuccess = 2;
-  /** This command allows a client to request that the server stays in active mode for at least a given time duration (in milliseconds) from when this command is received. */
+  
   command StayActiveRequest(StayActiveRequestRequest): StayActiveResponse = 3;
 }
 
-/** This cluster supports creating a simple timer functionality. */
+
 provisional cluster Timer = 71 {
   revision 1;
 
@@ -3488,17 +3466,17 @@ provisional cluster Timer = 71 {
     elapsed_s timeReduction = 0;
   }
 
-  /** This command is used to set the timer. */
+  
   command SetTimer(SetTimerRequest): DefaultSuccess = 0;
-  /** This command is used to reset the timer to the original value. */
+  
   command ResetTimer(): DefaultSuccess = 1;
-  /** This command is used to add time to the existing timer. */
+  
   command AddTime(AddTimeRequest): DefaultSuccess = 2;
-  /** This command is used to reduce time on the existing timer. */
+  
   command ReduceTime(ReduceTimeRequest): DefaultSuccess = 3;
 }
 
-/** This cluster supports remotely monitoring and, where supported, changing the operational state of an Oven. */
+
 cluster OvenCavityOperationalState = 72 {
   revision 2;
 
@@ -3553,13 +3531,13 @@ cluster OvenCavityOperationalState = 72 {
     ErrorStateStruct commandResponseState = 0;
   }
 
-  /** This command SHALL be supported if the device supports remotely stopping the operation. */
+  
   command Stop(): OperationalCommandResponse = 1;
-  /** This command SHALL be supported if the device supports remotely starting the operation. */
+  
   command Start(): OperationalCommandResponse = 2;
 }
 
-/** Attributes and commands for selecting a mode from a list of supported options. */
+
 cluster OvenMode = 73 {
   revision 2;
 
@@ -3617,12 +3595,11 @@ cluster OvenMode = 73 {
     optional char_string<64> statusText = 1;
   }
 
-  /** This command is used to change device modes. */
+  
   command ChangeToMode(ChangeToModeRequest): ChangeToModeResponse = 0;
 }
 
-/** This cluster provides a way to access options associated with the operation of
-            a laundry dryer device type. */
+
 cluster LaundryDryerControls = 74 {
   revision 1;
 
@@ -3642,7 +3619,7 @@ cluster LaundryDryerControls = 74 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for selecting a mode from a list of supported options. */
+
 cluster ModeSelect = 80 {
   revision 2;
 
@@ -3677,11 +3654,11 @@ cluster ModeSelect = 80 {
     int8u newMode = 0;
   }
 
-  /** On receipt of this command, if the NewMode field indicates a valid mode transition within the supported list, the server SHALL set the CurrentMode attribute to the NewMode value, otherwise, the server SHALL respond with an INVALID_COMMAND status response. */
+  
   command ChangeToMode(ChangeToModeRequest): DefaultSuccess = 0;
 }
 
-/** Attributes and commands for selecting a mode from a list of supported options. */
+
 cluster LaundryWasherMode = 81 {
   revision 3;
 
@@ -3730,11 +3707,11 @@ cluster LaundryWasherMode = 81 {
     optional char_string<64> statusText = 1;
   }
 
-  /** This command is used to change device modes. */
+  
   command ChangeToMode(ChangeToModeRequest): ChangeToModeResponse = 0;
 }
 
-/** Attributes and commands for selecting a mode from a list of supported options. */
+
 cluster RefrigeratorAndTemperatureControlledCabinetMode = 82 {
   revision 3;
 
@@ -3781,11 +3758,11 @@ cluster RefrigeratorAndTemperatureControlledCabinetMode = 82 {
     optional char_string<64> statusText = 1;
   }
 
-  /** This command is used to change device modes. */
+  
   command ChangeToMode(ChangeToModeRequest): ChangeToModeResponse = 0;
 }
 
-/** This cluster supports remotely monitoring and controlling the different types of functionality available to a washing device, such as a washing machine. */
+
 cluster LaundryWasherControls = 83 {
   revision 2;
 
@@ -3812,7 +3789,7 @@ cluster LaundryWasherControls = 83 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for selecting a mode from a list of supported options. */
+
 cluster RvcRunMode = 84 {
   revision 4;
 
@@ -3875,11 +3852,11 @@ cluster RvcRunMode = 84 {
     optional char_string<64> statusText = 1;
   }
 
-  /** This command is used to change device modes. */
+  
   command ChangeToMode(ChangeToModeRequest): ChangeToModeResponse = 0;
 }
 
-/** Attributes and commands for selecting a mode from a list of supported options. */
+
 cluster RvcCleanMode = 85 {
   revision 5;
 
@@ -3936,11 +3913,11 @@ cluster RvcCleanMode = 85 {
     optional char_string<64> statusText = 1;
   }
 
-  /** This command is used to change device modes. */
+  
   command ChangeToMode(ChangeToModeRequest): ChangeToModeResponse = 0;
 }
 
-/** Attributes and commands for configuring the temperature control, and reporting temperature. */
+
 cluster TemperatureControl = 86 {
   revision 1;
 
@@ -3967,11 +3944,11 @@ cluster TemperatureControl = 86 {
     optional int8u targetTemperatureLevel = 1;
   }
 
-  /** This command is used to set the temperature setpoint. */
+  
   command SetTemperature(SetTemperatureRequest): DefaultSuccess = 0;
 }
 
-/** Attributes and commands for configuring the Refrigerator alarm. */
+
 cluster RefrigeratorAlarm = 87 {
   revision 1;
 
@@ -3996,7 +3973,7 @@ cluster RefrigeratorAlarm = 87 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for selecting a mode from a list of supported options. */
+
 cluster DishwasherMode = 89 {
   revision 3;
 
@@ -4044,11 +4021,11 @@ cluster DishwasherMode = 89 {
     optional char_string<64> statusText = 1;
   }
 
-  /** This command is used to change device modes. */
+  
   command ChangeToMode(ChangeToModeRequest): ChangeToModeResponse = 0;
 }
 
-/** Attributes for reporting air quality classification */
+
 cluster AirQuality = 91 {
   revision 1;
 
@@ -4077,7 +4054,7 @@ cluster AirQuality = 91 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster provides an interface for observing and managing the state of smoke and CO alarms. */
+
 cluster SmokeCoAlarm = 92 {
   revision 1;
 
@@ -4184,11 +4161,11 @@ cluster SmokeCoAlarm = 92 {
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
 
-  /** This command SHALL initiate a device self-test. */
+  
   command SelfTestRequest(): DefaultSuccess = 0;
 }
 
-/** Attributes and commands for configuring the Dishwasher alarm. */
+
 cluster DishwasherAlarm = 93 {
   revision 1;
 
@@ -4230,13 +4207,13 @@ cluster DishwasherAlarm = 93 {
     AlarmBitmap mask = 0;
   }
 
-  /** This command resets active and latched alarms (if possible). */
+  
   command Reset(ResetRequest): DefaultSuccess = 0;
-  /** This command allows a client to request that an alarm be enabled or suppressed at the server. */
+  
   command ModifyEnabledAlarms(ModifyEnabledAlarmsRequest): DefaultSuccess = 1;
 }
 
-/** Attributes and commands for selecting a mode from a list of supported options. */
+
 cluster MicrowaveOvenMode = 94 {
   revision 2;
 
@@ -4275,7 +4252,7 @@ cluster MicrowaveOvenMode = 94 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for configuring the microwave oven control, and reporting cooking stats. */
+
 cluster MicrowaveOvenControl = 95 {
   revision 1;
 
@@ -4312,13 +4289,13 @@ cluster MicrowaveOvenControl = 95 {
     elapsed_s timeToAdd = 0;
   }
 
-  /** This command is used to set the cooking parameters associated with the operation of the device. */
+  
   command SetCookingParameters(SetCookingParametersRequest): DefaultSuccess = 0;
-  /** This command is used to add more time to the CookTime attribute of the server. */
+  
   command AddMoreTime(AddMoreTimeRequest): DefaultSuccess = 1;
 }
 
-/** This cluster supports remotely monitoring and, where supported, changing the operational state of any device where a state machine is a part of the operation. */
+
 cluster OperationalState = 96 {
   revision 3;
 
@@ -4373,17 +4350,17 @@ cluster OperationalState = 96 {
     ErrorStateStruct commandResponseState = 0;
   }
 
-  /** This command SHALL be supported if the device supports remotely pausing the operation. */
+  
   command Pause(): OperationalCommandResponse = 0;
-  /** This command SHALL be supported if the device supports remotely stopping the operation. */
+  
   command Stop(): OperationalCommandResponse = 1;
-  /** This command SHALL be supported if the device supports remotely starting the operation. */
+  
   command Start(): OperationalCommandResponse = 2;
-  /** This command SHALL be supported if the device supports remotely resuming the operation. */
+  
   command Resume(): OperationalCommandResponse = 3;
 }
 
-/** This cluster supports remotely monitoring and, where supported, changing the operational state of a Robotic Vacuum. */
+
 cluster RvcOperationalState = 97 {
   revision 3;
 
@@ -4460,15 +4437,15 @@ cluster RvcOperationalState = 97 {
     ErrorStateStruct commandResponseState = 0;
   }
 
-  /** This command SHALL be supported if the device supports remotely pausing the operation. */
+  
   command Pause(): OperationalCommandResponse = 0;
-  /** This command SHALL be supported if the device supports remotely resuming the operation. */
+  
   command Resume(): OperationalCommandResponse = 3;
-  /** On receipt of this command, the device SHALL start seeking the charging dock, if possible in the current state of the device. */
+  
   command GoHome(): OperationalCommandResponse = 128;
 }
 
-/** Attributes and commands for scene configuration and manipulation. */
+
 cluster ScenesManagement = 98 {
   revision 1;
 
@@ -4604,25 +4581,25 @@ cluster ScenesManagement = 98 {
     int8u sceneIdentifierFrom = 2;
   }
 
-  /** This command is used to add a new scene. */
+  
   fabric command access(invoke: manage) AddScene(AddSceneRequest): AddSceneResponse = 0;
-  /** This command returns the details for the requested scene. */
+  
   fabric command ViewScene(ViewSceneRequest): ViewSceneResponse = 1;
-  /** This command removes the specified scene. */
+  
   fabric command access(invoke: manage) RemoveScene(RemoveSceneRequest): RemoveSceneResponse = 2;
-  /** This command removes all scenes for the specified GroupID. */
+  
   fabric command access(invoke: manage) RemoveAllScenes(RemoveAllScenesRequest): RemoveAllScenesResponse = 3;
-  /** This command will create a new entry for the requested scene. */
+  
   fabric command access(invoke: manage) StoreScene(StoreSceneRequest): StoreSceneResponse = 4;
-  /** This command will cause the specified scene to be recalled. */
+  
   fabric command RecallScene(RecallSceneRequest): DefaultSuccess = 5;
-  /** This command can be used to get the used scene identifiers within a certain group, for the endpoint that implements this cluster. */
+  
   fabric command GetSceneMembership(GetSceneMembershipRequest): GetSceneMembershipResponse = 6;
-  /** This command allows a client to efficiently copy scenes from one group/scene identifier pair to another group/scene identifier pair. */
+  
   fabric command access(invoke: manage) CopyScene(CopySceneRequest): CopySceneResponse = 64;
 }
 
-/** Attributes and commands for monitoring HEPA filters in a device */
+
 cluster HepaFilterMonitoring = 113 {
   revision 1;
 
@@ -4668,11 +4645,11 @@ cluster HepaFilterMonitoring = 113 {
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
 
-  /** Upon receipt, the device SHALL reset the Condition and ChangeIndicator attributes, indicating full resource availability and readiness for use, as initially configured. */
+  
   command ResetCondition(): DefaultSuccess = 0;
 }
 
-/** Attributes and commands for monitoring activated carbon filters in a device */
+
 cluster ActivatedCarbonFilterMonitoring = 114 {
   revision 1;
 
@@ -4718,11 +4695,11 @@ cluster ActivatedCarbonFilterMonitoring = 114 {
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
 
-  /** Upon receipt, the device SHALL reset the Condition and ChangeIndicator attributes, indicating full resource availability and readiness for use, as initially configured. */
+  
   command ResetCondition(): DefaultSuccess = 0;
 }
 
-/** This cluster provides a mechanism for querying data about electrical power as measured by the server. */
+
 cluster ElectricalPowerMeasurement = 144 {
   revision 3;
 
@@ -4828,7 +4805,7 @@ cluster ElectricalPowerMeasurement = 144 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster provides a mechanism for querying data about the electrical energy imported or provided by the server. */
+
 cluster ElectricalEnergyMeasurement = 145 {
   revision 2;
 
@@ -4920,7 +4897,7 @@ cluster ElectricalEnergyMeasurement = 145 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster is used to allow clients to control the operation of a hot water heating appliance so that it can be used with energy management. */
+
 cluster WaterHeaterManagement = 148 {
   revision 2;
 
@@ -4974,13 +4951,13 @@ cluster WaterHeaterManagement = 148 {
     WaterHeaterBoostInfoStruct boostInfo = 0;
   }
 
-  /** Allows a client to request that the water heater is put into a Boost state. */
+  
   command access(invoke: manage) Boost(BoostRequest): DefaultSuccess = 0;
-  /** Allows a client to cancel an ongoing Boost operation. */
+  
   command access(invoke: manage) CancelBoost(): DefaultSuccess = 1;
 }
 
-/** The Commodity Price Cluster provides the mechanism for communicating Gas, Energy, or Water pricing information within the premises. */
+
 cluster CommodityPrice = 149 {
   revision 4;
 
@@ -5039,13 +5016,13 @@ cluster CommodityPrice = 149 {
     CommodityPriceStruct priceForecast[] = 0;
   }
 
-  /** Upon receipt, this SHALL generate a GetDetailedPrice Response command. */
+  
   command GetDetailedPriceRequest(GetDetailedPriceRequestRequest): GetDetailedPriceResponse = 0;
-  /** Upon receipt, this SHALL generate a GetDetailedForecast Response command. */
+  
   command GetDetailedForecastRequest(GetDetailedForecastRequestRequest): GetDetailedForecastResponse = 2;
 }
 
-/** This cluster allows a client to manage the power draw of a device. An example of such a client could be an Energy Management System (EMS) which controls an Energy Smart Appliance (ESA). */
+
 cluster DeviceEnergyManagement = 152 {
   revision 4;
 
@@ -5247,25 +5224,25 @@ cluster DeviceEnergyManagement = 152 {
     AdjustmentCauseEnum cause = 1;
   }
 
-  /** Allows a client to request an adjustment in the power consumption of an ESA for a specified duration. */
+  
   command PowerAdjustRequest(PowerAdjustRequestRequest): DefaultSuccess = 0;
-  /** Allows a client to cancel an ongoing PowerAdjustmentRequest operation. */
+  
   command CancelPowerAdjustRequest(): DefaultSuccess = 1;
-  /** Allows a client to adjust the start time of a Forecast sequence that has not yet started operation (i.e. where the current Forecast StartTime is in the future). */
+  
   command StartTimeAdjustRequest(StartTimeAdjustRequestRequest): DefaultSuccess = 2;
-  /** Allows a client to temporarily pause an operation and reduce the ESAs energy demand. */
+  
   command PauseRequest(PauseRequestRequest): DefaultSuccess = 3;
-  /** Allows a client to cancel the PauseRequest command and enable earlier resumption of operation. */
+  
   command ResumeRequest(): DefaultSuccess = 4;
-  /** Allows a client to modify a Forecast within the limits allowed by the ESA. */
+  
   command ModifyForecastRequest(ModifyForecastRequestRequest): DefaultSuccess = 5;
-  /** Allows a client to ask the ESA to recompute its Forecast based on power and time constraints. */
+  
   command RequestConstraintBasedForecast(RequestConstraintBasedForecastRequest): DefaultSuccess = 6;
-  /** Allows a client to request cancellation of a previous adjustment request in a StartTimeAdjustRequest, ModifyForecastRequest or RequestConstraintBasedForecast command. */
+  
   command CancelRequest(): DefaultSuccess = 7;
 }
 
-/** Electric Vehicle Supply Equipment (EVSE) is equipment used to charge an Electric Vehicle (EV) or Plug-In Hybrid Electric Vehicle. This cluster provides an interface to the functionality of Electric Vehicle Supply Equipment (EVSE) management. */
+
 cluster EnergyEvse = 153 {
   revision 4;
 
@@ -5429,23 +5406,23 @@ cluster EnergyEvse = 153 {
     ChargingTargetScheduleStruct chargingTargetSchedules[] = 0;
   }
 
-  /** Allows a client to disable the EVSE from charging and discharging. */
+  
   timed command Disable(): DefaultSuccess = 1;
-  /** This command allows a client to enable the EVSE to charge an EV, and to provide or update the maximum and minimum charge current. */
+  
   timed command EnableCharging(EnableChargingRequest): DefaultSuccess = 2;
-  /** Upon receipt, this SHALL allow a client to enable the discharge of an EV, and to provide or update the maximum discharge current. */
+  
   timed command EnableDischarging(EnableDischargingRequest): DefaultSuccess = 3;
-  /** Allows a client to put the EVSE into a self-diagnostics mode. */
+  
   timed command StartDiagnostics(): DefaultSuccess = 4;
-  /** Allows a client to set the user specified charging targets. */
+  
   timed command SetTargets(SetTargetsRequest): DefaultSuccess = 5;
-  /** Allows a client to retrieve the current set of charging targets. */
+  
   timed command GetTargets(): GetTargetsResponse = 6;
-  /** Allows a client to clear all stored charging targets. */
+  
   timed command ClearTargets(): DefaultSuccess = 7;
 }
 
-/** The Power Topology Cluster provides a mechanism for expressing how power is flowing between endpoints. */
+
 cluster PowerTopology = 156 {
   revision 1;
 
@@ -5474,7 +5451,7 @@ cluster PowerTopology = 156 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for selecting a mode from a list of supported options. */
+
 cluster EnergyEvseMode = 157 {
   revision 2;
 
@@ -5523,11 +5500,11 @@ cluster EnergyEvseMode = 157 {
     optional char_string<64> statusText = 1;
   }
 
-  /** This command is used to change device modes. */
+  
   command ChangeToMode(ChangeToModeRequest): ChangeToModeResponse = 0;
 }
 
-/** Attributes and commands for selecting a mode from a list of supported options. */
+
 cluster WaterHeaterMode = 158 {
   revision 1;
 
@@ -5575,11 +5552,11 @@ cluster WaterHeaterMode = 158 {
     optional char_string<64> statusText = 1;
   }
 
-  /** This command is used to change device modes. */
+  
   command ChangeToMode(ChangeToModeRequest): ChangeToModeResponse = 0;
 }
 
-/** Attributes and commands for selecting a mode from a list of supported options. */
+
 cluster DeviceEnergyManagementMode = 159 {
   revision 2;
 
@@ -5628,11 +5605,11 @@ cluster DeviceEnergyManagementMode = 159 {
     optional char_string<64> statusText = 1;
   }
 
-  /** This command is used to change device modes. */
+  
   command ChangeToMode(ChangeToModeRequest): ChangeToModeResponse = 0;
 }
 
-/** The Electrical Grid Conditions Cluster provides the mechanism for communicating electricity grid carbon intensity to devices within the premises in units of Grams of CO2e per kWh. */
+
 cluster ElectricalGridConditions = 160 {
   revision 1;
 
@@ -5669,7 +5646,7 @@ cluster ElectricalGridConditions = 160 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** An interface to a generic way to secure a door */
+
 cluster DoorLock = 257 {
   revision 10;
 
@@ -6292,51 +6269,51 @@ cluster DoorLock = 257 {
     optional octet_string<16> groupResolvingKey = 3;
   }
 
-  /** This command causes the lock device to lock the door. */
+  
   timed command LockDoor(LockDoorRequest): DefaultSuccess = 0;
-  /** This command causes the lock device to unlock the door. */
+  
   timed command UnlockDoor(UnlockDoorRequest): DefaultSuccess = 1;
-  /** This command causes the lock device to unlock the door with a timeout parameter. */
+  
   timed command UnlockWithTimeout(UnlockWithTimeoutRequest): DefaultSuccess = 3;
-  /** Set a weekly repeating schedule for a specified user. */
+  
   command access(invoke: administer) SetWeekDaySchedule(SetWeekDayScheduleRequest): DefaultSuccess = 11;
-  /** Retrieve the specific weekly schedule for the specific user. */
+  
   command access(invoke: administer) GetWeekDaySchedule(GetWeekDayScheduleRequest): GetWeekDayScheduleResponse = 12;
-  /** Clear the specific weekly schedule or all weekly schedules for the specific user. */
+  
   command access(invoke: administer) ClearWeekDaySchedule(ClearWeekDayScheduleRequest): DefaultSuccess = 13;
-  /** Set a time-specific schedule ID for a specified user. */
+  
   command access(invoke: administer) SetYearDaySchedule(SetYearDayScheduleRequest): DefaultSuccess = 14;
-  /** Retrieve the specific year day schedule for the specific schedule and user indexes. */
+  
   command access(invoke: administer) GetYearDaySchedule(GetYearDayScheduleRequest): GetYearDayScheduleResponse = 15;
-  /** Clears the specific year day schedule or all year day schedules for the specific user. */
+  
   command access(invoke: administer) ClearYearDaySchedule(ClearYearDayScheduleRequest): DefaultSuccess = 16;
-  /** Set the holiday Schedule by specifying local start time and local end time with respect to any Lock Operating Mode. */
+  
   command access(invoke: administer) SetHolidaySchedule(SetHolidayScheduleRequest): DefaultSuccess = 17;
-  /** Get the holiday schedule for the specified index. */
+  
   command access(invoke: administer) GetHolidaySchedule(GetHolidayScheduleRequest): GetHolidayScheduleResponse = 18;
-  /** Clears the holiday schedule or all holiday schedules. */
+  
   command access(invoke: administer) ClearHolidaySchedule(ClearHolidayScheduleRequest): DefaultSuccess = 19;
-  /** Set user into the lock. */
+  
   timed command access(invoke: administer) SetUser(SetUserRequest): DefaultSuccess = 26;
-  /** Retrieve user. */
+  
   command access(invoke: administer) GetUser(GetUserRequest): GetUserResponse = 27;
-  /** Clears a user or all Users. */
+  
   timed command access(invoke: administer) ClearUser(ClearUserRequest): DefaultSuccess = 29;
-  /** Set a credential (e.g. PIN, RFID, Fingerprint, etc.) into the lock for a new user, existing user, or ProgrammingUser. */
+  
   timed command access(invoke: administer) SetCredential(SetCredentialRequest): SetCredentialResponse = 34;
-  /** Retrieve the status of a particular credential (e.g. PIN, RFID, Fingerprint, etc.) by index. */
+  
   command access(invoke: administer) GetCredentialStatus(GetCredentialStatusRequest): GetCredentialStatusResponse = 36;
-  /** Clear one, one type, or all credentials except ProgrammingPIN credential. */
+  
   timed command access(invoke: administer) ClearCredential(ClearCredentialRequest): DefaultSuccess = 38;
-  /** This command causes the lock device to unlock the door without pulling the latch. */
+  
   timed command UnboltDoor(UnboltDoorRequest): DefaultSuccess = 39;
-  /** This command allows communicating an Aliro Reader configuration, as defined in Aliro, to the lock. */
+  
   timed command access(invoke: administer) SetAliroReaderConfig(SetAliroReaderConfigRequest): DefaultSuccess = 40;
-  /** This command allows clearing an existing Aliro Reader configuration for the lock. */
+  
   timed command access(invoke: administer) ClearAliroReaderConfig(): DefaultSuccess = 41;
 }
 
-/** Provides an interface for controlling and adjusting automatic window coverings. */
+
 cluster WindowCovering = 258 {
   revision 8;
 
@@ -6455,19 +6432,19 @@ cluster WindowCovering = 258 {
     percent100ths tiltPercent100thsValue = 0;
   }
 
-  /** Upon receipt of this command, the window covering will adjust its position so the physical lift/slide and tilt is at the maximum open/up position. */
+  
   command UpOrOpen(): DefaultSuccess = 0;
-  /** Upon receipt of this command, the window covering will adjust its position so the physical lift/slide and tilt is at the maximum closed/down position. */
+  
   command DownOrClose(): DefaultSuccess = 1;
-  /** Upon receipt of this command, the window covering will stop any adjusting to the physical tilt and lift/slide that is currently occurring. */
+  
   command StopMotion(): DefaultSuccess = 2;
-  /** This command is used to set the target lift position of the window covering to the percentage value specified in the command. */
+  
   command GoToLiftPercentage(GoToLiftPercentageRequest): DefaultSuccess = 5;
-  /** This command is used to set the target tilt position of the window covering to the percentage value specified in the command. */
+  
   command GoToTiltPercentage(GoToTiltPercentageRequest): DefaultSuccess = 8;
 }
 
-/** An interface for configuring and controlling pumps. */
+
 cluster PumpConfigurationAndControl = 512 {
   revision 5;
 
@@ -6590,7 +6567,7 @@ cluster PumpConfigurationAndControl = 512 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** An interface for configuring and controlling the functionality of a thermostat. */
+
 cluster Thermostat = 513 {
   revision 9;
 
@@ -6965,21 +6942,21 @@ cluster Thermostat = 513 {
     optional int16u timeout = 2;
   }
 
-  /** This command will raise or lower the setpoint based on the provided values. */
+  
   command SetpointRaiseLower(SetpointRaiseLowerRequest): DefaultSuccess = 0;
-  /** This command will set the active schedule to the provided schedule handle. */
+  
   command SetActiveScheduleRequest(SetActiveScheduleRequestRequest): DefaultSuccess = 5;
-  /** This command will set the active preset to the provided preset handle. */
+  
   command SetActivePresetRequest(SetActivePresetRequestRequest): DefaultSuccess = 6;
-  /** This command will add a new suggestion based on the specified values. */
+  
   command access(invoke: manage) AddThermostatSuggestion(AddThermostatSuggestionRequest): AddThermostatSuggestionResponse = 7;
-  /** This command will remove the specified suggestion. */
+  
   command access(invoke: manage) RemoveThermostatSuggestion(RemoveThermostatSuggestionRequest): DefaultSuccess = 8;
-  /** Begins, Commits or Cancels an atomic write */
+  
   command access(invoke: manage) AtomicRequest(AtomicRequestRequest): AtomicResponse = 254;
 }
 
-/** An interface for controlling a fan in a heating/cooling system. */
+
 cluster FanControl = 514 {
   revision 6;
 
@@ -7056,11 +7033,11 @@ cluster FanControl = 514 {
     optional boolean lowestOff = 2;
   }
 
-  /** This command indirectly changes the speed-oriented attributes of the fan in steps rather than using the speed-oriented attributes, FanMode, PercentSetting, or SpeedSetting, directly. */
+  
   command Step(StepRequest): DefaultSuccess = 0;
 }
 
-/** An interface for configuring the user interface of a thermostat (which may be remote from the thermostat). */
+
 cluster ThermostatUserInterfaceConfiguration = 516 {
   revision 2;
 
@@ -7093,7 +7070,7 @@ cluster ThermostatUserInterfaceConfiguration = 516 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for controlling the color properties of a color-capable light. */
+
 cluster ColorControl = 768 {
   revision 9;
 
@@ -7380,47 +7357,47 @@ cluster ColorControl = 768 {
     OptionsBitmap optionsOverride = 6;
   }
 
-  /** This command will move the device to the requested hue value using a transition. */
+  
   command MoveToHue(MoveToHueRequest): DefaultSuccess = 0;
-  /** This command will move the device to the requested hue value using a step rate. */
+  
   command MoveHue(MoveHueRequest): DefaultSuccess = 1;
-  /** This command will change the device to the requested hue value using a step and transition. */
+  
   command StepHue(StepHueRequest): DefaultSuccess = 2;
-  /** This command will move the device to the requested saturation value using a transition. */
+  
   command MoveToSaturation(MoveToSaturationRequest): DefaultSuccess = 3;
-  /** This command will move the device to the requested saturation value using a rate. */
+  
   command MoveSaturation(MoveSaturationRequest): DefaultSuccess = 4;
-  /** This command will change the device to the requested saturation value using a step transition. */
+  
   command StepSaturation(StepSaturationRequest): DefaultSuccess = 5;
-  /** This command will move the device to the requested hue and saturation value using a transition. */
+  
   command MoveToHueAndSaturation(MoveToHueAndSaturationRequest): DefaultSuccess = 6;
-  /** This command will move the device to the requested color value using a transition. */
+  
   command MoveToColor(MoveToColorRequest): DefaultSuccess = 7;
-  /** This command will move the device to the requested color using a step rate. */
+  
   command MoveColor(MoveColorRequest): DefaultSuccess = 8;
-  /** This command will move the device to the requested color using a step transition. */
+  
   command StepColor(StepColorRequest): DefaultSuccess = 9;
-  /** This command will move the device to the requested color temperate using a transition. */
+  
   command MoveToColorTemperature(MoveToColorTemperatureRequest): DefaultSuccess = 10;
-  /** This command allows the light to be moved in a smooth continuous transition from their current hue to a target hue. */
+  
   command EnhancedMoveToHue(EnhancedMoveToHueRequest): DefaultSuccess = 64;
-  /** This command allows the light to start a continuous transition starting from their current hue. */
+  
   command EnhancedMoveHue(EnhancedMoveHueRequest): DefaultSuccess = 65;
-  /** This command allows the light to be moved in a stepped transition from their current hue, resulting in a linear transition through XY space. */
+  
   command EnhancedStepHue(EnhancedStepHueRequest): DefaultSuccess = 66;
-  /** This command allows the light to be moved in a smooth continuous transition from their current hue to a target hue and from their current saturation to a target saturation. */
+  
   command EnhancedMoveToHueAndSaturation(EnhancedMoveToHueAndSaturationRequest): DefaultSuccess = 67;
-  /** This command allows a color loop to be activated such that the color light cycles through its range of hues. */
+  
   command ColorLoopSet(ColorLoopSetRequest): DefaultSuccess = 68;
-  /** This command is provided to allow MoveTo and Step commands to be stopped. */
+  
   command StopMoveStep(StopMoveStepRequest): DefaultSuccess = 71;
-  /** This command allows the color temperature of the light to be moved at a specified rate. */
+  
   command MoveColorTemperature(MoveColorTemperatureRequest): DefaultSuccess = 75;
-  /** This command allows the color temperature of the light to be stepped with a specified step size. */
+  
   command StepColorTemperature(StepColorTemperatureRequest): DefaultSuccess = 76;
 }
 
-/** Attributes and commands for configuring a lighting ballast. */
+
 provisional cluster BallastConfiguration = 769 {
   revision 4;
 
@@ -7454,7 +7431,7 @@ provisional cluster BallastConfiguration = 769 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for configuring the measurement of illuminance, and reporting illuminance measurements. */
+
 cluster IlluminanceMeasurement = 1024 {
   revision 4;
 
@@ -7475,7 +7452,7 @@ cluster IlluminanceMeasurement = 1024 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for configuring the measurement of temperature, and reporting temperature measurements. */
+
 cluster TemperatureMeasurement = 1026 {
   revision 5;
 
@@ -7490,7 +7467,7 @@ cluster TemperatureMeasurement = 1026 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for configuring the measurement of pressure, and reporting pressure measurements. */
+
 cluster PressureMeasurement = 1027 {
   revision 4;
 
@@ -7514,7 +7491,7 @@ cluster PressureMeasurement = 1027 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for configuring the measurement of flow, and reporting flow measurements. */
+
 cluster FlowMeasurement = 1028 {
   revision 4;
 
@@ -7529,7 +7506,7 @@ cluster FlowMeasurement = 1028 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for configuring the measurement of relative humidity, and reporting relative humidity measurements. */
+
 cluster RelativeHumidityMeasurement = 1029 {
   revision 4;
 
@@ -7544,7 +7521,7 @@ cluster RelativeHumidityMeasurement = 1029 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** The server cluster provides an interface to occupancy sensing functionality based on one or more sensing modalities, including configuration and provision of notifications of occupancy status. */
+
 cluster OccupancySensing = 1030 {
   revision 6;
 
@@ -7616,7 +7593,7 @@ cluster OccupancySensing = 1030 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes for reporting carbon monoxide concentration measurements */
+
 cluster CarbonMonoxideConcentrationMeasurement = 1036 {
   revision 4;
 
@@ -7672,7 +7649,7 @@ cluster CarbonMonoxideConcentrationMeasurement = 1036 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes for reporting carbon dioxide concentration measurements */
+
 cluster CarbonDioxideConcentrationMeasurement = 1037 {
   revision 4;
 
@@ -7728,7 +7705,7 @@ cluster CarbonDioxideConcentrationMeasurement = 1037 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes for reporting nitrogen dioxide concentration measurements */
+
 cluster NitrogenDioxideConcentrationMeasurement = 1043 {
   revision 4;
 
@@ -7784,7 +7761,7 @@ cluster NitrogenDioxideConcentrationMeasurement = 1043 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes for reporting ozone concentration measurements */
+
 cluster OzoneConcentrationMeasurement = 1045 {
   revision 4;
 
@@ -7840,7 +7817,7 @@ cluster OzoneConcentrationMeasurement = 1045 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes for reporting PM2.5 concentration measurements */
+
 cluster Pm25ConcentrationMeasurement = 1066 {
   revision 4;
 
@@ -7896,7 +7873,7 @@ cluster Pm25ConcentrationMeasurement = 1066 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes for reporting formaldehyde concentration measurements */
+
 cluster FormaldehydeConcentrationMeasurement = 1067 {
   revision 4;
 
@@ -7952,7 +7929,7 @@ cluster FormaldehydeConcentrationMeasurement = 1067 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes for reporting PM1 concentration measurements */
+
 cluster Pm1ConcentrationMeasurement = 1068 {
   revision 4;
 
@@ -8008,7 +7985,7 @@ cluster Pm1ConcentrationMeasurement = 1068 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes for reporting PM10 concentration measurements */
+
 cluster Pm10ConcentrationMeasurement = 1069 {
   revision 4;
 
@@ -8064,7 +8041,7 @@ cluster Pm10ConcentrationMeasurement = 1069 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes for reporting total volatile organic compounds concentration measurements */
+
 cluster TotalVolatileOrganicCompoundsConcentrationMeasurement = 1070 {
   revision 4;
 
@@ -8120,7 +8097,7 @@ cluster TotalVolatileOrganicCompoundsConcentrationMeasurement = 1070 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes for reporting radon concentration measurements */
+
 cluster RadonConcentrationMeasurement = 1071 {
   revision 4;
 
@@ -8176,7 +8153,7 @@ cluster RadonConcentrationMeasurement = 1071 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster provides an interface to soil measurement functionality, including configuration and provision of notifications of soil measurements. */
+
 cluster SoilMeasurement = 1072 {
   revision 1;
 
@@ -8189,7 +8166,7 @@ cluster SoilMeasurement = 1072 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Manage the Thread network of Thread Border Router */
+
 cluster ThreadBorderRouterManagement = 1106 {
   revision 1;
 
@@ -8222,17 +8199,17 @@ cluster ThreadBorderRouterManagement = 1106 {
     octet_string<254> pendingDataset = 0;
   }
 
-  /** This command SHALL be used to request the active operational dataset of the Thread network to which the border router is connected. */
+  
   command access(invoke: manage) GetActiveDatasetRequest(): DatasetResponse = 0;
-  /** This command SHALL be used to request the pending dataset of the Thread network to which the border router is connected. */
+  
   command access(invoke: manage) GetPendingDatasetRequest(): DatasetResponse = 1;
-  /** This command SHALL be used to set the active Dataset of the Thread network to which the Border Router is connected, when there is no active dataset already. */
+  
   timed command access(invoke: manage) SetActiveDatasetRequest(SetActiveDatasetRequestRequest): DefaultSuccess = 3;
-  /** This command SHALL be used to set or update the pending Dataset of the Thread network to which the Border Router is connected, if the Border Router supports PANChange Feature. */
+  
   timed command access(invoke: manage) SetPendingDatasetRequest(SetPendingDatasetRequestRequest): DefaultSuccess = 4;
 }
 
-/** Manages the names and credentials of Thread networks visible to the user. */
+
 cluster ThreadNetworkDirectory = 1107 {
   revision 1;
 
@@ -8268,15 +8245,15 @@ cluster ThreadNetworkDirectory = 1107 {
     octet_string<254> operationalDataset = 0;
   }
 
-  /** Adds an entry to the ThreadNetworks attribute with the specified Thread Operational Dataset. */
+  
   timed command access(invoke: manage) AddNetwork(AddNetworkRequest): DefaultSuccess = 0;
-  /** Removes the network with the given Extended PAN ID from the ThreadNetworks attribute. */
+  
   timed command access(invoke: manage) RemoveNetwork(RemoveNetworkRequest): DefaultSuccess = 1;
-  /** Retrieves the Thread Operational Dataset with the given Extended PAN ID. */
+  
   command access(invoke: manage) GetOperationalDataset(GetOperationalDatasetRequest): OperationalDatasetResponse = 2;
 }
 
-/** This cluster provides an interface for managing low power mode on a device that supports the Wake On LAN protocol. */
+
 cluster WakeOnLan = 1283 {
   revision 1;
 
@@ -8289,7 +8266,7 @@ cluster WakeOnLan = 1283 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster provides an interface for controlling the current Channel on a device. */
+
 cluster Channel = 1284 {
   revision 2;
 
@@ -8449,21 +8426,21 @@ cluster Channel = 1284 {
     optional long_octet_string<8092> data = 3;
   }
 
-  /** Change the channel to the channel case-insensitive exact matching the value passed as an argument. */
+  
   command ChangeChannel(ChangeChannelRequest): ChangeChannelResponse = 0;
-  /** Change the channel to the channel with the given Number in the ChannelList attribute. */
+  
   command ChangeChannelByNumber(ChangeChannelByNumberRequest): DefaultSuccess = 2;
-  /** This command provides channel up and channel down functionality, but allows channel index jumps of size Count. */
+  
   command SkipChannel(SkipChannelRequest): DefaultSuccess = 3;
-  /** This command retrieves the program guide. */
+  
   command GetProgramGuide(GetProgramGuideRequest): ProgramGuideResponse = 4;
-  /** Record a specific program or series when it goes live. */
+  
   command RecordProgram(RecordProgramRequest): DefaultSuccess = 6;
-  /** Cancel recording for a specific program or series. */
+  
   command CancelRecordProgram(CancelRecordProgramRequest): DefaultSuccess = 7;
 }
 
-/** This cluster provides an interface for UX navigation within a set of targets on a device or endpoint. */
+
 cluster TargetNavigator = 1285 {
   revision 2;
 
@@ -8502,11 +8479,11 @@ cluster TargetNavigator = 1285 {
     optional char_string data = 1;
   }
 
-  /** Upon receipt, this SHALL navigation the UX to the target identified. */
+  
   command NavigateTarget(NavigateTargetRequest): NavigateTargetResponse = 0;
 }
 
-/** This cluster provides an interface for controlling Media Playback (PLAY, PAUSE, etc) on a media device such as a TV or Speaker. */
+
 cluster MediaPlayback = 1286 {
   revision 2;
 
@@ -8634,37 +8611,37 @@ cluster MediaPlayback = 1286 {
     char_string<32> trackID = 0;
   }
 
-  /** This command is used to start playback of the media. */
+  
   command Play(): PlaybackResponse = 0;
-  /** This command is used to pause playback of the media. */
+  
   command Pause(): PlaybackResponse = 1;
-  /** This command is used to stop playback of the media. */
+  
   command Stop(): PlaybackResponse = 2;
-  /** This command is used to start playback of the media from the beginning. */
+  
   command StartOver(): PlaybackResponse = 3;
-  /** This command is used to go back to the previous media playback item. */
+  
   command Previous(): PlaybackResponse = 4;
-  /** This command is used to go to the next media playback item. */
+  
   command Next(): PlaybackResponse = 5;
-  /** This command is used to rewind the media. */
+  
   command Rewind(RewindRequest): PlaybackResponse = 6;
-  /** This command is used to fast forward the media. */
+  
   command FastForward(FastForwardRequest): PlaybackResponse = 7;
-  /** This command is used to skip forward in the media. */
+  
   command SkipForward(SkipForwardRequest): PlaybackResponse = 8;
-  /** This command is used to skip backward in the media. */
+  
   command SkipBackward(SkipBackwardRequest): PlaybackResponse = 9;
-  /** This command is used to seek to a specific position in the media. */
+  
   command Seek(SeekRequest): PlaybackResponse = 11;
-  /** This command is used to activate a specific Audio Track for the media being played. */
+  
   command ActivateAudioTrack(ActivateAudioTrackRequest): DefaultSuccess = 12;
-  /** This command is used to activate a specific Text Track for the media being played. */
+  
   command ActivateTextTrack(ActivateTextTrackRequest): DefaultSuccess = 13;
-  /** This command is used to deactivate a specific Text Track for the media being played. */
+  
   command DeactivateTextTrack(): DefaultSuccess = 14;
 }
 
-/** This cluster provides an interface for controlling the Input Selector on a media device such as a TV. */
+
 cluster MediaInput = 1287 {
   revision 1;
 
@@ -8711,17 +8688,17 @@ cluster MediaInput = 1287 {
     char_string name = 1;
   }
 
-  /** Upon receipt, this command SHALL change the media input on the device to the input at a specific index in the Input List. */
+  
   command SelectInput(SelectInputRequest): DefaultSuccess = 0;
-  /** Upon receipt, this command SHALL display the active status of the input list on screen. */
+  
   command ShowInputStatus(): DefaultSuccess = 1;
-  /** Upon receipt, this command SHALL hide the input list from the screen. */
+  
   command HideInputStatus(): DefaultSuccess = 2;
-  /** Upon receipt, this command SHALL rename the input at a specific index in the Input List. */
+  
   command access(invoke: manage) RenameInput(RenameInputRequest): DefaultSuccess = 3;
 }
 
-/** This cluster provides an interface for managing low power mode on a device. */
+
 cluster LowPower = 1288 {
   revision 1;
 
@@ -8731,11 +8708,11 @@ cluster LowPower = 1288 {
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
 
-  /** This command SHALL put the device into low power mode. */
+  
   command Sleep(): DefaultSuccess = 0;
 }
 
-/** This cluster provides an interface for controlling a device like a TV using action commands such as UP, DOWN, and SELECT. */
+
 cluster KeypadInput = 1289 {
   revision 1;
 
@@ -8854,11 +8831,11 @@ cluster KeypadInput = 1289 {
     StatusEnum status = 0;
   }
 
-  /** Upon receipt, this SHALL process a keycode as input to the media endpoint. */
+  
   command SendKey(SendKeyRequest): SendKeyResponse = 0;
 }
 
-/** This cluster provides an interface for launching content on a media player device such as a TV or Speaker. */
+
 cluster ContentLauncher = 1290 {
   revision 2;
 
@@ -9005,13 +8982,13 @@ cluster ContentLauncher = 1290 {
     optional char_string data = 1;
   }
 
-  /** Upon receipt, this SHALL launch the specified content with optional search criteria. */
+  
   command LaunchContent(LaunchContentRequest): LauncherResponse = 0;
-  /** Upon receipt, this SHALL launch content from the specified URL. */
+  
   command LaunchURL(LaunchURLRequest): LauncherResponse = 1;
 }
 
-/** This cluster provides an interface for controlling the Output on a media device such as a TV. */
+
 cluster AudioOutput = 1291 {
   revision 1;
 
@@ -9051,13 +9028,13 @@ cluster AudioOutput = 1291 {
     char_string<32> name = 1;
   }
 
-  /** Upon receipt, this SHALL change the output on the device to the output at a specific index in the Output List. */
+  
   command SelectOutput(SelectOutputRequest): DefaultSuccess = 0;
-  /** Upon receipt, this SHALL rename the output at a specific index in the Output List. */
+  
   command access(invoke: manage) RenameOutput(RenameOutputRequest): DefaultSuccess = 1;
 }
 
-/** This cluster provides an interface for launching content on a media player device such as a TV or Speaker. */
+
 cluster ApplicationLauncher = 1292 {
   revision 2;
 
@@ -9110,15 +9087,15 @@ cluster ApplicationLauncher = 1292 {
     optional octet_string data = 1;
   }
 
-  /** Upon receipt of this command, the server SHALL launch the application with optional data. */
+  
   command LaunchApp(LaunchAppRequest): LauncherResponse = 0;
-  /** Upon receipt of this command, the server SHALL stop the application if it is running. */
+  
   command StopApp(StopAppRequest): LauncherResponse = 1;
-  /** Upon receipt of this command, the server SHALL hide the application. */
+  
   command HideApp(HideAppRequest): LauncherResponse = 2;
 }
 
-/** This cluster provides information about an application running on a TV or media player device which is represented as an endpoint. */
+
 cluster ApplicationBasic = 1293 {
   revision 1;
 
@@ -9149,7 +9126,7 @@ cluster ApplicationBasic = 1293 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster provides commands that facilitate user account login on a Content App or a node. For example, a Content App running on a Video Player device, which is represented as an endpoint (see [TV Architecture]), can use this cluster to help make the user account on the Content App match the user account on the Client. */
+
 cluster AccountLogin = 1294 {
   revision 2;
 
@@ -9182,15 +9159,15 @@ cluster AccountLogin = 1294 {
     optional node_id node = 0;
   }
 
-  /** The purpose of this command is to determine if the active user account of the given Content App matches the active user account of a given Commissionee, and when it does, return a Setup PIN which can be used for password-authenticated session establishment (PASE) with the Commissionee. */
+  
   fabric timed command access(invoke: administer) GetSetupPIN(GetSetupPINRequest): GetSetupPINResponse = 0;
-  /** The purpose of this command is to allow the Content App to assume the user account of a given Commissionee by leveraging the Setup PIN input by the user during the commissioning process. */
+  
   fabric timed command access(invoke: administer) Login(LoginRequest): DefaultSuccess = 2;
-  /** The purpose of this command is to instruct the Content App to clear the current user account. */
+  
   fabric timed command Logout(LogoutRequest): DefaultSuccess = 3;
 }
 
-/** This cluster provides facilities to configure and play Chime sounds, such as those used in a doorbell. */
+
 cluster Chime = 1366 {
   revision 1;
 
@@ -9208,11 +9185,11 @@ cluster Chime = 1366 {
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
 
-  /** This command will play the currently selected chime. */
+  
   command PlayChimeSound(): DefaultSuccess = 0;
 }
 
-/** The CommodityTariffCluster provides the mechanism for communicating Commodity Tariff information within the premises. */
+
 cluster CommodityTariff = 1792 {
   revision 2;
 
@@ -9379,13 +9356,13 @@ cluster CommodityTariff = 1792 {
     DayEntryStruct dayEntry = 0;
   }
 
-  /** The GetTariffComponent command allows a client to request information for a tariff component identifier that may no longer be available in the TariffPeriods attributes. */
+  
   command GetTariffComponent(GetTariffComponentRequest): GetTariffComponentResponse = 0;
-  /** The GetDayEntry command allows a client to request information for a calendar day entry identifier that may no longer be available in the CalendarPeriods or IndividualDays attributes. */
+  
   command GetDayEntry(GetDayEntryRequest): GetDayEntryResponse = 1;
 }
 
-/** The Joint Fabric Datastore Cluster is a cluster that provides a mechanism for the Joint Fabric Administrators to manage the set of Nodes, Groups, and Group membership among Nodes in the Joint Fabric. */
+
 provisional cluster JointFabricDatastore = 1874 {
   revision 1;
 
@@ -9643,49 +9620,49 @@ provisional cluster JointFabricDatastore = 1874 {
     node_id nodeID = 1;
   }
 
-  /** This command SHALL be used to add a KeySet to the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) AddKeySet(AddKeySetRequest): DefaultSuccess = 0;
-  /** This command SHALL be used to update a KeySet in the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) UpdateKeySet(UpdateKeySetRequest): DefaultSuccess = 1;
-  /** This command SHALL be used to remove a KeySet from the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) RemoveKeySet(RemoveKeySetRequest): DefaultSuccess = 2;
-  /** This command SHALL be used to add a group to the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) AddGroup(AddGroupRequest): DefaultSuccess = 3;
-  /** This command SHALL be used to update a group in the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) UpdateGroup(UpdateGroupRequest): DefaultSuccess = 4;
-  /** This command SHALL be used to remove a group from the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) RemoveGroup(RemoveGroupRequest): DefaultSuccess = 5;
-  /** This command SHALL be used to add an admin to the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) AddAdmin(AddAdminRequest): DefaultSuccess = 6;
-  /** This command SHALL be used to update an admin in the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) UpdateAdmin(UpdateAdminRequest): DefaultSuccess = 7;
-  /** This command SHALL be used to remove an admin from the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) RemoveAdmin(RemoveAdminRequest): DefaultSuccess = 8;
-  /** The command SHALL be used to add a node to the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) AddPendingNode(AddPendingNodeRequest): DefaultSuccess = 9;
-  /** The command SHALL be used to request that Datastore information relating to a Node of the accessing fabric is refreshed. */
+  
   command access(invoke: administer) RefreshNode(RefreshNodeRequest): DefaultSuccess = 10;
-  /** The command SHALL be used to update the friendly name for a node in the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) UpdateNode(UpdateNodeRequest): DefaultSuccess = 11;
-  /** This command SHALL be used to remove a node from the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) RemoveNode(RemoveNodeRequest): DefaultSuccess = 12;
-  /** This command SHALL be used to update the state of an endpoint for a node in the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) UpdateEndpointForNode(UpdateEndpointForNodeRequest): DefaultSuccess = 13;
-  /** This command SHALL be used to add a Group ID to an endpoint for a node in the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) AddGroupIDToEndpointForNode(AddGroupIDToEndpointForNodeRequest): DefaultSuccess = 14;
-  /** This command SHALL be used to remove a Group ID from an endpoint for a node in the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) RemoveGroupIDFromEndpointForNode(RemoveGroupIDFromEndpointForNodeRequest): DefaultSuccess = 15;
-  /** This command SHALL be used to add a binding to an endpoint for a node in the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) AddBindingToEndpointForNode(AddBindingToEndpointForNodeRequest): DefaultSuccess = 16;
-  /** This command SHALL be used to remove a binding from an endpoint for a node in the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) RemoveBindingFromEndpointForNode(RemoveBindingFromEndpointForNodeRequest): DefaultSuccess = 17;
-  /** This command SHALL be used to add an ACL to a node in the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) AddACLToNode(AddACLToNodeRequest): DefaultSuccess = 18;
-  /** This command SHALL be used to remove an ACL from a node in the Joint Fabric Datastore Cluster of the accessing fabric. */
+  
   command access(invoke: administer) RemoveACLFromNode(RemoveACLFromNodeRequest): DefaultSuccess = 19;
 }
 
-/** An instance of the Joint Fabric Administrator Cluster only applies to Joint Fabric Administrator nodes fulfilling the role of Anchor CA. */
+
 provisional cluster JointFabricAdministrator = 1875 {
   revision 1;
 
@@ -9744,21 +9721,21 @@ provisional cluster JointFabricAdministrator = 1875 {
     endpoint_no endpointID = 0;
   }
 
-  /** This command SHALL be generated during Joint Commissioning Method and subsequently be responded in the form of an ICACCSRResponse command. */
+  
   command access(invoke: administer) ICACCSRRequest(): ICACCSRResponse = 0;
-  /** This command SHALL be generated and executed during Joint Commissioning Method and subsequently be responded in the form of an ICACResponse command. */
+  
   command access(invoke: administer) AddICAC(AddICACRequest): ICACResponse = 2;
-  /** This command SHALL fail with a InvalidAdministratorFabricIndex status code sent back to the initiator if the AdministratorFabricIndex attribute has the value of null. */
+  
   command access(invoke: administer) OpenJointCommissioningWindow(OpenJointCommissioningWindowRequest): DefaultSuccess = 4;
-  /** This command SHALL be sent by a candidate Joint Fabric Anchor Administrator to the current Joint Fabric Anchor Administrator to request transfer of the Anchor Fabric. */
+  
   command access(invoke: administer) TransferAnchorRequest(): TransferAnchorResponse = 5;
-  /** This command SHALL indicate the completion of the transfer of the Anchor Fabric to another Joint Fabric Ecosystem Administrator. */
+  
   command access(invoke: administer) TransferAnchorComplete(): DefaultSuccess = 7;
-  /** This command SHALL be used for communicating to client the endpoint that holds the Joint Fabric Administrator Cluster. */
+  
   command access(invoke: administer) AnnounceJointFabricAdministrator(AnnounceJointFabricAdministratorRequest): DefaultSuccess = 8;
 }
 
-/** This Meter Identification Cluster provides attributes for determining advanced information about utility metering device. */
+
 cluster MeterIdentification = 2822 {
   revision 1;
 
@@ -9784,7 +9761,7 @@ cluster MeterIdentification = 2822 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** The Commodity Metering Cluster provides the mechanism for communicating commodity consumption information within a premises. */
+
 cluster CommodityMetering = 2823 {
   revision 1;
 
@@ -9824,10 +9801,9 @@ cluster CommodityMetering = 2823 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** The Test Cluster is meant to validate the generated code */
-internal cluster UnitTesting = 4294048773 {
-  revision 1; // NOTE: Default/not specifically set
 
+internal cluster UnitTesting = 4294048773 {
+  revision 1; 
   enum SimpleEnum : enum8 {
     kUnspecified = 0;
     kValueA = 1;
@@ -10261,94 +10237,67 @@ internal cluster UnitTesting = 4294048773 {
     int64u eventNumber = 1;
   }
 
-  /** Simple command without any parameters and without a specific response.
-        To aid in unit testing, this command will re-initialize attribute storage to defaults. */
+  
   command Test(): DefaultSuccess = 0;
-  /** Simple command without any parameters and without a specific response not handled by the server */
+  
   command TestNotHandled(): DefaultSuccess = 1;
-  /** Simple command without any parameters and with a specific response */
+  
   command TestSpecific(): TestSpecificResponse = 2;
-  /** Simple command that should not be added to the server. */
+  
   command TestUnknownCommand(): DefaultSuccess = 3;
-  /** Command that takes two arguments and returns their sum. */
+  
   command TestAddArguments(TestAddArgumentsRequest): TestAddArgumentsResponse = 4;
-  /** Command that takes an argument which is bool */
+  
   command TestSimpleArgumentRequest(TestSimpleArgumentRequestRequest): TestSimpleArgumentResponse = 5;
-  /** Command that takes various arguments that are arrays, including an array of structs which have a list member. */
+  
   command TestStructArrayArgumentRequest(TestStructArrayArgumentRequestRequest): TestStructArrayArgumentResponse = 6;
-  /** Command that takes an argument which is struct.  The response echoes the
-        'b' field of the single arg. */
+  
   command TestStructArgumentRequest(TestStructArgumentRequestRequest): BooleanResponse = 7;
-  /** Command that takes an argument which is nested struct.  The response
-        echoes the 'b' field of ar1.c. */
+  
   command TestNestedStructArgumentRequest(TestNestedStructArgumentRequestRequest): BooleanResponse = 8;
-  /** Command that takes an argument which is a list of structs.  The response
-        returns false if there is some struct in the list whose 'b' field is
-        false, and true otherwise (including if the list is empty). */
+  
   command TestListStructArgumentRequest(TestListStructArgumentRequestRequest): BooleanResponse = 9;
-  /** Command that takes an argument which is a list of INT8U.  The response
-        returns false if the list contains a 0 in it, true otherwise (including
-        if the list is empty). */
+  
   command TestListInt8UArgumentRequest(TestListInt8UArgumentRequestRequest): BooleanResponse = 10;
-  /** Command that takes an argument which is a Nested Struct List.  The
-        response returns false if there is some struct in arg1 (either directly
-        in arg1.c or in the arg1.d list) whose 'b' field is false, and true
-        otherwise. */
+  
   command TestNestedStructListArgumentRequest(TestNestedStructListArgumentRequestRequest): BooleanResponse = 11;
-  /** Command that takes an argument which is a list of Nested Struct List.
-        The response returns false if there is some struct in arg1 (either
-        directly in as the 'c' field of an entry 'd' list of an entry) whose 'b'
-        field is false, and true otherwise (including if the list is empty). */
+  
   command TestListNestedStructListArgumentRequest(TestListNestedStructListArgumentRequestRequest): BooleanResponse = 12;
-  /** Command that takes an argument which is a list of INT8U and expects a
-        response that reverses the list. */
+  
   command TestListInt8UReverseRequest(TestListInt8UReverseRequestRequest): TestListInt8UReverseResponse = 13;
-  /** Command that sends a vendor id and an enum.  The server is expected to
-        echo them back. */
+  
   command TestEnumsRequest(TestEnumsRequestRequest): TestEnumsResponse = 14;
-  /** Command that takes an argument which is nullable and optional.  The
-        response returns a boolean indicating whether the argument was present,
-        if that's true a boolean indicating whether the argument was null, and
-        if that' false the argument it received. */
+  
   command TestNullableOptionalRequest(TestNullableOptionalRequestRequest): TestNullableOptionalResponse = 15;
-  /** Command that takes various arguments which can be nullable and/or optional.  The
-        response returns information about which things were received and what
-        their state was. */
+  
   command TestComplexNullableOptionalRequest(TestComplexNullableOptionalRequestRequest): TestComplexNullableOptionalResponse = 16;
-  /** Command that takes an argument which is a struct.  The response echoes
-        the struct back. */
+  
   command SimpleStructEchoRequest(SimpleStructEchoRequestRequest): SimpleStructResponse = 17;
-  /** Command that just responds with a success status if the timed invoke
-        conditions are met. */
+  
   timed command TimedInvokeRequest(): DefaultSuccess = 18;
-  /** Command that takes an optional argument which is bool. It responds with a success value if the optional is set to any value. */
+  
   command TestSimpleOptionalArgumentRequest(TestSimpleOptionalArgumentRequestRequest): DefaultSuccess = 19;
-  /** Command that takes identical arguments to the fields of the TestEvent and logs the TestEvent to the buffer.  Command returns an event ID as the response. */
+  
   command TestEmitTestEventRequest(TestEmitTestEventRequestRequest): TestEmitTestEventResponse = 20;
-  /** Command that takes identical arguments to the fields of the TestFabricScopedEvent and logs the TestFabricScopedEvent to the buffer.  Command returns an event ID as the response. */
+  
   command TestEmitTestFabricScopedEventRequest(TestEmitTestFabricScopedEventRequestRequest): TestEmitTestFabricScopedEventResponse = 21;
-  /** Command that responds after sleepBeforeResponseTimeMs with an octet_string the size requested with fillCharacter. */
+  
   command TestBatchHelperRequest(TestBatchHelperRequestRequest): TestBatchHelperResponse = 22;
-  /** Second command that responds after sleepBeforeResponseTimeMs with an octet_string the size requested with fillCharacter. */
+  
   command TestSecondBatchHelperRequest(TestSecondBatchHelperRequestRequest): TestBatchHelperResponse = 23;
-  /** Command that takes an argument which is an octet string.  The response echoes
-        the string back. If the string is large then it would require a session that
-        supports large payloads. */
+  
   command StringEchoRequest(StringEchoRequestRequest): StringEchoResponse = 24;
-  /** Command that takes arguments that are global structs/enums and the
-        response just echoes them back. */
+  
   command GlobalEchoRequest(GlobalEchoRequestRequest): GlobalEchoResponse = 25;
-  /** Command that returns Success if the CommandFlags pass all checks at the IM layer.
-        Otherwise, return appropriate StatusCode back. */
+  
   fabric timed command TestCheckCommandFlags(): DefaultSuccess = 26;
-  /** Command having a different MEI vendor ID than the cluster. Also emits TestDifferentVendorMeiEvent. */
+  
   command TestDifferentVendorMeiRequest(TestDifferentVendorMeiRequestRequest): TestDifferentVendorMeiResponse = 4294049962;
 }
 
-/** The Sample MEI cluster showcases a cluster manufacturer extensions */
-cluster SampleMei = 4294048800 {
-  revision 1; // NOTE: Default/not specifically set
 
+cluster SampleMei = 4294048800 {
+  revision 1; 
   fabric_sensitive info event PingCountEvent = 0 {
     int32u count = 1;
     fabric_idx fabricIndex = 254;
@@ -10370,9 +10319,9 @@ cluster SampleMei = 4294048800 {
     int8u arg2 = 1;
   }
 
-  /** Simple command without any parameters and without a response. */
+  
   command Ping(): DefaultSuccess = 0;
-  /** Command that takes two uint8 arguments and returns their sum. */
+  
   command AddArguments(AddArgumentsRequest): AddArgumentsResponse = 2;
 }
 
@@ -10495,5 +10444,4 @@ endpoint 1 {
   binding cluster UnitTesting;
   binding cluster SampleMei;
 }
-
 
