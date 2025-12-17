@@ -1,652 +1,9 @@
 // This IDL was generated automatically by ZAP.
 // It is for view/code review purposes only.
 
-enum AlarmSeverityTag : enum8 {
-  kCritical = 0;
-  kMajor = 1;
-  kMinor = 2;
-}
 
-enum AreaTypeTag : enum8 {
-  kAisle = 0;
-  kAttic = 1;
-  kBackDoor = 2;
-  kBackYard = 3;
-  kBalcony = 4;
-  kBallroom = 5;
-  kBathroom = 6;
-  kBedroom = 7;
-  kBorder = 8;
-  kBoxroom = 9;
-  kBreakfastRoom = 10;
-  kCarport = 11;
-  kCellar = 12;
-  kCloakroom = 13;
-  kCloset = 14;
-  kConservatory = 15;
-  kCorridor = 16;
-  kCraftRoom = 17;
-  kCupboard = 18;
-  kDeck = 19;
-  kDen = 20;
-  kDining = 21;
-  kDrawingRoom = 22;
-  kDressingRoom = 23;
-  kDriveway = 24;
-  kElevator = 25;
-  kEnsuite = 26;
-  kEntrance = 27;
-  kEntryway = 28;
-  kFamilyRoom = 29;
-  kFoyer = 30;
-  kFrontDoor = 31;
-  kFrontYard = 32;
-  kGameRoom = 33;
-  kGarage = 34;
-  kGarageDoor = 35;
-  kGarden = 36;
-  kGardenDoor = 37;
-  kGuestBathroom = 38;
-  kGuestBedroom = 39;
-  kGuestRoom = 41;
-  kGym = 42;
-  kHallway = 43;
-  kHearthRoom = 44;
-  kKidsRoom = 45;
-  kKidsBedroom = 46;
-  kKitchen = 47;
-  kLaundryRoom = 49;
-  kLawn = 50;
-  kLibrary = 51;
-  kLivingRoom = 52;
-  kLounge = 53;
-  kMediaTvRoom = 54;
-  kMudRoom = 55;
-  kMusicRoom = 56;
-  kNursery = 57;
-  kOffice = 58;
-  kOutdoorKitchen = 59;
-  kOutside = 60;
-  kPantry = 61;
-  kParkingLot = 62;
-  kParlor = 63;
-  kPatio = 64;
-  kPlayRoom = 65;
-  kPoolRoom = 66;
-  kPorch = 67;
-  kPrimaryBathroom = 68;
-  kPrimaryBedroom = 69;
-  kRamp = 70;
-  kReceptionRoom = 71;
-  kRecreationRoom = 72;
-  kRoof = 74;
-  kSauna = 75;
-  kScullery = 76;
-  kSewingRoom = 77;
-  kShed = 78;
-  kSideDoor = 79;
-  kSideYard = 80;
-  kSittingRoom = 81;
-  kSnug = 82;
-  kSpa = 83;
-  kStaircase = 84;
-  kSteamRoom = 85;
-  kStorageRoom = 86;
-  kStudio = 87;
-  kStudy = 88;
-  kSunRoom = 89;
-  kSwimmingPool = 90;
-  kTerrace = 91;
-  kUtilityRoom = 92;
-  kWard = 93;
-  kWorkshop = 94;
-  kToilet = 95;
-}
-
-enum AtomicRequestTypeEnum : enum8 {
-  kBeginWrite = 0;
-  kCommitWrite = 1;
-  kRollbackWrite = 2;
-}
-
-enum ClosureCabinetTag : enum8 {
-  kCabinetDoor = 0;
-  kDrawer = 1;
-  kFlap = 2;
-}
-
-enum ClosureCoveringTag : enum8 {
-  kBlind = 0;
-  kAwning = 1;
-  kShutter = 2;
-  kVenetian = 3;
-  kCurtain = 4;
-}
-
-enum ClosurePanelTag : enum8 {
-  kLift = 0;
-  kTilt = 1;
-  kSliding = 2;
-  kRotate = 3;
-}
-
-enum ClosureTag : enum8 {
-  kOpening = 0;
-  kClosing = 1;
-  kStop = 2;
-}
-
-enum ClosureWindowTag : enum8 {
-  kRoof = 0;
-  kFacade = 1;
-}
-
-enum CommodityTariffChronologyTag : enum8 {
-  kCurrent = 0;
-  kPrevious = 1;
-  kUpcoming = 2;
-}
-
-enum CommodityTariffCommodityTag : enum8 {
-  kElectricalEnergy = 0;
-}
-
-enum CommodityTariffFlowTag : enum8 {
-  kImport = 0;
-  kExport = 1;
-}
-
-enum CompassDirectionTag : enum8 {
-  kNorthward = 0;
-  kNorthEastward = 1;
-  kEastward = 2;
-  kSouthEastward = 3;
-  kSouthward = 4;
-  kSouthWestward = 5;
-  kWestward = 6;
-  kNorthWestward = 7;
-}
-
-enum CompassLocationTag : enum8 {
-  kNorth = 0;
-  kNorthEast = 1;
-  kEast = 2;
-  kSouthEast = 3;
-  kSouth = 4;
-  kSouthWest = 5;
-  kWest = 6;
-  kNorthWest = 7;
-}
-
-enum DirectionTag : enum8 {
-  kUpward = 0;
-  kDownward = 1;
-  kLeftward = 2;
-  kRightward = 3;
-  kForward = 4;
-  kBackward = 5;
-}
-
-enum ElectricalDistributionFormFactorTag : enum8 {
-  kMiniature = 0;
-  kMoldedCase = 1;
-}
-
-enum ElectricalDistributionOverVoltageTag : enum8 {
-  kLineToNeutral = 0;
-  kLineToGround = 1;
-  kNeutralToGround = 2;
-  kLineToLine = 3;
-}
-
-enum ElectricalMeasurementTag : enum8 {
-  kDC = 0 [spec_name = "DC"];
-  kAC = 1 [spec_name = "AC"];
-  kACPhase1 = 2;
-  kACPhase2 = 3;
-  kACPhase3 = 4;
-}
-
-enum IdentifiedHumanActivityTag : enum8 {
-  kUnknown = 0;
-  kPresence = 1;
-  kFall = 2;
-  kSleeping = 3;
-  kWalking = 4;
-  kWorkout = 5;
-  kSitting = 6;
-  kStanding = 7;
-  kDancing = 8;
-  kPackageDelivery = 9;
-  kPackageRetrieval = 10;
-}
-
-enum IdentifiedObjectTag : enum8 {
-  kUnknown = 0;
-  kAdult = 1;
-  kChild = 2;
-  kPerson = 3;
-  kRVC = 4 [spec_name = "RVC"];
-  kPet = 5;
-  kDog = 6;
-  kCat = 7;
-  kAnimal = 8;
-  kCar = 9;
-  kVehicle = 10;
-  kPackage = 11;
-}
-
-enum IdentifiedSoundTag : enum8 {
-  kUnknown = 0;
-  kObjectFall = 1;
-  kSnoring = 2;
-  kCoughing = 3;
-  kBarking = 4;
-  kShattering = 5;
-  kBabyCrying = 6;
-  kUtilityAlarm = 7;
-  kUrgentShouting = 8;
-  kDoorbell = 9;
-  kKnocking = 10;
-  kUrgentSiren = 11;
-  kFaucetRunning = 12;
-  kKettleBoiling = 13;
-  kFanDryer = 14;
-  kClapping = 15;
-  kFingerSnapping = 16;
-  kMeowing = 17;
-  kLaughing = 18;
-  kGlassBreaking = 19;
-  kDoorKnocking = 20;
-  kPersonTalking = 21;
-}
-
-enum LandmarkTag : enum8 {
-  kAirConditioner = 0;
-  kAirPurifier = 1;
-  kBackDoor = 2;
-  kBarStool = 3;
-  kBathMat = 4;
-  kBathtub = 5;
-  kBed = 6;
-  kBookshelf = 7;
-  kChair = 8;
-  kChristmasTree = 9;
-  kCoatRack = 10;
-  kCoffeeTable = 11;
-  kCookingRange = 12;
-  kCouch = 13;
-  kCountertop = 14;
-  kCradle = 15;
-  kCrib = 16;
-  kDesk = 17;
-  kDiningTable = 18;
-  kDishwasher = 19;
-  kDoor = 20;
-  kDresser = 21;
-  kLaundryDryer = 22;
-  kFan = 23;
-  kFireplace = 24;
-  kFreezer = 25;
-  kFrontDoor = 26;
-  kHighChair = 27;
-  kKitchenIsland = 28;
-  kLamp = 29;
-  kLitterBox = 30;
-  kMirror = 31;
-  kNightstand = 32;
-  kOven = 33;
-  kPetBed = 34;
-  kPetBowl = 35;
-  kPetCrate = 36;
-  kRefrigerator = 37;
-  kScratchingPost = 38;
-  kShoeRack = 39;
-  kShower = 40;
-  kSideDoor = 41;
-  kSink = 42;
-  kSofa = 43;
-  kStove = 44;
-  kTable = 45;
-  kToilet = 46;
-  kTrashCan = 47;
-  kLaundryWasher = 48;
-  kWindow = 49;
-  kWineCooler = 50;
-}
-
-enum LaundryTag : enum8 {
-  kNormal = 0;
-  kLightDry = 1;
-  kExtraDry = 2;
-  kNoDry = 3;
-}
-
-enum LevelTag : enum8 {
-  kLow = 0;
-  kMedium = 1;
-  kHigh = 2;
-}
-
-enum LocationTag : enum8 {
-  kIndoor = 0;
-  kOutdoor = 1;
-  kInside = 2;
-  kOutside = 3;
-  kZone = 4;
-}
-
-enum MeasurementTypeEnum : enum16 {
-  kUnspecified = 0;
-  kVoltage = 1;
-  kActiveCurrent = 2;
-  kReactiveCurrent = 3;
-  kApparentCurrent = 4;
-  kActivePower = 5;
-  kReactivePower = 6;
-  kApparentPower = 7;
-  kRMSVoltage = 8;
-  kRMSCurrent = 9;
-  kRMSPower = 10;
-  kFrequency = 11;
-  kPowerFactor = 12;
-  kNeutralCurrent = 13;
-  kElectricalEnergy = 14;
-  kReactiveEnergy = 15;
-  kApparentEnergy = 16;
-  kSoilMoisture = 17;
-}
-
-enum NumberTag : enum8 {
-  kZero = 0;
-  kOne = 1;
-  kTwo = 2;
-  kThree = 3;
-  kFour = 4;
-  kFive = 5;
-  kSix = 6;
-  kSeven = 7;
-  kEight = 8;
-  kNine = 9;
-  kTen = 10;
-  kEleven = 11;
-  kTwelve = 12;
-  kThirteen = 13;
-  kFourteen = 14;
-  kFifteen = 15;
-  kSixteen = 16;
-  kSeventeen = 17;
-  kEighteen = 18;
-  kNineteen = 19;
-  kTwenty = 20;
-  kTwentyOne = 21;
-  kTwentyTwo = 22;
-  kTwentyThree = 23;
-  kTwentyFour = 24;
-  kTwentyFive = 25;
-  kTwentySix = 26;
-  kTwentySeven = 27;
-  kTwentyEight = 28;
-  kTwentyNine = 29;
-  kThirty = 30;
-}
-
-enum PositionTag : enum8 {
-  kLeft = 0;
-  kRight = 1;
-  kTop = 2;
-  kBottom = 3;
-  kMiddle = 4;
-  kRow = 5;
-  kColumn = 6;
-}
-
-enum PowerSourceTag : enum8 {
-  kUnknown = 0;
-  kGrid = 1;
-  kSolar = 2;
-  kBattery = 3;
-  kEV = 4 [spec_name = "EV"];
-}
-
-enum PowerThresholdSourceEnum : enum8 {
-  kContract = 0;
-  kRegulator = 1;
-  kEquipment = 2;
-}
-
-enum RefrigeratorTag : enum8 {
-  kRefrigerator = 0;
-  kFreezer = 1;
-}
-
-enum RelativePositionTag : enum8 {
-  kUnder = 0;
-  kNextTo = 1;
-  kAround = 2;
-  kOn = 3;
-  kAbove = 4;
-  kFrontOf = 5;
-  kBehind = 6;
-}
-
-enum RoomAirConditionerTag : enum8 {
-  kEvaporator = 0;
-  kCondenser = 1;
-}
-
-enum ServerAttributionContextInformation : enum8 {
-  kServerAutomationRule = 11;
-  kServerSchedule = 12;
-  kServerTimer = 13;
-  kSecurity = 14;
-  kDemandResponseEventOrSimilarServiceProviderSignalling = 15;
-  kPhysicalInteractionOnDevice = 16;
-  kInteractionViaAProtocolNotDefinedInThisSpecification = 17;
-}
-
-enum SoftwareVersionCertificationStatusEnum : enum8 {
-  kDevTest = 0;
-  kProvisional = 1;
-  kCertified = 2;
-  kRevoked = 3;
-}
-
-enum StreamUsageEnum : enum8 {
-  kInternal = 0;
-  kRecording = 1;
-  kAnalysis = 2;
-  kLiveView = 3;
-}
-
-enum SuppliedAttributionContextInformation : enum8 {
-  kDefaultClientAction = 0;
-  kUserInteraction = 1;
-  kClientAutomationRule = 2;
-  kClientSchedule = 3;
-  kClientTimer = 4;
-}
-
-enum SwitchesTag : enum8 {
-  kOn = 0;
-  kOff = 1;
-  kToggle = 2;
-  kUp = 3;
-  kDown = 4;
-  kNext = 5;
-  kPrevious = 6;
-  kEnterOkSelect = 7;
-  kCustom = 8;
-  kOpen = 9;
-  kClose = 10;
-  kStop = 11;
-}
-
-enum TariffPriceTypeEnum : enum8 {
-  kStandard = 0;
-  kCritical = 1;
-  kVirtual = 2;
-  kIncentive = 3;
-  kIncentiveSignal = 4;
-}
-
-enum TariffUnitEnum : enum8 {
-  kKWh = 0;
-  kKVAh = 1;
-}
-
-enum TestGlobalEnum : enum8 {
-  kSomeValue = 0;
-  kSomeOtherValue = 1;
-  kFinalValue = 2;
-}
-
-enum ThreeLevelAutoEnum : enum8 {
-  kAuto = 0;
-  kLow = 1;
-  kMedium = 2;
-  kHigh = 3;
-}
-
-enum WebRTCEndReasonEnum : enum8 {
-  kICEFailed = 0;
-  kICETimeout = 1;
-  kUserHangup = 2;
-  kUserBusy = 3;
-  kReplaced = 4;
-  kNoUserMedia = 5;
-  kInviteTimeout = 6;
-  kAnsweredElsewhere = 7;
-  kOutOfResources = 8;
-  kMediaTimeout = 9;
-  kLowPower = 10;
-  kPrivacyMode = 11;
-  kUnknownReason = 12;
-}
-
-bitmap TestGlobalBitmap : bitmap32 {
-  kFirstBit = 0x1;
-  kSecondBit = 0x2;
-}
-
-struct CurrencyStruct {
-  int16u currency = 0;
-  int8u decimalPoints = 1;
-}
-
-struct PriceStruct {
-  money amount = 0;
-  CurrencyStruct currency = 1;
-}
-
-struct ModeTagStruct {
-  optional vendor_id mfgCode = 0;
-  enum16 value = 1;
-}
-
-struct ModeOptionStruct {
-  char_string<64> label = 0;
-  int8u mode = 1;
-  ModeTagStruct modeTags[] = 2;
-}
-
-struct MeasurementAccuracyRangeStruct {
-  int64s rangeMin = 0;
-  int64s rangeMax = 1;
-  optional percent100ths percentMax = 2;
-  optional percent100ths percentMin = 3;
-  optional percent100ths percentTypical = 4;
-  optional int64u fixedMax = 5;
-  optional int64u fixedMin = 6;
-  optional int64u fixedTypical = 7;
-}
-
-struct MeasurementAccuracyStruct {
-  MeasurementTypeEnum measurementType = 0;
-  boolean measured = 1;
-  int64s minMeasuredValue = 2;
-  int64s maxMeasuredValue = 3;
-  MeasurementAccuracyRangeStruct accuracyRanges[] = 4;
-}
-
-struct AtomicAttributeStatusStruct {
-  attrib_id attributeID = 0;
-  status statusCode = 1;
-}
-
-struct AttributionData {
-  enum8 contextInformation = 0;
-  optional int32u sourceContext = 1;
-  optional node_id nodeID = 2;
-  optional group_id groupID = 3;
-  optional systime_ms systemTimeStamp = 4;
-  optional posix_ms epochTimeStamp = 5;
-  nullable fabric_idx fabricIndex = 6;
-}
-
-struct ICECandidateStruct {
-  char_string candidate = 0;
-  nullable char_string SDPMid = 1;
-  nullable int16u SDPMLineIndex = 2;
-}
-
-struct ICEServerStruct {
-  char_string URLs[] = 0;
-  optional long_char_string<508> username = 1;
-  optional long_char_string<512> credential = 2;
-  optional int16u caid = 3;
-}
-
-struct LocationDescriptorStruct {
-  char_string<128> locationName = 0;
-  nullable int16s floorNumber = 1;
-  nullable AreaTypeTag areaType = 2;
-}
-
-struct PowerThresholdStruct {
-  optional power_mw powerThreshold = 0;
-  optional power_mva apparentPowerThreshold = 1;
-  nullable PowerThresholdSourceEnum powerThresholdSource = 2;
-}
-
-struct SemanticTagStruct {
-  nullable vendor_id mfgCode = 0;
-  enum8 namespaceID = 1;
-  enum8 tag = 2;
-  optional nullable char_string<64> label = 3;
-}
-
-fabric_scoped struct SuppliedAttributionData {
-  enum8 contextInformation = 0;
-  optional int32u sourceContext = 1;
-  fabric_idx fabricIndex = 254;
-}
-
-struct TestGlobalStruct {
-  char_string<128> name = 0;
-  nullable TestGlobalBitmap myBitmap = 1;
-  optional nullable TestGlobalEnum myEnum = 2;
-}
-
-struct ViewportStruct {
-  int16u x1 = 0;
-  int16u y1 = 1;
-  int16u x2 = 2;
-  int16u y2 = 3;
-}
-
-fabric_scoped struct WebRTCSessionStruct {
-  int16u id = 0;
-  node_id peerNodeID = 1;
-  endpoint_no peerEndpointID = 2;
-  StreamUsageEnum streamUsage = 3;
-  nullable int16u videoStreamID = 4;
-  nullable int16u audioStreamID = 5;
-  boolean metadataEnabled = 6;
-  fabric_idx fabricIndex = 254;
-}
-
-/** Attributes and commands for putting a device into Identification mode (e.g. flashing a light). */
+/** This cluster supports an endpoint identification state (e.g., flashing a light), that indicates to
+       an observer (e.g., an installer) which of several nodes and/or endpoints it is. */
 cluster Identify = 3 {
   revision 6;
 
@@ -695,56 +52,8 @@ cluster Identify = 3 {
   command access(invoke: manage) TriggerEffect(TriggerEffectRequest): DefaultSuccess = 64;
 }
 
-/** Attributes and commands for putting a device into Identification mode (e.g. flashing a light). */
-cluster Identify = 3 {
-  revision 6;
-
-  enum EffectIdentifierEnum : enum8 {
-    kBlink = 0;
-    kBreathe = 1;
-    kOkay = 2;
-    kChannelChange = 11;
-    kFinishEffect = 254;
-    kStopEffect = 255;
-  }
-
-  enum EffectVariantEnum : enum8 {
-    kDefault = 0;
-  }
-
-  enum IdentifyTypeEnum : enum8 {
-    kNone = 0;
-    kLightOutput = 1;
-    kVisibleIndicator = 2;
-    kAudibleBeep = 3;
-    kDisplay = 4;
-    kActuator = 5;
-  }
-
-  attribute int16u identifyTime = 0;
-  readonly attribute IdentifyTypeEnum identifyType = 1;
-  readonly attribute command_id generatedCommandList[] = 65528;
-  readonly attribute command_id acceptedCommandList[] = 65529;
-  readonly attribute attrib_id attributeList[] = 65531;
-  readonly attribute bitmap32 featureMap = 65532;
-  readonly attribute int16u clusterRevision = 65533;
-
-  request struct IdentifyRequest {
-    int16u identifyTime = 0;
-  }
-
-  request struct TriggerEffectRequest {
-    EffectIdentifierEnum effectIdentifier = 0;
-    EffectVariantEnum effectVariant = 1;
-  }
-
-  /** This command starts or stops the receiving device identifying itself. */
-  command access(invoke: manage) Identify(IdentifyRequest): DefaultSuccess = 0;
-  /** This command allows the support of feedback to the user, such as a certain light effect. */
-  command access(invoke: manage) TriggerEffect(TriggerEffectRequest): DefaultSuccess = 64;
-}
-
-/** Attributes and commands for group configuration and manipulation. */
+/** The Groups cluster manages, per endpoint, the content of the node-wide Group Table that is part of
+       the underlying interaction layer. */
 cluster Groups = 4 {
   revision 4;
 
@@ -806,21 +115,27 @@ cluster Groups = 4 {
     char_string<16> groupName = 1;
   }
 
-  /** The AddGroup command allows a client to add group membership in a particular group for the server endpoint. */
+  /** The AddGroup command allows a client to add group membership in a particular group for the server
+         endpoint. */
   fabric command access(invoke: manage) AddGroup(AddGroupRequest): AddGroupResponse = 0;
-  /** The ViewGroup command allows a client to request that the server responds with a ViewGroupResponse command containing the name string for a particular group. */
+  /** The ViewGroup command allows a client to request that the server responds with a ViewGroupResponse
+         command containing the name string for a particular group. */
   fabric command ViewGroup(ViewGroupRequest): ViewGroupResponse = 1;
-  /** The GetGroupMembership command allows a client to inquire about the group membership of the server endpoint, in a number of ways. */
+  /** The GetGroupMembership command allows a client to inquire about the group membership of the server
+         endpoint, in a number of ways. */
   fabric command GetGroupMembership(GetGroupMembershipRequest): GetGroupMembershipResponse = 2;
-  /** The RemoveGroup command allows a client to request that the server removes the membership for the server endpoint, if any, in a particular group. */
+  /** The RemoveGroup command allows a client to request that the server removes the membership for the
+         server endpoint, if any, in a particular group. */
   fabric command access(invoke: manage) RemoveGroup(RemoveGroupRequest): RemoveGroupResponse = 3;
-  /** The RemoveAllGroups command allows a client to direct the server to remove all group associations for the server endpoint. */
+  /** The RemoveAllGroups command allows a client to direct the server to remove all group associations
+         for the server endpoint. */
   fabric command access(invoke: manage) RemoveAllGroups(): DefaultSuccess = 4;
-  /** The AddGroupIfIdentifying command allows a client to add group membership in a particular group for the server endpoint, on condition that the endpoint is identifying itself. */
+  /** The AddGroupIfIdentifying command allows a client to add group membership in a particular group for
+         the server endpoint, on condition that the endpoint is identifying itself. */
   fabric command access(invoke: manage) AddGroupIfIdentifying(AddGroupIfIdentifyingRequest): DefaultSuccess = 5;
 }
 
-/** Attributes and commands for switching devices between 'On' and 'Off' states. */
+/** Attributes and commands for turning devices on and off. */
 cluster OnOff = 6 {
   revision 6;
 
@@ -887,11 +202,15 @@ cluster OnOff = 6 {
   command OffWithEffect(OffWithEffectRequest): DefaultSuccess = 64;
   /** This command allows the recall of the settings when the device was turned off. */
   command OnWithRecallGlobalScene(): DefaultSuccess = 65;
-  /** This command allows devices to be turned on for a specific duration with a guarded off duration so that SHOULD the device be subsequently turned off, further OnWithTimedOff commands, received during this time, are prevented from turning the devices back on. */
+  /** This command allows devices to be turned on for a specific duration with a guarded off duration so
+         that SHOULD the device be subsequently turned off, further OnWithTimedOff commands, received during
+         this time, are prevented from turning the devices back on. */
   command OnWithTimedOff(OnWithTimedOffRequest): DefaultSuccess = 66;
 }
 
-/** Attributes and commands for controlling devices that can be set to a level between fully 'On' and fully 'Off.' */
+/** This cluster provides an interface for controlling a characteristic of a device that can be set to
+       a level, for example the brightness of a light, the degree of closure of a door, or the power output
+       of a heater. */
 cluster LevelControl = 8 {
   revision 7;
 
@@ -1002,19 +321,16 @@ cluster LevelControl = 8 {
   command Step(StepRequest): DefaultSuccess = 2;
   /** This command will stop the actions of various other commands that are still in progress. */
   command Stop(StopRequest): DefaultSuccess = 3;
-  /** Command description for MoveToLevelWithOnOff */
   command MoveToLevelWithOnOff(MoveToLevelWithOnOffRequest): DefaultSuccess = 4;
-  /** Command description for MoveWithOnOff */
   command MoveWithOnOff(MoveWithOnOffRequest): DefaultSuccess = 5;
-  /** Command description for StepWithOnOff */
   command StepWithOnOff(StepWithOnOffRequest): DefaultSuccess = 6;
-  /** Command description for StopWithOnOff */
   command StopWithOnOff(StopWithOnOffRequest): DefaultSuccess = 7;
   /** This command will cause the device to change the current frequency to the requested value. */
   command MoveToClosestFrequency(MoveToClosestFrequencyRequest): DefaultSuccess = 8;
 }
 
-/** The Descriptor Cluster is meant to replace the support from the Zigbee Device Object (ZDO) for describing a node, its endpoints and clusters. */
+/** This cluster describes an endpoint instance on the node, independently from other endpoints, but also
+       allows composition of endpoints to conform to complex device type patterns. */
 cluster Descriptor = 29 {
   revision 3;
 
@@ -1040,7 +356,8 @@ cluster Descriptor = 29 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** The Binding Cluster is meant to replace the support from the Zigbee Device Object (ZDO) for supporting the binding table. */
+/** A binding represents a persistent relationship between an endpoint and one or more other local or
+       remote endpoints. */
 cluster Binding = 30 {
   revision 1;
 
@@ -1060,10 +377,9 @@ cluster Binding = 30 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** The Access Control Cluster exposes a data model view of a
-      Node's Access Control List (ACL), which codifies the rules used to manage
-      and enforce Access Control for the Node's endpoints and their associated
-      cluster instances. */
+/** The Access Control Cluster exposes a data model view of a Node's Access Control List (ACL), which
+       codifies the rules used to manage and enforce Access Control for the Node's endpoints and their
+       associated cluster instances. */
 cluster AccessControl = 31 {
   revision 3;
 
@@ -1073,8 +389,8 @@ cluster AccessControl = 31 {
   }
 
   enum AccessControlEntryAuthModeEnum : enum8 {
-    kPASE = 1 [spec_name = "PASE"];
-    kCASE = 2 [spec_name = "CASE"];
+    kPASE = 1;
+    kCASE = 2;
     kGroup = 3;
   }
 
@@ -1105,6 +421,12 @@ cluster AccessControl = 31 {
     kAuxiliary = 0x4;
   }
 
+  struct AccessControlTargetStruct {
+    nullable cluster_id cluster = 0;
+    nullable endpoint_no endpoint = 1;
+    nullable devtype_id deviceType = 2;
+  }
+
   struct AccessRestrictionStruct {
     AccessRestrictionTypeEnum type = 0;
     nullable int32u id = 1;
@@ -1114,19 +436,6 @@ cluster AccessControl = 31 {
     endpoint_no endpoint = 0;
     cluster_id cluster = 1;
     AccessRestrictionStruct restrictions[] = 2;
-  }
-
-  fabric_scoped struct AccessRestrictionEntryStruct {
-    fabric_sensitive endpoint_no endpoint = 0;
-    fabric_sensitive cluster_id cluster = 1;
-    fabric_sensitive AccessRestrictionStruct restrictions[] = 2;
-    fabric_idx fabricIndex = 254;
-  }
-
-  struct AccessControlTargetStruct {
-    nullable cluster_id cluster = 0;
-    nullable endpoint_no endpoint = 1;
-    nullable devtype_id deviceType = 2;
   }
 
   fabric_scoped struct AccessControlEntryStruct {
@@ -1140,6 +449,13 @@ cluster AccessControl = 31 {
 
   fabric_scoped struct AccessControlExtensionStruct {
     fabric_sensitive octet_string<128> data = 1;
+    fabric_idx fabricIndex = 254;
+  }
+
+  fabric_scoped struct AccessRestrictionEntryStruct {
+    fabric_sensitive endpoint_no endpoint = 0;
+    fabric_sensitive cluster_id cluster = 1;
+    fabric_sensitive AccessRestrictionStruct restrictions[] = 2;
     fabric_idx fabricIndex = 254;
   }
 
@@ -1161,8 +477,8 @@ cluster AccessControl = 31 {
 
   fabric_sensitive info event access(read: administer) FabricRestrictionReviewUpdate = 2 {
     int64u token = 0;
-    optional long_char_string instruction = 1;
-    optional long_char_string ARLRequestFlowUrl = 2;
+    optional long_char_string<512> instruction = 1;
+    optional long_char_string<256> ARLRequestFlowUrl = 2;
     fabric_idx fabricIndex = 254;
   }
 
@@ -1193,13 +509,14 @@ cluster AccessControl = 31 {
     int64u token = 0;
   }
 
-  /** This command signals to the service associated with the device vendor that the fabric administrator would like a review of the current restrictions on the accessing fabric. */
+  /** This command signals to the service associated with the device vendor that the fabric administrator
+         would like a review of the current restrictions on the accessing fabric. */
   fabric command access(invoke: administer) ReviewFabricRestrictions(ReviewFabricRestrictionsRequest): ReviewFabricRestrictionsResponse = 0;
 }
 
-/** This cluster provides attributes and events for determining basic information about Nodes, which supports both
-      Commissioning and operational determination of Node characteristics, such as Vendor ID, Product ID and serial number,
-      which apply to the whole Node. Also allows setting user device information such as location. */
+/** This cluster provides attributes and events for determining basic information about Nodes, which supports
+       both Commissioning and operational determination of Node characteristics, such as Vendor ID, Product
+       ID and serial number, which apply to the whole Node. */
 cluster BasicInformation = 40 {
   revision 6;
 
@@ -1295,13 +612,11 @@ cluster BasicInformation = 40 {
   readonly attribute attrib_id attributeList[] = 65531;
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
-
-  command MfgSpecificPing(): DefaultSuccess = 0;
 }
 
-/** Provides an interface for providing OTA software updates */
+/** This cluster implements the Provider role in the OTA process. */
 cluster OtaSoftwareUpdateProvider = 41 {
-  revision 1; // NOTE: Default/not specifically set
+  revision 1;
 
   enum ApplyUpdateActionEnum : enum8 {
     kProceed = 0;
@@ -1312,7 +627,7 @@ cluster OtaSoftwareUpdateProvider = 41 {
   enum DownloadProtocolEnum : enum8 {
     kBDXSynchronous = 0;
     kBDXAsynchronous = 1;
-    kHTTPS = 2 [spec_name = "HTTPS"];
+    kHTTPS = 2;
     kVendorSpecific = 3;
   }
 
@@ -1337,18 +652,18 @@ cluster OtaSoftwareUpdateProvider = 41 {
     optional int16u hardwareVersion = 4;
     optional char_string<2> location = 5;
     optional boolean requestorCanConsent = 6;
-    optional octet_string<512> metadataForProvider = 7;
+    optional long_octet_string<512> metadataForProvider = 7;
   }
 
   response struct QueryImageResponse = 1 {
     StatusEnum status = 0;
     optional int32u delayedActionTime = 1;
-    optional char_string<256> imageURI = 2;
+    optional long_char_string<256> imageURI = 2;
     optional int32u softwareVersion = 3;
     optional char_string<64> softwareVersionString = 4;
     optional octet_string<32> updateToken = 5;
     optional boolean userConsentNeeded = 6;
-    optional octet_string<512> metadataForRequestor = 7;
+    optional long_octet_string<512> metadataForRequestor = 7;
   }
 
   request struct ApplyUpdateRequestRequest {
@@ -1366,17 +681,18 @@ cluster OtaSoftwareUpdateProvider = 41 {
     int32u softwareVersion = 1;
   }
 
-  /** Determine availability of a new Software Image */
+  /** Upon receipt, this command SHALL trigger an attempt to find an updated Software Image by the OTA Provider
+         to match the OTA Requestor's constraints provided in the payload fields. */
   command QueryImage(QueryImageRequest): QueryImageResponse = 0;
-  /** Determine next action to take for a downloaded Software Image */
+  /** This command requests the specified version be installed on the device. */
   command ApplyUpdateRequest(ApplyUpdateRequestRequest): ApplyUpdateResponse = 2;
-  /** Notify OTA Provider that an update was applied */
+  /** This command tells the Provider that the specified update has been applied. */
   command NotifyUpdateApplied(NotifyUpdateAppliedRequest): DefaultSuccess = 4;
 }
 
-/** Provides an interface for downloading and applying OTA software updates */
+/** This cluster implements the Requestor role in the OTA process. */
 cluster OtaSoftwareUpdateRequestor = 42 {
-  revision 1; // NOTE: Default/not specifically set
+  revision 1;
 
   enum AnnouncementReasonEnum : enum8 {
     kSimpleAnnouncement = 0;
@@ -1443,20 +759,20 @@ cluster OtaSoftwareUpdateRequestor = 42 {
     node_id providerNodeID = 0;
     vendor_id vendorID = 1;
     AnnouncementReasonEnum announcementReason = 2;
-    optional octet_string<512> metadataForNode = 3;
+    optional long_octet_string<512> metadataForNode = 3;
     endpoint_no endpoint = 4;
   }
 
-  /** Announce the presence of an OTA Provider */
+  /** This command MAY be invoked by Administrators to announce the presence of a particular OTA Provider. */
   command access(invoke: administer) AnnounceOTAProvider(AnnounceOTAProviderRequest): DefaultSuccess = 0;
 }
 
-/** This cluster is used to manage global aspects of the Commissioning flow. */
+/** This cluster is used to manage basic commissioning lifecycle. */
 cluster GeneralCommissioning = 48 {
   revision 2;
 
   enum CommissioningErrorEnum : enum8 {
-    kOK = 0 [spec_name = "OK"];
+    kOK = 0;
     kValueOutsideRange = 1;
     kInvalidAuthentication = 2;
     kNoFailSafe = 3;
@@ -1548,11 +864,12 @@ cluster GeneralCommissioning = 48 {
   command access(invoke: administer) SetRegulatoryConfig(SetRegulatoryConfigRequest): SetRegulatoryConfigResponse = 2;
   /** This command is used to indicate that the commissioning process is complete. */
   fabric command access(invoke: administer) CommissioningComplete(): CommissioningCompleteResponse = 4;
-  /** This command is used to set the user acknowledgements received in the Enhanced Setup Flow Terms & Conditions into the node. */
+  /** This command is used to set the user acknowledgements received in the Enhanced Setup Flow Terms &
+         Conditions into the node. */
   command access(invoke: administer) SetTCAcknowledgements(SetTCAcknowledgementsRequest): SetTCAcknowledgementsResponse = 6;
 }
 
-/** Functionality to configure, enable, disable network credentials and access on a Matter device. */
+/** Network commissioning is part of the overall Node commissioning. */
 cluster NetworkCommissioning = 49 {
   revision 3;
 
@@ -1573,12 +890,12 @@ cluster NetworkCommissioning = 49 {
   }
 
   enum WiFiBandEnum : enum8 {
-    k2G4 = 0 [spec_name = "2G4"];
-    k3G65 = 1 [spec_name = "3G65"];
-    k5G = 2 [spec_name = "5G"];
-    k6G = 3 [spec_name = "6G"];
-    k60G = 4 [spec_name = "60G"];
-    k1G = 5 [spec_name = "1G"];
+    k2G4 = 0;
+    k3G65 = 1;
+    k5G = 2;
+    k6G = 3;
+    k60G = 4;
+    k1G = 5;
   }
 
   bitmap Feature : bitmap32 {
@@ -1598,11 +915,11 @@ cluster NetworkCommissioning = 49 {
 
   bitmap WiFiSecurityBitmap : bitmap8 {
     kUnencrypted = 0x1;
-    kWEP = 0x2 [spec_name = "WEP"];
-    kWPAPersonal = 0x4 [spec_name = "WPA-PERSONAL"];
-    kWPA2Personal = 0x8 [spec_name = "WPA2-PERSONAL"];
-    kWPA3Personal = 0x10 [spec_name = "WPA3-PERSONAL"];
-    kWPA3MatterPDC = 0x20 [spec_name = "WPA3-Matter-PDC"];
+    kWEP = 0x2;
+    kWPAPERSONAL = 0x4;
+    kWPA2PERSONAL = 0x8;
+    kWPA3PERSONAL = 0x10;
+    kWPA3MatterPDC = 0x20;
   }
 
   struct NetworkInfoStruct {
@@ -1618,7 +935,7 @@ cluster NetworkCommissioning = 49 {
     char_string<16> networkName = 2;
     int16u channel = 3;
     int8u version = 4;
-    octet_string extendedAddress = 5;
+    octet_string<8> extendedAddress = 5;
     int8s rssi = 6;
     int8u lqi = 7;
   }
@@ -1715,23 +1032,26 @@ cluster NetworkCommissioning = 49 {
     optional octet_string<64> possessionSignature = 1;
   }
 
-  /** This command is used to scan for available networks on the network interface associated with the cluster instance. */
+  /** This command is used to scan for available networks on the network interface associated with the cluster
+         instance. */
   command access(invoke: administer) ScanNetworks(ScanNetworksRequest): ScanNetworksResponse = 0;
   /** This command is used to add or update a Wi-Fi network configuration. */
   command access(invoke: administer) AddOrUpdateWiFiNetwork(AddOrUpdateWiFiNetworkRequest): NetworkConfigResponse = 2;
   /** This command is used to add or update a Thread network configuration. */
   command access(invoke: administer) AddOrUpdateThreadNetwork(AddOrUpdateThreadNetworkRequest): NetworkConfigResponse = 3;
-  /** This command is used to remove a network configuration on the network interface associated with the cluster instance. */
+  /** This command is used to remove a network configuration on the network interface associated with the
+         cluster instance. */
   command access(invoke: administer) RemoveNetwork(RemoveNetworkRequest): NetworkConfigResponse = 4;
-  /** This command is used to connect to a network on the network interface associated with the cluster instance. */
+  /** This command is used to connect to a network on the network interface associated with the cluster
+         instance. */
   command access(invoke: administer) ConnectNetwork(ConnectNetworkRequest): ConnectNetworkResponse = 6;
   /** This command is used to re-order the network configuration list. */
   command access(invoke: administer) ReorderNetwork(ReorderNetworkRequest): NetworkConfigResponse = 8;
   /** This command is used to query the identity of a network configuration. */
-  command access(invoke: administer) QueryIdentity(QueryIdentityRequest): QueryIdentityResponse = 9;
+  provisional command access(invoke: administer) QueryIdentity(QueryIdentityRequest): QueryIdentityResponse = 9;
 }
 
-/** The cluster provides commands for retrieving unstructured diagnostic logs from a Node that may be used to aid in diagnostics. */
+/** This Cluster supports an interface to a Node. */
 cluster DiagnosticLogs = 50 {
   revision 1;
 
@@ -1751,7 +1071,7 @@ cluster DiagnosticLogs = 50 {
 
   enum TransferProtocolEnum : enum8 {
     kResponsePayload = 0;
-    kBDX = 1 [spec_name = "BDX"];
+    kBDX = 1;
   }
 
   readonly attribute command_id generatedCommandList[] = 65528;
@@ -1777,7 +1097,9 @@ cluster DiagnosticLogs = 50 {
   command RetrieveLogsRequest(RetrieveLogsRequestRequest): RetrieveLogsResponse = 0;
 }
 
-/** The General Diagnostics Cluster, along with other diagnostics clusters, provide a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
+/** The General Diagnostics Cluster, along with other diagnostics clusters, provide a means to acquire
+       standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrator in
+       diagnosing potential problems. */
 cluster GeneralDiagnostics = 51 {
   revision 3;
 
@@ -1847,7 +1169,7 @@ cluster GeneralDiagnostics = 51 {
     boolean isOperational = 1;
     nullable boolean offPremiseServicesReachableIPv4 = 2;
     nullable boolean offPremiseServicesReachableIPv6 = 3;
-    octet_string hardwareAddress = 4;
+    octet_string<8> hardwareAddress = 4;
     octet_string IPv4Addresses[] = 5;
     octet_string IPv6Addresses[] = 6;
     InterfaceTypeEnum type = 7;
@@ -1908,15 +1230,19 @@ cluster GeneralDiagnostics = 51 {
     long_octet_string<2048> payload = 0;
   }
 
-  /** This command SHALL be supported to provide a means for certification tests to trigger some test-plan-specific events, necessary to assist in automation of device interactions for some certification test cases. */
+  /** This command SHALL be supported to provide a means for certification tests to trigger some test-plan-specific
+         events, necessary to assist in automation of device interactions for some certification test cases. */
   command access(invoke: manage) TestEventTrigger(TestEventTriggerRequest): DefaultSuccess = 0;
-  /** This command MAY be used by a client to obtain a correlated view of both System Time, and, if currently synchronized and supported, "wall clock time" of the server. */
+  /** This command MAY be used by a client to obtain a correlated view of both System Time, and, if currently
+         synchronized and supported, "wall clock time" of the server. */
   command TimeSnapshot(): TimeSnapshotResponse = 1;
-  /** This command provides a means for certification tests or manufacturer's internal tests to validate particular command handling and encoding constraints by generating a response of a given size. */
+  /** This command provides a means for certification tests or manufacturer's internal tests to validate
+         particular command handling and encoding constraints by generating a response of a given size. */
   command access(invoke: manage) PayloadTestRequest(PayloadTestRequestRequest): PayloadTestResponse = 3;
 }
 
-/** The Software Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
+/** The Software Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that
+       MAY be used by a Node to assist a user or Administrator in diagnosing potential problems. */
 cluster SoftwareDiagnostics = 52 {
   revision 1;
 
@@ -1934,8 +1260,8 @@ cluster SoftwareDiagnostics = 52 {
 
   info event SoftwareFault = 0 {
     int64u id = 0;
-    optional char_string name = 1;
-    optional long_octet_string faultRecording = 2;
+    optional char_string<8> name = 1;
+    optional long_octet_string<1024> faultRecording = 2;
   }
 
   readonly attribute optional ThreadMetricsStruct threadMetrics[] = 0;
@@ -1952,7 +1278,8 @@ cluster SoftwareDiagnostics = 52 {
   command access(invoke: manage) ResetWatermarks(): DefaultSuccess = 0;
 }
 
-/** The Thread Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems */
+/** The Thread Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics
+       that MAY be used by a Node to assist a user or Administrator in diagnosing potential problems. */
 cluster ThreadNetworkDiagnostics = 53 {
   revision 3;
 
@@ -1973,7 +1300,7 @@ cluster ThreadNetworkDiagnostics = 53 {
     kUnassigned = 1;
     kSleepyEndDevice = 2;
     kEndDevice = 3;
-    kREED = 4 [spec_name = "REED"];
+    kREED = 4;
     kRouter = 5;
     kLeader = 6;
   }
@@ -2049,7 +1376,7 @@ cluster ThreadNetworkDiagnostics = 53 {
   readonly attribute nullable char_string<16> networkName = 2;
   readonly attribute nullable int16u panId = 3;
   readonly attribute nullable int64u extendedPanId = 4;
-  readonly attribute nullable octet_string<254> meshLocalPrefix = 5;
+  readonly attribute nullable octet_string<17> meshLocalPrefix = 5;
   readonly attribute optional int64u overrunCount = 6;
   readonly attribute NeighborTableStruct neighborTable[] = 7;
   readonly attribute RouteTableStruct routeTable[] = 8;
@@ -2119,7 +1446,8 @@ cluster ThreadNetworkDiagnostics = 53 {
   command access(invoke: manage) ResetCounts(): DefaultSuccess = 0;
 }
 
-/** The Wi-Fi Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
+/** The Wi-Fi Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics
+       that MAY be used by a Node to assist a user or Administrator in diagnosing potential problems. */
 cluster WiFiNetworkDiagnostics = 54 {
   revision 1;
 
@@ -2138,20 +1466,20 @@ cluster WiFiNetworkDiagnostics = 54 {
   enum SecurityTypeEnum : enum8 {
     kUnspecified = 0;
     kNone = 1;
-    kWEP = 2 [spec_name = "WEP"];
-    kWPA = 3 [spec_name = "WPA"];
-    kWPA2 = 4 [spec_name = "WPA2"];
-    kWPA3 = 5 [spec_name = "WPA3"];
+    kWEP = 2;
+    kWPA = 3;
+    kWPA2 = 4;
+    kWPA3 = 5;
   }
 
   enum WiFiVersionEnum : enum8 {
-    kA = 0;
-    kB = 1;
-    kG = 2;
-    kN = 3;
-    kAc = 4;
-    kAx = 5;
-    kAh = 6;
+    kA = 0 [spec_name = "a"];
+    kB = 1 [spec_name = "b"];
+    kG = 2 [spec_name = "g"];
+    kN = 3 [spec_name = "n"];
+    kAc = 4 [spec_name = "ac"];
+    kAx = 5 [spec_name = "ax"];
+    kAh = 6 [spec_name = "ah"];
   }
 
   bitmap Feature : bitmap32 {
@@ -2195,7 +1523,8 @@ cluster WiFiNetworkDiagnostics = 54 {
   command ResetCounts(): DefaultSuccess = 0;
 }
 
-/** The Ethernet Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
+/** The Ethernet Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics
+       that MAY be used by a Node to assist a user or Administrator in diagnosing potential problems. */
 cluster EthernetNetworkDiagnostics = 55 {
   revision 1;
 
@@ -2236,7 +1565,8 @@ cluster EthernetNetworkDiagnostics = 55 {
   command access(invoke: manage) ResetCounts(): DefaultSuccess = 0;
 }
 
-/** Accurate time is required for a number of reasons, including scheduling, display and validating security materials. */
+/** Accurate time is required for a number of reasons, including scheduling, display and validating security
+       materials. */
 cluster TimeSynchronization = 56 {
   revision 2;
 
@@ -2268,8 +1598,8 @@ cluster TimeSynchronization = 56 {
     kMatterNTPNTS = 12;
     kMixedNTPNTS = 13;
     kCloudSource = 14;
-    kPTP = 15 [spec_name = "PTP"];
-    kGNSS = 16 [spec_name = "GNSS"];
+    kPTP = 15;
+    kGNSS = 16;
   }
 
   enum TimeZoneDatabaseEnum : enum8 {
@@ -2317,7 +1647,7 @@ cluster TimeSynchronization = 56 {
 
   info event TimeZoneStatus = 2 {
     int32s offset = 0;
-    optional char_string name = 1;
+    optional char_string<64> name = 1;
   }
 
   info event TimeFailure = 3 {
@@ -2383,9 +1713,8 @@ cluster TimeSynchronization = 56 {
   command access(invoke: administer) SetDefaultNTP(SetDefaultNTPRequest): DefaultSuccess = 5;
 }
 
-/** This cluster exposes interactions with a switch device, for the purpose of using those interactions by other devices.
-Two types of switch devices are supported: latching switch (e.g. rocker switch) and momentary switch (e.g. push button), distinguished with their feature flags.
-Interactions with the switch device are exposed as attributes (for the latching switch) and as events (for both types of switches). An interested party MAY subscribe to these attributes/events and thus be informed of the interactions, and can perform actions based on this, for example by sending commands to perform an action such as controlling a light or a window shade. */
+/** This cluster exposes interactions with a switch device, for the purpose of using those interactions
+       by other devices. */
 cluster Switch = 59 {
   revision 2;
 
@@ -2438,7 +1767,7 @@ cluster Switch = 59 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Commands to trigger a Node to allow a new Administrator to commission it. */
+/** This cluster is used to trigger a Node to allow a new Administrator to commission it. */
 cluster AdministratorCommissioning = 60 {
   revision 1;
 
@@ -2481,13 +1810,16 @@ cluster AdministratorCommissioning = 60 {
 
   /** This command is used by a current Administrator to instruct a Node to go into commissioning mode. */
   timed command access(invoke: administer) OpenCommissioningWindow(OpenCommissioningWindowRequest): DefaultSuccess = 0;
-  /** This command MAY be used by a current Administrator to instruct a Node to go into commissioning mode, if the node supports the Basic Commissioning Method. */
+  /** This command MAY be used by a current Administrator to instruct a Node to go into commissioning mode,
+         if the node supports the Basic Commissioning Method. */
   timed command access(invoke: administer) OpenBasicCommissioningWindow(OpenBasicCommissioningWindowRequest): DefaultSuccess = 1;
-  /** This command is used by a current Administrator to instruct a Node to revoke any active OpenCommissioningWindow or OpenBasicCommissioningWindow command. */
+  /** This command is used by a current Administrator to instruct a Node to revoke any active OpenCommissioningWindow
+         or OpenBasicCommissioningWindow command. */
   timed command access(invoke: administer) RevokeCommissioning(): DefaultSuccess = 2;
 }
 
-/** This cluster is used to add or remove Operational Credentials on a Commissionee or Node, as well as manage the associated Fabrics. */
+/** This cluster is used to add or remove Node Operational credentials on a Commissionee or already-configured
+       Node, as well as manage the associated Fabrics. */
 cluster OperationalCredentials = 62 {
   revision 2;
 
@@ -2497,7 +1829,7 @@ cluster OperationalCredentials = 62 {
   }
 
   enum NodeOperationalCertStatusEnum : enum8 {
-    kOK = 0 [spec_name = "OK"];
+    kOK = 0;
     kInvalidPublicKey = 1;
     kInvalidNodeOpId = 2;
     kInvalidNOC = 3;
@@ -2631,13 +1963,14 @@ cluster OperationalCredentials = 62 {
   command access(invoke: administer) RemoveFabric(RemoveFabricRequest): NOCResponse = 10;
   /** This command is used to add a trusted root certificate to the device. */
   command access(invoke: administer) AddTrustedRootCertificate(AddTrustedRootCertificateRequest): DefaultSuccess = 11;
-  /** This command is used to manage the VendorID and VIDVerificationStatement fields of the Fabrics attribute, and the VVSC field of an entry in the NOCs attribute. */
+  /** This command is used to manage the VendorID and VIDVerificationStatement fields of the Fabrics attribute,
+         and the VVSC field of an entry in the NOCs attribute. */
   fabric command access(invoke: administer) SetVIDVerificationStatement(SetVIDVerificationStatementRequest): DefaultSuccess = 12;
   /** This command is used to authenticate the fabric associated with the FabricIndex. */
   command access(invoke: administer) SignVIDVerificationRequest(SignVIDVerificationRequestRequest): SignVIDVerificationResponse = 13;
 }
 
-/** The Group Key Management Cluster is the mechanism by which group keys are managed. */
+/** The Group Key Management cluster manages group keys for the node. */
 cluster GroupKeyManagement = 63 {
   revision 2;
 
@@ -2711,17 +2044,20 @@ cluster GroupKeyManagement = 63 {
     int16u groupKeySetIDs[] = 0;
   }
 
-  /** This command is used by Administrators to set the state of a given Group Key Set, including atomically updating the state of all epoch keys. */
+  /** This command is used by Administrators to set the state of a given Group Key Set, including atomically
+         updating the state of all epoch keys. */
   fabric command access(invoke: administer) KeySetWrite(KeySetWriteRequest): DefaultSuccess = 0;
   /** This command is used by Administrators to read the state of a given Group Key Set. */
   fabric command access(invoke: administer) KeySetRead(KeySetReadRequest): KeySetReadResponse = 1;
   /** This command is used by Administrators to remove all state of a given Group Key Set. */
   fabric command access(invoke: administer) KeySetRemove(KeySetRemoveRequest): DefaultSuccess = 3;
-  /** This command is used by Administrators to query a list of all Group Key Sets associated with the accessing fabric. */
+  /** This command is used by Administrators to query a list of all Group Key Sets associated with the accessing
+         fabric. */
   fabric command access(invoke: administer) KeySetReadAllIndices(): KeySetReadAllIndicesResponse = 4;
 }
 
-/** The User Label Cluster provides a feature to tag an endpoint with zero or more labels. */
+/** This cluster is derived from the Label cluster and provides a feature to tag an endpoint with zero
+       or more writable labels. */
 cluster UserLabel = 65 {
   revision 1;
 
@@ -2738,7 +2074,8 @@ cluster UserLabel = 65 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Allows servers to ensure that listed clients are notified when a server is available for communication. */
+/** ICD Management Cluster enables configuration of the ICD's behavior and ensuring that listed clients
+       can be notified when an intermittently connected device, ICD, is available for communication. */
 cluster IcdManagement = 70 {
   revision 3;
 
@@ -2748,8 +2085,8 @@ cluster IcdManagement = 70 {
   }
 
   enum OperatingModeEnum : enum8 {
-    kSIT = 0 [spec_name = "SIT"];
-    kLIT = 1 [spec_name = "LIT"];
+    kSIT = 0;
+    kLIT = 1;
   }
 
   bitmap Feature : bitmap32 {
@@ -2782,6 +2119,7 @@ cluster IcdManagement = 70 {
   fabric_scoped struct MonitoringRegistrationStruct {
     fabric_sensitive node_id checkInNodeID = 1;
     fabric_sensitive int64u monitoredSubject = 2;
+    optional  key = 3;
     fabric_sensitive ClientTypeEnum clientType = 4;
     fabric_idx fabricIndex = 254;
   }
@@ -2827,15 +2165,17 @@ cluster IcdManagement = 70 {
     int32u promisedActiveDuration = 0;
   }
 
-  /** This command allows a client to register itself with the ICD to be notified when the device is available for communication. */
+  /** This command allows a client to register itself with the ICD to be notified when the device is available
+         for communication. */
   fabric command access(invoke: manage) RegisterClient(RegisterClientRequest): RegisterClientResponse = 0;
   /** This command allows a client to unregister itself with the ICD. */
   fabric command access(invoke: manage) UnregisterClient(UnregisterClientRequest): DefaultSuccess = 2;
-  /** This command allows a client to request that the server stays in active mode for at least a given time duration (in milliseconds) from when this command is received. */
+  /** This command allows a client to request that the server stays in active mode for at least a given
+         time duration (in milliseconds) from when this command is received. */
   command StayActiveRequest(StayActiveRequestRequest): StayActiveResponse = 3;
 }
 
-/** Attributes and commands for scene configuration and manipulation. */
+/** The Scenes Management cluster provides attributes and commands for setting up and recalling scenes. */
 cluster ScenesManagement = 98 {
   revision 1;
 
@@ -2983,13 +2323,15 @@ cluster ScenesManagement = 98 {
   fabric command access(invoke: manage) StoreScene(StoreSceneRequest): StoreSceneResponse = 4;
   /** This command will cause the specified scene to be recalled. */
   fabric command RecallScene(RecallSceneRequest): DefaultSuccess = 5;
-  /** This command can be used to get the used scene identifiers within a certain group, for the endpoint that implements this cluster. */
+  /** This command can be used to get the used scene identifiers within a certain group, for the endpoint
+         that implements this cluster. */
   fabric command GetSceneMembership(GetSceneMembershipRequest): GetSceneMembershipResponse = 6;
-  /** This command allows a client to efficiently copy scenes from one group/scene identifier pair to another group/scene identifier pair. */
+  /** This command allows a client to efficiently copy scenes from one group/scene identifier pair to another
+         group/scene identifier pair. */
   fabric command access(invoke: manage) CopyScene(CopySceneRequest): CopySceneResponse = 64;
 }
 
-/** Attributes and commands for controlling the color properties of a color-capable light. */
+/** This cluster provides an interface for changing the color of a light. */
 cluster ColorControl = 768 {
   revision 9;
 
@@ -3047,7 +2389,7 @@ cluster ColorControl = 768 {
     kHueSaturation = 0x1;
     kEnhancedHue = 0x2;
     kColorLoop = 0x4;
-    kXY = 0x8 [spec_name = "XY"];
+    kXY = 0x8;
     kColorTemperature = 0x10;
   }
 
@@ -3055,7 +2397,7 @@ cluster ColorControl = 768 {
     kHueSaturation = 0x1;
     kEnhancedHue = 0x2;
     kColorLoop = 0x4;
-    kXY = 0x8 [spec_name = "XY"];
+    kXY = 0x8;
     kColorTemperature = 0x10;
   }
 
@@ -3298,15 +2640,19 @@ cluster ColorControl = 768 {
   command StepColor(StepColorRequest): DefaultSuccess = 9;
   /** This command will move the device to the requested color temperate using a transition. */
   command MoveToColorTemperature(MoveToColorTemperatureRequest): DefaultSuccess = 10;
-  /** This command allows the light to be moved in a smooth continuous transition from their current hue to a target hue. */
+  /** This command allows the light to be moved in a smooth continuous transition from their current hue
+         to a target hue. */
   command EnhancedMoveToHue(EnhancedMoveToHueRequest): DefaultSuccess = 64;
   /** This command allows the light to start a continuous transition starting from their current hue. */
   command EnhancedMoveHue(EnhancedMoveHueRequest): DefaultSuccess = 65;
-  /** This command allows the light to be moved in a stepped transition from their current hue, resulting in a linear transition through XY space. */
+  /** This command allows the light to be moved in a stepped transition from their current hue, resulting
+         in a linear transition through XY space. */
   command EnhancedStepHue(EnhancedStepHueRequest): DefaultSuccess = 66;
-  /** This command allows the light to be moved in a smooth continuous transition from their current hue to a target hue and from their current saturation to a target saturation. */
+  /** This command allows the light to be moved in a smooth continuous transition from their current hue
+         to a target hue and from their current saturation to a target saturation. */
   command EnhancedMoveToHueAndSaturation(EnhancedMoveToHueAndSaturationRequest): DefaultSuccess = 67;
-  /** This command allows a color loop to be activated such that the color light cycles through its range of hues. */
+  /** This command allows a color loop to be activated such that the color light cycles through its range
+         of hues. */
   command ColorLoopSet(ColorLoopSetRequest): DefaultSuccess = 68;
   /** This command is provided to allow MoveTo and Step commands to be stopped. */
   command StopMoveStep(StopMoveStepRequest): DefaultSuccess = 71;
@@ -3317,10 +2663,9 @@ cluster ColorControl = 768 {
 }
 
 endpoint 0 {
-  device type ma_rootdevice = 22, version 3;
-  device type ma_otarequestor = 18, version 1;
+  device type ma_rootdevice = 22, version 5;
 
-  binding cluster OtaSoftwareUpdateProvider;
+  binding cluster OTASoftwareUpdateProvider;
 
   server cluster Descriptor {
     callback attribute deviceTypeList;
@@ -3386,7 +2731,7 @@ endpoint 0 {
     callback attribute clusterRevision;
   }
 
-  server cluster OtaSoftwareUpdateRequestor {
+  server cluster OTASoftwareUpdateRequestor {
     emits event StateTransition;
     emits event VersionApplied;
     emits event DownloadError;
@@ -3416,8 +2761,11 @@ endpoint 0 {
     callback attribute clusterRevision;
 
     handle command ArmFailSafe;
+    handle command ArmFailSafeResponse;
     handle command SetRegulatoryConfig;
+    handle command SetRegulatoryConfigResponse;
     handle command CommissioningComplete;
+    handle command CommissioningCompleteResponse;
   }
 
   server cluster NetworkCommissioning {
@@ -3436,10 +2784,13 @@ endpoint 0 {
     callback attribute clusterRevision;
 
     handle command ScanNetworks;
+    handle command ScanNetworksResponse;
     handle command AddOrUpdateWiFiNetwork;
     handle command AddOrUpdateThreadNetwork;
     handle command RemoveNetwork;
+    handle command NetworkConfigResponse;
     handle command ConnectNetwork;
+    handle command ConnectNetworkResponse;
     handle command ReorderNetwork;
   }
 
@@ -3448,6 +2799,7 @@ endpoint 0 {
     callback attribute clusterRevision;
 
     handle command RetrieveLogsRequest;
+    handle command RetrieveLogsResponse;
   }
 
   server cluster GeneralDiagnostics {
@@ -3466,6 +2818,7 @@ endpoint 0 {
 
     handle command TestEventTrigger;
     handle command TimeSnapshot;
+    handle command TimeSnapshotResponse;
   }
 
   server cluster SoftwareDiagnostics {
@@ -3544,7 +2897,7 @@ endpoint 0 {
     callback attribute operationalDatasetComponents;
     callback attribute activeNetworkFaultsList;
     ram      attribute featureMap default = 0x000F;
-    callback attribute clusterRevision;
+    ram      attribute clusterRevision default = 2;
 
     handle command ResetCounts;
   }
@@ -3610,11 +2963,12 @@ endpoint 0 {
     callback attribute acceptedCommandList;
     callback attribute attributeList;
     ram      attribute featureMap default = 0x0B;
-    callback attribute clusterRevision;
+    ram      attribute clusterRevision default = 2;
 
     handle command SetUTCTime;
     handle command SetTrustedTimeSource;
     handle command SetTimeZone;
+    handle command SetTimeZoneResponse;
     handle command SetDSTOffset;
     handle command SetDefaultNTP;
   }
@@ -3643,19 +2997,24 @@ endpoint 0 {
     callback attribute generatedCommandList;
     callback attribute acceptedCommandList;
     callback attribute attributeList;
-    callback attribute featureMap;
-    callback attribute clusterRevision;
+    ram      attribute featureMap default = 0;
+    ram      attribute clusterRevision default = 1;
 
     handle command AttestationRequest;
+    handle command AttestationResponse;
     handle command CertificateChainRequest;
+    handle command CertificateChainResponse;
     handle command CSRRequest;
+    handle command CSRResponse;
     handle command AddNOC;
     handle command UpdateNOC;
+    handle command NOCResponse;
     handle command UpdateFabricLabel;
     handle command RemoveFabric;
     handle command AddTrustedRootCertificate;
     handle command SetVIDVerificationStatement;
     handle command SignVIDVerificationRequest;
+    handle command SignVIDVerificationResponse;
   }
 
   server cluster GroupKeyManagement {
@@ -3671,26 +3030,28 @@ endpoint 0 {
 
     handle command KeySetWrite;
     handle command KeySetRead;
+    handle command KeySetReadResponse;
     handle command KeySetRemove;
     handle command KeySetReadAllIndices;
+    handle command KeySetReadAllIndicesResponse;
   }
 
   server cluster UserLabel {
     callback attribute labelList;
-    callback attribute featureMap;
-    callback attribute clusterRevision;
+    ram      attribute featureMap default = 0;
+    ram      attribute clusterRevision default = 1;
   }
 
-  server cluster IcdManagement {
+  server cluster ICDManagement {
     callback attribute idleModeDuration;
     callback attribute activeModeDuration;
     callback attribute activeModeThreshold;
     callback attribute featureMap;
-    callback attribute clusterRevision;
+    ram      attribute clusterRevision default = 3;
   }
 }
 endpoint 1 {
-  device type ma_dimmerswitch = 260, version 1;
+  device type ma_dimmerswitch = 260, version 3;
 
   binding cluster Identify;
   binding cluster OnOff;
@@ -3699,11 +3060,11 @@ endpoint 1 {
   binding cluster ColorControl;
 
   server cluster Identify {
-    callback attribute identifyTime;
-    callback attribute identifyType;
+    ram      attribute identifyTime default = 0x0000;
+    ram      attribute identifyType default = 0x0;
     callback attribute attributeList;
-    callback attribute featureMap;
-    callback attribute clusterRevision;
+    ram      attribute featureMap default = 0;
+    ram      attribute clusterRevision default = 0x0005;
 
     handle command Identify;
     handle command TriggerEffect;
@@ -3715,9 +3076,13 @@ endpoint 1 {
     ram      attribute clusterRevision default = 4;
 
     handle command AddGroup;
+    handle command AddGroupResponse;
     handle command ViewGroup;
+    handle command ViewGroupResponse;
     handle command GetGroupMembership;
+    handle command GetGroupMembershipResponse;
     handle command RemoveGroup;
+    handle command RemoveGroupResponse;
     handle command RemoveAllGroups;
     handle command AddGroupIfIdentifying;
   }
@@ -3739,17 +3104,16 @@ endpoint 1 {
   }
 }
 endpoint 2 {
-  device type ma_genericswitch = 15, version 1;
-
+  device type ma_genericswitch = 15, version 3;
 
   server cluster Identify {
-    callback attribute identifyTime;
-    callback attribute identifyType;
+    ram      attribute identifyTime default = 0x0;
+    ram      attribute identifyType default = 0x0;
     callback attribute generatedCommandList;
     callback attribute acceptedCommandList;
     callback attribute attributeList;
-    callback attribute featureMap;
-    callback attribute clusterRevision;
+    ram      attribute featureMap default = 0;
+    ram      attribute clusterRevision default = 0x0005;
 
     handle command Identify;
     handle command TriggerEffect;
