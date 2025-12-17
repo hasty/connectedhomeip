@@ -1,107 +1,6 @@
 // This IDL was generated automatically by ZAP.
 // It is for view/code review purposes only.
 
-enum AlarmSeverityTag : enum8 {
-  kCritical = 0;
-  kMajor = 1;
-  kMinor = 2;
-}
-
-enum AreaTypeTag : enum8 {
-  kAisle = 0;
-  kAttic = 1;
-  kBackDoor = 2;
-  kBackYard = 3;
-  kBalcony = 4;
-  kBallroom = 5;
-  kBathroom = 6;
-  kBedroom = 7;
-  kBorder = 8;
-  kBoxroom = 9;
-  kBreakfastRoom = 10;
-  kCarport = 11;
-  kCellar = 12;
-  kCloakroom = 13;
-  kCloset = 14;
-  kConservatory = 15;
-  kCorridor = 16;
-  kCraftRoom = 17;
-  kCupboard = 18;
-  kDeck = 19;
-  kDen = 20;
-  kDining = 21;
-  kDrawingRoom = 22;
-  kDressingRoom = 23;
-  kDriveway = 24;
-  kElevator = 25;
-  kEnsuite = 26;
-  kEntrance = 27;
-  kEntryway = 28;
-  kFamilyRoom = 29;
-  kFoyer = 30;
-  kFrontDoor = 31;
-  kFrontYard = 32;
-  kGameRoom = 33;
-  kGarage = 34;
-  kGarageDoor = 35;
-  kGarden = 36;
-  kGardenDoor = 37;
-  kGuestBathroom = 38;
-  kGuestBedroom = 39;
-  kGuestRoom = 41;
-  kGym = 42;
-  kHallway = 43;
-  kHearthRoom = 44;
-  kKidsRoom = 45;
-  kKidsBedroom = 46;
-  kKitchen = 47;
-  kLaundryRoom = 49;
-  kLawn = 50;
-  kLibrary = 51;
-  kLivingRoom = 52;
-  kLounge = 53;
-  kMediaTvRoom = 54;
-  kMudRoom = 55;
-  kMusicRoom = 56;
-  kNursery = 57;
-  kOffice = 58;
-  kOutdoorKitchen = 59;
-  kOutside = 60;
-  kPantry = 61;
-  kParkingLot = 62;
-  kParlor = 63;
-  kPatio = 64;
-  kPlayRoom = 65;
-  kPoolRoom = 66;
-  kPorch = 67;
-  kPrimaryBathroom = 68;
-  kPrimaryBedroom = 69;
-  kRamp = 70;
-  kReceptionRoom = 71;
-  kRecreationRoom = 72;
-  kRoof = 74;
-  kSauna = 75;
-  kScullery = 76;
-  kSewingRoom = 77;
-  kShed = 78;
-  kSideDoor = 79;
-  kSideYard = 80;
-  kSittingRoom = 81;
-  kSnug = 82;
-  kSpa = 83;
-  kStaircase = 84;
-  kSteamRoom = 85;
-  kStorageRoom = 86;
-  kStudio = 87;
-  kStudy = 88;
-  kSunRoom = 89;
-  kSwimmingPool = 90;
-  kTerrace = 91;
-  kUtilityRoom = 92;
-  kWard = 93;
-  kWorkshop = 94;
-  kToilet = 95;
-}
 
 enum AtomicRequestTypeEnum : enum8 {
   kBeginWrite = 0;
@@ -109,544 +8,13 @@ enum AtomicRequestTypeEnum : enum8 {
   kRollbackWrite = 2;
 }
 
-enum ClosureCabinetTag : enum8 {
-  kCabinetDoor = 0;
-  kDrawer = 1;
-  kFlap = 2;
-}
-
-enum ClosureCoveringTag : enum8 {
-  kBlind = 0;
-  kAwning = 1;
-  kShutter = 2;
-  kVenetian = 3;
-  kCurtain = 4;
-}
-
-enum ClosurePanelTag : enum8 {
-  kLift = 0;
-  kTilt = 1;
-  kSliding = 2;
-  kRotate = 3;
-}
-
-enum ClosureTag : enum8 {
-  kOpening = 0;
-  kClosing = 1;
-  kStop = 2;
-}
-
-enum ClosureWindowTag : enum8 {
-  kRoof = 0;
-  kFacade = 1;
-}
-
-enum CommodityTariffChronologyTag : enum8 {
-  kCurrent = 0;
-  kPrevious = 1;
-  kUpcoming = 2;
-}
-
-enum CommodityTariffCommodityTag : enum8 {
-  kElectricalEnergy = 0;
-}
-
-enum CommodityTariffFlowTag : enum8 {
-  kImport = 0;
-  kExport = 1;
-}
-
-enum CompassDirectionTag : enum8 {
-  kNorthward = 0;
-  kNorthEastward = 1;
-  kEastward = 2;
-  kSouthEastward = 3;
-  kSouthward = 4;
-  kSouthWestward = 5;
-  kWestward = 6;
-  kNorthWestward = 7;
-}
-
-enum CompassLocationTag : enum8 {
-  kNorth = 0;
-  kNorthEast = 1;
-  kEast = 2;
-  kSouthEast = 3;
-  kSouth = 4;
-  kSouthWest = 5;
-  kWest = 6;
-  kNorthWest = 7;
-}
-
-enum DirectionTag : enum8 {
-  kUpward = 0;
-  kDownward = 1;
-  kLeftward = 2;
-  kRightward = 3;
-  kForward = 4;
-  kBackward = 5;
-}
-
-enum ElectricalDistributionFormFactorTag : enum8 {
-  kMiniature = 0;
-  kMoldedCase = 1;
-}
-
-enum ElectricalDistributionOverVoltageTag : enum8 {
-  kLineToNeutral = 0;
-  kLineToGround = 1;
-  kNeutralToGround = 2;
-  kLineToLine = 3;
-}
-
-enum ElectricalMeasurementTag : enum8 {
-  kDC = 0 [spec_name = "DC"];
-  kAC = 1 [spec_name = "AC"];
-  kACPhase1 = 2;
-  kACPhase2 = 3;
-  kACPhase3 = 4;
-}
-
-enum IdentifiedHumanActivityTag : enum8 {
-  kUnknown = 0;
-  kPresence = 1;
-  kFall = 2;
-  kSleeping = 3;
-  kWalking = 4;
-  kWorkout = 5;
-  kSitting = 6;
-  kStanding = 7;
-  kDancing = 8;
-  kPackageDelivery = 9;
-  kPackageRetrieval = 10;
-}
-
-enum IdentifiedObjectTag : enum8 {
-  kUnknown = 0;
-  kAdult = 1;
-  kChild = 2;
-  kPerson = 3;
-  kRVC = 4 [spec_name = "RVC"];
-  kPet = 5;
-  kDog = 6;
-  kCat = 7;
-  kAnimal = 8;
-  kCar = 9;
-  kVehicle = 10;
-  kPackage = 11;
-}
-
-enum IdentifiedSoundTag : enum8 {
-  kUnknown = 0;
-  kObjectFall = 1;
-  kSnoring = 2;
-  kCoughing = 3;
-  kBarking = 4;
-  kShattering = 5;
-  kBabyCrying = 6;
-  kUtilityAlarm = 7;
-  kUrgentShouting = 8;
-  kDoorbell = 9;
-  kKnocking = 10;
-  kUrgentSiren = 11;
-  kFaucetRunning = 12;
-  kKettleBoiling = 13;
-  kFanDryer = 14;
-  kClapping = 15;
-  kFingerSnapping = 16;
-  kMeowing = 17;
-  kLaughing = 18;
-  kGlassBreaking = 19;
-  kDoorKnocking = 20;
-  kPersonTalking = 21;
-}
-
-enum LandmarkTag : enum8 {
-  kAirConditioner = 0;
-  kAirPurifier = 1;
-  kBackDoor = 2;
-  kBarStool = 3;
-  kBathMat = 4;
-  kBathtub = 5;
-  kBed = 6;
-  kBookshelf = 7;
-  kChair = 8;
-  kChristmasTree = 9;
-  kCoatRack = 10;
-  kCoffeeTable = 11;
-  kCookingRange = 12;
-  kCouch = 13;
-  kCountertop = 14;
-  kCradle = 15;
-  kCrib = 16;
-  kDesk = 17;
-  kDiningTable = 18;
-  kDishwasher = 19;
-  kDoor = 20;
-  kDresser = 21;
-  kLaundryDryer = 22;
-  kFan = 23;
-  kFireplace = 24;
-  kFreezer = 25;
-  kFrontDoor = 26;
-  kHighChair = 27;
-  kKitchenIsland = 28;
-  kLamp = 29;
-  kLitterBox = 30;
-  kMirror = 31;
-  kNightstand = 32;
-  kOven = 33;
-  kPetBed = 34;
-  kPetBowl = 35;
-  kPetCrate = 36;
-  kRefrigerator = 37;
-  kScratchingPost = 38;
-  kShoeRack = 39;
-  kShower = 40;
-  kSideDoor = 41;
-  kSink = 42;
-  kSofa = 43;
-  kStove = 44;
-  kTable = 45;
-  kToilet = 46;
-  kTrashCan = 47;
-  kLaundryWasher = 48;
-  kWindow = 49;
-  kWineCooler = 50;
-}
-
-enum LaundryTag : enum8 {
-  kNormal = 0;
-  kLightDry = 1;
-  kExtraDry = 2;
-  kNoDry = 3;
-}
-
-enum LevelTag : enum8 {
-  kLow = 0;
-  kMedium = 1;
-  kHigh = 2;
-}
-
-enum LocationTag : enum8 {
-  kIndoor = 0;
-  kOutdoor = 1;
-  kInside = 2;
-  kOutside = 3;
-  kZone = 4;
-}
-
-enum MeasurementTypeEnum : enum16 {
-  kUnspecified = 0;
-  kVoltage = 1;
-  kActiveCurrent = 2;
-  kReactiveCurrent = 3;
-  kApparentCurrent = 4;
-  kActivePower = 5;
-  kReactivePower = 6;
-  kApparentPower = 7;
-  kRMSVoltage = 8;
-  kRMSCurrent = 9;
-  kRMSPower = 10;
-  kFrequency = 11;
-  kPowerFactor = 12;
-  kNeutralCurrent = 13;
-  kElectricalEnergy = 14;
-  kReactiveEnergy = 15;
-  kApparentEnergy = 16;
-  kSoilMoisture = 17;
-}
-
-enum NumberTag : enum8 {
-  kZero = 0;
-  kOne = 1;
-  kTwo = 2;
-  kThree = 3;
-  kFour = 4;
-  kFive = 5;
-  kSix = 6;
-  kSeven = 7;
-  kEight = 8;
-  kNine = 9;
-  kTen = 10;
-  kEleven = 11;
-  kTwelve = 12;
-  kThirteen = 13;
-  kFourteen = 14;
-  kFifteen = 15;
-  kSixteen = 16;
-  kSeventeen = 17;
-  kEighteen = 18;
-  kNineteen = 19;
-  kTwenty = 20;
-  kTwentyOne = 21;
-  kTwentyTwo = 22;
-  kTwentyThree = 23;
-  kTwentyFour = 24;
-  kTwentyFive = 25;
-  kTwentySix = 26;
-  kTwentySeven = 27;
-  kTwentyEight = 28;
-  kTwentyNine = 29;
-  kThirty = 30;
-}
-
-enum PositionTag : enum8 {
-  kLeft = 0;
-  kRight = 1;
-  kTop = 2;
-  kBottom = 3;
-  kMiddle = 4;
-  kRow = 5;
-  kColumn = 6;
-}
-
-enum PowerSourceTag : enum8 {
-  kUnknown = 0;
-  kGrid = 1;
-  kSolar = 2;
-  kBattery = 3;
-  kEV = 4 [spec_name = "EV"];
-}
-
-enum PowerThresholdSourceEnum : enum8 {
-  kContract = 0;
-  kRegulator = 1;
-  kEquipment = 2;
-}
-
-enum RefrigeratorTag : enum8 {
-  kRefrigerator = 0;
-  kFreezer = 1;
-}
-
-enum RelativePositionTag : enum8 {
-  kUnder = 0;
-  kNextTo = 1;
-  kAround = 2;
-  kOn = 3;
-  kAbove = 4;
-  kFrontOf = 5;
-  kBehind = 6;
-}
-
-enum RoomAirConditionerTag : enum8 {
-  kEvaporator = 0;
-  kCondenser = 1;
-}
-
-enum ServerAttributionContextInformation : enum8 {
-  kServerAutomationRule = 11;
-  kServerSchedule = 12;
-  kServerTimer = 13;
-  kSecurity = 14;
-  kDemandResponseEventOrSimilarServiceProviderSignalling = 15;
-  kPhysicalInteractionOnDevice = 16;
-  kInteractionViaAProtocolNotDefinedInThisSpecification = 17;
-}
-
-enum SoftwareVersionCertificationStatusEnum : enum8 {
-  kDevTest = 0;
-  kProvisional = 1;
-  kCertified = 2;
-  kRevoked = 3;
-}
-
-enum StreamUsageEnum : enum8 {
-  kInternal = 0;
-  kRecording = 1;
-  kAnalysis = 2;
-  kLiveView = 3;
-}
-
-enum SuppliedAttributionContextInformation : enum8 {
-  kDefaultClientAction = 0;
-  kUserInteraction = 1;
-  kClientAutomationRule = 2;
-  kClientSchedule = 3;
-  kClientTimer = 4;
-}
-
-enum SwitchesTag : enum8 {
-  kOn = 0;
-  kOff = 1;
-  kToggle = 2;
-  kUp = 3;
-  kDown = 4;
-  kNext = 5;
-  kPrevious = 6;
-  kEnterOkSelect = 7;
-  kCustom = 8;
-  kOpen = 9;
-  kClose = 10;
-  kStop = 11;
-}
-
-enum TariffPriceTypeEnum : enum8 {
-  kStandard = 0;
-  kCritical = 1;
-  kVirtual = 2;
-  kIncentive = 3;
-  kIncentiveSignal = 4;
-}
-
-enum TariffUnitEnum : enum8 {
-  kKWh = 0;
-  kKVAh = 1;
-}
-
-enum TestGlobalEnum : enum8 {
-  kSomeValue = 0;
-  kSomeOtherValue = 1;
-  kFinalValue = 2;
-}
-
-enum ThreeLevelAutoEnum : enum8 {
-  kAuto = 0;
-  kLow = 1;
-  kMedium = 2;
-  kHigh = 3;
-}
-
-enum WebRTCEndReasonEnum : enum8 {
-  kICEFailed = 0;
-  kICETimeout = 1;
-  kUserHangup = 2;
-  kUserBusy = 3;
-  kReplaced = 4;
-  kNoUserMedia = 5;
-  kInviteTimeout = 6;
-  kAnsweredElsewhere = 7;
-  kOutOfResources = 8;
-  kMediaTimeout = 9;
-  kLowPower = 10;
-  kPrivacyMode = 11;
-  kUnknownReason = 12;
-}
-
-bitmap TestGlobalBitmap : bitmap32 {
-  kFirstBit = 0x1;
-  kSecondBit = 0x2;
-}
-
-struct CurrencyStruct {
-  int16u currency = 0;
-  int8u decimalPoints = 1;
-}
-
-struct PriceStruct {
-  money amount = 0;
-  CurrencyStruct currency = 1;
-}
-
-struct ModeTagStruct {
-  optional vendor_id mfgCode = 0;
-  enum16 value = 1;
-}
-
-struct ModeOptionStruct {
-  char_string<64> label = 0;
-  int8u mode = 1;
-  ModeTagStruct modeTags[] = 2;
-}
-
-struct MeasurementAccuracyRangeStruct {
-  int64s rangeMin = 0;
-  int64s rangeMax = 1;
-  optional percent100ths percentMax = 2;
-  optional percent100ths percentMin = 3;
-  optional percent100ths percentTypical = 4;
-  optional int64u fixedMax = 5;
-  optional int64u fixedMin = 6;
-  optional int64u fixedTypical = 7;
-}
-
-struct MeasurementAccuracyStruct {
-  MeasurementTypeEnum measurementType = 0;
-  boolean measured = 1;
-  int64s minMeasuredValue = 2;
-  int64s maxMeasuredValue = 3;
-  MeasurementAccuracyRangeStruct accuracyRanges[] = 4;
-}
-
 struct AtomicAttributeStatusStruct {
   attrib_id attributeID = 0;
   status statusCode = 1;
 }
 
-struct AttributionData {
-  enum8 contextInformation = 0;
-  optional int32u sourceContext = 1;
-  optional node_id nodeID = 2;
-  optional group_id groupID = 3;
-  optional systime_ms systemTimeStamp = 4;
-  optional posix_ms epochTimeStamp = 5;
-  nullable fabric_idx fabricIndex = 6;
-}
-
-struct ICECandidateStruct {
-  char_string candidate = 0;
-  nullable char_string SDPMid = 1;
-  nullable int16u SDPMLineIndex = 2;
-}
-
-struct ICEServerStruct {
-  char_string URLs[] = 0;
-  optional long_char_string<508> username = 1;
-  optional long_char_string<512> credential = 2;
-  optional int16u caid = 3;
-}
-
-struct LocationDescriptorStruct {
-  char_string<128> locationName = 0;
-  nullable int16s floorNumber = 1;
-  nullable AreaTypeTag areaType = 2;
-}
-
-struct PowerThresholdStruct {
-  optional power_mw powerThreshold = 0;
-  optional power_mva apparentPowerThreshold = 1;
-  nullable PowerThresholdSourceEnum powerThresholdSource = 2;
-}
-
-struct SemanticTagStruct {
-  nullable vendor_id mfgCode = 0;
-  enum8 namespaceID = 1;
-  enum8 tag = 2;
-  optional nullable char_string<64> label = 3;
-}
-
-fabric_scoped struct SuppliedAttributionData {
-  enum8 contextInformation = 0;
-  optional int32u sourceContext = 1;
-  fabric_idx fabricIndex = 254;
-}
-
-struct TestGlobalStruct {
-  char_string<128> name = 0;
-  nullable TestGlobalBitmap myBitmap = 1;
-  optional nullable TestGlobalEnum myEnum = 2;
-}
-
-struct ViewportStruct {
-  int16u x1 = 0;
-  int16u y1 = 1;
-  int16u x2 = 2;
-  int16u y2 = 3;
-}
-
-fabric_scoped struct WebRTCSessionStruct {
-  int16u id = 0;
-  node_id peerNodeID = 1;
-  endpoint_no peerEndpointID = 2;
-  StreamUsageEnum streamUsage = 3;
-  nullable int16u videoStreamID = 4;
-  nullable int16u audioStreamID = 5;
-  boolean metadataEnabled = 6;
-  fabric_idx fabricIndex = 254;
-}
-
-/** Attributes and commands for putting a device into Identification mode (e.g. flashing a light). */
+/** This cluster supports an endpoint identification state (e.g., flashing a light), that indicates to
+       an observer (e.g., an installer) which of several nodes and/or endpoints it is. */
 cluster Identify = 3 {
   revision 6;
 
@@ -695,7 +63,8 @@ cluster Identify = 3 {
   command access(invoke: manage) TriggerEffect(TriggerEffectRequest): DefaultSuccess = 64;
 }
 
-/** Attributes and commands for group configuration and manipulation. */
+/** The Groups cluster manages, per endpoint, the content of the node-wide Group Table that is part of
+       the underlying interaction layer. */
 cluster Groups = 4 {
   revision 4;
 
@@ -757,21 +126,27 @@ cluster Groups = 4 {
     char_string<16> groupName = 1;
   }
 
-  /** The AddGroup command allows a client to add group membership in a particular group for the server endpoint. */
+  /** The AddGroup command allows a client to add group membership in a particular group for the server
+         endpoint. */
   fabric command access(invoke: manage) AddGroup(AddGroupRequest): AddGroupResponse = 0;
-  /** The ViewGroup command allows a client to request that the server responds with a ViewGroupResponse command containing the name string for a particular group. */
+  /** The ViewGroup command allows a client to request that the server responds with a ViewGroupResponse
+         command containing the name string for a particular group. */
   fabric command ViewGroup(ViewGroupRequest): ViewGroupResponse = 1;
-  /** The GetGroupMembership command allows a client to inquire about the group membership of the server endpoint, in a number of ways. */
+  /** The GetGroupMembership command allows a client to inquire about the group membership of the server
+         endpoint, in a number of ways. */
   fabric command GetGroupMembership(GetGroupMembershipRequest): GetGroupMembershipResponse = 2;
-  /** The RemoveGroup command allows a client to request that the server removes the membership for the server endpoint, if any, in a particular group. */
+  /** The RemoveGroup command allows a client to request that the server removes the membership for the
+         server endpoint, if any, in a particular group. */
   fabric command access(invoke: manage) RemoveGroup(RemoveGroupRequest): RemoveGroupResponse = 3;
-  /** The RemoveAllGroups command allows a client to direct the server to remove all group associations for the server endpoint. */
+  /** The RemoveAllGroups command allows a client to direct the server to remove all group associations
+         for the server endpoint. */
   fabric command access(invoke: manage) RemoveAllGroups(): DefaultSuccess = 4;
-  /** The AddGroupIfIdentifying command allows a client to add group membership in a particular group for the server endpoint, on condition that the endpoint is identifying itself. */
+  /** The AddGroupIfIdentifying command allows a client to add group membership in a particular group for
+         the server endpoint, on condition that the endpoint is identifying itself. */
   fabric command access(invoke: manage) AddGroupIfIdentifying(AddGroupIfIdentifyingRequest): DefaultSuccess = 5;
 }
 
-/** Attributes and commands for switching devices between 'On' and 'Off' states. */
+/** Attributes and commands for turning devices on and off. */
 cluster OnOff = 6 {
   revision 6;
 
@@ -838,11 +213,15 @@ cluster OnOff = 6 {
   command OffWithEffect(OffWithEffectRequest): DefaultSuccess = 64;
   /** This command allows the recall of the settings when the device was turned off. */
   command OnWithRecallGlobalScene(): DefaultSuccess = 65;
-  /** This command allows devices to be turned on for a specific duration with a guarded off duration so that SHOULD the device be subsequently turned off, further OnWithTimedOff commands, received during this time, are prevented from turning the devices back on. */
+  /** This command allows devices to be turned on for a specific duration with a guarded off duration so
+         that SHOULD the device be subsequently turned off, further OnWithTimedOff commands, received during
+         this time, are prevented from turning the devices back on. */
   command OnWithTimedOff(OnWithTimedOffRequest): DefaultSuccess = 66;
 }
 
-/** Attributes and commands for controlling devices that can be set to a level between fully 'On' and fully 'Off.' */
+/** This cluster provides an interface for controlling a characteristic of a device that can be set to
+       a level, for example the brightness of a light, the degree of closure of a door, or the power output
+       of a heater. */
 cluster LevelControl = 8 {
   revision 7;
 
@@ -953,19 +332,16 @@ cluster LevelControl = 8 {
   command Step(StepRequest): DefaultSuccess = 2;
   /** This command will stop the actions of various other commands that are still in progress. */
   command Stop(StopRequest): DefaultSuccess = 3;
-  /** Command description for MoveToLevelWithOnOff */
   command MoveToLevelWithOnOff(MoveToLevelWithOnOffRequest): DefaultSuccess = 4;
-  /** Command description for MoveWithOnOff */
   command MoveWithOnOff(MoveWithOnOffRequest): DefaultSuccess = 5;
-  /** Command description for StepWithOnOff */
   command StepWithOnOff(StepWithOnOffRequest): DefaultSuccess = 6;
-  /** Command description for StopWithOnOff */
   command StopWithOnOff(StopWithOnOffRequest): DefaultSuccess = 7;
   /** This command will cause the device to change the current frequency to the requested value. */
   command MoveToClosestFrequency(MoveToClosestFrequencyRequest): DefaultSuccess = 8;
 }
 
-/** The Descriptor Cluster is meant to replace the support from the Zigbee Device Object (ZDO) for describing a node, its endpoints and clusters. */
+/** This cluster describes an endpoint instance on the node, independently from other endpoints, but also
+       allows composition of endpoints to conform to complex device type patterns. */
 cluster Descriptor = 29 {
   revision 3;
 
@@ -991,7 +367,8 @@ cluster Descriptor = 29 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** The Binding Cluster is meant to replace the support from the Zigbee Device Object (ZDO) for supporting the binding table. */
+/** A binding represents a persistent relationship between an endpoint and one or more other local or
+       remote endpoints. */
 cluster Binding = 30 {
   revision 1;
 
@@ -1011,10 +388,9 @@ cluster Binding = 30 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** The Access Control Cluster exposes a data model view of a
-      Node's Access Control List (ACL), which codifies the rules used to manage
-      and enforce Access Control for the Node's endpoints and their associated
-      cluster instances. */
+/** The Access Control Cluster exposes a data model view of a Node's Access Control List (ACL), which
+       codifies the rules used to manage and enforce Access Control for the Node's endpoints and their
+       associated cluster instances. */
 cluster AccessControl = 31 {
   revision 3;
 
@@ -1024,8 +400,8 @@ cluster AccessControl = 31 {
   }
 
   enum AccessControlEntryAuthModeEnum : enum8 {
-    kPASE = 1 [spec_name = "PASE"];
-    kCASE = 2 [spec_name = "CASE"];
+    kPASE = 1;
+    kCASE = 2;
     kGroup = 3;
   }
 
@@ -1056,6 +432,12 @@ cluster AccessControl = 31 {
     kAuxiliary = 0x4;
   }
 
+  struct AccessControlTargetStruct {
+    nullable cluster_id cluster = 0;
+    nullable endpoint_no endpoint = 1;
+    nullable devtype_id deviceType = 2;
+  }
+
   struct AccessRestrictionStruct {
     AccessRestrictionTypeEnum type = 0;
     nullable int32u id = 1;
@@ -1065,19 +447,6 @@ cluster AccessControl = 31 {
     endpoint_no endpoint = 0;
     cluster_id cluster = 1;
     AccessRestrictionStruct restrictions[] = 2;
-  }
-
-  fabric_scoped struct AccessRestrictionEntryStruct {
-    fabric_sensitive endpoint_no endpoint = 0;
-    fabric_sensitive cluster_id cluster = 1;
-    fabric_sensitive AccessRestrictionStruct restrictions[] = 2;
-    fabric_idx fabricIndex = 254;
-  }
-
-  struct AccessControlTargetStruct {
-    nullable cluster_id cluster = 0;
-    nullable endpoint_no endpoint = 1;
-    nullable devtype_id deviceType = 2;
   }
 
   fabric_scoped struct AccessControlEntryStruct {
@@ -1091,6 +460,13 @@ cluster AccessControl = 31 {
 
   fabric_scoped struct AccessControlExtensionStruct {
     fabric_sensitive octet_string<128> data = 1;
+    fabric_idx fabricIndex = 254;
+  }
+
+  fabric_scoped struct AccessRestrictionEntryStruct {
+    fabric_sensitive endpoint_no endpoint = 0;
+    fabric_sensitive cluster_id cluster = 1;
+    fabric_sensitive AccessRestrictionStruct restrictions[] = 2;
     fabric_idx fabricIndex = 254;
   }
 
@@ -1112,8 +488,8 @@ cluster AccessControl = 31 {
 
   fabric_sensitive info event access(read: administer) FabricRestrictionReviewUpdate = 2 {
     int64u token = 0;
-    optional long_char_string instruction = 1;
-    optional long_char_string ARLRequestFlowUrl = 2;
+    optional long_char_string<512> instruction = 1;
+    optional long_char_string<256> ARLRequestFlowUrl = 2;
     fabric_idx fabricIndex = 254;
   }
 
@@ -1144,11 +520,13 @@ cluster AccessControl = 31 {
     int64u token = 0;
   }
 
-  /** This command signals to the service associated with the device vendor that the fabric administrator would like a review of the current restrictions on the accessing fabric. */
+  /** This command signals to the service associated with the device vendor that the fabric administrator
+         would like a review of the current restrictions on the accessing fabric. */
   fabric command access(invoke: administer) ReviewFabricRestrictions(ReviewFabricRestrictionsRequest): ReviewFabricRestrictionsResponse = 0;
 }
 
-/** This cluster provides a standardized way for a Node (typically a Bridge, but could be any Node) to expose action information. */
+/** This cluster provides a standardized way for a Node (typically a Bridge, but could be any Node) to
+       expose logical grouping and actions. */
 cluster Actions = 37 {
   revision 1;
 
@@ -1324,9 +702,9 @@ cluster Actions = 37 {
   command DisableActionWithDuration(DisableActionWithDurationRequest): DefaultSuccess = 11;
 }
 
-/** This cluster provides attributes and events for determining basic information about Nodes, which supports both
-      Commissioning and operational determination of Node characteristics, such as Vendor ID, Product ID and serial number,
-      which apply to the whole Node. Also allows setting user device information such as location. */
+/** This cluster provides attributes and events for determining basic information about Nodes, which supports
+       both Commissioning and operational determination of Node characteristics, such as Vendor ID, Product
+       ID and serial number, which apply to the whole Node. */
 cluster BasicInformation = 40 {
   revision 6;
 
@@ -1422,13 +800,11 @@ cluster BasicInformation = 40 {
   readonly attribute attrib_id attributeList[] = 65531;
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
-
-  command MfgSpecificPing(): DefaultSuccess = 0;
 }
 
-/** Provides an interface for providing OTA software updates */
+/** This cluster implements the Provider role in the OTA process. */
 cluster OtaSoftwareUpdateProvider = 41 {
-  revision 1; // NOTE: Default/not specifically set
+  revision 1;
 
   enum ApplyUpdateActionEnum : enum8 {
     kProceed = 0;
@@ -1439,7 +815,7 @@ cluster OtaSoftwareUpdateProvider = 41 {
   enum DownloadProtocolEnum : enum8 {
     kBDXSynchronous = 0;
     kBDXAsynchronous = 1;
-    kHTTPS = 2 [spec_name = "HTTPS"];
+    kHTTPS = 2;
     kVendorSpecific = 3;
   }
 
@@ -1464,18 +840,18 @@ cluster OtaSoftwareUpdateProvider = 41 {
     optional int16u hardwareVersion = 4;
     optional char_string<2> location = 5;
     optional boolean requestorCanConsent = 6;
-    optional octet_string<512> metadataForProvider = 7;
+    optional long_octet_string<512> metadataForProvider = 7;
   }
 
   response struct QueryImageResponse = 1 {
     StatusEnum status = 0;
     optional int32u delayedActionTime = 1;
-    optional char_string<256> imageURI = 2;
+    optional long_char_string<256> imageURI = 2;
     optional int32u softwareVersion = 3;
     optional char_string<64> softwareVersionString = 4;
     optional octet_string<32> updateToken = 5;
     optional boolean userConsentNeeded = 6;
-    optional octet_string<512> metadataForRequestor = 7;
+    optional long_octet_string<512> metadataForRequestor = 7;
   }
 
   request struct ApplyUpdateRequestRequest {
@@ -1493,17 +869,18 @@ cluster OtaSoftwareUpdateProvider = 41 {
     int32u softwareVersion = 1;
   }
 
-  /** Determine availability of a new Software Image */
+  /** Upon receipt, this command SHALL trigger an attempt to find an updated Software Image by the OTA Provider
+         to match the OTA Requestor's constraints provided in the payload fields. */
   command QueryImage(QueryImageRequest): QueryImageResponse = 0;
-  /** Determine next action to take for a downloaded Software Image */
+  /** This command requests the specified version be installed on the device. */
   command ApplyUpdateRequest(ApplyUpdateRequestRequest): ApplyUpdateResponse = 2;
-  /** Notify OTA Provider that an update was applied */
+  /** This command tells the Provider that the specified update has been applied. */
   command NotifyUpdateApplied(NotifyUpdateAppliedRequest): DefaultSuccess = 4;
 }
 
-/** Provides an interface for downloading and applying OTA software updates */
+/** This cluster implements the Requestor role in the OTA process. */
 cluster OtaSoftwareUpdateRequestor = 42 {
-  revision 1; // NOTE: Default/not specifically set
+  revision 1;
 
   enum AnnouncementReasonEnum : enum8 {
     kSimpleAnnouncement = 0;
@@ -1570,18 +947,15 @@ cluster OtaSoftwareUpdateRequestor = 42 {
     node_id providerNodeID = 0;
     vendor_id vendorID = 1;
     AnnouncementReasonEnum announcementReason = 2;
-    optional octet_string<512> metadataForNode = 3;
+    optional long_octet_string<512> metadataForNode = 3;
     endpoint_no endpoint = 4;
   }
 
-  /** Announce the presence of an OTA Provider */
+  /** This command MAY be invoked by Administrators to announce the presence of a particular OTA Provider. */
   command access(invoke: administer) AnnounceOTAProvider(AnnounceOTAProviderRequest): DefaultSuccess = 0;
 }
 
-/** Nodes should be expected to be deployed to any and all regions of the world. These global regions
-      may have differing common languages, units of measurements, and numerical formatting
-      standards. As such, Nodes that visually or audibly convey information need a mechanism by which
-      they can be configured to use a user’s preferred language, units, etc */
+/** Nodes should be expected to be deployed to any and all regions of the world. */
 cluster LocalizationConfiguration = 43 {
   revision 1;
 
@@ -1594,10 +968,7 @@ cluster LocalizationConfiguration = 43 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Nodes should be expected to be deployed to any and all regions of the world. These global regions
-      may have differing preferences for how dates and times are conveyed. As such, Nodes that visually
-      or audibly convey time information need a mechanism by which they can be configured to use a
-      user’s preferred format. */
+/** Nodes should be expected to be deployed to any and all regions of the world. */
 cluster TimeFormatLocalization = 44 {
   revision 1;
 
@@ -1637,10 +1008,7 @@ cluster TimeFormatLocalization = 44 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Nodes should be expected to be deployed to any and all regions of the world. These global regions
-      may have differing preferences for the units in which values are conveyed in communication to a
-      user. As such, Nodes that visually or audibly convey measurable values to the user need a
-      mechanism by which they can be configured to use a user’s preferred unit. */
+/** Nodes should be expected to be deployed to any and all regions of the world. */
 cluster UnitLocalization = 45 {
   revision 2;
 
@@ -1663,7 +1031,8 @@ cluster UnitLocalization = 45 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster is used to describe the configuration and capabilities of a physical power source that provides power to the Node. */
+/** This cluster is used to describe the configuration and capabilities of a physical power source that
+       provides power to one or more endpoints on a node. */
 cluster PowerSource = 47 {
   revision 3;
 
@@ -1718,7 +1087,7 @@ cluster PowerSource = 47 {
   }
 
   enum BatChargeLevelEnum : enum8 {
-    kOK = 0 [spec_name = "OK"];
+    kOK = 0;
     kWarning = 1;
     kCritical = 2;
   }
@@ -1732,15 +1101,15 @@ cluster PowerSource = 47 {
 
   enum BatCommonDesignationEnum : enum16 {
     kUnspecified = 0;
-    kAAA = 1 [spec_name = "AAA"];
-    kAA = 2 [spec_name = "AA"];
+    kAAA = 1;
+    kAA = 2;
     kC = 3;
     kD = 4;
     k4v5 = 5;
     k6v0 = 6;
     k9v0 = 7;
     k12AA = 8 [spec_name = "1_2AA"];
-    kAAAA = 9 [spec_name = "AAAA"];
+    kAAAA = 9;
     kA = 10;
     kB = 11;
     kF = 12;
@@ -1749,9 +1118,9 @@ cluster PowerSource = 47 {
     kSubC = 15;
     kA23 = 16;
     kA27 = 17;
-    kBA5800 = 18 [spec_name = "BA5800"];
+    kBA5800 = 18;
     kDuplex = 19;
-    k4SR44 = 20 [spec_name = "4SR44"];
+    k4SR44 = 20;
     k523 = 21;
     k531 = 22;
     k15v0 = 23;
@@ -1760,39 +1129,39 @@ cluster PowerSource = 47 {
     k45v0 = 26;
     k67v5 = 27;
     kJ = 28;
-    kCR123A = 29 [spec_name = "CR123A"];
-    kCR2 = 30 [spec_name = "CR2"];
-    k2CR5 = 31 [spec_name = "2CR5"];
+    kCR123A = 29;
+    kCR2 = 30;
+    k2CR5 = 31;
     kCRP2 = 32 [spec_name = "CR_P2"];
     kCRV3 = 33 [spec_name = "CR_V3"];
-    kSR41 = 34 [spec_name = "SR41"];
-    kSR43 = 35 [spec_name = "SR43"];
-    kSR44 = 36 [spec_name = "SR44"];
-    kSR45 = 37 [spec_name = "SR45"];
-    kSR48 = 38 [spec_name = "SR48"];
-    kSR54 = 39 [spec_name = "SR54"];
-    kSR55 = 40 [spec_name = "SR55"];
-    kSR57 = 41 [spec_name = "SR57"];
-    kSR58 = 42 [spec_name = "SR58"];
-    kSR59 = 43 [spec_name = "SR59"];
-    kSR60 = 44 [spec_name = "SR60"];
-    kSR63 = 45 [spec_name = "SR63"];
-    kSR64 = 46 [spec_name = "SR64"];
-    kSR65 = 47 [spec_name = "SR65"];
-    kSR66 = 48 [spec_name = "SR66"];
-    kSR67 = 49 [spec_name = "SR67"];
-    kSR68 = 50 [spec_name = "SR68"];
-    kSR69 = 51 [spec_name = "SR69"];
-    kSR516 = 52 [spec_name = "SR516"];
-    kSR731 = 53 [spec_name = "SR731"];
-    kSR712 = 54 [spec_name = "SR712"];
-    kLR932 = 55 [spec_name = "LR932"];
+    kSR41 = 34;
+    kSR43 = 35;
+    kSR44 = 36;
+    kSR45 = 37;
+    kSR48 = 38;
+    kSR54 = 39;
+    kSR55 = 40;
+    kSR57 = 41;
+    kSR58 = 42;
+    kSR59 = 43;
+    kSR60 = 44;
+    kSR63 = 45;
+    kSR64 = 46;
+    kSR65 = 47;
+    kSR66 = 48;
+    kSR67 = 49;
+    kSR68 = 50;
+    kSR69 = 51;
+    kSR516 = 52;
+    kSR731 = 53;
+    kSR712 = 54;
+    kLR932 = 55;
     kA5 = 56;
     kA10 = 57;
     kA13 = 58;
     kA312 = 59;
     kA675 = 60;
-    kAC41E = 61 [spec_name = "AC41E"];
+    kAC41E = 61;
     k10180 = 62;
     k10280 = 63;
     k10440 = 64;
@@ -1802,7 +1171,7 @@ cluster PowerSource = 47 {
     k14650 = 68;
     k15270 = 69;
     k16340 = 70;
-    kRCR123A = 71 [spec_name = "RCR123A"];
+    kRCR123A = 71;
     k17500 = 72;
     k17670 = 73;
     k18350 = 74;
@@ -1835,8 +1204,8 @@ cluster PowerSource = 47 {
   }
 
   enum WiredCurrentTypeEnum : enum8 {
-    kAC = 0 [spec_name = "AC"];
-    kDC = 1 [spec_name = "DC"];
+    kAC = 0;
+    kDC = 1;
   }
 
   enum WiredFaultEnum : enum8 {
@@ -1921,12 +1290,12 @@ cluster PowerSource = 47 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster is used to manage global aspects of the Commissioning flow. */
+/** This cluster is used to manage basic commissioning lifecycle. */
 cluster GeneralCommissioning = 48 {
   revision 2;
 
   enum CommissioningErrorEnum : enum8 {
-    kOK = 0 [spec_name = "OK"];
+    kOK = 0;
     kValueOutsideRange = 1;
     kInvalidAuthentication = 2;
     kNoFailSafe = 3;
@@ -2018,11 +1387,12 @@ cluster GeneralCommissioning = 48 {
   command access(invoke: administer) SetRegulatoryConfig(SetRegulatoryConfigRequest): SetRegulatoryConfigResponse = 2;
   /** This command is used to indicate that the commissioning process is complete. */
   fabric command access(invoke: administer) CommissioningComplete(): CommissioningCompleteResponse = 4;
-  /** This command is used to set the user acknowledgements received in the Enhanced Setup Flow Terms & Conditions into the node. */
+  /** This command is used to set the user acknowledgements received in the Enhanced Setup Flow Terms &
+         Conditions into the node. */
   command access(invoke: administer) SetTCAcknowledgements(SetTCAcknowledgementsRequest): SetTCAcknowledgementsResponse = 6;
 }
 
-/** Functionality to configure, enable, disable network credentials and access on a Matter device. */
+/** Network commissioning is part of the overall Node commissioning. */
 cluster NetworkCommissioning = 49 {
   revision 3;
 
@@ -2043,12 +1413,12 @@ cluster NetworkCommissioning = 49 {
   }
 
   enum WiFiBandEnum : enum8 {
-    k2G4 = 0 [spec_name = "2G4"];
-    k3G65 = 1 [spec_name = "3G65"];
-    k5G = 2 [spec_name = "5G"];
-    k6G = 3 [spec_name = "6G"];
-    k60G = 4 [spec_name = "60G"];
-    k1G = 5 [spec_name = "1G"];
+    k2G4 = 0;
+    k3G65 = 1;
+    k5G = 2;
+    k6G = 3;
+    k60G = 4;
+    k1G = 5;
   }
 
   bitmap Feature : bitmap32 {
@@ -2068,11 +1438,11 @@ cluster NetworkCommissioning = 49 {
 
   bitmap WiFiSecurityBitmap : bitmap8 {
     kUnencrypted = 0x1;
-    kWEP = 0x2 [spec_name = "WEP"];
-    kWPAPersonal = 0x4 [spec_name = "WPA-PERSONAL"];
-    kWPA2Personal = 0x8 [spec_name = "WPA2-PERSONAL"];
-    kWPA3Personal = 0x10 [spec_name = "WPA3-PERSONAL"];
-    kWPA3MatterPDC = 0x20 [spec_name = "WPA3-Matter-PDC"];
+    kWEP = 0x2;
+    kWPAPERSONAL = 0x4;
+    kWPA2PERSONAL = 0x8;
+    kWPA3PERSONAL = 0x10;
+    kWPA3MatterPDC = 0x20;
   }
 
   struct NetworkInfoStruct {
@@ -2088,7 +1458,7 @@ cluster NetworkCommissioning = 49 {
     char_string<16> networkName = 2;
     int16u channel = 3;
     int8u version = 4;
-    octet_string extendedAddress = 5;
+    octet_string<8> extendedAddress = 5;
     int8s rssi = 6;
     int8u lqi = 7;
   }
@@ -2185,23 +1555,26 @@ cluster NetworkCommissioning = 49 {
     optional octet_string<64> possessionSignature = 1;
   }
 
-  /** This command is used to scan for available networks on the network interface associated with the cluster instance. */
+  /** This command is used to scan for available networks on the network interface associated with the cluster
+         instance. */
   command access(invoke: administer) ScanNetworks(ScanNetworksRequest): ScanNetworksResponse = 0;
   /** This command is used to add or update a Wi-Fi network configuration. */
   command access(invoke: administer) AddOrUpdateWiFiNetwork(AddOrUpdateWiFiNetworkRequest): NetworkConfigResponse = 2;
   /** This command is used to add or update a Thread network configuration. */
   command access(invoke: administer) AddOrUpdateThreadNetwork(AddOrUpdateThreadNetworkRequest): NetworkConfigResponse = 3;
-  /** This command is used to remove a network configuration on the network interface associated with the cluster instance. */
+  /** This command is used to remove a network configuration on the network interface associated with the
+         cluster instance. */
   command access(invoke: administer) RemoveNetwork(RemoveNetworkRequest): NetworkConfigResponse = 4;
-  /** This command is used to connect to a network on the network interface associated with the cluster instance. */
+  /** This command is used to connect to a network on the network interface associated with the cluster
+         instance. */
   command access(invoke: administer) ConnectNetwork(ConnectNetworkRequest): ConnectNetworkResponse = 6;
   /** This command is used to re-order the network configuration list. */
   command access(invoke: administer) ReorderNetwork(ReorderNetworkRequest): NetworkConfigResponse = 8;
   /** This command is used to query the identity of a network configuration. */
-  command access(invoke: administer) QueryIdentity(QueryIdentityRequest): QueryIdentityResponse = 9;
+  provisional command access(invoke: administer) QueryIdentity(QueryIdentityRequest): QueryIdentityResponse = 9;
 }
 
-/** The cluster provides commands for retrieving unstructured diagnostic logs from a Node that may be used to aid in diagnostics. */
+/** This Cluster supports an interface to a Node. */
 cluster DiagnosticLogs = 50 {
   revision 1;
 
@@ -2221,7 +1594,7 @@ cluster DiagnosticLogs = 50 {
 
   enum TransferProtocolEnum : enum8 {
     kResponsePayload = 0;
-    kBDX = 1 [spec_name = "BDX"];
+    kBDX = 1;
   }
 
   readonly attribute command_id generatedCommandList[] = 65528;
@@ -2247,7 +1620,9 @@ cluster DiagnosticLogs = 50 {
   command RetrieveLogsRequest(RetrieveLogsRequestRequest): RetrieveLogsResponse = 0;
 }
 
-/** The General Diagnostics Cluster, along with other diagnostics clusters, provide a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
+/** The General Diagnostics Cluster, along with other diagnostics clusters, provide a means to acquire
+       standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrator in
+       diagnosing potential problems. */
 cluster GeneralDiagnostics = 51 {
   revision 3;
 
@@ -2317,7 +1692,7 @@ cluster GeneralDiagnostics = 51 {
     boolean isOperational = 1;
     nullable boolean offPremiseServicesReachableIPv4 = 2;
     nullable boolean offPremiseServicesReachableIPv6 = 3;
-    octet_string hardwareAddress = 4;
+    octet_string<8> hardwareAddress = 4;
     octet_string IPv4Addresses[] = 5;
     octet_string IPv6Addresses[] = 6;
     InterfaceTypeEnum type = 7;
@@ -2378,15 +1753,19 @@ cluster GeneralDiagnostics = 51 {
     long_octet_string<2048> payload = 0;
   }
 
-  /** This command SHALL be supported to provide a means for certification tests to trigger some test-plan-specific events, necessary to assist in automation of device interactions for some certification test cases. */
+  /** This command SHALL be supported to provide a means for certification tests to trigger some test-plan-specific
+         events, necessary to assist in automation of device interactions for some certification test cases. */
   command access(invoke: manage) TestEventTrigger(TestEventTriggerRequest): DefaultSuccess = 0;
-  /** This command MAY be used by a client to obtain a correlated view of both System Time, and, if currently synchronized and supported, "wall clock time" of the server. */
+  /** This command MAY be used by a client to obtain a correlated view of both System Time, and, if currently
+         synchronized and supported, "wall clock time" of the server. */
   command TimeSnapshot(): TimeSnapshotResponse = 1;
-  /** This command provides a means for certification tests or manufacturer's internal tests to validate particular command handling and encoding constraints by generating a response of a given size. */
+  /** This command provides a means for certification tests or manufacturer's internal tests to validate
+         particular command handling and encoding constraints by generating a response of a given size. */
   command access(invoke: manage) PayloadTestRequest(PayloadTestRequestRequest): PayloadTestResponse = 3;
 }
 
-/** The Software Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
+/** The Software Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that
+       MAY be used by a Node to assist a user or Administrator in diagnosing potential problems. */
 cluster SoftwareDiagnostics = 52 {
   revision 1;
 
@@ -2404,8 +1783,8 @@ cluster SoftwareDiagnostics = 52 {
 
   info event SoftwareFault = 0 {
     int64u id = 0;
-    optional char_string name = 1;
-    optional long_octet_string faultRecording = 2;
+    optional char_string<8> name = 1;
+    optional long_octet_string<1024> faultRecording = 2;
   }
 
   readonly attribute optional ThreadMetricsStruct threadMetrics[] = 0;
@@ -2422,7 +1801,8 @@ cluster SoftwareDiagnostics = 52 {
   command access(invoke: manage) ResetWatermarks(): DefaultSuccess = 0;
 }
 
-/** The Thread Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems */
+/** The Thread Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics
+       that MAY be used by a Node to assist a user or Administrator in diagnosing potential problems. */
 cluster ThreadNetworkDiagnostics = 53 {
   revision 3;
 
@@ -2443,7 +1823,7 @@ cluster ThreadNetworkDiagnostics = 53 {
     kUnassigned = 1;
     kSleepyEndDevice = 2;
     kEndDevice = 3;
-    kREED = 4 [spec_name = "REED"];
+    kREED = 4;
     kRouter = 5;
     kLeader = 6;
   }
@@ -2519,7 +1899,7 @@ cluster ThreadNetworkDiagnostics = 53 {
   readonly attribute nullable char_string<16> networkName = 2;
   readonly attribute nullable int16u panId = 3;
   readonly attribute nullable int64u extendedPanId = 4;
-  readonly attribute nullable octet_string<254> meshLocalPrefix = 5;
+  readonly attribute nullable octet_string<17> meshLocalPrefix = 5;
   readonly attribute optional int64u overrunCount = 6;
   readonly attribute NeighborTableStruct neighborTable[] = 7;
   readonly attribute RouteTableStruct routeTable[] = 8;
@@ -2589,7 +1969,8 @@ cluster ThreadNetworkDiagnostics = 53 {
   command access(invoke: manage) ResetCounts(): DefaultSuccess = 0;
 }
 
-/** The Wi-Fi Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
+/** The Wi-Fi Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics
+       that MAY be used by a Node to assist a user or Administrator in diagnosing potential problems. */
 cluster WiFiNetworkDiagnostics = 54 {
   revision 1;
 
@@ -2608,20 +1989,20 @@ cluster WiFiNetworkDiagnostics = 54 {
   enum SecurityTypeEnum : enum8 {
     kUnspecified = 0;
     kNone = 1;
-    kWEP = 2 [spec_name = "WEP"];
-    kWPA = 3 [spec_name = "WPA"];
-    kWPA2 = 4 [spec_name = "WPA2"];
-    kWPA3 = 5 [spec_name = "WPA3"];
+    kWEP = 2;
+    kWPA = 3;
+    kWPA2 = 4;
+    kWPA3 = 5;
   }
 
   enum WiFiVersionEnum : enum8 {
-    kA = 0;
-    kB = 1;
-    kG = 2;
-    kN = 3;
-    kAc = 4;
-    kAx = 5;
-    kAh = 6;
+    kA = 0 [spec_name = "a"];
+    kB = 1 [spec_name = "b"];
+    kG = 2 [spec_name = "g"];
+    kN = 3 [spec_name = "n"];
+    kAc = 4 [spec_name = "ac"];
+    kAx = 5 [spec_name = "ax"];
+    kAh = 6 [spec_name = "ah"];
   }
 
   bitmap Feature : bitmap32 {
@@ -2665,7 +2046,8 @@ cluster WiFiNetworkDiagnostics = 54 {
   command ResetCounts(): DefaultSuccess = 0;
 }
 
-/** The Ethernet Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics that MAY be used by a Node to assist a user or Administrative Node in diagnosing potential problems. */
+/** The Ethernet Network Diagnostics Cluster provides a means to acquire standardized diagnostics metrics
+       that MAY be used by a Node to assist a user or Administrator in diagnosing potential problems. */
 cluster EthernetNetworkDiagnostics = 55 {
   revision 1;
 
@@ -2706,9 +2088,8 @@ cluster EthernetNetworkDiagnostics = 55 {
   command access(invoke: manage) ResetCounts(): DefaultSuccess = 0;
 }
 
-/** This cluster exposes interactions with a switch device, for the purpose of using those interactions by other devices.
-Two types of switch devices are supported: latching switch (e.g. rocker switch) and momentary switch (e.g. push button), distinguished with their feature flags.
-Interactions with the switch device are exposed as attributes (for the latching switch) and as events (for both types of switches). An interested party MAY subscribe to these attributes/events and thus be informed of the interactions, and can perform actions based on this, for example by sending commands to perform an action such as controlling a light or a window shade. */
+/** This cluster exposes interactions with a switch device, for the purpose of using those interactions
+       by other devices. */
 cluster Switch = 59 {
   revision 2;
 
@@ -2761,7 +2142,7 @@ cluster Switch = 59 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Commands to trigger a Node to allow a new Administrator to commission it. */
+/** This cluster is used to trigger a Node to allow a new Administrator to commission it. */
 cluster AdministratorCommissioning = 60 {
   revision 1;
 
@@ -2804,13 +2185,16 @@ cluster AdministratorCommissioning = 60 {
 
   /** This command is used by a current Administrator to instruct a Node to go into commissioning mode. */
   timed command access(invoke: administer) OpenCommissioningWindow(OpenCommissioningWindowRequest): DefaultSuccess = 0;
-  /** This command MAY be used by a current Administrator to instruct a Node to go into commissioning mode, if the node supports the Basic Commissioning Method. */
+  /** This command MAY be used by a current Administrator to instruct a Node to go into commissioning mode,
+         if the node supports the Basic Commissioning Method. */
   timed command access(invoke: administer) OpenBasicCommissioningWindow(OpenBasicCommissioningWindowRequest): DefaultSuccess = 1;
-  /** This command is used by a current Administrator to instruct a Node to revoke any active OpenCommissioningWindow or OpenBasicCommissioningWindow command. */
+  /** This command is used by a current Administrator to instruct a Node to revoke any active OpenCommissioningWindow
+         or OpenBasicCommissioningWindow command. */
   timed command access(invoke: administer) RevokeCommissioning(): DefaultSuccess = 2;
 }
 
-/** This cluster is used to add or remove Operational Credentials on a Commissionee or Node, as well as manage the associated Fabrics. */
+/** This cluster is used to add or remove Node Operational credentials on a Commissionee or already-configured
+       Node, as well as manage the associated Fabrics. */
 cluster OperationalCredentials = 62 {
   revision 2;
 
@@ -2820,7 +2204,7 @@ cluster OperationalCredentials = 62 {
   }
 
   enum NodeOperationalCertStatusEnum : enum8 {
-    kOK = 0 [spec_name = "OK"];
+    kOK = 0;
     kInvalidPublicKey = 1;
     kInvalidNodeOpId = 2;
     kInvalidNOC = 3;
@@ -2954,13 +2338,14 @@ cluster OperationalCredentials = 62 {
   command access(invoke: administer) RemoveFabric(RemoveFabricRequest): NOCResponse = 10;
   /** This command is used to add a trusted root certificate to the device. */
   command access(invoke: administer) AddTrustedRootCertificate(AddTrustedRootCertificateRequest): DefaultSuccess = 11;
-  /** This command is used to manage the VendorID and VIDVerificationStatement fields of the Fabrics attribute, and the VVSC field of an entry in the NOCs attribute. */
+  /** This command is used to manage the VendorID and VIDVerificationStatement fields of the Fabrics attribute,
+         and the VVSC field of an entry in the NOCs attribute. */
   fabric command access(invoke: administer) SetVIDVerificationStatement(SetVIDVerificationStatementRequest): DefaultSuccess = 12;
   /** This command is used to authenticate the fabric associated with the FabricIndex. */
   command access(invoke: administer) SignVIDVerificationRequest(SignVIDVerificationRequestRequest): SignVIDVerificationResponse = 13;
 }
 
-/** The Group Key Management Cluster is the mechanism by which group keys are managed. */
+/** The Group Key Management cluster manages group keys for the node. */
 cluster GroupKeyManagement = 63 {
   revision 2;
 
@@ -3034,18 +2419,20 @@ cluster GroupKeyManagement = 63 {
     int16u groupKeySetIDs[] = 0;
   }
 
-  /** This command is used by Administrators to set the state of a given Group Key Set, including atomically updating the state of all epoch keys. */
+  /** This command is used by Administrators to set the state of a given Group Key Set, including atomically
+         updating the state of all epoch keys. */
   fabric command access(invoke: administer) KeySetWrite(KeySetWriteRequest): DefaultSuccess = 0;
   /** This command is used by Administrators to read the state of a given Group Key Set. */
   fabric command access(invoke: administer) KeySetRead(KeySetReadRequest): KeySetReadResponse = 1;
   /** This command is used by Administrators to remove all state of a given Group Key Set. */
   fabric command access(invoke: administer) KeySetRemove(KeySetRemoveRequest): DefaultSuccess = 3;
-  /** This command is used by Administrators to query a list of all Group Key Sets associated with the accessing fabric. */
+  /** This command is used by Administrators to query a list of all Group Key Sets associated with the accessing
+         fabric. */
   fabric command access(invoke: administer) KeySetReadAllIndices(): KeySetReadAllIndicesResponse = 4;
 }
 
-/** The Fixed Label Cluster provides a feature for the device to tag an endpoint with zero or more read only
-labels. */
+/** This cluster is derived from the Label cluster and provides a feature for the device to tag an endpoint
+       with zero or more read-only labels. */
 cluster FixedLabel = 64 {
   revision 1;
 
@@ -3062,7 +2449,8 @@ cluster FixedLabel = 64 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** The User Label Cluster provides a feature to tag an endpoint with zero or more labels. */
+/** This cluster is derived from the Label cluster and provides a feature to tag an endpoint with zero
+       or more writable labels. */
 cluster UserLabel = 65 {
   revision 1;
 
@@ -3079,7 +2467,7 @@ cluster UserLabel = 65 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster provides an interface to a boolean state called StateValue. */
+/** This cluster provides an interface to a boolean state. */
 cluster BooleanState = 69 {
   revision 2;
 
@@ -3095,7 +2483,8 @@ cluster BooleanState = 69 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for selecting a mode from a list of supported options. */
+/** This cluster provides an interface for controlling a characteristic of a device that can be set to
+       one of several predefined values. */
 cluster ModeSelect = 80 {
   revision 2;
 
@@ -3103,15 +2492,15 @@ cluster ModeSelect = 80 {
     kOnOff = 0x1;
   }
 
-  struct SemanticTagStruct {
-    vendor_id mfgCode = 0;
-    enum16 value = 1;
-  }
-
   struct ModeOptionStruct {
     char_string<64> label = 0;
     int8u mode = 1;
     SemanticTagStruct semanticTags[] = 2;
+  }
+
+  struct SemanticTagStruct {
+    vendor_id mfgCode = 0;
+    enum16 value = 1;
   }
 
   readonly attribute char_string<64> description = 0;
@@ -3130,11 +2519,14 @@ cluster ModeSelect = 80 {
     int8u newMode = 0;
   }
 
-  /** On receipt of this command, if the NewMode field indicates a valid mode transition within the supported list, the server SHALL set the CurrentMode attribute to the NewMode value, otherwise, the server SHALL respond with an INVALID_COMMAND status response. */
+  /** On receipt of this command, if the NewMode field indicates a valid mode transition within the supported
+         list, the server SHALL set the CurrentMode attribute to the NewMode value, otherwise, the server
+         SHALL respond with an INVALID_COMMAND status response. */
   command ChangeToMode(ChangeToModeRequest): DefaultSuccess = 0;
 }
 
-/** Attributes and commands for configuring the temperature control, and reporting temperature. */
+/** This cluster provides an interface to the setpoint temperature on devices such as washers, refrigerators,
+       and water heaters. */
 cluster TemperatureControl = 86 {
   revision 1;
 
@@ -3165,7 +2557,7 @@ cluster TemperatureControl = 86 {
   command SetTemperature(SetTemperatureRequest): DefaultSuccess = 0;
 }
 
-/** Attributes and commands for scene configuration and manipulation. */
+/** The Scenes Management cluster provides attributes and commands for setting up and recalling scenes. */
 cluster ScenesManagement = 98 {
   revision 1;
 
@@ -3313,13 +2705,15 @@ cluster ScenesManagement = 98 {
   fabric command access(invoke: manage) StoreScene(StoreSceneRequest): StoreSceneResponse = 4;
   /** This command will cause the specified scene to be recalled. */
   fabric command RecallScene(RecallSceneRequest): DefaultSuccess = 5;
-  /** This command can be used to get the used scene identifiers within a certain group, for the endpoint that implements this cluster. */
+  /** This command can be used to get the used scene identifiers within a certain group, for the endpoint
+         that implements this cluster. */
   fabric command GetSceneMembership(GetSceneMembershipRequest): GetSceneMembershipResponse = 6;
-  /** This command allows a client to efficiently copy scenes from one group/scene identifier pair to another group/scene identifier pair. */
+  /** This command allows a client to efficiently copy scenes from one group/scene identifier pair to another
+         group/scene identifier pair. */
   fabric command access(invoke: manage) CopyScene(CopySceneRequest): CopySceneResponse = 64;
 }
 
-/** An interface to a generic way to secure a door */
+/** The door lock cluster provides an interface to a generic way to secure a door. */
 cluster DoorLock = 257 {
   revision 10;
 
@@ -3342,8 +2736,8 @@ cluster DoorLock = 257 {
 
   enum CredentialTypeEnum : enum8 {
     kProgrammingPIN = 0;
-    kPIN = 1 [spec_name = "PIN"];
-    kRFID = 2 [spec_name = "RFID"];
+    kPIN = 1;
+    kRFID = 2;
     kFingerprint = 3;
     kFingerVein = 4;
     kFace = 5;
@@ -3366,7 +2760,7 @@ cluster DoorLock = 257 {
   }
 
   enum DlLockType : enum8 {
-    kDeadBolt = 0;
+    kDeadBolt = 0 [spec_name = "Dead bolt"];
     kMagnetic = 1;
     kOther = 2;
     kMortise = 3;
@@ -3450,6 +2844,12 @@ cluster DoorLock = 257 {
     kDoorAjar = 5;
   }
 
+  enum EventTypeEnum : enum8 {
+    kOperation = 0;
+    kProgramming = 1;
+    kAlarm = 2;
+  }
+
   enum LEDSettingEnum : enum8 {
     kNoLEDSignal = 0;
     kNoLEDSignalAccessAllowed = 1;
@@ -3463,8 +2863,8 @@ cluster DoorLock = 257 {
     kWeekDaySchedule = 3;
     kYearDaySchedule = 4;
     kHolidaySchedule = 5;
-    kPIN = 6 [spec_name = "PIN"];
-    kRFID = 7 [spec_name = "RFID"];
+    kPIN = 6;
+    kRFID = 7;
     kFingerprint = 8;
     kFingerVein = 9;
     kFace = 10;
@@ -3506,7 +2906,7 @@ cluster DoorLock = 257 {
     kButton = 5;
     kSchedule = 6;
     kRemote = 7;
-    kRFID = 8 [spec_name = "RFID"];
+    kRFID = 8;
     kBiometric = 9;
     kAliro = 10;
   }
@@ -3519,8 +2919,8 @@ cluster DoorLock = 257 {
   }
 
   enum StatusCodeEnum : enum8 {
-    kDUPLICATE = 2 [spec_name = "DUPLICATE"];
-    kOCCUPIED = 3 [spec_name = "OCCUPIED"];
+    kDUPLICATE = 2;
+    kOCCUPIED = 3;
   }
 
   enum UserStatusEnum : enum8 {
@@ -3542,6 +2942,15 @@ cluster DoorLock = 257 {
     kRemoteOnlyUser = 9;
   }
 
+  bitmap AlarmMaskBitmap : bitmap16 {
+    kLockJammed = 0x1;
+    kLockFactoryReset = 0x2;
+    kLockRadioPowerCycled = 0x8;
+    kWrongCodeEntryLimit = 0x10;
+    kFrontEscutcheonRemoved = 0x20;
+    kDoorForcedOpen = 0x40;
+  }
+
   bitmap DaysMaskMap : bitmap8 {
     kSunday = 0x1;
     kMonday = 0x2;
@@ -3558,7 +2967,7 @@ cluster DoorLock = 257 {
     kTri = 0x4;
   }
 
-  bitmap DlCredentialRulesSupport : bitmap8 {
+  bitmap DlCredentialRulesSupport : unknown bitmap type {
     kSingle = 0x1;
     kDual = 0x2;
     kTri = 0x4;
@@ -3573,7 +2982,7 @@ cluster DoorLock = 257 {
     kLEDSettingsSet = 0x80;
   }
 
-  bitmap DlKeypadOperationEventMask : bitmap16 {
+  bitmap DlKeypadOperationEventMask : unknown bitmap type {
     kUnknown = 0x1;
     kLock = 0x2;
     kUnlock = 0x4;
@@ -3584,7 +2993,7 @@ cluster DoorLock = 257 {
     kNonAccessUserOpEvent = 0x80;
   }
 
-  bitmap DlKeypadProgrammingEventMask : bitmap16 {
+  bitmap DlKeypadProgrammingEventMask : unknown bitmap type {
     kUnknown = 0x1;
     kProgrammingPINChanged = 0x2;
     kPINAdded = 0x4;
@@ -3599,7 +3008,7 @@ cluster DoorLock = 257 {
     kAdjustLockSettingsLocally = 0x8;
   }
 
-  bitmap DlManualOperationEventMask : bitmap16 {
+  bitmap DlManualOperationEventMask : unknown bitmap type {
     kUnknown = 0x1;
     kThumbturnLock = 0x2;
     kThumbturnUnlock = 0x4;
@@ -3613,7 +3022,7 @@ cluster DoorLock = 257 {
     kManualUnlock = 0x400;
   }
 
-  bitmap DlRFIDOperationEventMask : bitmap16 {
+  bitmap DlRFIDOperationEventMask : unknown bitmap type {
     kUnknown = 0x1;
     kLock = 0x2;
     kUnlock = 0x4;
@@ -3623,13 +3032,13 @@ cluster DoorLock = 257 {
     kUnlockInvalidSchedule = 0x40;
   }
 
-  bitmap DlRFIDProgrammingEventMask : bitmap16 {
+  bitmap DlRFIDProgrammingEventMask : unknown bitmap type {
     kUnknown = 0x1;
     kRFIDCodeAdded = 0x20;
     kRFIDCodeCleared = 0x40;
   }
 
-  bitmap DlRemoteOperationEventMask : bitmap16 {
+  bitmap DlRemoteOperationEventMask : unknown bitmap type {
     kUnknown = 0x1;
     kLock = 0x2;
     kUnlock = 0x4;
@@ -3639,7 +3048,7 @@ cluster DoorLock = 257 {
     kUnlockInvalidSchedule = 0x40;
   }
 
-  bitmap DlRemoteProgrammingEventMask : bitmap16 {
+  bitmap DlRemoteProgrammingEventMask : unknown bitmap type {
     kUnknown = 0x1;
     kProgrammingPINChanged = 0x2;
     kPINAdded = 0x4;
@@ -3657,7 +3066,7 @@ cluster DoorLock = 257 {
     kPassage = 0x10;
   }
 
-  bitmap DoorLockDayOfWeek : bitmap8 {
+  bitmap DoorLockDayOfWeek : unknown bitmap type {
     kSunday = 0x1;
     kMonday = 0x2;
     kTuesday = 0x4;
@@ -3760,6 +3169,7 @@ cluster DoorLock = 257 {
   attribute access(write: administer) optional int8u userCodeTemporaryDisableTime = 49;
   attribute access(write: administer) optional boolean sendPINOverTheAir = 50;
   attribute access(write: administer) optional boolean requirePINforRemoteOperation = 51;
+  readonly attribute optional  securityLevel = 52;
   attribute access(write: administer) optional int16u expiringUserTimeout = 53;
   readonly attribute access(read: administer) optional nullable octet_string<65> aliroReaderVerificationKey = 128;
   readonly attribute access(read: administer) optional nullable octet_string<16> aliroReaderGroupIdentifier = 129;
@@ -3960,7 +3370,8 @@ cluster DoorLock = 257 {
   command access(invoke: administer) GetYearDaySchedule(GetYearDayScheduleRequest): GetYearDayScheduleResponse = 15;
   /** Clears the specific year day schedule or all year day schedules for the specific user. */
   command access(invoke: administer) ClearYearDaySchedule(ClearYearDayScheduleRequest): DefaultSuccess = 16;
-  /** Set the holiday Schedule by specifying local start time and local end time with respect to any Lock Operating Mode. */
+  /** Set the holiday Schedule by specifying local start time and local end time with respect to any Lock
+         Operating Mode. */
   command access(invoke: administer) SetHolidaySchedule(SetHolidayScheduleRequest): DefaultSuccess = 17;
   /** Get the holiday schedule for the specified index. */
   command access(invoke: administer) GetHolidaySchedule(GetHolidayScheduleRequest): GetHolidayScheduleResponse = 18;
@@ -3972,7 +3383,8 @@ cluster DoorLock = 257 {
   command access(invoke: administer) GetUser(GetUserRequest): GetUserResponse = 27;
   /** Clears a user or all Users. */
   timed command access(invoke: administer) ClearUser(ClearUserRequest): DefaultSuccess = 29;
-  /** Set a credential (e.g. PIN, RFID, Fingerprint, etc.) into the lock for a new user, existing user, or ProgrammingUser. */
+  /** Set a credential (e.g. PIN, RFID, Fingerprint, etc.) into the lock for a new user, existing user,
+         or ProgrammingUser. */
   timed command access(invoke: administer) SetCredential(SetCredentialRequest): SetCredentialResponse = 34;
   /** Retrieve the status of a particular credential (e.g. PIN, RFID, Fingerprint, etc.) by index. */
   command access(invoke: administer) GetCredentialStatus(GetCredentialStatusRequest): GetCredentialStatusResponse = 36;
@@ -3986,7 +3398,8 @@ cluster DoorLock = 257 {
   timed command access(invoke: administer) ClearAliroReaderConfig(): DefaultSuccess = 41;
 }
 
-/** Provides an interface for controlling and adjusting automatic window coverings. */
+/** The window covering cluster provides an interface for controlling and adjusting automatic window coverings
+       such as drapery motors, automatic shades, curtains and blinds. */
 cluster WindowCovering = 258 {
   revision 8;
 
@@ -4105,19 +3518,25 @@ cluster WindowCovering = 258 {
     percent100ths tiltPercent100thsValue = 0;
   }
 
-  /** Upon receipt of this command, the window covering will adjust its position so the physical lift/slide and tilt is at the maximum open/up position. */
+  /** Upon receipt of this command, the window covering will adjust its position so the physical lift/slide
+         and tilt is at the maximum open/up position. */
   command UpOrOpen(): DefaultSuccess = 0;
-  /** Upon receipt of this command, the window covering will adjust its position so the physical lift/slide and tilt is at the maximum closed/down position. */
+  /** Upon receipt of this command, the window covering will adjust its position so the physical lift/slide
+         and tilt is at the maximum closed/down position. */
   command DownOrClose(): DefaultSuccess = 1;
-  /** Upon receipt of this command, the window covering will stop any adjusting to the physical tilt and lift/slide that is currently occurring. */
+  /** Upon receipt of this command, the window covering will stop any adjusting to the physical tilt and
+         lift/slide that is currently occurring. */
   command StopMotion(): DefaultSuccess = 2;
-  /** This command is used to set the target lift position of the window covering to the percentage value specified in the command. */
+  /** This command is used to set the target lift position of the window covering to the percentage value
+         specified in the command. */
   command GoToLiftPercentage(GoToLiftPercentageRequest): DefaultSuccess = 5;
-  /** This command is used to set the target tilt position of the window covering to the percentage value specified in the command. */
+  /** This command is used to set the target tilt position of the window covering to the percentage value
+         specified in the command. */
   command GoToTiltPercentage(GoToTiltPercentageRequest): DefaultSuccess = 8;
 }
 
-/** An interface for configuring and controlling pumps. */
+/** The Pump Configuration and Control cluster provides an interface for the setup and control of pump
+       devices, and the automatic reporting of pump status information. */
 cluster PumpConfigurationAndControl = 512 {
   revision 5;
 
@@ -4233,6 +3652,7 @@ cluster PumpConfigurationAndControl = 512 {
   attribute access(write: manage) optional nullable int32u lifetimeEnergyConsumed = 23;
   attribute access(write: manage) OperationModeEnum operationMode = 32;
   attribute access(write: manage) optional ControlModeEnum controlMode = 33;
+  readonly attribute optional  alarmMask = 34;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -4240,7 +3660,7 @@ cluster PumpConfigurationAndControl = 512 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** An interface for configuring and controlling the functionality of a thermostat. */
+/** This cluster provides an interface to the functionality of a thermostat. */
 cluster Thermostat = 513 {
   revision 9;
 
@@ -4307,6 +3727,16 @@ cluster Thermostat = 513 {
     kHeat = 0;
     kCool = 1;
     kBoth = 2;
+  }
+
+  enum StartOfWeekEnum : enum8 {
+    kSunday = 0;
+    kMonday = 1;
+    kTuesday = 2;
+    kWednesday = 3;
+    kThursday = 4;
+    kFriday = 5;
+    kSaturday = 6;
   }
 
   enum SystemModeEnum : enum8 {
@@ -4402,6 +3832,11 @@ cluster Thermostat = 513 {
     kAway = 0x80;
   }
 
+  bitmap ScheduleModeBitmap : bitmap8 {
+    kHeatSetpointPresent = 0x1;
+    kCoolSetpointPresent = 0x2;
+  }
+
   bitmap ScheduleTypeFeaturesBitmap : bitmap16 {
     kSupportsPresets = 0x1;
     kSupportsSetpoints = 0x2;
@@ -4420,24 +3855,6 @@ cluster Thermostat = 513 {
     kConflictingSuggestions = 0x80;
   }
 
-  struct ScheduleTransitionStruct {
-    ScheduleDayOfWeekBitmap dayOfWeek = 0;
-    int16u transitionTime = 1;
-    optional octet_string<16> presetHandle = 2;
-    optional SystemModeEnum systemMode = 3;
-    optional temperature coolingSetpoint = 4;
-    optional temperature heatingSetpoint = 5;
-  }
-
-  struct ScheduleStruct {
-    nullable octet_string<16> scheduleHandle = 0;
-    SystemModeEnum systemMode = 1;
-    optional char_string<64> name = 2;
-    optional octet_string<16> presetHandle = 3;
-    ScheduleTransitionStruct transitions[] = 4;
-    nullable boolean builtIn = 5;
-  }
-
   struct PresetStruct {
     nullable octet_string<16> presetHandle = 0;
     PresetScenarioEnum presetScenario = 1;
@@ -4453,6 +3870,24 @@ cluster Thermostat = 513 {
     PresetTypeFeaturesBitmap presetTypeFeatures = 2;
   }
 
+  struct ScheduleStruct {
+    nullable octet_string<16> scheduleHandle = 0;
+    SystemModeEnum systemMode = 1;
+    optional char_string<64> name = 2;
+    optional octet_string<16> presetHandle = 3;
+    ScheduleTransitionStruct transitions[] = 4;
+    nullable boolean builtIn = 5;
+  }
+
+  struct ScheduleTransitionStruct {
+    ScheduleDayOfWeekBitmap dayOfWeek = 0;
+    int16u transitionTime = 1;
+    optional octet_string<16> presetHandle = 2;
+    optional SystemModeEnum systemMode = 3;
+    optional temperature coolingSetpoint = 4;
+    optional temperature heatingSetpoint = 5;
+  }
+
   struct ScheduleTypeStruct {
     SystemModeEnum systemMode = 0;
     int8u numberOfSchedules = 1;
@@ -4464,6 +3899,12 @@ cluster Thermostat = 513 {
     octet_string<16> presetHandle = 1;
     epoch_s effectiveTime = 2;
     epoch_s expirationTime = 3;
+  }
+
+  struct WeeklyScheduleTransitionStruct {
+    int16u transitionTime = 0;
+    nullable temperature heatSetpoint = 1;
+    nullable temperature coolSetpoint = 2;
   }
 
   provisional info event SystemModeChange = 0 {
@@ -4498,13 +3939,13 @@ cluster Thermostat = 513 {
   }
 
   provisional info event ActiveScheduleChange = 6 {
-    optional nullable octet_string previousScheduleHandle = 0;
-    nullable octet_string currentScheduleHandle = 1;
+    optional nullable octet_string<16> previousScheduleHandle = 0;
+    nullable octet_string<16> currentScheduleHandle = 1;
   }
 
   provisional info event ActivePresetChange = 7 {
-    optional nullable octet_string previousPresetHandle = 0;
-    nullable octet_string currentPresetHandle = 1;
+    optional nullable octet_string<16> previousPresetHandle = 0;
+    nullable octet_string<16> currentPresetHandle = 1;
   }
 
   readonly attribute nullable temperature localTemperature = 0;
@@ -4514,8 +3955,8 @@ cluster Thermostat = 513 {
   readonly attribute optional temperature absMaxHeatSetpointLimit = 4;
   readonly attribute optional temperature absMinCoolSetpointLimit = 5;
   readonly attribute optional temperature absMaxCoolSetpointLimit = 6;
-  readonly attribute optional int8u PICoolingDemand = 7;
-  readonly attribute optional int8u PIHeatingDemand = 8;
+  readonly attribute optional  PICoolingDemand = 7;
+  readonly attribute optional  PIHeatingDemand = 8;
   attribute access(write: manage) optional HVACSystemTypeBitmap HVACSystemTypeConfiguration = 9;
   attribute access(write: manage) optional int8s localTemperatureCalibration = 16;
   attribute optional temperature occupiedCoolingSetpoint = 17;
@@ -4622,14 +4063,14 @@ cluster Thermostat = 513 {
   /** This command will set the active preset to the provided preset handle. */
   command SetActivePresetRequest(SetActivePresetRequestRequest): DefaultSuccess = 6;
   /** This command will add a new suggestion based on the specified values. */
-  command access(invoke: manage) AddThermostatSuggestion(AddThermostatSuggestionRequest): AddThermostatSuggestionResponse = 7;
+  provisional command access(invoke: manage) AddThermostatSuggestion(AddThermostatSuggestionRequest): AddThermostatSuggestionResponse = 7;
   /** This command will remove the specified suggestion. */
-  command access(invoke: manage) RemoveThermostatSuggestion(RemoveThermostatSuggestionRequest): DefaultSuccess = 8;
-  /** Begins, Commits or Cancels an atomic write */
-  command access(invoke: manage) AtomicRequest(AtomicRequestRequest): AtomicResponse = 254;
+  provisional command access(invoke: manage) RemoveThermostatSuggestion(RemoveThermostatSuggestionRequest): DefaultSuccess = 8;
+  /** This command is used to begin, commit or cancel an atomic write. */
+  command AtomicRequest(AtomicRequestRequest): DefaultSuccess = 254;
 }
 
-/** An interface for controlling a fan in a heating/cooling system. */
+/** This cluster specifies an interface to control the speed of a fan. */
 cluster FanControl = 514 {
   revision 6;
 
@@ -4706,11 +4147,13 @@ cluster FanControl = 514 {
     optional boolean lowestOff = 2;
   }
 
-  /** This command indirectly changes the speed-oriented attributes of the fan in steps rather than using the speed-oriented attributes, FanMode, PercentSetting, or SpeedSetting, directly. */
+  /** This command indirectly changes the speed-oriented attributes of the fan in steps rather than using
+         the speed-oriented attributes, FanMode, PercentSetting, or SpeedSetting, directly. */
   command Step(StepRequest): DefaultSuccess = 0;
 }
 
-/** An interface for configuring the user interface of a thermostat (which may be remote from the thermostat). */
+/** This cluster provides an interface to allow configuration of the user interface for a thermostat,
+       or a thermostat controller device, that supports a keypad and LCD screen. */
 cluster ThermostatUserInterfaceConfiguration = 516 {
   revision 2;
 
@@ -4743,7 +4186,7 @@ cluster ThermostatUserInterfaceConfiguration = 516 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for controlling the color properties of a color-capable light. */
+/** This cluster provides an interface for changing the color of a light. */
 cluster ColorControl = 768 {
   revision 9;
 
@@ -4801,7 +4244,7 @@ cluster ColorControl = 768 {
     kHueSaturation = 0x1;
     kEnhancedHue = 0x2;
     kColorLoop = 0x4;
-    kXY = 0x8 [spec_name = "XY"];
+    kXY = 0x8;
     kColorTemperature = 0x10;
   }
 
@@ -4809,7 +4252,7 @@ cluster ColorControl = 768 {
     kHueSaturation = 0x1;
     kEnhancedHue = 0x2;
     kColorLoop = 0x4;
-    kXY = 0x8 [spec_name = "XY"];
+    kXY = 0x8;
     kColorTemperature = 0x10;
   }
 
@@ -5052,15 +4495,19 @@ cluster ColorControl = 768 {
   command StepColor(StepColorRequest): DefaultSuccess = 9;
   /** This command will move the device to the requested color temperate using a transition. */
   command MoveToColorTemperature(MoveToColorTemperatureRequest): DefaultSuccess = 10;
-  /** This command allows the light to be moved in a smooth continuous transition from their current hue to a target hue. */
+  /** This command allows the light to be moved in a smooth continuous transition from their current hue
+         to a target hue. */
   command EnhancedMoveToHue(EnhancedMoveToHueRequest): DefaultSuccess = 64;
   /** This command allows the light to start a continuous transition starting from their current hue. */
   command EnhancedMoveHue(EnhancedMoveHueRequest): DefaultSuccess = 65;
-  /** This command allows the light to be moved in a stepped transition from their current hue, resulting in a linear transition through XY space. */
+  /** This command allows the light to be moved in a stepped transition from their current hue, resulting
+         in a linear transition through XY space. */
   command EnhancedStepHue(EnhancedStepHueRequest): DefaultSuccess = 66;
-  /** This command allows the light to be moved in a smooth continuous transition from their current hue to a target hue and from their current saturation to a target saturation. */
+  /** This command allows the light to be moved in a smooth continuous transition from their current hue
+         to a target hue and from their current saturation to a target saturation. */
   command EnhancedMoveToHueAndSaturation(EnhancedMoveToHueAndSaturationRequest): DefaultSuccess = 67;
-  /** This command allows a color loop to be activated such that the color light cycles through its range of hues. */
+  /** This command allows a color loop to be activated such that the color light cycles through its range
+         of hues. */
   command ColorLoopSet(ColorLoopSetRequest): DefaultSuccess = 68;
   /** This command is provided to allow MoveTo and Step commands to be stopped. */
   command StopMoveStep(StopMoveStepRequest): DefaultSuccess = 71;
@@ -5070,47 +4517,14 @@ cluster ColorControl = 768 {
   command StepColorTemperature(StepColorTemperatureRequest): DefaultSuccess = 76;
 }
 
-/** Attributes and commands for configuring a lighting ballast. */
-provisional cluster BallastConfiguration = 769 {
-  revision 4;
-
-  bitmap BallastStatusBitmap : bitmap8 {
-    kBallastNonOperational = 0x1;
-    kLampFailure = 0x2;
-  }
-
-  bitmap LampAlarmModeBitmap : bitmap8 {
-    kLampBurnHours = 0x1;
-  }
-
-  readonly attribute int8u physicalMinLevel = 0;
-  readonly attribute int8u physicalMaxLevel = 1;
-  readonly attribute optional BallastStatusBitmap ballastStatus = 2;
-  attribute access(write: manage) int8u minLevel = 16;
-  attribute access(write: manage) int8u maxLevel = 17;
-  attribute access(write: manage) optional nullable int8u intrinsicBallastFactor = 20;
-  attribute access(write: manage) optional nullable int8u ballastFactorAdjustment = 21;
-  readonly attribute int8u lampQuantity = 32;
-  attribute access(write: manage) optional char_string<16> lampType = 48;
-  attribute access(write: manage) optional char_string<16> lampManufacturer = 49;
-  attribute access(write: manage) optional nullable int24u lampRatedHours = 50;
-  attribute access(write: manage) optional nullable int24u lampBurnHours = 51;
-  attribute access(write: manage) optional LampAlarmModeBitmap lampAlarmMode = 52;
-  attribute access(write: manage) optional nullable int24u lampBurnHoursTripPoint = 53;
-  readonly attribute command_id generatedCommandList[] = 65528;
-  readonly attribute command_id acceptedCommandList[] = 65529;
-  readonly attribute attrib_id attributeList[] = 65531;
-  readonly attribute bitmap32 featureMap = 65532;
-  readonly attribute int16u clusterRevision = 65533;
-}
-
-/** Attributes and commands for configuring the measurement of illuminance, and reporting illuminance measurements. */
+/** The Illuminance Measurement cluster provides an interface to illuminance measurement functionality,
+       including configuration and provision of notifications of illuminance measurements. */
 cluster IlluminanceMeasurement = 1024 {
   revision 4;
 
   enum LightSensorTypeEnum : enum8 {
     kPhotodiode = 0;
-    kCMOS = 1 [spec_name = "CMOS"];
+    kCMOS = 1;
   }
 
   readonly attribute nullable int16u measuredValue = 0;
@@ -5125,7 +4539,8 @@ cluster IlluminanceMeasurement = 1024 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for configuring the measurement of temperature, and reporting temperature measurements. */
+/** This cluster provides an interface to temperature measurement functionality, including configuration
+       and provision of notifications of temperature measurements. */
 cluster TemperatureMeasurement = 1026 {
   revision 5;
 
@@ -5140,7 +4555,8 @@ cluster TemperatureMeasurement = 1026 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for configuring the measurement of pressure, and reporting pressure measurements. */
+/** This cluster provides an interface to pressure measurement functionality, including configuration
+       and provision of notifications of pressure measurements. */
 cluster PressureMeasurement = 1027 {
   revision 4;
 
@@ -5164,7 +4580,8 @@ cluster PressureMeasurement = 1027 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for configuring the measurement of flow, and reporting flow measurements. */
+/** This cluster provides an interface to flow measurement functionality, including configuration and
+       provision of notifications of flow measurements. */
 cluster FlowMeasurement = 1028 {
   revision 4;
 
@@ -5179,7 +4596,7 @@ cluster FlowMeasurement = 1028 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** Attributes and commands for configuring the measurement of relative humidity, and reporting relative humidity measurements. */
+/** This is a base cluster. */
 cluster RelativeHumidityMeasurement = 1029 {
   revision 4;
 
@@ -5194,12 +4611,13 @@ cluster RelativeHumidityMeasurement = 1029 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** The server cluster provides an interface to occupancy sensing functionality based on one or more sensing modalities, including configuration and provision of notifications of occupancy status. */
+/** The server cluster provides an interface to occupancy sensing functionality based on one or more sensing
+       modalities, including configuration and provision of notifications of occupancy status. */
 cluster OccupancySensing = 1030 {
   revision 6;
 
   enum OccupancySensorTypeEnum : enum8 {
-    kPIR = 0 [spec_name = "PIR"];
+    kPIR = 0;
     kUltrasonic = 1;
     kPIRAndUltrasonic = 2;
     kPhysicalContact = 3;
@@ -5222,7 +4640,7 @@ cluster OccupancySensing = 1030 {
   }
 
   bitmap OccupancySensorTypeBitmap : bitmap8 {
-    kPIR = 0x1 [spec_name = "PIR"];
+    kPIR = 0x1;
     kUltrasonic = 0x2;
     kPhysicalContact = 0x4;
   }
@@ -5266,12 +4684,13 @@ cluster OccupancySensing = 1030 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster provides an interface for managing low power mode on a device that supports the Wake On LAN protocol. */
+/** This cluster provides an interface for managing low power mode on a device that supports the Wake
+       On LAN or Wake On Wireless LAN (WLAN) protocol (see [Wake On LAN]). */
 cluster WakeOnLan = 1283 {
   revision 1;
 
   readonly attribute optional char_string<12> MACAddress = 0;
-  readonly attribute optional octet_string<254> linkLocalAddress = 1;
+  readonly attribute optional octet_string<16> linkLocalAddress = 1;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -5279,7 +4698,7 @@ cluster WakeOnLan = 1283 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster provides an interface for controlling the current Channel on a device. */
+/** This cluster provides an interface for controlling the current Channel on a device or endpoint. */
 cluster Channel = 1284 {
   revision 2;
 
@@ -5287,11 +4706,11 @@ cluster Channel = 1284 {
     kSatellite = 0;
     kCable = 1;
     kTerrestrial = 2;
-    kOTT = 3 [spec_name = "OTT"];
+    kOTT = 3;
   }
 
   enum LineupInfoTypeEnum : enum8 {
-    kMSO = 0 [spec_name = "MSO"];
+    kMSO = 0;
   }
 
   enum StatusEnum : enum8 {
@@ -5313,9 +4732,32 @@ cluster Channel = 1284 {
     kRecorded = 0x4;
   }
 
-  shared struct AdditionalInfoStruct {
-    long_char_string<256> name = 0;
-    long_char_string<8192> value = 1;
+  struct ChannelInfoStruct {
+    int16u majorNumber = 0;
+    int16u minorNumber = 1;
+    optional char_string name = 2;
+    optional char_string callSign = 3;
+    optional char_string affiliateCallSign = 4;
+    optional char_string identifier = 5;
+    optional ChannelTypeEnum type = 6;
+  }
+
+  struct ChannelPagingStruct {
+    optional nullable PageTokenStruct previousToken = 0;
+    optional nullable PageTokenStruct nextToken = 1;
+  }
+
+  struct LineupInfoStruct {
+    char_string operatorName = 0;
+    optional char_string lineupName = 1;
+    optional char_string postalCode = 2;
+    LineupInfoTypeEnum lineupInfoType = 3;
+  }
+
+  struct PageTokenStruct {
+    optional int16u limit = 0;
+    optional long_char_string<8192> after = 1;
+    optional long_char_string<8192> before = 2;
   }
 
   struct ProgramCastStruct {
@@ -5326,21 +4768,6 @@ cluster Channel = 1284 {
   struct ProgramCategoryStruct {
     long_char_string<256> category = 0;
     optional long_char_string<256> subCategory = 1;
-  }
-
-  struct SeriesInfoStruct {
-    long_char_string<256> season = 0;
-    long_char_string<256> episode = 1;
-  }
-
-  struct ChannelInfoStruct {
-    int16u majorNumber = 0;
-    int16u minorNumber = 1;
-    optional char_string name = 2;
-    optional char_string callSign = 3;
-    optional char_string affiliateCallSign = 4;
-    optional char_string identifier = 5;
-    optional ChannelTypeEnum type = 6;
   }
 
   struct ProgramStruct {
@@ -5365,22 +4792,9 @@ cluster Channel = 1284 {
     optional AdditionalInfoStruct externalIDList[] = 18;
   }
 
-  struct PageTokenStruct {
-    optional int16u limit = 0;
-    optional long_char_string<8192> after = 1;
-    optional long_char_string<8192> before = 2;
-  }
-
-  struct ChannelPagingStruct {
-    optional nullable PageTokenStruct previousToken = 0;
-    optional nullable PageTokenStruct nextToken = 1;
-  }
-
-  struct LineupInfoStruct {
-    char_string operatorName = 0;
-    optional char_string lineupName = 1;
-    optional char_string postalCode = 2;
-    LineupInfoTypeEnum lineupInfoType = 3;
+  struct SeriesInfoStruct {
+    long_char_string<256> season = 0;
+    long_char_string<256> episode = 1;
   }
 
   readonly attribute optional ChannelInfoStruct channelList[] = 0;
@@ -5415,9 +4829,9 @@ cluster Channel = 1284 {
     epoch_s endTime = 1;
     optional ChannelInfoStruct channelList[] = 2;
     optional nullable PageTokenStruct pageToken = 3;
-    optional nullable RecordingFlagBitmap recordingFlag = 4;
-    optional AdditionalInfoStruct externalIDList[] = 5;
-    optional long_octet_string<8092> data = 6;
+    optional nullable RecordingFlagBitmap recordingFlag = 5;
+    optional AdditionalInfoStruct externalIDList[] = 6;
+    optional long_octet_string<8092> data = 7;
   }
 
   response struct ProgramGuideResponse = 5 {
@@ -5443,7 +4857,8 @@ cluster Channel = 1284 {
   command ChangeChannel(ChangeChannelRequest): ChangeChannelResponse = 0;
   /** Change the channel to the channel with the given Number in the ChannelList attribute. */
   command ChangeChannelByNumber(ChangeChannelByNumberRequest): DefaultSuccess = 2;
-  /** This command provides channel up and channel down functionality, but allows channel index jumps of size Count. */
+  /** This command provides channel up and channel down functionality, but allows channel index jumps of
+         size Count. */
   command SkipChannel(SkipChannelRequest): DefaultSuccess = 3;
   /** This command retrieves the program guide. */
   command GetProgramGuide(GetProgramGuideRequest): ProgramGuideResponse = 4;
@@ -5471,7 +4886,7 @@ cluster TargetNavigator = 1285 {
   info event TargetUpdated = 0 {
     TargetInfoStruct targetList[] = 0;
     int8u currentTarget = 1;
-    long_octet_string data = 2;
+    long_octet_string<900> data = 2;
   }
 
   readonly attribute TargetInfoStruct targetList[] = 0;
@@ -5496,7 +4911,8 @@ cluster TargetNavigator = 1285 {
   command NavigateTarget(NavigateTargetRequest): NavigateTargetResponse = 0;
 }
 
-/** This cluster provides an interface for controlling Media Playback (PLAY, PAUSE, etc) on a media device such as a TV or Speaker. */
+/** This cluster provides an interface for controlling Media Playback (PLAY, PAUSE, etc) on a media device
+       such as a TV, Set-top Box, or Smart Speaker. */
 cluster MediaPlayback = 1286 {
   revision 2;
 
@@ -5545,6 +4961,11 @@ cluster MediaPlayback = 1286 {
     kAudioAdvance = 0x10;
   }
 
+  struct PlaybackPositionStruct {
+    epoch_us updatedAt = 0;
+    nullable int64u position = 1;
+  }
+
   struct TrackAttributesStruct {
     char_string<32> languageCode = 0;
     optional nullable CharacteristicEnum characteristics[] = 1;
@@ -5556,11 +4977,6 @@ cluster MediaPlayback = 1286 {
     TrackAttributesStruct trackAttributes = 1;
   }
 
-  struct PlaybackPositionStruct {
-    epoch_us updatedAt = 0;
-    nullable int64u position = 1;
-  }
-
   info event StateChanged = 0 {
     PlaybackStateEnum currentState = 0;
     optional epoch_us startTime = 1;
@@ -5569,7 +4985,7 @@ cluster MediaPlayback = 1286 {
     optional single playbackSpeed = 4;
     optional int64u seekRangeEnd = 5;
     optional int64u seekRangeStart = 6;
-    optional long_octet_string data = 7;
+    optional long_octet_string<900> data = 7;
     optional boolean audioAdvanceUnmuted = 8;
   }
 
@@ -5654,7 +5070,8 @@ cluster MediaPlayback = 1286 {
   command DeactivateTextTrack(): DefaultSuccess = 14;
 }
 
-/** This cluster provides an interface for controlling the Input Selector on a media device such as a TV. */
+/** This cluster provides an interface for controlling the Input Selector on a media device such as a
+       Video Player. */
 cluster MediaInput = 1287 {
   revision 1;
 
@@ -5663,13 +5080,13 @@ cluster MediaInput = 1287 {
     kAux = 1;
     kCoax = 2;
     kComposite = 3;
-    kHDMI = 4 [spec_name = "HDMI"];
+    kHDMI = 4;
     kInput = 5;
     kLine = 6;
     kOptical = 7;
     kVideo = 8;
-    kSCART = 9 [spec_name = "SCART"];
-    kUSB = 10 [spec_name = "USB"];
+    kSCART = 9;
+    kUSB = 10;
     kOther = 11;
   }
 
@@ -5701,7 +5118,8 @@ cluster MediaInput = 1287 {
     char_string name = 1;
   }
 
-  /** Upon receipt, this command SHALL change the media input on the device to the input at a specific index in the Input List. */
+  /** Upon receipt, this command SHALL change the media input on the device to the input at a specific index
+         in the Input List. */
   command SelectInput(SelectInputRequest): DefaultSuccess = 0;
   /** Upon receipt, this command SHALL display the active status of the input list on screen. */
   command ShowInputStatus(): DefaultSuccess = 1;
@@ -5725,7 +5143,8 @@ cluster LowPower = 1288 {
   command Sleep(): DefaultSuccess = 0;
 }
 
-/** This cluster provides an interface for controlling a device like a TV using action commands such as UP, DOWN, and SELECT. */
+/** This cluster provides an interface for key code based input and control on a device like a Video Player
+       or an endpoint like a Content App. */
 cluster KeypadInput = 1289 {
   revision 1;
 
@@ -5848,30 +5267,10 @@ cluster KeypadInput = 1289 {
   command SendKey(SendKeyRequest): SendKeyResponse = 0;
 }
 
-/** This cluster provides an interface for launching content on a media player device such as a TV or Speaker. */
+/** This cluster provides an interface for launching content on a Video Player device such as a Streaming
+       Media Player, Smart TV or Smart Screen. */
 cluster ContentLauncher = 1290 {
   revision 2;
-
-  shared enum CharacteristicEnum : enum8 {
-    kForcedSubtitles = 0;
-    kDescribesVideo = 1;
-    kEasyToRead = 2;
-    kFrameBased = 3;
-    kMainProgram = 4;
-    kOriginalContent = 5;
-    kVoiceOverTranslation = 6;
-    kCaption = 7;
-    kSubtitle = 8;
-    kAlternate = 9;
-    kSupplementary = 10;
-    kCommentary = 11;
-    kDubbedTranslation = 12;
-    kDescription = 13;
-    kMetadata = 14;
-    kEnhancedAudioIntelligibility = 15;
-    kEmergency = 16;
-    kKaraoke = 17;
-  }
 
   enum MetricTypeEnum : enum8 {
     kPixels = 0;
@@ -5915,47 +5314,13 @@ cluster ContentLauncher = 1290 {
   }
 
   bitmap SupportedProtocolsBitmap : bitmap32 {
-    kDASH = 0x1 [spec_name = "DASH"];
-    kHLS = 0x2 [spec_name = "HLS"];
+    kDASH = 0x1;
+    kHLS = 0x2;
   }
 
-  struct DimensionStruct {
-    double width = 0;
-    double height = 1;
-    MetricTypeEnum metric = 2;
-  }
-
-  struct TrackPreferenceStruct {
-    char_string<32> languageCode = 0;
-    optional nullable CharacteristicEnum characteristics[] = 1;
-    optional nullable int8u audioOutputIndex = 2;
-  }
-
-  struct PlaybackPreferencesStruct {
-    optional nullable int64u playbackPosition = 0;
-    optional nullable TrackPreferenceStruct textTrack = 1;
-    optional nullable TrackPreferenceStruct audioTracks[] = 2;
-  }
-
-  shared struct AdditionalInfoStruct {
+  struct AdditionalInfoStruct {
     long_char_string<256> name = 0;
     long_char_string<8192> value = 1;
-  }
-
-  struct ParameterStruct {
-    ParameterEnum type = 0;
-    long_char_string<1024> value = 1;
-    optional AdditionalInfoStruct externalIDList[] = 2;
-  }
-
-  struct ContentSearchStruct {
-    ParameterStruct parameterList[] = 0;
-  }
-
-  struct StyleInformationStruct {
-    optional long_char_string<8192> imageURL = 0;
-    optional char_string<9> color = 1;
-    optional DimensionStruct size = 2;
   }
 
   struct BrandingInformationStruct {
@@ -5965,6 +5330,40 @@ cluster ContentLauncher = 1290 {
     optional StyleInformationStruct progressBar = 3;
     optional StyleInformationStruct splash = 4;
     optional StyleInformationStruct waterMark = 5;
+  }
+
+  struct ContentSearchStruct {
+    ParameterStruct parameterList[] = 0;
+  }
+
+  struct DimensionStruct {
+    double width = 0;
+    double height = 1;
+    MetricTypeEnum metric = 2;
+  }
+
+  struct ParameterStruct {
+    ParameterEnum type = 0;
+    long_char_string<1024> value = 1;
+    optional AdditionalInfoStruct externalIDList[] = 2;
+  }
+
+  struct PlaybackPreferencesStruct {
+    optional nullable int64u playbackPosition = 0;
+    optional nullable TrackPreferenceStruct textTrack = 1;
+    optional nullable TrackPreferenceStruct audioTracks[] = 2;
+  }
+
+  struct StyleInformationStruct {
+    optional long_char_string<8192> imageURL = 0;
+    optional char_string<9> color = 1;
+    optional DimensionStruct size = 2;
+  }
+
+  struct TrackPreferenceStruct {
+    char_string<32> languageCode = 0;
+    optional nullable CharacteristicEnum characteristics[] = 1;
+    optional nullable int8u audioOutputIndex = 2;
   }
 
   readonly attribute optional char_string acceptHeader[] = 0;
@@ -6001,13 +5400,13 @@ cluster ContentLauncher = 1290 {
   command LaunchURL(LaunchURLRequest): LauncherResponse = 1;
 }
 
-/** This cluster provides an interface for controlling the Output on a media device such as a TV. */
+/** This cluster provides an interface for controlling the Output on a Video Player device such as a TV. */
 cluster AudioOutput = 1291 {
   revision 1;
 
   enum OutputTypeEnum : enum8 {
-    kHDMI = 0 [spec_name = "HDMI"];
-    kBT = 1 [spec_name = "BT"];
+    kHDMI = 0;
+    kBT = 1;
     kOptical = 2;
     kHeadphone = 3;
     kInternal = 4;
@@ -6041,13 +5440,14 @@ cluster AudioOutput = 1291 {
     char_string<32> name = 1;
   }
 
-  /** Upon receipt, this SHALL change the output on the device to the output at a specific index in the Output List. */
+  /** Upon receipt, this SHALL change the output on the device to the output at a specific index in the
+         Output List. */
   command SelectOutput(SelectOutputRequest): DefaultSuccess = 0;
   /** Upon receipt, this SHALL rename the output at a specific index in the Output List. */
   command access(invoke: manage) RenameOutput(RenameOutputRequest): DefaultSuccess = 1;
 }
 
-/** This cluster provides an interface for launching content on a media player device such as a TV or Speaker. */
+/** This cluster provides an interface for launching applications on a Video Player device such as a TV. */
 cluster ApplicationLauncher = 1292 {
   revision 2;
 
@@ -6064,14 +5464,14 @@ cluster ApplicationLauncher = 1292 {
     kApplicationPlatform = 0x1;
   }
 
-  struct ApplicationStruct {
-    int16u catalogVendorID = 0;
-    char_string applicationID = 1;
-  }
-
   struct ApplicationEPStruct {
     ApplicationStruct application = 0;
     optional endpoint_no endpoint = 1;
+  }
+
+  struct ApplicationStruct {
+    int16u catalogVendorID = 0;
+    char_string applicationID = 1;
   }
 
   readonly attribute optional int16u catalogList[] = 0;
@@ -6108,7 +5508,8 @@ cluster ApplicationLauncher = 1292 {
   command HideApp(HideAppRequest): LauncherResponse = 2;
 }
 
-/** This cluster provides information about an application running on a TV or media player device which is represented as an endpoint. */
+/** This cluster provides information about a Content App running on a Video Player device which is represented
+       as an endpoint (see Device Type Library document). */
 cluster ApplicationBasic = 1293 {
   revision 1;
 
@@ -6139,7 +5540,7 @@ cluster ApplicationBasic = 1293 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-/** This cluster provides commands that facilitate user account login on a Content App or a node. For example, a Content App running on a Video Player device, which is represented as an endpoint (see [TV Architecture]), can use this cluster to help make the user account on the Content App match the user account on the Client. */
+/** This cluster provides commands that facilitate user account login on a Content App or a node. */
 cluster AccountLogin = 1294 {
   revision 2;
 
@@ -6172,540 +5573,21 @@ cluster AccountLogin = 1294 {
     optional node_id node = 0;
   }
 
-  /** The purpose of this command is to determine if the active user account of the given Content App matches the active user account of a given Commissionee, and when it does, return a Setup PIN which can be used for password-authenticated session establishment (PASE) with the Commissionee. */
+  /** The purpose of this command is to determine if the active user account of the given Content App matches
+         the active user account of a given Commissionee, and when it does, return a Setup PIN which can
+         be used for password-authenticated session establishment (PASE) with the Commissionee. */
   fabric timed command access(invoke: administer) GetSetupPIN(GetSetupPINRequest): GetSetupPINResponse = 0;
-  /** The purpose of this command is to allow the Content App to assume the user account of a given Commissionee by leveraging the Setup PIN input by the user during the commissioning process. */
+  /** The purpose of this command is to allow the Content App to assume the user account of a given Commissionee
+         by leveraging the Setup PIN input by the user during the commissioning process. */
   fabric timed command access(invoke: administer) Login(LoginRequest): DefaultSuccess = 2;
   /** The purpose of this command is to instruct the Content App to clear the current user account. */
   fabric timed command Logout(LogoutRequest): DefaultSuccess = 3;
 }
 
-/** The Test Cluster is meant to validate the generated code */
-internal cluster UnitTesting = 4294048773 {
-  revision 1; // NOTE: Default/not specifically set
-
-  enum SimpleEnum : enum8 {
-    kUnspecified = 0;
-    kValueA = 1;
-    kValueB = 2;
-    kValueC = 3;
-  }
-
-  bitmap Bitmap16MaskMap : bitmap16 {
-    kMaskVal1 = 0x1;
-    kMaskVal2 = 0x2;
-    kMaskVal3 = 0x4;
-    kMaskVal4 = 0x4000;
-  }
-
-  bitmap Bitmap32MaskMap : bitmap32 {
-    kMaskVal1 = 0x1;
-    kMaskVal2 = 0x2;
-    kMaskVal3 = 0x4;
-    kMaskVal4 = 0x40000000;
-  }
-
-  bitmap Bitmap64MaskMap : bitmap64 {
-    kMaskVal1 = 0x1;
-    kMaskVal2 = 0x2;
-    kMaskVal3 = 0x4;
-    kMaskVal4 = 0x4000000000000000;
-  }
-
-  bitmap Bitmap8MaskMap : bitmap8 {
-    kMaskVal1 = 0x1;
-    kMaskVal2 = 0x2;
-    kMaskVal3 = 0x4;
-    kMaskVal4 = 0x40;
-  }
-
-  bitmap SimpleBitmap : bitmap8 {
-    kValueA = 0x1;
-    kValueB = 0x2;
-    kValueC = 0x4;
-  }
-
-  struct SimpleStruct {
-    int8u a = 0;
-    boolean b = 1;
-    SimpleEnum c = 2;
-    octet_string d = 3;
-    char_string e = 4;
-    SimpleBitmap f = 5;
-    single g = 6;
-    double h = 7;
-    optional TestGlobalEnum i = 8;
-  }
-
-  fabric_scoped struct TestFabricScoped {
-    fabric_sensitive int8u fabricSensitiveInt8u = 1;
-    optional fabric_sensitive int8u optionalFabricSensitiveInt8u = 2;
-    nullable fabric_sensitive int8u nullableFabricSensitiveInt8u = 3;
-    optional nullable fabric_sensitive int8u nullableOptionalFabricSensitiveInt8u = 4;
-    fabric_sensitive char_string fabricSensitiveCharString = 5;
-    fabric_sensitive SimpleStruct fabricSensitiveStruct = 6;
-    fabric_sensitive int8u fabricSensitiveInt8uList[] = 7;
-    fabric_idx fabricIndex = 254;
-  }
-
-  struct NullablesAndOptionalsStruct {
-    nullable int16u nullableInt = 0;
-    optional int16u optionalInt = 1;
-    optional nullable int16u nullableOptionalInt = 2;
-    nullable char_string nullableString = 3;
-    optional char_string optionalString = 4;
-    optional nullable char_string nullableOptionalString = 5;
-    nullable SimpleStruct nullableStruct = 6;
-    optional SimpleStruct optionalStruct = 7;
-    optional nullable SimpleStruct nullableOptionalStruct = 8;
-    nullable SimpleEnum nullableList[] = 9;
-    optional SimpleEnum optionalList[] = 10;
-    optional nullable SimpleEnum nullableOptionalList[] = 11;
-  }
-
-  struct NestedStruct {
-    int8u a = 0;
-    boolean b = 1;
-    SimpleStruct c = 2;
-    optional TestGlobalStruct d = 3;
-  }
-
-  struct NestedStructList {
-    int8u a = 0;
-    boolean b = 1;
-    SimpleStruct c = 2;
-    SimpleStruct d[] = 3;
-    int32u e[] = 4;
-    octet_string f[] = 5;
-    int8u g[] = 6;
-  }
-
-  struct DoubleNestedStructList {
-    NestedStructList a[] = 0;
-  }
-
-  struct TestListStructOctet {
-    int64u member1 = 0;
-    octet_string<32> member2 = 1;
-  }
-
-  info event TestEvent = 1 {
-    int8u arg1 = 1;
-    SimpleEnum arg2 = 2;
-    boolean arg3 = 3;
-    SimpleStruct arg4 = 4;
-    SimpleStruct arg5[] = 5;
-    SimpleEnum arg6[] = 6;
-  }
-
-  fabric_sensitive info event TestFabricScopedEvent = 2 {
-    fabric_idx fabricIndex = 254;
-  }
-
-  info event TestDifferentVendorMeiEvent = 4294050030 {
-    int8u arg1 = 1;
-  }
-
-  attribute boolean boolean = 0;
-  attribute Bitmap8MaskMap bitmap8 = 1;
-  attribute Bitmap16MaskMap bitmap16 = 2;
-  attribute Bitmap32MaskMap bitmap32 = 3;
-  attribute Bitmap64MaskMap bitmap64 = 4;
-  attribute int8u int8u = 5;
-  attribute int16u int16u = 6;
-  attribute int24u int24u = 7;
-  attribute int32u int32u = 8;
-  attribute int40u int40u = 9;
-  attribute int48u int48u = 10;
-  attribute int56u int56u = 11;
-  attribute int64u int64u = 12;
-  attribute int8s int8s = 13;
-  attribute int16s int16s = 14;
-  attribute int24s int24s = 15;
-  attribute int32s int32s = 16;
-  attribute int40s int40s = 17;
-  attribute int48s int48s = 18;
-  attribute int56s int56s = 19;
-  attribute int64s int64s = 20;
-  attribute enum8 enum8 = 21;
-  attribute enum16 enum16 = 22;
-  attribute single floatSingle = 23;
-  attribute double floatDouble = 24;
-  attribute octet_string<10> octetString = 25;
-  attribute int8u listInt8u[] = 26;
-  attribute octet_string listOctetString[] = 27;
-  attribute TestListStructOctet listStructOctetString[] = 28;
-  attribute long_octet_string<1000> longOctetString = 29;
-  attribute char_string<10> charString = 30;
-  attribute long_char_string<1000> longCharString = 31;
-  attribute epoch_us epochUs = 32;
-  attribute epoch_s epochS = 33;
-  attribute vendor_id vendorId = 34;
-  attribute NullablesAndOptionalsStruct listNullablesAndOptionalsStruct[] = 35;
-  attribute SimpleEnum enumAttr = 36;
-  attribute SimpleStruct structAttr = 37;
-  attribute int8u rangeRestrictedInt8u = 38;
-  attribute int8s rangeRestrictedInt8s = 39;
-  attribute int16u rangeRestrictedInt16u = 40;
-  attribute int16s rangeRestrictedInt16s = 41;
-  attribute long_octet_string listLongOctetString[] = 42;
-  attribute TestFabricScoped listFabricScoped[] = 43;
-  timedwrite attribute boolean timedWriteBoolean = 48;
-  attribute boolean generalErrorBoolean = 49;
-  attribute boolean clusterErrorBoolean = 50;
-  attribute TestGlobalEnum globalEnum = 51;
-  attribute TestGlobalStruct globalStruct = 52;
-  attribute access(read: administer, write: administer) optional boolean unsupportedAttributeRequiringAdminPrivilege = 254;
-  attribute optional boolean unsupported = 255;
-  attribute optional int8u readFailureCode = 12288;
-  attribute optional int32u failureInt32U = 12289;
-  attribute nullable boolean nullableBoolean = 16384;
-  attribute nullable Bitmap8MaskMap nullableBitmap8 = 16385;
-  attribute nullable Bitmap16MaskMap nullableBitmap16 = 16386;
-  attribute nullable Bitmap32MaskMap nullableBitmap32 = 16387;
-  attribute nullable Bitmap64MaskMap nullableBitmap64 = 16388;
-  attribute nullable int8u nullableInt8u = 16389;
-  attribute nullable int16u nullableInt16u = 16390;
-  attribute nullable int24u nullableInt24u = 16391;
-  attribute nullable int32u nullableInt32u = 16392;
-  attribute nullable int40u nullableInt40u = 16393;
-  attribute nullable int48u nullableInt48u = 16394;
-  attribute nullable int56u nullableInt56u = 16395;
-  attribute nullable int64u nullableInt64u = 16396;
-  attribute nullable int8s nullableInt8s = 16397;
-  attribute nullable int16s nullableInt16s = 16398;
-  attribute nullable int24s nullableInt24s = 16399;
-  attribute nullable int32s nullableInt32s = 16400;
-  attribute nullable int40s nullableInt40s = 16401;
-  attribute nullable int48s nullableInt48s = 16402;
-  attribute nullable int56s nullableInt56s = 16403;
-  attribute nullable int64s nullableInt64s = 16404;
-  attribute nullable enum8 nullableEnum8 = 16405;
-  attribute nullable enum16 nullableEnum16 = 16406;
-  attribute nullable single nullableFloatSingle = 16407;
-  attribute nullable double nullableFloatDouble = 16408;
-  attribute nullable octet_string<10> nullableOctetString = 16409;
-  attribute nullable char_string<10> nullableCharString = 16414;
-  attribute nullable SimpleEnum nullableEnumAttr = 16420;
-  attribute nullable SimpleStruct nullableStruct = 16421;
-  attribute nullable int8u nullableRangeRestrictedInt8u = 16422;
-  attribute nullable int8s nullableRangeRestrictedInt8s = 16423;
-  attribute nullable int16u nullableRangeRestrictedInt16u = 16424;
-  attribute nullable int16s nullableRangeRestrictedInt16s = 16425;
-  writeonly attribute optional int8u writeOnlyInt8u = 16426;
-  attribute nullable TestGlobalEnum nullableGlobalEnum = 16435;
-  attribute nullable TestGlobalStruct nullableGlobalStruct = 16436;
-  readonly attribute command_id generatedCommandList[] = 65528;
-  readonly attribute command_id acceptedCommandList[] = 65529;
-  readonly attribute attrib_id attributeList[] = 65531;
-  readonly attribute bitmap32 featureMap = 65532;
-  readonly attribute int16u clusterRevision = 65533;
-  attribute int8u meiInt8u = 4294070017;
-
-  response struct TestSpecificResponse = 0 {
-    int8u returnValue = 0;
-  }
-
-  response struct TestAddArgumentsResponse = 1 {
-    int8u returnValue = 0;
-  }
-
-  response struct TestSimpleArgumentResponse = 2 {
-    boolean returnValue = 0;
-  }
-
-  response struct TestStructArrayArgumentResponse = 3 {
-    NestedStructList arg1[] = 0;
-    SimpleStruct arg2[] = 1;
-    SimpleEnum arg3[] = 2;
-    boolean arg4[] = 3;
-    SimpleEnum arg5 = 4;
-    boolean arg6 = 5;
-  }
-
-  request struct TestAddArgumentsRequest {
-    int8u arg1 = 0;
-    int8u arg2 = 1;
-  }
-
-  response struct TestListInt8UReverseResponse = 4 {
-    int8u arg1[] = 0;
-  }
-
-  request struct TestSimpleArgumentRequestRequest {
-    boolean arg1 = 0;
-  }
-
-  response struct TestEnumsResponse = 5 {
-    vendor_id arg1 = 0;
-    SimpleEnum arg2 = 1;
-  }
-
-  request struct TestStructArrayArgumentRequestRequest {
-    NestedStructList arg1[] = 0;
-    SimpleStruct arg2[] = 1;
-    SimpleEnum arg3[] = 2;
-    boolean arg4[] = 3;
-    SimpleEnum arg5 = 4;
-    boolean arg6 = 5;
-  }
-
-  response struct TestNullableOptionalResponse = 6 {
-    boolean wasPresent = 0;
-    optional boolean wasNull = 1;
-    optional int8u value = 2;
-    optional nullable int8u originalValue = 3;
-  }
-
-  request struct TestStructArgumentRequestRequest {
-    SimpleStruct arg1 = 0;
-  }
-
-  response struct TestComplexNullableOptionalResponse = 7 {
-    boolean nullableIntWasNull = 0;
-    optional int16u nullableIntValue = 1;
-    boolean optionalIntWasPresent = 2;
-    optional int16u optionalIntValue = 3;
-    boolean nullableOptionalIntWasPresent = 4;
-    optional boolean nullableOptionalIntWasNull = 5;
-    optional int16u nullableOptionalIntValue = 6;
-    boolean nullableStringWasNull = 7;
-    optional char_string nullableStringValue = 8;
-    boolean optionalStringWasPresent = 9;
-    optional char_string optionalStringValue = 10;
-    boolean nullableOptionalStringWasPresent = 11;
-    optional boolean nullableOptionalStringWasNull = 12;
-    optional char_string nullableOptionalStringValue = 13;
-    boolean nullableStructWasNull = 14;
-    optional SimpleStruct nullableStructValue = 15;
-    boolean optionalStructWasPresent = 16;
-    optional SimpleStruct optionalStructValue = 17;
-    boolean nullableOptionalStructWasPresent = 18;
-    optional boolean nullableOptionalStructWasNull = 19;
-    optional SimpleStruct nullableOptionalStructValue = 20;
-    boolean nullableListWasNull = 21;
-    optional SimpleEnum nullableListValue[] = 22;
-    boolean optionalListWasPresent = 23;
-    optional SimpleEnum optionalListValue[] = 24;
-    boolean nullableOptionalListWasPresent = 25;
-    optional boolean nullableOptionalListWasNull = 26;
-    optional SimpleEnum nullableOptionalListValue[] = 27;
-  }
-
-  request struct TestNestedStructArgumentRequestRequest {
-    NestedStruct arg1 = 0;
-  }
-
-  response struct BooleanResponse = 8 {
-    boolean value = 0;
-  }
-
-  request struct TestListStructArgumentRequestRequest {
-    SimpleStruct arg1[] = 0;
-  }
-
-  response struct SimpleStructResponse = 9 {
-    SimpleStruct arg1 = 0;
-  }
-
-  request struct TestListInt8UArgumentRequestRequest {
-    int8u arg1[] = 0;
-  }
-
-  response struct TestEmitTestEventResponse = 10 {
-    int64u value = 0;
-  }
-
-  request struct TestNestedStructListArgumentRequestRequest {
-    NestedStructList arg1 = 0;
-  }
-
-  response struct TestEmitTestFabricScopedEventResponse = 11 {
-    int64u value = 0;
-  }
-
-  request struct TestListNestedStructListArgumentRequestRequest {
-    NestedStructList arg1[] = 0;
-  }
-
-  response struct TestBatchHelperResponse = 12 {
-    octet_string<800> buffer = 0;
-  }
-
-  request struct TestListInt8UReverseRequestRequest {
-    int8u arg1[] = 0;
-  }
-
-  response struct StringEchoResponse = 13 {
-    octet_string payload = 0;
-  }
-
-  request struct TestEnumsRequestRequest {
-    vendor_id arg1 = 0;
-    SimpleEnum arg2 = 1;
-  }
-
-  response struct GlobalEchoResponse = 14 {
-    TestGlobalStruct field1 = 0;
-    TestGlobalEnum field2 = 1;
-  }
-
-  request struct TestNullableOptionalRequestRequest {
-    optional nullable int8u arg1 = 0;
-  }
-
-  request struct TestComplexNullableOptionalRequestRequest {
-    nullable int16u nullableInt = 0;
-    optional int16u optionalInt = 1;
-    optional nullable int16u nullableOptionalInt = 2;
-    nullable char_string nullableString = 3;
-    optional char_string optionalString = 4;
-    optional nullable char_string nullableOptionalString = 5;
-    nullable SimpleStruct nullableStruct = 6;
-    optional SimpleStruct optionalStruct = 7;
-    optional nullable SimpleStruct nullableOptionalStruct = 8;
-    nullable SimpleEnum nullableList[] = 9;
-    optional SimpleEnum optionalList[] = 10;
-    optional nullable SimpleEnum nullableOptionalList[] = 11;
-  }
-
-  request struct SimpleStructEchoRequestRequest {
-    SimpleStruct arg1 = 0;
-  }
-
-  request struct TestSimpleOptionalArgumentRequestRequest {
-    optional boolean arg1 = 0;
-  }
-
-  request struct TestEmitTestEventRequestRequest {
-    int8u arg1 = 0;
-    SimpleEnum arg2 = 1;
-    boolean arg3 = 2;
-  }
-
-  request struct TestEmitTestFabricScopedEventRequestRequest {
-    int8u arg1 = 0;
-  }
-
-  request struct TestBatchHelperRequestRequest {
-    int16u sleepBeforeResponseTimeMs = 0;
-    int16u sizeOfResponseBuffer = 1;
-    int8u fillCharacter = 2;
-  }
-
-  request struct TestSecondBatchHelperRequestRequest {
-    int16u sleepBeforeResponseTimeMs = 0;
-    int16u sizeOfResponseBuffer = 1;
-    int8u fillCharacter = 2;
-  }
-
-  request struct StringEchoRequestRequest {
-    octet_string payload = 0;
-  }
-
-  request struct GlobalEchoRequestRequest {
-    TestGlobalStruct field1 = 0;
-    TestGlobalEnum field2 = 1;
-  }
-
-  request struct TestDifferentVendorMeiRequestRequest {
-    int8u arg1 = 0;
-  }
-
-  response struct TestDifferentVendorMeiResponse = 4294049979 {
-    int8u arg1 = 0;
-    int64u eventNumber = 1;
-  }
-
-  /** Simple command without any parameters and without a specific response.
-        To aid in unit testing, this command will re-initialize attribute storage to defaults. */
-  command Test(): DefaultSuccess = 0;
-  /** Simple command without any parameters and without a specific response not handled by the server */
-  command TestNotHandled(): DefaultSuccess = 1;
-  /** Simple command without any parameters and with a specific response */
-  command TestSpecific(): TestSpecificResponse = 2;
-  /** Simple command that should not be added to the server. */
-  command TestUnknownCommand(): DefaultSuccess = 3;
-  /** Command that takes two arguments and returns their sum. */
-  command TestAddArguments(TestAddArgumentsRequest): TestAddArgumentsResponse = 4;
-  /** Command that takes an argument which is bool */
-  command TestSimpleArgumentRequest(TestSimpleArgumentRequestRequest): TestSimpleArgumentResponse = 5;
-  /** Command that takes various arguments that are arrays, including an array of structs which have a list member. */
-  command TestStructArrayArgumentRequest(TestStructArrayArgumentRequestRequest): TestStructArrayArgumentResponse = 6;
-  /** Command that takes an argument which is struct.  The response echoes the
-        'b' field of the single arg. */
-  command TestStructArgumentRequest(TestStructArgumentRequestRequest): BooleanResponse = 7;
-  /** Command that takes an argument which is nested struct.  The response
-        echoes the 'b' field of ar1.c. */
-  command TestNestedStructArgumentRequest(TestNestedStructArgumentRequestRequest): BooleanResponse = 8;
-  /** Command that takes an argument which is a list of structs.  The response
-        returns false if there is some struct in the list whose 'b' field is
-        false, and true otherwise (including if the list is empty). */
-  command TestListStructArgumentRequest(TestListStructArgumentRequestRequest): BooleanResponse = 9;
-  /** Command that takes an argument which is a list of INT8U.  The response
-        returns false if the list contains a 0 in it, true otherwise (including
-        if the list is empty). */
-  command TestListInt8UArgumentRequest(TestListInt8UArgumentRequestRequest): BooleanResponse = 10;
-  /** Command that takes an argument which is a Nested Struct List.  The
-        response returns false if there is some struct in arg1 (either directly
-        in arg1.c or in the arg1.d list) whose 'b' field is false, and true
-        otherwise. */
-  command TestNestedStructListArgumentRequest(TestNestedStructListArgumentRequestRequest): BooleanResponse = 11;
-  /** Command that takes an argument which is a list of Nested Struct List.
-        The response returns false if there is some struct in arg1 (either
-        directly in as the 'c' field of an entry 'd' list of an entry) whose 'b'
-        field is false, and true otherwise (including if the list is empty). */
-  command TestListNestedStructListArgumentRequest(TestListNestedStructListArgumentRequestRequest): BooleanResponse = 12;
-  /** Command that takes an argument which is a list of INT8U and expects a
-        response that reverses the list. */
-  command TestListInt8UReverseRequest(TestListInt8UReverseRequestRequest): TestListInt8UReverseResponse = 13;
-  /** Command that sends a vendor id and an enum.  The server is expected to
-        echo them back. */
-  command TestEnumsRequest(TestEnumsRequestRequest): TestEnumsResponse = 14;
-  /** Command that takes an argument which is nullable and optional.  The
-        response returns a boolean indicating whether the argument was present,
-        if that's true a boolean indicating whether the argument was null, and
-        if that' false the argument it received. */
-  command TestNullableOptionalRequest(TestNullableOptionalRequestRequest): TestNullableOptionalResponse = 15;
-  /** Command that takes various arguments which can be nullable and/or optional.  The
-        response returns information about which things were received and what
-        their state was. */
-  command TestComplexNullableOptionalRequest(TestComplexNullableOptionalRequestRequest): TestComplexNullableOptionalResponse = 16;
-  /** Command that takes an argument which is a struct.  The response echoes
-        the struct back. */
-  command SimpleStructEchoRequest(SimpleStructEchoRequestRequest): SimpleStructResponse = 17;
-  /** Command that just responds with a success status if the timed invoke
-        conditions are met. */
-  timed command TimedInvokeRequest(): DefaultSuccess = 18;
-  /** Command that takes an optional argument which is bool. It responds with a success value if the optional is set to any value. */
-  command TestSimpleOptionalArgumentRequest(TestSimpleOptionalArgumentRequestRequest): DefaultSuccess = 19;
-  /** Command that takes identical arguments to the fields of the TestEvent and logs the TestEvent to the buffer.  Command returns an event ID as the response. */
-  command TestEmitTestEventRequest(TestEmitTestEventRequestRequest): TestEmitTestEventResponse = 20;
-  /** Command that takes identical arguments to the fields of the TestFabricScopedEvent and logs the TestFabricScopedEvent to the buffer.  Command returns an event ID as the response. */
-  command TestEmitTestFabricScopedEventRequest(TestEmitTestFabricScopedEventRequestRequest): TestEmitTestFabricScopedEventResponse = 21;
-  /** Command that responds after sleepBeforeResponseTimeMs with an octet_string the size requested with fillCharacter. */
-  command TestBatchHelperRequest(TestBatchHelperRequestRequest): TestBatchHelperResponse = 22;
-  /** Second command that responds after sleepBeforeResponseTimeMs with an octet_string the size requested with fillCharacter. */
-  command TestSecondBatchHelperRequest(TestSecondBatchHelperRequestRequest): TestBatchHelperResponse = 23;
-  /** Command that takes an argument which is an octet string.  The response echoes
-        the string back. If the string is large then it would require a session that
-        supports large payloads. */
-  command StringEchoRequest(StringEchoRequestRequest): StringEchoResponse = 24;
-  /** Command that takes arguments that are global structs/enums and the
-        response just echoes them back. */
-  command GlobalEchoRequest(GlobalEchoRequestRequest): GlobalEchoResponse = 25;
-  /** Command that returns Success if the CommandFlags pass all checks at the IM layer.
-        Otherwise, return appropriate StatusCode back. */
-  fabric timed command TestCheckCommandFlags(): DefaultSuccess = 26;
-  /** Command having a different MEI vendor ID than the cluster. Also emits TestDifferentVendorMeiEvent. */
-  command TestDifferentVendorMeiRequest(TestDifferentVendorMeiRequestRequest): TestDifferentVendorMeiResponse = 4294049962;
-}
-
 endpoint 0 {
-  device type ma_rootdevice = 22, version 3;
   device type ma_powersource = 17, version 1;
 
-  binding cluster OtaSoftwareUpdateProvider;
+  binding cluster OTASoftwareUpdateProvider;
 
   server cluster Groups {
     ram      attribute nameSupport;
@@ -6713,9 +5595,13 @@ endpoint 0 {
     ram      attribute clusterRevision default = 4;
 
     handle command AddGroup;
+    handle command AddGroupResponse;
     handle command ViewGroup;
+    handle command ViewGroupResponse;
     handle command GetGroupMembership;
+    handle command GetGroupMembershipResponse;
     handle command RemoveGroup;
+    handle command RemoveGroupResponse;
     handle command RemoveAllGroups;
     handle command AddGroupIfIdentifying;
   }
@@ -6777,7 +5663,7 @@ endpoint 0 {
     callback attribute clusterRevision;
   }
 
-  server cluster OtaSoftwareUpdateRequestor {
+  server cluster OTASoftwareUpdateRequestor {
     emits event StateTransition;
     emits event VersionApplied;
     emits event DownloadError;
@@ -6792,13 +5678,13 @@ endpoint 0 {
   }
 
   server cluster LocalizationConfiguration {
-    ram      attribute activeLocale default = "en-US";
+    ram      attribute activeLocale default = en-US;
     callback attribute supportedLocales;
     callback attribute generatedCommandList;
     callback attribute acceptedCommandList;
     callback attribute attributeList;
     callback attribute featureMap default = 0;
-    callback attribute clusterRevision;
+    callback attribute clusterRevision default = 1;
   }
 
   server cluster TimeFormatLocalization {
@@ -6821,13 +5707,13 @@ endpoint 0 {
   server cluster PowerSource {
     ram      attribute status default = 0;
     ram      attribute order default = 3;
-    ram      attribute description default = "B1";
+    ram      attribute description default = B1;
     callback attribute endpointList;
     callback attribute generatedCommandList;
     callback attribute acceptedCommandList;
     callback attribute attributeList;
     ram      attribute featureMap default = 0;
-    callback attribute clusterRevision;
+    ram      attribute clusterRevision default = 2;
   }
 
   server cluster GeneralCommissioning {
@@ -6843,8 +5729,11 @@ endpoint 0 {
     callback attribute clusterRevision;
 
     handle command ArmFailSafe;
+    handle command ArmFailSafeResponse;
     handle command SetRegulatoryConfig;
+    handle command SetRegulatoryConfigResponse;
     handle command CommissioningComplete;
+    handle command CommissioningCompleteResponse;
   }
 
   server cluster NetworkCommissioning {
@@ -6866,10 +5755,13 @@ endpoint 0 {
     callback attribute clusterRevision;
 
     handle command ScanNetworks;
+    handle command ScanNetworksResponse;
     handle command AddOrUpdateWiFiNetwork;
     handle command AddOrUpdateThreadNetwork;
     handle command RemoveNetwork;
+    handle command NetworkConfigResponse;
     handle command ConnectNetwork;
+    handle command ConnectNetworkResponse;
     handle command ReorderNetwork;
   }
 
@@ -6893,7 +5785,9 @@ endpoint 0 {
 
     handle command TestEventTrigger;
     handle command TimeSnapshot;
+    handle command TimeSnapshotResponse;
     handle command PayloadTestRequest;
+    handle command PayloadTestResponse;
   }
 
   server cluster SoftwareDiagnostics {
@@ -6920,7 +5814,7 @@ endpoint 0 {
     callback attribute operationalDatasetComponents;
     callback attribute activeNetworkFaultsList;
     ram      attribute featureMap default = 0;
-    callback attribute clusterRevision;
+    ram      attribute clusterRevision default = 2;
   }
 
   server cluster WiFiNetworkDiagnostics {
@@ -6973,19 +5867,24 @@ endpoint 0 {
     callback attribute generatedCommandList;
     callback attribute acceptedCommandList;
     callback attribute attributeList;
-    callback attribute featureMap;
-    callback attribute clusterRevision;
+    ram      attribute featureMap default = 0;
+    ram      attribute clusterRevision default = 1;
 
     handle command AttestationRequest;
+    handle command AttestationResponse;
     handle command CertificateChainRequest;
+    handle command CertificateChainResponse;
     handle command CSRRequest;
+    handle command CSRResponse;
     handle command AddNOC;
     handle command UpdateNOC;
+    handle command NOCResponse;
     handle command UpdateFabricLabel;
     handle command RemoveFabric;
     handle command AddTrustedRootCertificate;
     handle command SetVIDVerificationStatement;
     handle command SignVIDVerificationRequest;
+    handle command SignVIDVerificationResponse;
   }
 
   server cluster GroupKeyManagement {
@@ -7001,8 +5900,10 @@ endpoint 0 {
 
     handle command KeySetWrite;
     handle command KeySetRead;
+    handle command KeySetReadResponse;
     handle command KeySetRemove;
     handle command KeySetReadAllIndices;
+    handle command KeySetReadAllIndicesResponse;
   }
 
   server cluster FixedLabel {
@@ -7013,8 +5914,8 @@ endpoint 0 {
 
   server cluster UserLabel {
     callback attribute labelList;
-    callback attribute featureMap;
-    callback attribute clusterRevision;
+    ram      attribute featureMap default = 0;
+    ram      attribute clusterRevision default = 1;
   }
 
   server cluster RelativeHumidityMeasurement {
@@ -7026,18 +5927,16 @@ endpoint 0 {
   }
 }
 endpoint 1 {
-  device type ma_powersource = 17, version 1;
-  device type ma_onofflight = 256, version 1;
-
+  device type ma_onofflight = 256, version 3;
 
   server cluster Identify {
-    callback attribute identifyTime;
-    callback attribute identifyType;
+    ram      attribute identifyTime default = 0x0000;
+    ram      attribute identifyType default = 0x0;
     callback attribute generatedCommandList;
     callback attribute acceptedCommandList;
     callback attribute attributeList;
-    callback attribute featureMap;
-    callback attribute clusterRevision;
+    ram      attribute featureMap default = 0;
+    ram      attribute clusterRevision default = 0x0005;
 
     handle command Identify;
     handle command TriggerEffect;
@@ -7052,9 +5951,13 @@ endpoint 1 {
     ram      attribute clusterRevision default = 4;
 
     handle command AddGroup;
+    handle command AddGroupResponse;
     handle command ViewGroup;
+    handle command ViewGroupResponse;
     handle command GetGroupMembership;
+    handle command GetGroupMembershipResponse;
     handle command RemoveGroup;
+    handle command RemoveGroupResponse;
     handle command RemoveAllGroups;
     handle command AddGroupIfIdentifying;
   }
@@ -7126,13 +6029,13 @@ endpoint 1 {
   server cluster PowerSource {
     ram      attribute status default = 0;
     ram      attribute order default = 2;
-    ram      attribute description default = "B2";
+    ram      attribute description default = B2;
     callback attribute endpointList;
     callback attribute generatedCommandList;
     callback attribute acceptedCommandList;
     callback attribute attributeList;
     ram      attribute featureMap default = 0;
-    callback attribute clusterRevision;
+    ram      attribute clusterRevision default = 2;
   }
 
   server cluster Switch {
@@ -7150,8 +6053,8 @@ endpoint 1 {
 
   server cluster UserLabel {
     callback attribute labelList;
-    callback attribute featureMap;
-    callback attribute clusterRevision;
+    ram      attribute featureMap default = 0;
+    ram      attribute clusterRevision default = 1;
   }
 
   server cluster BooleanState {
@@ -7161,7 +6064,7 @@ endpoint 1 {
   }
 
   server cluster ModeSelect {
-    ram      attribute description default = "Coffee";
+    ram      attribute description default = Coffee;
     ram      attribute standardNamespace default = 0;
     callback attribute supportedModes;
     persist  attribute currentMode default = 0;
@@ -7196,12 +6099,18 @@ endpoint 1 {
     ram      attribute clusterRevision default = 1;
 
     handle command AddScene;
+    handle command AddSceneResponse;
     handle command ViewScene;
+    handle command ViewSceneResponse;
     handle command RemoveScene;
+    handle command RemoveSceneResponse;
     handle command RemoveAllScenes;
+    handle command RemoveAllScenesResponse;
     handle command StoreScene;
+    handle command StoreSceneResponse;
     handle command RecallScene;
     handle command GetSceneMembership;
+    handle command GetSceneMembershipResponse;
   }
 
   server cluster DoorLock {
@@ -7231,7 +6140,7 @@ endpoint 1 {
     callback attribute acceptedCommandList;
     callback attribute attributeList;
     ram      attribute featureMap default = 1;
-    callback attribute clusterRevision;
+    ram      attribute clusterRevision default = 5;
 
     handle command UpOrOpen;
     handle command DownOrClose;
@@ -7258,7 +6167,7 @@ endpoint 1 {
     ram      attribute controlSequenceOfOperation default = 0x04;
     ram      attribute systemMode default = 0x01;
     ram      attribute featureMap default = 1;
-    callback attribute clusterRevision;
+    ram      attribute clusterRevision default = 6;
 
     handle command SetpointRaiseLower;
   }
@@ -7287,19 +6196,6 @@ endpoint 1 {
     ram      attribute colorCapabilities default = 0x1F;
     ram      attribute featureMap default = 0;
     ram      attribute clusterRevision default = 7;
-  }
-
-  server cluster BallastConfiguration {
-    ram      attribute physicalMinLevel default = 0x01;
-    ram      attribute physicalMaxLevel default = 0xFE;
-    ram      attribute minLevel default = 0x01;
-    ram      attribute maxLevel default = 0xFE;
-    ram      attribute lampQuantity;
-    callback attribute generatedCommandList;
-    callback attribute acceptedCommandList;
-    callback attribute attributeList;
-    ram      attribute featureMap default = 0;
-    ram      attribute clusterRevision default = 4;
   }
 
   server cluster IlluminanceMeasurement {
@@ -7347,10 +6243,10 @@ endpoint 1 {
     ram      attribute occupancySensorType;
     ram      attribute occupancySensorTypeBitmap;
     callback attribute featureMap;
-    callback attribute clusterRevision;
+    ram      attribute clusterRevision default = 5;
   }
 
-  server cluster WakeOnLan {
+  server cluster WakeOnLAN {
     ram      attribute featureMap default = 0;
     ram      attribute clusterRevision default = 1;
   }
@@ -7369,6 +6265,7 @@ endpoint 1 {
     ram      attribute clusterRevision default = 1;
 
     handle command NavigateTarget;
+    handle command NavigateTargetResponse;
   }
 
   server cluster MediaPlayback {
@@ -7379,6 +6276,7 @@ endpoint 1 {
     handle command Play;
     handle command Pause;
     handle command Stop;
+    handle command PlaybackResponse;
   }
 
   server cluster MediaInput {
@@ -7404,6 +6302,7 @@ endpoint 1 {
     ram      attribute clusterRevision default = 1;
 
     handle command SendKey;
+    handle command SendKeyResponse;
   }
 
   server cluster ContentLauncher {
@@ -7427,6 +6326,7 @@ endpoint 1 {
     handle command LaunchApp;
     handle command StopApp;
     handle command HideApp;
+    handle command LauncherResponse;
   }
 
   server cluster ApplicationBasic {
@@ -7444,141 +6344,22 @@ endpoint 1 {
     ram      attribute clusterRevision default = 1;
 
     handle command GetSetupPIN;
+    handle command GetSetupPINResponse;
     handle command Login;
     handle command Logout;
   }
-
-  server cluster UnitTesting {
-    emits event TestEvent;
-    emits event TestFabricScopedEvent;
-    emits event TestDifferentVendorMeiEvent;
-    ram      attribute boolean default = false;
-    ram      attribute bitmap8 default = 0;
-    ram      attribute bitmap16 default = 0;
-    ram      attribute bitmap32 default = 0;
-    ram      attribute bitmap64 default = 0;
-    ram      attribute int8u default = 0;
-    ram      attribute int16u default = 0;
-    ram      attribute int24u default = 0;
-    ram      attribute int32u default = 0;
-    ram      attribute int40u default = 0;
-    ram      attribute int48u default = 0;
-    ram      attribute int56u default = 0;
-    ram      attribute int64u default = 0;
-    ram      attribute int8s default = 0;
-    ram      attribute int16s default = 0;
-    ram      attribute int24s default = 0;
-    ram      attribute int32s default = 0;
-    ram      attribute int40s default = 0;
-    ram      attribute int48s default = 0;
-    ram      attribute int56s default = 0;
-    ram      attribute int64s default = 0;
-    ram      attribute enum8 default = 0;
-    ram      attribute enum16 default = 0;
-    ram      attribute floatSingle default = 0;
-    ram      attribute floatDouble default = 0;
-    ram      attribute octetString;
-    callback attribute listInt8u;
-    callback attribute listOctetString;
-    callback attribute listStructOctetString;
-    ram      attribute longOctetString;
-    ram      attribute charString;
-    ram      attribute longCharString;
-    ram      attribute epochUs;
-    ram      attribute epochS;
-    ram      attribute vendorId;
-    callback attribute listNullablesAndOptionalsStruct;
-    ram      attribute enumAttr;
-    callback attribute structAttr;
-    ram      attribute rangeRestrictedInt8u default = 70;
-    ram      attribute rangeRestrictedInt8s default = -20;
-    ram      attribute rangeRestrictedInt16u default = 200;
-    ram      attribute rangeRestrictedInt16s default = -100;
-    callback attribute listLongOctetString;
-    callback attribute listFabricScoped;
-    ram      attribute timedWriteBoolean;
-    callback attribute generalErrorBoolean;
-    callback attribute clusterErrorBoolean;
-    ram      attribute globalEnum;
-    callback attribute globalStruct;
-    ram      attribute nullableBoolean default = false;
-    ram      attribute nullableBitmap8 default = 0;
-    ram      attribute nullableBitmap16 default = 0;
-    ram      attribute nullableBitmap32 default = 0;
-    ram      attribute nullableBitmap64 default = 0;
-    ram      attribute nullableInt8u default = 0;
-    ram      attribute nullableInt16u default = 0;
-    ram      attribute nullableInt24u default = 0;
-    ram      attribute nullableInt32u default = 0;
-    ram      attribute nullableInt40u default = 0;
-    ram      attribute nullableInt48u default = 0;
-    ram      attribute nullableInt56u default = 0;
-    ram      attribute nullableInt64u default = 0;
-    ram      attribute nullableInt8s default = 0;
-    ram      attribute nullableInt16s default = 0;
-    ram      attribute nullableInt24s default = 0;
-    ram      attribute nullableInt32s default = 0;
-    ram      attribute nullableInt40s default = 0;
-    ram      attribute nullableInt48s default = 0;
-    ram      attribute nullableInt56s default = 0;
-    ram      attribute nullableInt64s default = 0;
-    ram      attribute nullableEnum8 default = 0;
-    ram      attribute nullableEnum16 default = 0;
-    ram      attribute nullableFloatSingle default = 0;
-    ram      attribute nullableFloatDouble default = 0;
-    ram      attribute nullableOctetString;
-    ram      attribute nullableCharString;
-    ram      attribute nullableEnumAttr;
-    callback attribute nullableStruct;
-    ram      attribute nullableRangeRestrictedInt8u default = 70;
-    ram      attribute nullableRangeRestrictedInt8s default = -20;
-    ram      attribute nullableRangeRestrictedInt16u default = 200;
-    ram      attribute nullableRangeRestrictedInt16s default = -100;
-    callback attribute writeOnlyInt8u default = 0;
-    ram      attribute nullableGlobalEnum;
-    callback attribute nullableGlobalStruct;
-    ram      attribute featureMap default = 0;
-    ram      attribute clusterRevision default = 1;
-    ram      attribute meiInt8u default = 0;
-
-    handle command Test;
-    handle command TestNotHandled;
-    handle command TestSpecific;
-    handle command TestAddArguments;
-    handle command TestStructArgumentRequest;
-    handle command TestNestedStructArgumentRequest;
-    handle command TestListStructArgumentRequest;
-    handle command TestListInt8UArgumentRequest;
-    handle command TestNestedStructListArgumentRequest;
-    handle command TestListNestedStructListArgumentRequest;
-    handle command TestListInt8UReverseRequest;
-    handle command TestEnumsRequest;
-    handle command TestNullableOptionalRequest;
-    handle command SimpleStructEchoRequest;
-    handle command TimedInvokeRequest;
-    handle command TestSimpleOptionalArgumentRequest;
-    handle command TestEmitTestEventRequest;
-    handle command TestEmitTestFabricScopedEventRequest;
-    handle command TestBatchHelperRequest;
-    handle command TestSecondBatchHelperRequest;
-    handle command StringEchoRequest;
-    handle command GlobalEchoRequest;
-    handle command TestDifferentVendorMeiRequest;
-  }
 }
 endpoint 2 {
-  device type ma_powersource = 17, version 1;
-  device type ma_onofflight = 256, version 1;
-
+  device type ma_onofflight = 256, version 3;
 
   server cluster Identify {
-    callback attribute identifyTime;
-    callback attribute identifyType;
+    ram      attribute identifyTime default = 0x0000;
+    ram      attribute identifyType default = 0x00;
     callback attribute generatedCommandList;
     callback attribute acceptedCommandList;
     callback attribute attributeList;
-    callback attribute featureMap;
-    callback attribute clusterRevision;
+    ram      attribute featureMap default = 0;
+    ram      attribute clusterRevision default = 0x0005;
 
     handle command Identify;
     handle command TriggerEffect;
@@ -7593,9 +6374,13 @@ endpoint 2 {
     ram      attribute clusterRevision default = 4;
 
     handle command AddGroup;
+    handle command AddGroupResponse;
     handle command ViewGroup;
+    handle command ViewGroupResponse;
     handle command GetGroupMembership;
+    handle command GetGroupMembershipResponse;
     handle command RemoveGroup;
+    handle command RemoveGroupResponse;
     handle command RemoveAllGroups;
     handle command AddGroupIfIdentifying;
   }
@@ -7635,13 +6420,13 @@ endpoint 2 {
   server cluster PowerSource {
     ram      attribute status default = 0;
     ram      attribute order default = 1;
-    ram      attribute description default = "B3";
+    ram      attribute description default = B3;
     callback attribute endpointList;
     callback attribute generatedCommandList;
     callback attribute acceptedCommandList;
     callback attribute attributeList;
     ram      attribute featureMap default = 0;
-    callback attribute clusterRevision;
+    ram      attribute clusterRevision default = 2;
   }
 
   server cluster ScenesManagement {
@@ -7654,12 +6439,18 @@ endpoint 2 {
     ram      attribute clusterRevision default = 1;
 
     handle command AddScene;
+    handle command AddSceneResponse;
     handle command ViewScene;
+    handle command ViewSceneResponse;
     handle command RemoveScene;
+    handle command RemoveSceneResponse;
     handle command RemoveAllScenes;
+    handle command RemoveAllScenesResponse;
     handle command StoreScene;
+    handle command StoreSceneResponse;
     handle command RecallScene;
     handle command GetSceneMembership;
+    handle command GetSceneMembershipResponse;
   }
 
   server cluster OccupancySensing {
@@ -7667,12 +6458,11 @@ endpoint 2 {
     ram      attribute occupancySensorType;
     ram      attribute occupancySensorTypeBitmap;
     callback attribute featureMap;
-    callback attribute clusterRevision;
+    ram      attribute clusterRevision default = 5;
   }
 }
 endpoint 65534 {
   device type ma_secondary_network_interface = 25, version 1;
-
 
   server cluster Descriptor {
     callback attribute deviceTypeList;
@@ -7702,10 +6492,13 @@ endpoint 65534 {
     callback attribute clusterRevision;
 
     handle command ScanNetworks;
+    handle command ScanNetworksResponse;
     handle command AddOrUpdateWiFiNetwork;
     handle command AddOrUpdateThreadNetwork;
     handle command RemoveNetwork;
+    handle command NetworkConfigResponse;
     handle command ConnectNetwork;
+    handle command ConnectNetworkResponse;
     handle command ReorderNetwork;
   }
 }
