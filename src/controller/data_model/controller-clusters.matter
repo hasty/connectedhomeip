@@ -1,11 +1,6 @@
 
 
 
-enum AlarmSeverityTag : enum8 {
-  kCritical = 0;
-  kMajor = 1;
-  kMinor = 2;
-}
 
 enum AreaTypeTag : enum8 {
   kAisle = 0;
@@ -109,233 +104,6 @@ enum AtomicRequestTypeEnum : enum8 {
   kRollbackWrite = 2;
 }
 
-enum ClosureCabinetTag : enum8 {
-  kCabinetDoor = 0;
-  kDrawer = 1;
-  kFlap = 2;
-}
-
-enum ClosureCoveringTag : enum8 {
-  kBlind = 0;
-  kAwning = 1;
-  kShutter = 2;
-  kVenetian = 3;
-  kCurtain = 4;
-}
-
-enum ClosurePanelTag : enum8 {
-  kLift = 0;
-  kTilt = 1;
-  kSliding = 2;
-  kRotate = 3;
-}
-
-enum ClosureTag : enum8 {
-  kOpening = 0;
-  kClosing = 1;
-  kStop = 2;
-}
-
-enum ClosureWindowTag : enum8 {
-  kRoof = 0;
-  kFacade = 1;
-}
-
-enum CommodityTariffChronologyTag : enum8 {
-  kCurrent = 0;
-  kPrevious = 1;
-  kUpcoming = 2;
-}
-
-enum CommodityTariffCommodityTag : enum8 {
-  kElectricalEnergy = 0;
-}
-
-enum CommodityTariffFlowTag : enum8 {
-  kImport = 0;
-  kExport = 1;
-}
-
-enum CompassDirectionTag : enum8 {
-  kNorthward = 0;
-  kNorthEastward = 1;
-  kEastward = 2;
-  kSouthEastward = 3;
-  kSouthward = 4;
-  kSouthWestward = 5;
-  kWestward = 6;
-  kNorthWestward = 7;
-}
-
-enum CompassLocationTag : enum8 {
-  kNorth = 0;
-  kNorthEast = 1;
-  kEast = 2;
-  kSouthEast = 3;
-  kSouth = 4;
-  kSouthWest = 5;
-  kWest = 6;
-  kNorthWest = 7;
-}
-
-enum DirectionTag : enum8 {
-  kUpward = 0;
-  kDownward = 1;
-  kLeftward = 2;
-  kRightward = 3;
-  kForward = 4;
-  kBackward = 5;
-}
-
-enum ElectricalDistributionFormFactorTag : enum8 {
-  kMiniature = 0;
-  kMoldedCase = 1;
-}
-
-enum ElectricalDistributionOverVoltageTag : enum8 {
-  kLineToNeutral = 0;
-  kLineToGround = 1;
-  kNeutralToGround = 2;
-  kLineToLine = 3;
-}
-
-enum ElectricalMeasurementTag : enum8 {
-  kDC = 0;
-  kAC = 1;
-  kACPhase1 = 2;
-  kACPhase2 = 3;
-  kACPhase3 = 4;
-}
-
-enum IdentifiedHumanActivityTag : enum8 {
-  kUnknown = 0;
-  kPresence = 1;
-  kFall = 2;
-  kSleeping = 3;
-  kWalking = 4;
-  kWorkout = 5;
-  kSitting = 6;
-  kStanding = 7;
-  kDancing = 8;
-  kPackageDelivery = 9;
-  kPackageRetrieval = 10;
-}
-
-enum IdentifiedObjectTag : enum8 {
-  kUnknown = 0;
-  kAdult = 1;
-  kChild = 2;
-  kPerson = 3;
-  kRVC = 4;
-  kPet = 5;
-  kDog = 6;
-  kCat = 7;
-  kAnimal = 8;
-  kCar = 9;
-  kVehicle = 10;
-  kPackage = 11;
-}
-
-enum IdentifiedSoundTag : enum8 {
-  kUnknown = 0;
-  kObjectFall = 1;
-  kSnoring = 2;
-  kCoughing = 3;
-  kBarking = 4;
-  kShattering = 5;
-  kBabyCrying = 6;
-  kUtilityAlarm = 7;
-  kUrgentShouting = 8;
-  kDoorbell = 9;
-  kKnocking = 10;
-  kUrgentSiren = 11;
-  kFaucetRunning = 12;
-  kKettleBoiling = 13;
-  kFanDryer = 14;
-  kClapping = 15;
-  kFingerSnapping = 16;
-  kMeowing = 17;
-  kLaughing = 18;
-  kGlassBreaking = 19;
-  kDoorKnocking = 20;
-  kPersonTalking = 21;
-}
-
-enum LandmarkTag : enum8 {
-  kAirConditioner = 0;
-  kAirPurifier = 1;
-  kBackDoor = 2;
-  kBarStool = 3;
-  kBathMat = 4;
-  kBathtub = 5;
-  kBed = 6;
-  kBookshelf = 7;
-  kChair = 8;
-  kChristmasTree = 9;
-  kCoatRack = 10;
-  kCoffeeTable = 11;
-  kCookingRange = 12;
-  kCouch = 13;
-  kCountertop = 14;
-  kCradle = 15;
-  kCrib = 16;
-  kDesk = 17;
-  kDiningTable = 18;
-  kDishwasher = 19;
-  kDoor = 20;
-  kDresser = 21;
-  kLaundryDryer = 22;
-  kFan = 23;
-  kFireplace = 24;
-  kFreezer = 25;
-  kFrontDoor = 26;
-  kHighChair = 27;
-  kKitchenIsland = 28;
-  kLamp = 29;
-  kLitterBox = 30;
-  kMirror = 31;
-  kNightstand = 32;
-  kOven = 33;
-  kPetBed = 34;
-  kPetBowl = 35;
-  kPetCrate = 36;
-  kRefrigerator = 37;
-  kScratchingPost = 38;
-  kShoeRack = 39;
-  kShower = 40;
-  kSideDoor = 41;
-  kSink = 42;
-  kSofa = 43;
-  kStove = 44;
-  kTable = 45;
-  kToilet = 46;
-  kTrashCan = 47;
-  kLaundryWasher = 48;
-  kWindow = 49;
-  kWineCooler = 50;
-}
-
-enum LaundryTag : enum8 {
-  kNormal = 0;
-  kLightDry = 1;
-  kExtraDry = 2;
-  kNoDry = 3;
-}
-
-enum LevelTag : enum8 {
-  kLow = 0;
-  kMedium = 1;
-  kHigh = 2;
-}
-
-enum LocationTag : enum8 {
-  kIndoor = 0;
-  kOutdoor = 1;
-  kInside = 2;
-  kOutside = 3;
-  kZone = 4;
-}
-
 enum MeasurementTypeEnum : enum16 {
   kUnspecified = 0;
   kVoltage = 1;
@@ -357,129 +125,10 @@ enum MeasurementTypeEnum : enum16 {
   kSoilMoisture = 17;
 }
 
-enum NumberTag : enum8 {
-  kZero = 0;
-  kOne = 1;
-  kTwo = 2;
-  kThree = 3;
-  kFour = 4;
-  kFive = 5;
-  kSix = 6;
-  kSeven = 7;
-  kEight = 8;
-  kNine = 9;
-  kTen = 10;
-  kEleven = 11;
-  kTwelve = 12;
-  kThirteen = 13;
-  kFourteen = 14;
-  kFifteen = 15;
-  kSixteen = 16;
-  kSeventeen = 17;
-  kEighteen = 18;
-  kNineteen = 19;
-  kTwenty = 20;
-  kTwentyOne = 21;
-  kTwentyTwo = 22;
-  kTwentyThree = 23;
-  kTwentyFour = 24;
-  kTwentyFive = 25;
-  kTwentySix = 26;
-  kTwentySeven = 27;
-  kTwentyEight = 28;
-  kTwentyNine = 29;
-  kThirty = 30;
-}
-
-enum PositionTag : enum8 {
-  kLeft = 0;
-  kRight = 1;
-  kTop = 2;
-  kBottom = 3;
-  kMiddle = 4;
-  kRow = 5;
-  kColumn = 6;
-}
-
-enum PowerSourceTag : enum8 {
-  kUnknown = 0;
-  kGrid = 1;
-  kSolar = 2;
-  kBattery = 3;
-  kEV = 4;
-}
-
 enum PowerThresholdSourceEnum : enum8 {
   kContract = 0;
   kRegulator = 1;
   kEquipment = 2;
-}
-
-enum RefrigeratorTag : enum8 {
-  kRefrigerator = 0;
-  kFreezer = 1;
-}
-
-enum RelativePositionTag : enum8 {
-  kUnder = 0;
-  kNextTo = 1;
-  kAround = 2;
-  kOn = 3;
-  kAbove = 4;
-  kFrontOf = 5;
-  kBehind = 6;
-}
-
-enum RoomAirConditionerTag : enum8 {
-  kEvaporator = 0;
-  kCondenser = 1;
-}
-
-enum ServerAttributionContextInformation : enum8 {
-  kServerAutomationRule = 11;
-  kServerSchedule = 12;
-  kServerTimer = 13;
-  kSecurity = 14;
-  kDemandResponseEventOrSimilarServiceProviderSignalling = 15;
-  kPhysicalInteractionOnDevice = 16;
-  kInteractionViaAProtocolNotDefinedInThisSpecification = 17;
-}
-
-enum SoftwareVersionCertificationStatusEnum : enum8 {
-  kDevTest = 0;
-  kProvisional = 1;
-  kCertified = 2;
-  kRevoked = 3;
-}
-
-enum StreamUsageEnum : enum8 {
-  kInternal = 0;
-  kRecording = 1;
-  kAnalysis = 2;
-  kLiveView = 3;
-}
-
-enum SuppliedAttributionContextInformation : enum8 {
-  kDefaultClientAction = 0;
-  kUserInteraction = 1;
-  kClientAutomationRule = 2;
-  kClientSchedule = 3;
-  kClientTimer = 4;
-}
-
-enum SwitchesTag : enum8 {
-  kOn = 0;
-  kOff = 1;
-  kToggle = 2;
-  kUp = 3;
-  kDown = 4;
-  kNext = 5;
-  kPrevious = 6;
-  kEnterOkSelect = 7;
-  kCustom = 8;
-  kOpen = 9;
-  kClose = 10;
-  kStop = 11;
 }
 
 enum TariffPriceTypeEnum : enum8 {
@@ -495,71 +144,14 @@ enum TariffUnitEnum : enum8 {
   kKVAh = 1;
 }
 
-enum TestGlobalEnum : enum8 {
-  kSomeValue = 0;
-  kSomeOtherValue = 1;
-  kFinalValue = 2;
-}
-
-enum ThreeLevelAutoEnum : enum8 {
-  kAuto = 0;
-  kLow = 1;
-  kMedium = 2;
-  kHigh = 3;
-}
-
-enum WebRTCEndReasonEnum : enum8 {
-  kICEFailed = 0;
-  kICETimeout = 1;
-  kUserHangup = 2;
-  kUserBusy = 3;
-  kReplaced = 4;
-  kNoUserMedia = 5;
-  kInviteTimeout = 6;
-  kAnsweredElsewhere = 7;
-  kOutOfResources = 8;
-  kMediaTimeout = 9;
-  kLowPower = 10;
-  kPrivacyMode = 11;
-  kUnknownReason = 12;
-}
-
-bitmap TestGlobalBitmap : bitmap32 {
-  kFirstBit = 0x1;
-  kSecondBit = 0x2;
-}
-
 struct AtomicAttributeStatusStruct {
   attrib_id attributeID = 0;
   status statusCode = 1;
 }
 
-struct AttributionData {
-  enum8 contextInformation = 0;
-  optional int32u sourceContext = 1;
-  optional node_id nodeID = 2;
-  optional group_id groupID = 3;
-  optional systime_ms systemTimeStamp = 4;
-  optional posix_ms epochTimeStamp = 5;
-  nullable fabric_idx fabricIndex = 6;
-}
-
 struct CurrencyStruct {
   int16u currency = 0;
   int8u decimalPoints = 1;
-}
-
-struct ICECandidateStruct {
-  char_string candidate = 0;
-  nullable char_string SDPMid = 1;
-  nullable int16u SDPMLineIndex = 2;
-}
-
-struct ICEServerStruct {
-  char_string URLs[] = 0;
-  optional long_char_string username = 1;
-  optional long_char_string credential = 2;
-  optional int16u caid = 3;
 }
 
 struct LocationDescriptorStruct {
@@ -587,63 +179,17 @@ struct MeasurementAccuracyStruct {
   MeasurementAccuracyRangeStruct accuracyRanges[] = 4;
 }
 
-struct ModeOptionStruct {
-  char_string label = 0;
-  int8u mode = 1;
-  ModeTagStruct modeTags[] = 2;
-}
-
-struct ModeTagStruct {
-  optional vendor_id mfgCode = 0;
-  enum16 value = 1;
-}
-
 struct PowerThresholdStruct {
   optional power_mw powerThreshold = 0;
   optional power_mva apparentPowerThreshold = 1;
   nullable PowerThresholdSourceEnum powerThresholdSource = 2;
 }
 
-struct PriceStruct {
-  money amount = 0;
-  CurrencyStruct currency = 1;
-}
-
 struct SemanticTagStruct {
   nullable vendor_id mfgCode = 0;
-  enum8 namespaceID = 1;
-  enum8 tag = 2;
+  namespace namespaceID = 1;
+  tag tag = 2;
   optional nullable char_string label = 3;
-}
-
-fabric_scoped struct SuppliedAttributionData {
-  enum8 contextInformation = 0;
-  optional int32u sourceContext = 1;
-  fabric_idx fabricIndex = 254;
-}
-
-struct TestGlobalStruct {
-  char_string name = 0;
-  nullable TestGlobalBitmap myBitmap = 1;
-  optional nullable TestGlobalEnum myEnum = 2;
-}
-
-struct ViewportStruct {
-  int16u x1 = 0;
-  int16u y1 = 1;
-  int16u x2 = 2;
-  int16u y2 = 3;
-}
-
-fabric_scoped struct WebRTCSessionStruct {
-  int16u id = 0;
-  node_id peerNodeID = 1;
-  endpoint_no peerEndpointID = 2;
-  StreamUsageEnum streamUsage = 3;
-  nullable int16u videoStreamID = 4;
-  nullable int16u audioStreamID = 5;
-  boolean metadataEnabled = 6;
-  fabric_idx fabricIndex = 254;
 }
 
 
@@ -1413,8 +959,6 @@ cluster BasicInformation = 40 {
   readonly attribute attrib_id attributeList[] = 65531;
   readonly attribute bitmap32 featureMap = 65532;
   readonly attribute int16u clusterRevision = 65533;
-
-  command MfgSpecificPing(): DefaultSuccess = 0;
 }
 
 
@@ -1455,18 +999,18 @@ cluster OtaSoftwareUpdateProvider = 41 {
     optional int16u hardwareVersion = 4;
     optional char_string location = 5;
     optional boolean requestorCanConsent = 6;
-    optional octet_string metadataForProvider = 7;
+    optional long_octet_string metadataForProvider = 7;
   }
 
   response struct QueryImageResponse = 1 {
     StatusEnum status = 0;
     optional int32u delayedActionTime = 1;
-    optional char_string imageURI = 2;
+    optional long_char_string imageURI = 2;
     optional int32u softwareVersion = 3;
     optional char_string softwareVersionString = 4;
     optional octet_string updateToken = 5;
     optional boolean userConsentNeeded = 6;
-    optional octet_string metadataForRequestor = 7;
+    optional long_octet_string metadataForRequestor = 7;
   }
 
   request struct ApplyUpdateRequestRequest {
@@ -1561,7 +1105,7 @@ cluster OtaSoftwareUpdateRequestor = 42 {
     node_id providerNodeID = 0;
     vendor_id vendorID = 1;
     AnnouncementReasonEnum announcementReason = 2;
-    optional octet_string metadataForNode = 3;
+    optional long_octet_string metadataForNode = 3;
     endpoint_no endpoint = 4;
   }
 
@@ -2192,7 +1736,7 @@ cluster NetworkCommissioning = 49 {
   
   command access(invoke: administer) ReorderNetwork(ReorderNetworkRequest): NetworkConfigResponse = 8;
   
-  command access(invoke: administer) QueryIdentity(QueryIdentityRequest): QueryIdentityResponse = 9;
+  provisional command access(invoke: administer) QueryIdentity(QueryIdentityRequest): QueryIdentityResponse = 9;
 }
 
 
@@ -3285,7 +2829,7 @@ cluster GroupKeyManagement = 63 {
 cluster FixedLabel = 64 {
   revision 1;
 
-  struct LabelStruct {
+  shared struct LabelStruct {
     char_string label = 0;
     char_string value = 1;
   }
@@ -3426,52 +2970,6 @@ cluster IcdManagement = 70 {
   fabric command access(invoke: manage) UnregisterClient(UnregisterClientRequest): DefaultSuccess = 2;
   
   command StayActiveRequest(StayActiveRequestRequest): StayActiveResponse = 3;
-}
-
-
-provisional cluster Timer = 71 {
-  revision 1;
-
-  enum TimerStatusEnum : enum8 {
-    kRunning = 0;
-    kPaused = 1;
-    kExpired = 2;
-    kReady = 3;
-  }
-
-  bitmap Feature : bitmap32 {
-    kReset = 0x1;
-  }
-
-  readonly attribute elapsed_s setTime = 0;
-  readonly attribute elapsed_s timeRemaining = 1;
-  readonly attribute TimerStatusEnum timerState = 2;
-  readonly attribute command_id generatedCommandList[] = 65528;
-  readonly attribute command_id acceptedCommandList[] = 65529;
-  readonly attribute attrib_id attributeList[] = 65531;
-  readonly attribute bitmap32 featureMap = 65532;
-  readonly attribute int16u clusterRevision = 65533;
-
-  request struct SetTimerRequest {
-    elapsed_s newTime = 0;
-  }
-
-  request struct AddTimeRequest {
-    elapsed_s additionalTime = 0;
-  }
-
-  request struct ReduceTimeRequest {
-    elapsed_s timeReduction = 0;
-  }
-
-  
-  command SetTimer(SetTimerRequest): DefaultSuccess = 0;
-  
-  command ResetTimer(): DefaultSuccess = 1;
-  
-  command AddTime(AddTimeRequest): DefaultSuccess = 2;
-  
-  command ReduceTime(ReduceTimeRequest): DefaultSuccess = 3;
 }
 
 
@@ -4055,7 +3553,7 @@ cluster AirQuality = 91 {
 
 
 cluster SmokeCoAlarm = 92 {
-  revision 1;
+  revision 2;
 
   enum AlarmStateEnum : enum8 {
     kNormal = 0;
@@ -4085,6 +3583,7 @@ cluster SmokeCoAlarm = 92 {
     kEndOfService = 6;
     kInterconnectSmoke = 7;
     kInterconnectCO = 8;
+    kInoperative = 9;
   }
 
   enum MuteStateEnum : enum8 {
@@ -4154,6 +3653,7 @@ cluster SmokeCoAlarm = 92 {
   readonly attribute optional ContaminationStateEnum contaminationState = 10;
   attribute access(write: manage) optional SensitivityEnum smokeSensitivityLevel = 11;
   readonly attribute optional epoch_s expiryDate = 12;
+  provisional readonly attribute optional boolean unmounted = 13;
   readonly attribute command_id generatedCommandList[] = 65528;
   readonly attribute command_id acceptedCommandList[] = 65529;
   readonly attribute attrib_id attributeList[] = 65531;
@@ -4628,7 +4128,7 @@ cluster HepaFilterMonitoring = 113 {
     kReplacementProductList = 0x4;
   }
 
-  struct ReplacementProductStruct {
+  shared struct ReplacementProductStruct {
     ProductIdentifierTypeEnum productIdentifierType = 0;
     char_string productIdentifierValue = 1;
   }
@@ -4678,7 +4178,7 @@ cluster ActivatedCarbonFilterMonitoring = 114 {
     kReplacementProductList = 0x4;
   }
 
-  struct ReplacementProductStruct {
+  shared struct ReplacementProductStruct {
     ProductIdentifierTypeEnum productIdentifierType = 0;
     char_string productIdentifierValue = 1;
   }
@@ -6361,7 +5861,6 @@ cluster WindowCovering = 258 {
 
   bitmap ConfigStatus : bitmap8 {
     kOperational = 0x1;
-    kOnlineReserved = 0x2;
     kLiftMovementReversed = 0x4;
     kLiftPositionAware = 0x8;
     kTiltPositionAware = 0x10;
@@ -6671,20 +6170,12 @@ cluster Thermostat = 513 {
     kHeating = 0x1;
     kCooling = 0x2;
     kOccupancy = 0x4;
-    kSetback = 0x10;
     kAutoMode = 0x20;
     kLocalTemperatureNotExposed = 0x40;
     kMatterScheduleConfiguration = 0x80;
     kPresets = 0x100;
     kEvents = 0x200;
     kThermostatSuggestions = 0x400;
-  }
-
-  bitmap HVACSystemTypeBitmap : bitmap8 {
-    kCoolingStage = 0x3;
-    kHeatingStage = 0xC;
-    kHeatingIsHeatPump = 0x10;
-    kHeatingUsesFuel = 0x20;
   }
 
   bitmap OccupancyBitmap : bitmap8 {
@@ -6841,9 +6332,6 @@ cluster Thermostat = 513 {
   readonly attribute optional temperature absMaxHeatSetpointLimit = 4;
   readonly attribute optional temperature absMinCoolSetpointLimit = 5;
   readonly attribute optional temperature absMaxCoolSetpointLimit = 6;
-  readonly attribute optional int8u PICoolingDemand = 7;
-  readonly attribute optional int8u PIHeatingDemand = 8;
-  attribute access(write: manage) optional HVACSystemTypeBitmap HVACSystemTypeConfiguration = 9;
   attribute access(write: manage) optional int8s localTemperatureCalibration = 16;
   attribute optional temperature occupiedCoolingSetpoint = 17;
   attribute optional temperature occupiedHeatingSetpoint = 18;
@@ -6865,12 +6353,6 @@ cluster Thermostat = 513 {
   readonly attribute optional SetpointChangeSourceEnum setpointChangeSource = 48;
   readonly attribute optional nullable int16s setpointChangeAmount = 49;
   readonly attribute optional epoch_s setpointChangeSourceTimestamp = 50;
-  attribute access(write: manage) optional nullable int8u occupiedSetback = 52;
-  readonly attribute optional nullable int8u occupiedSetbackMin = 53;
-  readonly attribute optional nullable int8u occupiedSetbackMax = 54;
-  attribute access(write: manage) optional nullable int8u unoccupiedSetback = 55;
-  readonly attribute optional nullable int8u unoccupiedSetbackMin = 56;
-  readonly attribute optional nullable int8u unoccupiedSetbackMax = 57;
   attribute access(write: manage) optional int8u emergencyHeatDelta = 58;
   attribute access(write: manage) optional ACTypeEnum ACType = 64;
   attribute access(write: manage) optional int16u ACCapacity = 65;
@@ -6949,11 +6431,11 @@ cluster Thermostat = 513 {
   
   command SetActivePresetRequest(SetActivePresetRequestRequest): DefaultSuccess = 6;
   
-  command access(invoke: manage) AddThermostatSuggestion(AddThermostatSuggestionRequest): AddThermostatSuggestionResponse = 7;
+  provisional command access(invoke: manage) AddThermostatSuggestion(AddThermostatSuggestionRequest): AddThermostatSuggestionResponse = 7;
   
-  command access(invoke: manage) RemoveThermostatSuggestion(RemoveThermostatSuggestionRequest): DefaultSuccess = 8;
+  provisional command access(invoke: manage) RemoveThermostatSuggestion(RemoveThermostatSuggestionRequest): DefaultSuccess = 8;
   
-  command access(invoke: manage) AtomicRequest(AtomicRequestRequest): AtomicResponse = 254;
+  command AtomicRequest(AtomicRequestRequest): AtomicResponse = 254;
 }
 
 
@@ -7395,40 +6877,6 @@ cluster ColorControl = 768 {
   command MoveColorTemperature(MoveColorTemperatureRequest): DefaultSuccess = 75;
   
   command StepColorTemperature(StepColorTemperatureRequest): DefaultSuccess = 76;
-}
-
-
-provisional cluster BallastConfiguration = 769 {
-  revision 4;
-
-  bitmap BallastStatusBitmap : bitmap8 {
-    kBallastNonOperational = 0x1;
-    kLampFailure = 0x2;
-  }
-
-  bitmap LampAlarmModeBitmap : bitmap8 {
-    kLampBurnHours = 0x1;
-  }
-
-  readonly attribute int8u physicalMinLevel = 0;
-  readonly attribute int8u physicalMaxLevel = 1;
-  readonly attribute optional BallastStatusBitmap ballastStatus = 2;
-  attribute access(write: manage) int8u minLevel = 16;
-  attribute access(write: manage) int8u maxLevel = 17;
-  attribute access(write: manage) optional nullable int8u intrinsicBallastFactor = 20;
-  attribute access(write: manage) optional nullable int8u ballastFactorAdjustment = 21;
-  readonly attribute int8u lampQuantity = 32;
-  attribute access(write: manage) optional char_string lampType = 48;
-  attribute access(write: manage) optional char_string lampManufacturer = 49;
-  attribute access(write: manage) optional nullable int24u lampRatedHours = 50;
-  attribute access(write: manage) optional nullable int24u lampBurnHours = 51;
-  attribute access(write: manage) optional LampAlarmModeBitmap lampAlarmMode = 52;
-  attribute access(write: manage) optional nullable int24u lampBurnHoursTripPoint = 53;
-  readonly attribute command_id generatedCommandList[] = 65528;
-  readonly attribute command_id acceptedCommandList[] = 65529;
-  readonly attribute attrib_id attributeList[] = 65531;
-  readonly attribute bitmap32 featureMap = 65532;
-  readonly attribute int16u clusterRevision = 65533;
 }
 
 
@@ -8402,9 +7850,9 @@ cluster Channel = 1284 {
     epoch_s endTime = 1;
     optional ChannelInfoStruct channelList[] = 2;
     optional nullable PageTokenStruct pageToken = 3;
-    optional nullable RecordingFlagBitmap recordingFlag = 4;
-    optional AdditionalInfoStruct externalIDList[] = 5;
-    optional long_octet_string data = 6;
+    optional nullable RecordingFlagBitmap recordingFlag = 5;
+    optional AdditionalInfoStruct externalIDList[] = 6;
+    optional long_octet_string data = 7;
   }
 
   response struct ProgramGuideResponse = 5 {
@@ -9366,13 +8814,13 @@ cluster CommodityTariff = 1792 {
 provisional cluster JointFabricDatastore = 1874 {
   revision 1;
 
-  enum DatastoreAccessControlEntryAuthModeEnum : enum8 {
+  provisional enum DatastoreAccessControlEntryAuthModeEnum : enum8 {
     kPASE = 1;
     kCASE = 2;
     kGroup = 3;
   }
 
-  enum DatastoreAccessControlEntryPrivilegeEnum : enum8 {
+  provisional enum DatastoreAccessControlEntryPrivilegeEnum : enum8 {
     kView = 1;
     kProxyView = 2;
     kOperate = 3;
@@ -9380,57 +8828,57 @@ provisional cluster JointFabricDatastore = 1874 {
     kAdminister = 5;
   }
 
-  enum DatastoreGroupKeyMulticastPolicyEnum : enum8 {
+  provisional enum DatastoreGroupKeyMulticastPolicyEnum : enum8 {
     kPerGroupID = 0;
     kAllNodes = 1;
   }
 
-  enum DatastoreGroupKeySecurityPolicyEnum : enum8 {
+  provisional enum DatastoreGroupKeySecurityPolicyEnum : enum8 {
     kTrustFirst = 0;
   }
 
-  enum DatastoreStateEnum : enum8 {
+  provisional enum DatastoreStateEnum : enum8 {
     kPending = 0;
     kCommitted = 1;
     kDeletePending = 2;
     kCommitFailed = 3;
   }
 
-  struct DatastoreACLEntryStruct {
+  provisional struct DatastoreACLEntryStruct {
     node_id nodeID = 0;
     int16u listID = 1;
     DatastoreAccessControlEntryStruct ACLEntry = 2;
     DatastoreStatusEntryStruct statusEntry = 3;
   }
 
-  struct DatastoreAccessControlEntryStruct {
+  provisional struct DatastoreAccessControlEntryStruct {
     DatastoreAccessControlEntryPrivilegeEnum privilege = 1;
     DatastoreAccessControlEntryAuthModeEnum authMode = 2;
     nullable int64u subjects[] = 3;
     nullable DatastoreAccessControlTargetStruct targets[] = 4;
   }
 
-  struct DatastoreAccessControlTargetStruct {
+  provisional struct DatastoreAccessControlTargetStruct {
     nullable cluster_id cluster = 0;
     nullable endpoint_no endpoint = 1;
     nullable devtype_id deviceType = 2;
   }
 
-  struct DatastoreAdministratorInformationEntryStruct {
+  provisional struct DatastoreAdministratorInformationEntryStruct {
     node_id nodeID = 1;
     char_string friendlyName = 2;
     vendor_id vendorID = 3;
     long_octet_string icac = 4;
   }
 
-  struct DatastoreBindingTargetStruct {
+  provisional struct DatastoreBindingTargetStruct {
     optional node_id node = 1;
     optional group_id group = 2;
     optional endpoint_no endpoint = 3;
     optional cluster_id cluster = 4;
   }
 
-  struct DatastoreEndpointBindingEntryStruct {
+  provisional struct DatastoreEndpointBindingEntryStruct {
     node_id nodeID = 0;
     endpoint_no endpointID = 1;
     int16u listID = 2;
@@ -9438,21 +8886,21 @@ provisional cluster JointFabricDatastore = 1874 {
     DatastoreStatusEntryStruct statusEntry = 4;
   }
 
-  struct DatastoreEndpointEntryStruct {
+  provisional struct DatastoreEndpointEntryStruct {
     endpoint_no endpointID = 0;
     node_id nodeID = 1;
     char_string friendlyName = 2;
     DatastoreStatusEntryStruct statusEntry = 3;
   }
 
-   struct DatastoreEndpointGroupIDEntryStruct {
+  provisional struct DatastoreEndpointGroupIDEntryStruct {
     node_id nodeID = 0;
     endpoint_no endpointID = 1;
     group_id groupID = 2;
     DatastoreStatusEntryStruct statusEntry = 3;
   }
 
-  struct DatastoreGroupInformationEntryStruct {
+  provisional struct DatastoreGroupInformationEntryStruct {
     int64u groupID = 0;
     char_string friendlyName = 1;
     nullable int16u groupKeySetID = 2;
@@ -9461,7 +8909,7 @@ provisional cluster JointFabricDatastore = 1874 {
     DatastoreAccessControlEntryPrivilegeEnum groupPermission = 5;
   }
 
-  struct DatastoreGroupKeySetStruct {
+  provisional struct DatastoreGroupKeySetStruct {
     int16u groupKeySetID = 0;
     DatastoreGroupKeySecurityPolicyEnum groupKeySecurityPolicy = 1;
     nullable octet_string epochKey0 = 2;
@@ -9473,19 +8921,19 @@ provisional cluster JointFabricDatastore = 1874 {
     DatastoreGroupKeyMulticastPolicyEnum groupKeyMulticastPolicy = 8;
   }
 
-  struct DatastoreNodeInformationEntryStruct {
+  provisional struct DatastoreNodeInformationEntryStruct {
     node_id nodeID = 1;
     char_string friendlyName = 2;
     DatastoreStatusEntryStruct commissioningStatusEntry = 3;
   }
 
-  struct DatastoreNodeKeySetEntryStruct {
+  provisional struct DatastoreNodeKeySetEntryStruct {
     node_id nodeID = 0;
     int16u groupKeySetID = 1;
     DatastoreStatusEntryStruct statusEntry = 2;
   }
 
-  struct DatastoreStatusEntryStruct {
+  provisional struct DatastoreStatusEntryStruct {
     DatastoreStateEnum state = 0;
     epoch_s updateTimestamp = 1;
     status failureCode = 2;
@@ -9505,11 +8953,11 @@ provisional cluster JointFabricDatastore = 1874 {
   provisional readonly attribute access(read: administer) DatastoreNodeKeySetEntryStruct nodeKeySetList[] = 11;
   provisional readonly attribute access(read: administer) DatastoreACLEntryStruct nodeACLList[] = 12;
   provisional readonly attribute access(read: administer) DatastoreEndpointEntryStruct nodeEndpointList[] = 13;
-  readonly attribute command_id generatedCommandList[] = 65528;
-  readonly attribute command_id acceptedCommandList[] = 65529;
-  readonly attribute attrib_id attributeList[] = 65531;
-  readonly attribute bitmap32 featureMap = 65532;
-  readonly attribute int16u clusterRevision = 65533;
+  provisional readonly attribute command_id generatedCommandList[] = 65528;
+  provisional readonly attribute command_id acceptedCommandList[] = 65529;
+  provisional readonly attribute attrib_id attributeList[] = 65531;
+  provisional readonly attribute bitmap32 featureMap = 65532;
+  provisional readonly attribute int16u clusterRevision = 65533;
 
   request struct AddKeySetRequest {
     DatastoreGroupKeySetStruct groupKeySet = 0;
@@ -9546,10 +8994,10 @@ provisional cluster JointFabricDatastore = 1874 {
   }
 
   request struct AddAdminRequest {
-    node_id nodeID = 0;
-    char_string friendlyName = 1;
-    vendor_id vendorID = 2;
-    long_octet_string icac = 3;
+    node_id nodeID = 1;
+    char_string friendlyName = 2;
+    vendor_id vendorID = 3;
+    long_octet_string icac = 4;
   }
 
   request struct UpdateAdminRequest {
@@ -9621,58 +9069,58 @@ provisional cluster JointFabricDatastore = 1874 {
   }
 
   
-  command access(invoke: administer) AddKeySet(AddKeySetRequest): DefaultSuccess = 0;
+  provisional command access(invoke: administer) AddKeySet(AddKeySetRequest): DefaultSuccess = 0;
   
-  command access(invoke: administer) UpdateKeySet(UpdateKeySetRequest): DefaultSuccess = 1;
+  provisional command access(invoke: administer) UpdateKeySet(UpdateKeySetRequest): DefaultSuccess = 1;
   
-  command access(invoke: administer) RemoveKeySet(RemoveKeySetRequest): DefaultSuccess = 2;
+  provisional command access(invoke: administer) RemoveKeySet(RemoveKeySetRequest): DefaultSuccess = 2;
   
-  command access(invoke: administer) AddGroup(AddGroupRequest): DefaultSuccess = 3;
+  provisional command access(invoke: administer) AddGroup(AddGroupRequest): DefaultSuccess = 3;
   
-  command access(invoke: administer) UpdateGroup(UpdateGroupRequest): DefaultSuccess = 4;
+  provisional command access(invoke: administer) UpdateGroup(UpdateGroupRequest): DefaultSuccess = 4;
   
-  command access(invoke: administer) RemoveGroup(RemoveGroupRequest): DefaultSuccess = 5;
+  provisional command access(invoke: administer) RemoveGroup(RemoveGroupRequest): DefaultSuccess = 5;
   
-  command access(invoke: administer) AddAdmin(AddAdminRequest): DefaultSuccess = 6;
+  provisional command access(invoke: administer) AddAdmin(AddAdminRequest): DefaultSuccess = 6;
   
-  command access(invoke: administer) UpdateAdmin(UpdateAdminRequest): DefaultSuccess = 7;
+  provisional command access(invoke: administer) UpdateAdmin(UpdateAdminRequest): DefaultSuccess = 7;
   
-  command access(invoke: administer) RemoveAdmin(RemoveAdminRequest): DefaultSuccess = 8;
+  provisional command access(invoke: administer) RemoveAdmin(RemoveAdminRequest): DefaultSuccess = 8;
   
-  command access(invoke: administer) AddPendingNode(AddPendingNodeRequest): DefaultSuccess = 9;
+  provisional command access(invoke: administer) AddPendingNode(AddPendingNodeRequest): DefaultSuccess = 9;
   
-  command access(invoke: administer) RefreshNode(RefreshNodeRequest): DefaultSuccess = 10;
+  provisional command access(invoke: administer) RefreshNode(RefreshNodeRequest): DefaultSuccess = 10;
   
-  command access(invoke: administer) UpdateNode(UpdateNodeRequest): DefaultSuccess = 11;
+  provisional command access(invoke: administer) UpdateNode(UpdateNodeRequest): DefaultSuccess = 11;
   
-  command access(invoke: administer) RemoveNode(RemoveNodeRequest): DefaultSuccess = 12;
+  provisional command access(invoke: administer) RemoveNode(RemoveNodeRequest): DefaultSuccess = 12;
   
-  command access(invoke: administer) UpdateEndpointForNode(UpdateEndpointForNodeRequest): DefaultSuccess = 13;
+  provisional command access(invoke: administer) UpdateEndpointForNode(UpdateEndpointForNodeRequest): DefaultSuccess = 13;
   
-  command access(invoke: administer) AddGroupIDToEndpointForNode(AddGroupIDToEndpointForNodeRequest): DefaultSuccess = 14;
+  provisional command access(invoke: administer) AddGroupIDToEndpointForNode(AddGroupIDToEndpointForNodeRequest): DefaultSuccess = 14;
   
-  command access(invoke: administer) RemoveGroupIDFromEndpointForNode(RemoveGroupIDFromEndpointForNodeRequest): DefaultSuccess = 15;
+  provisional command access(invoke: administer) RemoveGroupIDFromEndpointForNode(RemoveGroupIDFromEndpointForNodeRequest): DefaultSuccess = 15;
   
-  command access(invoke: administer) AddBindingToEndpointForNode(AddBindingToEndpointForNodeRequest): DefaultSuccess = 16;
+  provisional command access(invoke: administer) AddBindingToEndpointForNode(AddBindingToEndpointForNodeRequest): DefaultSuccess = 16;
   
-  command access(invoke: administer) RemoveBindingFromEndpointForNode(RemoveBindingFromEndpointForNodeRequest): DefaultSuccess = 17;
+  provisional command access(invoke: administer) RemoveBindingFromEndpointForNode(RemoveBindingFromEndpointForNodeRequest): DefaultSuccess = 17;
   
-  command access(invoke: administer) AddACLToNode(AddACLToNodeRequest): DefaultSuccess = 18;
+  provisional command access(invoke: administer) AddACLToNode(AddACLToNodeRequest): DefaultSuccess = 18;
   
-  command access(invoke: administer) RemoveACLFromNode(RemoveACLFromNodeRequest): DefaultSuccess = 19;
+  provisional command access(invoke: administer) RemoveACLFromNode(RemoveACLFromNodeRequest): DefaultSuccess = 19;
 }
 
 
 provisional cluster JointFabricAdministrator = 1875 {
   revision 1;
 
-  enum ICACResponseStatusEnum : enum8 {
+  provisional enum ICACResponseStatusEnum : enum8 {
     kOK = 0;
     kInvalidPublicKey = 1;
     kInvalidICAC = 2;
   }
 
-  enum StatusCodeEnum : enum8 {
+  provisional enum StatusCodeEnum : enum8 {
     kBusy = 2;
     kPAKEParameterError = 3;
     kWindowNotOpen = 4;
@@ -9680,25 +9128,25 @@ provisional cluster JointFabricAdministrator = 1875 {
     kInvalidAdministratorFabricIndex = 6;
   }
 
-  enum TransferAnchorResponseStatusEnum : enum8 {
+  provisional enum TransferAnchorResponseStatusEnum : enum8 {
     kOK = 0;
     kTransferAnchorStatusDatastoreBusy = 1;
     kTransferAnchorStatusNoUserConsent = 2;
   }
 
   provisional readonly attribute access(read: administer) nullable fabric_idx administratorFabricIndex = 0;
-  readonly attribute command_id generatedCommandList[] = 65528;
-  readonly attribute command_id acceptedCommandList[] = 65529;
-  readonly attribute attrib_id attributeList[] = 65531;
-  readonly attribute bitmap32 featureMap = 65532;
-  readonly attribute int16u clusterRevision = 65533;
+  provisional readonly attribute command_id generatedCommandList[] = 65528;
+  provisional readonly attribute command_id acceptedCommandList[] = 65529;
+  provisional readonly attribute attrib_id attributeList[] = 65531;
+  provisional readonly attribute bitmap32 featureMap = 65532;
+  provisional readonly attribute int16u clusterRevision = 65533;
 
   response struct ICACCSRResponse = 1 {
     long_octet_string icaccsr = 0;
   }
 
   request struct AddICACRequest {
-    long_octet_string ICACValue = 0;
+    long_octet_string ICACValue = 1;
   }
 
   response struct ICACResponse = 3 {
@@ -9722,17 +9170,17 @@ provisional cluster JointFabricAdministrator = 1875 {
   }
 
   
-  command access(invoke: administer) ICACCSRRequest(): ICACCSRResponse = 0;
+  provisional command access(invoke: administer) ICACCSRRequest(): ICACCSRResponse = 0;
   
-  command access(invoke: administer) AddICAC(AddICACRequest): ICACResponse = 2;
+  provisional command access(invoke: administer) AddICAC(AddICACRequest): ICACResponse = 2;
   
-  command access(invoke: administer) OpenJointCommissioningWindow(OpenJointCommissioningWindowRequest): DefaultSuccess = 4;
+  provisional command access(invoke: administer) OpenJointCommissioningWindow(OpenJointCommissioningWindowRequest): DefaultSuccess = 4;
   
-  command access(invoke: administer) TransferAnchorRequest(): TransferAnchorResponse = 5;
+  provisional command access(invoke: administer) TransferAnchorRequest(): TransferAnchorResponse = 5;
   
-  command access(invoke: administer) TransferAnchorComplete(): DefaultSuccess = 7;
+  provisional command access(invoke: administer) TransferAnchorComplete(): DefaultSuccess = 7;
   
-  command access(invoke: administer) AnnounceJointFabricAdministrator(AnnounceJointFabricAdministratorRequest): DefaultSuccess = 8;
+  provisional command access(invoke: administer) AnnounceJointFabricAdministrator(AnnounceJointFabricAdministratorRequest): DefaultSuccess = 8;
 }
 
 
@@ -9765,26 +9213,6 @@ cluster MeterIdentification = 2822 {
 cluster CommodityMetering = 2823 {
   revision 1;
 
-  enum MeasurementTypeEnum : enum16 {
-    kUnspecified = 0;
-    kVoltage = 1;
-    kActiveCurrent = 2;
-    kReactiveCurrent = 3;
-    kApparentCurrent = 4;
-    kActivePower = 5;
-    kReactivePower = 6;
-    kApparentPower = 7;
-    kRMSVoltage = 8;
-    kRMSCurrent = 9;
-    kRMSPower = 10;
-    kFrequency = 11;
-    kPowerFactor = 12;
-    kNeutralCurrent = 13;
-    kElectricalEnergy = 14;
-    kReactiveEnergy = 15;
-    kApparentEnergy = 16;
-  }
-
   struct MeteredQuantityStruct {
     int32u tariffComponentIDs[] = 0;
     int64s quantity = 1;
@@ -9801,532 +9229,8 @@ cluster CommodityMetering = 2823 {
   readonly attribute int16u clusterRevision = 65533;
 }
 
-
-internal cluster UnitTesting = 4294048773 {
-  revision 1; 
-  enum SimpleEnum : enum8 {
-    kUnspecified = 0;
-    kValueA = 1;
-    kValueB = 2;
-    kValueC = 3;
-  }
-
-  bitmap Bitmap16MaskMap : bitmap16 {
-    kMaskVal1 = 0x1;
-    kMaskVal2 = 0x2;
-    kMaskVal3 = 0x4;
-    kMaskVal4 = 0x4000;
-  }
-
-  bitmap Bitmap32MaskMap : bitmap32 {
-    kMaskVal1 = 0x1;
-    kMaskVal2 = 0x2;
-    kMaskVal3 = 0x4;
-    kMaskVal4 = 0x40000000;
-  }
-
-  bitmap Bitmap64MaskMap : bitmap64 {
-    kMaskVal1 = 0x1;
-    kMaskVal2 = 0x2;
-    kMaskVal3 = 0x4;
-    kMaskVal4 = 0x4000000000000000;
-  }
-
-  bitmap Bitmap8MaskMap : bitmap8 {
-    kMaskVal1 = 0x1;
-    kMaskVal2 = 0x2;
-    kMaskVal3 = 0x4;
-    kMaskVal4 = 0x40;
-  }
-
-  bitmap SimpleBitmap : bitmap8 {
-    kValueA = 0x1;
-    kValueB = 0x2;
-    kValueC = 0x4;
-  }
-
-  struct SimpleStruct {
-    int8u a = 0;
-    boolean b = 1;
-    SimpleEnum c = 2;
-    octet_string d = 3;
-    char_string e = 4;
-    SimpleBitmap f = 5;
-    single g = 6;
-    double h = 7;
-    optional TestGlobalEnum i = 8;
-  }
-
-  fabric_scoped struct TestFabricScoped {
-    fabric_sensitive int8u fabricSensitiveInt8u = 1;
-    optional fabric_sensitive int8u optionalFabricSensitiveInt8u = 2;
-    nullable fabric_sensitive int8u nullableFabricSensitiveInt8u = 3;
-    optional nullable fabric_sensitive int8u nullableOptionalFabricSensitiveInt8u = 4;
-    fabric_sensitive char_string fabricSensitiveCharString = 5;
-    fabric_sensitive SimpleStruct fabricSensitiveStruct = 6;
-    fabric_sensitive int8u fabricSensitiveInt8uList[] = 7;
-    fabric_idx fabricIndex = 254;
-  }
-
-  struct NullablesAndOptionalsStruct {
-    nullable int16u nullableInt = 0;
-    optional int16u optionalInt = 1;
-    optional nullable int16u nullableOptionalInt = 2;
-    nullable char_string nullableString = 3;
-    optional char_string optionalString = 4;
-    optional nullable char_string nullableOptionalString = 5;
-    nullable SimpleStruct nullableStruct = 6;
-    optional SimpleStruct optionalStruct = 7;
-    optional nullable SimpleStruct nullableOptionalStruct = 8;
-    nullable SimpleEnum nullableList[] = 9;
-    optional SimpleEnum optionalList[] = 10;
-    optional nullable SimpleEnum nullableOptionalList[] = 11;
-  }
-
-  struct NestedStruct {
-    int8u a = 0;
-    boolean b = 1;
-    SimpleStruct c = 2;
-    optional TestGlobalStruct d = 3;
-  }
-
-  struct NestedStructList {
-    int8u a = 0;
-    boolean b = 1;
-    SimpleStruct c = 2;
-    SimpleStruct d[] = 3;
-    int32u e[] = 4;
-    octet_string f[] = 5;
-    int8u g[] = 6;
-  }
-
-  struct DoubleNestedStructList {
-    NestedStructList a[] = 0;
-  }
-
-  struct TestListStructOctet {
-    int64u member1 = 0;
-    octet_string member2 = 1;
-  }
-
-  info event TestEvent = 1 {
-    int8u arg1 = 1;
-    SimpleEnum arg2 = 2;
-    boolean arg3 = 3;
-    SimpleStruct arg4 = 4;
-    SimpleStruct arg5[] = 5;
-    SimpleEnum arg6[] = 6;
-  }
-
-  fabric_sensitive info event TestFabricScopedEvent = 2 {
-    fabric_idx fabricIndex = 254;
-  }
-
-  info event TestDifferentVendorMeiEvent = 4294050030 {
-    int8u arg1 = 1;
-  }
-
-  attribute boolean boolean = 0;
-  attribute Bitmap8MaskMap bitmap8 = 1;
-  attribute Bitmap16MaskMap bitmap16 = 2;
-  attribute Bitmap32MaskMap bitmap32 = 3;
-  attribute Bitmap64MaskMap bitmap64 = 4;
-  attribute int8u int8u = 5;
-  attribute int16u int16u = 6;
-  attribute int24u int24u = 7;
-  attribute int32u int32u = 8;
-  attribute int40u int40u = 9;
-  attribute int48u int48u = 10;
-  attribute int56u int56u = 11;
-  attribute int64u int64u = 12;
-  attribute int8s int8s = 13;
-  attribute int16s int16s = 14;
-  attribute int24s int24s = 15;
-  attribute int32s int32s = 16;
-  attribute int40s int40s = 17;
-  attribute int48s int48s = 18;
-  attribute int56s int56s = 19;
-  attribute int64s int64s = 20;
-  attribute enum8 enum8 = 21;
-  attribute enum16 enum16 = 22;
-  attribute single floatSingle = 23;
-  attribute double floatDouble = 24;
-  attribute octet_string octetString = 25;
-  attribute int8u listInt8u[] = 26;
-  attribute octet_string listOctetString[] = 27;
-  attribute TestListStructOctet listStructOctetString[] = 28;
-  attribute long_octet_string longOctetString = 29;
-  attribute char_string charString = 30;
-  attribute long_char_string longCharString = 31;
-  attribute epoch_us epochUs = 32;
-  attribute epoch_s epochS = 33;
-  attribute vendor_id vendorId = 34;
-  attribute NullablesAndOptionalsStruct listNullablesAndOptionalsStruct[] = 35;
-  attribute SimpleEnum enumAttr = 36;
-  attribute SimpleStruct structAttr = 37;
-  attribute int8u rangeRestrictedInt8u = 38;
-  attribute int8s rangeRestrictedInt8s = 39;
-  attribute int16u rangeRestrictedInt16u = 40;
-  attribute int16s rangeRestrictedInt16s = 41;
-  attribute long_octet_string listLongOctetString[] = 42;
-  attribute TestFabricScoped listFabricScoped[] = 43;
-  timedwrite attribute boolean timedWriteBoolean = 48;
-  attribute boolean generalErrorBoolean = 49;
-  attribute boolean clusterErrorBoolean = 50;
-  attribute TestGlobalEnum globalEnum = 51;
-  attribute TestGlobalStruct globalStruct = 52;
-  attribute access(read: administer, write: administer) optional boolean unsupportedAttributeRequiringAdminPrivilege = 254;
-  attribute optional boolean unsupported = 255;
-  attribute optional int8u readFailureCode = 12288;
-  attribute optional int32u failureInt32U = 12289;
-  attribute nullable boolean nullableBoolean = 16384;
-  attribute nullable Bitmap8MaskMap nullableBitmap8 = 16385;
-  attribute nullable Bitmap16MaskMap nullableBitmap16 = 16386;
-  attribute nullable Bitmap32MaskMap nullableBitmap32 = 16387;
-  attribute nullable Bitmap64MaskMap nullableBitmap64 = 16388;
-  attribute nullable int8u nullableInt8u = 16389;
-  attribute nullable int16u nullableInt16u = 16390;
-  attribute nullable int24u nullableInt24u = 16391;
-  attribute nullable int32u nullableInt32u = 16392;
-  attribute nullable int40u nullableInt40u = 16393;
-  attribute nullable int48u nullableInt48u = 16394;
-  attribute nullable int56u nullableInt56u = 16395;
-  attribute nullable int64u nullableInt64u = 16396;
-  attribute nullable int8s nullableInt8s = 16397;
-  attribute nullable int16s nullableInt16s = 16398;
-  attribute nullable int24s nullableInt24s = 16399;
-  attribute nullable int32s nullableInt32s = 16400;
-  attribute nullable int40s nullableInt40s = 16401;
-  attribute nullable int48s nullableInt48s = 16402;
-  attribute nullable int56s nullableInt56s = 16403;
-  attribute nullable int64s nullableInt64s = 16404;
-  attribute nullable enum8 nullableEnum8 = 16405;
-  attribute nullable enum16 nullableEnum16 = 16406;
-  attribute nullable single nullableFloatSingle = 16407;
-  attribute nullable double nullableFloatDouble = 16408;
-  attribute nullable octet_string nullableOctetString = 16409;
-  attribute nullable char_string nullableCharString = 16414;
-  attribute nullable SimpleEnum nullableEnumAttr = 16420;
-  attribute nullable SimpleStruct nullableStruct = 16421;
-  attribute nullable int8u nullableRangeRestrictedInt8u = 16422;
-  attribute nullable int8s nullableRangeRestrictedInt8s = 16423;
-  attribute nullable int16u nullableRangeRestrictedInt16u = 16424;
-  attribute nullable int16s nullableRangeRestrictedInt16s = 16425;
-  writeonly attribute optional int8u writeOnlyInt8u = 16426;
-  attribute nullable TestGlobalEnum nullableGlobalEnum = 16435;
-  attribute nullable TestGlobalStruct nullableGlobalStruct = 16436;
-  readonly attribute command_id generatedCommandList[] = 65528;
-  readonly attribute command_id acceptedCommandList[] = 65529;
-  readonly attribute attrib_id attributeList[] = 65531;
-  readonly attribute bitmap32 featureMap = 65532;
-  readonly attribute int16u clusterRevision = 65533;
-  attribute int8u meiInt8u = 4294070017;
-
-  response struct TestSpecificResponse = 0 {
-    int8u returnValue = 0;
-  }
-
-  response struct TestAddArgumentsResponse = 1 {
-    int8u returnValue = 0;
-  }
-
-  response struct TestSimpleArgumentResponse = 2 {
-    boolean returnValue = 0;
-  }
-
-  response struct TestStructArrayArgumentResponse = 3 {
-    NestedStructList arg1[] = 0;
-    SimpleStruct arg2[] = 1;
-    SimpleEnum arg3[] = 2;
-    boolean arg4[] = 3;
-    SimpleEnum arg5 = 4;
-    boolean arg6 = 5;
-  }
-
-  request struct TestAddArgumentsRequest {
-    int8u arg1 = 0;
-    int8u arg2 = 1;
-  }
-
-  response struct TestListInt8UReverseResponse = 4 {
-    int8u arg1[] = 0;
-  }
-
-  request struct TestSimpleArgumentRequestRequest {
-    boolean arg1 = 0;
-  }
-
-  response struct TestEnumsResponse = 5 {
-    vendor_id arg1 = 0;
-    SimpleEnum arg2 = 1;
-  }
-
-  request struct TestStructArrayArgumentRequestRequest {
-    NestedStructList arg1[] = 0;
-    SimpleStruct arg2[] = 1;
-    SimpleEnum arg3[] = 2;
-    boolean arg4[] = 3;
-    SimpleEnum arg5 = 4;
-    boolean arg6 = 5;
-  }
-
-  response struct TestNullableOptionalResponse = 6 {
-    boolean wasPresent = 0;
-    optional boolean wasNull = 1;
-    optional int8u value = 2;
-    optional nullable int8u originalValue = 3;
-  }
-
-  request struct TestStructArgumentRequestRequest {
-    SimpleStruct arg1 = 0;
-  }
-
-  response struct TestComplexNullableOptionalResponse = 7 {
-    boolean nullableIntWasNull = 0;
-    optional int16u nullableIntValue = 1;
-    boolean optionalIntWasPresent = 2;
-    optional int16u optionalIntValue = 3;
-    boolean nullableOptionalIntWasPresent = 4;
-    optional boolean nullableOptionalIntWasNull = 5;
-    optional int16u nullableOptionalIntValue = 6;
-    boolean nullableStringWasNull = 7;
-    optional char_string nullableStringValue = 8;
-    boolean optionalStringWasPresent = 9;
-    optional char_string optionalStringValue = 10;
-    boolean nullableOptionalStringWasPresent = 11;
-    optional boolean nullableOptionalStringWasNull = 12;
-    optional char_string nullableOptionalStringValue = 13;
-    boolean nullableStructWasNull = 14;
-    optional SimpleStruct nullableStructValue = 15;
-    boolean optionalStructWasPresent = 16;
-    optional SimpleStruct optionalStructValue = 17;
-    boolean nullableOptionalStructWasPresent = 18;
-    optional boolean nullableOptionalStructWasNull = 19;
-    optional SimpleStruct nullableOptionalStructValue = 20;
-    boolean nullableListWasNull = 21;
-    optional SimpleEnum nullableListValue[] = 22;
-    boolean optionalListWasPresent = 23;
-    optional SimpleEnum optionalListValue[] = 24;
-    boolean nullableOptionalListWasPresent = 25;
-    optional boolean nullableOptionalListWasNull = 26;
-    optional SimpleEnum nullableOptionalListValue[] = 27;
-  }
-
-  request struct TestNestedStructArgumentRequestRequest {
-    NestedStruct arg1 = 0;
-  }
-
-  response struct BooleanResponse = 8 {
-    boolean value = 0;
-  }
-
-  request struct TestListStructArgumentRequestRequest {
-    SimpleStruct arg1[] = 0;
-  }
-
-  response struct SimpleStructResponse = 9 {
-    SimpleStruct arg1 = 0;
-  }
-
-  request struct TestListInt8UArgumentRequestRequest {
-    int8u arg1[] = 0;
-  }
-
-  response struct TestEmitTestEventResponse = 10 {
-    int64u value = 0;
-  }
-
-  request struct TestNestedStructListArgumentRequestRequest {
-    NestedStructList arg1 = 0;
-  }
-
-  response struct TestEmitTestFabricScopedEventResponse = 11 {
-    int64u value = 0;
-  }
-
-  request struct TestListNestedStructListArgumentRequestRequest {
-    NestedStructList arg1[] = 0;
-  }
-
-  response struct TestBatchHelperResponse = 12 {
-    octet_string buffer = 0;
-  }
-
-  request struct TestListInt8UReverseRequestRequest {
-    int8u arg1[] = 0;
-  }
-
-  response struct StringEchoResponse = 13 {
-    octet_string payload = 0;
-  }
-
-  request struct TestEnumsRequestRequest {
-    vendor_id arg1 = 0;
-    SimpleEnum arg2 = 1;
-  }
-
-  response struct GlobalEchoResponse = 14 {
-    TestGlobalStruct field1 = 0;
-    TestGlobalEnum field2 = 1;
-  }
-
-  request struct TestNullableOptionalRequestRequest {
-    optional nullable int8u arg1 = 0;
-  }
-
-  request struct TestComplexNullableOptionalRequestRequest {
-    nullable int16u nullableInt = 0;
-    optional int16u optionalInt = 1;
-    optional nullable int16u nullableOptionalInt = 2;
-    nullable char_string nullableString = 3;
-    optional char_string optionalString = 4;
-    optional nullable char_string nullableOptionalString = 5;
-    nullable SimpleStruct nullableStruct = 6;
-    optional SimpleStruct optionalStruct = 7;
-    optional nullable SimpleStruct nullableOptionalStruct = 8;
-    nullable SimpleEnum nullableList[] = 9;
-    optional SimpleEnum optionalList[] = 10;
-    optional nullable SimpleEnum nullableOptionalList[] = 11;
-  }
-
-  request struct SimpleStructEchoRequestRequest {
-    SimpleStruct arg1 = 0;
-  }
-
-  request struct TestSimpleOptionalArgumentRequestRequest {
-    optional boolean arg1 = 0;
-  }
-
-  request struct TestEmitTestEventRequestRequest {
-    int8u arg1 = 0;
-    SimpleEnum arg2 = 1;
-    boolean arg3 = 2;
-  }
-
-  request struct TestEmitTestFabricScopedEventRequestRequest {
-    int8u arg1 = 0;
-  }
-
-  request struct TestBatchHelperRequestRequest {
-    int16u sleepBeforeResponseTimeMs = 0;
-    int16u sizeOfResponseBuffer = 1;
-    int8u fillCharacter = 2;
-  }
-
-  request struct TestSecondBatchHelperRequestRequest {
-    int16u sleepBeforeResponseTimeMs = 0;
-    int16u sizeOfResponseBuffer = 1;
-    int8u fillCharacter = 2;
-  }
-
-  request struct StringEchoRequestRequest {
-    octet_string payload = 0;
-  }
-
-  request struct GlobalEchoRequestRequest {
-    TestGlobalStruct field1 = 0;
-    TestGlobalEnum field2 = 1;
-  }
-
-  request struct TestDifferentVendorMeiRequestRequest {
-    int8u arg1 = 0;
-  }
-
-  response struct TestDifferentVendorMeiResponse = 4294049979 {
-    int8u arg1 = 0;
-    int64u eventNumber = 1;
-  }
-
-  
-  command Test(): DefaultSuccess = 0;
-  
-  command TestNotHandled(): DefaultSuccess = 1;
-  
-  command TestSpecific(): TestSpecificResponse = 2;
-  
-  command TestUnknownCommand(): DefaultSuccess = 3;
-  
-  command TestAddArguments(TestAddArgumentsRequest): TestAddArgumentsResponse = 4;
-  
-  command TestSimpleArgumentRequest(TestSimpleArgumentRequestRequest): TestSimpleArgumentResponse = 5;
-  
-  command TestStructArrayArgumentRequest(TestStructArrayArgumentRequestRequest): TestStructArrayArgumentResponse = 6;
-  
-  command TestStructArgumentRequest(TestStructArgumentRequestRequest): BooleanResponse = 7;
-  
-  command TestNestedStructArgumentRequest(TestNestedStructArgumentRequestRequest): BooleanResponse = 8;
-  
-  command TestListStructArgumentRequest(TestListStructArgumentRequestRequest): BooleanResponse = 9;
-  
-  command TestListInt8UArgumentRequest(TestListInt8UArgumentRequestRequest): BooleanResponse = 10;
-  
-  command TestNestedStructListArgumentRequest(TestNestedStructListArgumentRequestRequest): BooleanResponse = 11;
-  
-  command TestListNestedStructListArgumentRequest(TestListNestedStructListArgumentRequestRequest): BooleanResponse = 12;
-  
-  command TestListInt8UReverseRequest(TestListInt8UReverseRequestRequest): TestListInt8UReverseResponse = 13;
-  
-  command TestEnumsRequest(TestEnumsRequestRequest): TestEnumsResponse = 14;
-  
-  command TestNullableOptionalRequest(TestNullableOptionalRequestRequest): TestNullableOptionalResponse = 15;
-  
-  command TestComplexNullableOptionalRequest(TestComplexNullableOptionalRequestRequest): TestComplexNullableOptionalResponse = 16;
-  
-  command SimpleStructEchoRequest(SimpleStructEchoRequestRequest): SimpleStructResponse = 17;
-  
-  timed command TimedInvokeRequest(): DefaultSuccess = 18;
-  
-  command TestSimpleOptionalArgumentRequest(TestSimpleOptionalArgumentRequestRequest): DefaultSuccess = 19;
-  
-  command TestEmitTestEventRequest(TestEmitTestEventRequestRequest): TestEmitTestEventResponse = 20;
-  
-  command TestEmitTestFabricScopedEventRequest(TestEmitTestFabricScopedEventRequestRequest): TestEmitTestFabricScopedEventResponse = 21;
-  
-  command TestBatchHelperRequest(TestBatchHelperRequestRequest): TestBatchHelperResponse = 22;
-  
-  command TestSecondBatchHelperRequest(TestSecondBatchHelperRequestRequest): TestBatchHelperResponse = 23;
-  
-  command StringEchoRequest(StringEchoRequestRequest): StringEchoResponse = 24;
-  
-  command GlobalEchoRequest(GlobalEchoRequestRequest): GlobalEchoResponse = 25;
-  
-  fabric timed command TestCheckCommandFlags(): DefaultSuccess = 26;
-  
-  command TestDifferentVendorMeiRequest(TestDifferentVendorMeiRequestRequest): TestDifferentVendorMeiResponse = 4294049962;
-}
-
-
-cluster SampleMei = 4294048800 {
-  revision 1; 
-  fabric_sensitive info event PingCountEvent = 0 {
-    int32u count = 1;
-    fabric_idx fabricIndex = 254;
-  }
-
-  attribute boolean flipFlop = 0;
-  readonly attribute command_id generatedCommandList[] = 65528;
-  readonly attribute command_id acceptedCommandList[] = 65529;
-  readonly attribute attrib_id attributeList[] = 65531;
-  readonly attribute bitmap32 featureMap = 65532;
-  readonly attribute int16u clusterRevision = 65533;
-
-  response struct AddArgumentsResponse = 1 {
-    int8u returnValue = 0;
-  }
-
-  request struct AddArgumentsRequest {
-    int8u arg1 = 0;
-    int8u arg2 = 1;
-  }
-
-  
-  command Ping(): DefaultSuccess = 0;
-  
-  command AddArguments(AddArgumentsRequest): AddArgumentsResponse = 2;
-}
-
 endpoint 1 {
-  device type ma_rootdevice = 22, version 1;
+  device type ma_rootdevice = 22, version 5;
 
   binding cluster Identify;
   binding cluster Groups;
@@ -10362,7 +9266,6 @@ endpoint 1 {
   binding cluster UserLabel;
   binding cluster BooleanState;
   binding cluster IcdManagement;
-  binding cluster Timer;
   binding cluster OvenCavityOperationalState;
   binding cluster OvenMode;
   binding cluster LaundryDryerControls;
@@ -10403,7 +9306,6 @@ endpoint 1 {
   binding cluster FanControl;
   binding cluster ThermostatUserInterfaceConfiguration;
   binding cluster ColorControl;
-  binding cluster BallastConfiguration;
   binding cluster IlluminanceMeasurement;
   binding cluster TemperatureMeasurement;
   binding cluster PressureMeasurement;
@@ -10441,7 +9343,5 @@ endpoint 1 {
   binding cluster JointFabricAdministrator;
   binding cluster MeterIdentification;
   binding cluster CommodityMetering;
-  binding cluster UnitTesting;
-  binding cluster SampleMei;
 }
 
